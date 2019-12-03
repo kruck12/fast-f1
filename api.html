@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>f1telemetry.api - F1 Api module &mdash; F1 Telemetry  documentation</title>
+  <title>fastf1.api - Api module &mdash; F1 Telemetry  documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Introduction" href="f1telemetry.html" /> 
+    <link rel="prev" title="fastf1.core - Core module" href="core.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                v0.1.0
+                v0.1.1
               </div>
             
           
@@ -85,9 +85,10 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="f1telemetry.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="f1telemetry.html#getting-started">Getting started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">f1telemetry.api</span></code> - F1 Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 </ul>
 
             
@@ -133,7 +134,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">f1telemetry.api</span></code> - F1 Api module</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -152,19 +153,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-f1telemetry.api">
-<span id="f1telemetry-api-f1-api-module"></span><h1><a class="reference internal" href="#module-f1telemetry.api" title="f1telemetry.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">f1telemetry.api</span></code></a> - F1 Api module<a class="headerlink" href="#module-f1telemetry.api" title="Permalink to this headline">¶</a></h1>
-<p>Some notes on notation
-- line: driver position</p>
+  <span class="target" id="module-fastf1.api"></span><div class="section" id="fastf1-api-api-module">
+<h1><a class="reference internal" href="#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> - Api module<a class="headerlink" href="#fastf1-api-api-module" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the main interfaces to the f1 web api</p>
 <dl class="data">
-<dt id="f1telemetry.api.pages">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">pages</code><em class="property"> = {'archive_status': 'ArchiveStatus.json', 'audio_streams': 'AudioStreams.jsonStream', 'car_data': 'CarData.z.jsonStream', 'championship_predicion': 'ChampionshipPrediction.jsonStream', 'content_streams': 'ContentStreams.jsonStream', 'driver_list': 'DriverList.jsonStream', 'extrapolated_clock': 'ExtrapolatedClock.jsonStream', 'heartbeat': 'Heartbeat.jsonStream', 'lap_count': 'LapCount.jsonStream', 'position': 'Position.z.jsonStream', 'race_control_messages': 'RaceControlMessages.json', 'session_info': 'SessionInfo.json', 'session_status': 'SessionStatus.jsonStream', 'team_radio': 'TeamRadio.jsonStream', 'timing_app_data': 'TimingAppData.jsonStream', 'timing_data': 'TimingData.jsonStream', 'timing_stats': 'TimingStats.jsonStream', 'track_status': 'TrackStatus.jsonStream', 'weather_data': 'WeatherData.jsonStream'}</em><a class="headerlink" href="#f1telemetry.api.pages" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.pages">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">pages</code><em class="property"> = {'archive_status': 'ArchiveStatus.json', 'audio_streams': 'AudioStreams.jsonStream', 'car_data': 'CarData.z.jsonStream', 'championship_predicion': 'ChampionshipPrediction.jsonStream', 'content_streams': 'ContentStreams.jsonStream', 'driver_list': 'DriverList.jsonStream', 'extrapolated_clock': 'ExtrapolatedClock.jsonStream', 'heartbeat': 'Heartbeat.jsonStream', 'lap_count': 'LapCount.jsonStream', 'position': 'Position.z.jsonStream', 'race_control_messages': 'RaceControlMessages.json', 'session_info': 'SessionInfo.json', 'session_status': 'SessionStatus.jsonStream', 'team_radio': 'TeamRadio.jsonStream', 'timing_app_data': 'TimingAppData.jsonStream', 'timing_data': 'TimingData.jsonStream', 'timing_stats': 'TimingStats.jsonStream', 'track_status': 'TrackStatus.jsonStream', 'weather_data': 'WeatherData.jsonStream'}</em><a class="headerlink" href="#fastf1.api.pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Known requests</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="f1telemetry.api.CACHE_ENABLE">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">CACHE_ENABLE</code><em class="property"> = True</em><a class="headerlink" href="#f1telemetry.api.CACHE_ENABLE" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.CACHE_ENABLE">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">CACHE_ENABLE</code><em class="property"> = True</em><a class="headerlink" href="#fastf1.api.CACHE_ENABLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/Disable cache for parsed data (Everything under
 ./F1_Data). Note that raw requests are still cached, data is quite fixed
 and shouldn’t really change..</p>
@@ -176,8 +176,8 @@ and shouldn’t really change..</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.make_path">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">make_path</code><span class="sig-paren">(</span><em class="sig-param">wname</em>, <em class="sig-param">d</em>, <em class="sig-param">session</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.make_path" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.make_path">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">make_path</code><span class="sig-paren">(</span><em class="sig-param">wname</em>, <em class="sig-param">d</em>, <em class="sig-param">session</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.make_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create web path to append on livetiming.formula1.com for api
 requests.</p>
 <dl class="field-list simple">
@@ -195,14 +195,14 @@ requests.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.summary">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">summary</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.summary" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.summary">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">summary</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>From <cite>timing_data</cite> and <cite>timing_app_data</cite> a summary table is
 built. Lap by lap, information on tyre, sectors and times are
 organised in an accessible pandas data frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> – path returned from <a class="reference internal" href="#f1telemetry.api.make_path" title="f1telemetry.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
+<dd class="field-odd"><p><strong>path</strong> – path returned from <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>pandas dataframe</p>
@@ -211,8 +211,8 @@ organised in an accessible pandas data frame.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.timing_data">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">timing_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#timing_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.timing_data" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.timing_data">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">timing_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Timing data is a mixed stream of information of each driver.
 At a given time a packet of data may indicate position, lap time,
 speed trap, sector time and so on.</p>
@@ -222,16 +222,16 @@ separated and mapped on finer timeseries.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.timing_app_data">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">timing_app_data</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">response=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#timing_app_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.timing_app_data">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">timing_app_data</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">response=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_app_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Full parse of timing app data. This parsing is quite ignorant,
 with  minimum logic just to fix data structure inconsistencies. Tyre
 information is passed to the summary table.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.car_data">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">car_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#car_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.car_data" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.car_data">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">car_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and create pandas dataframe for Telemetry. Cached data is
 used if already fetched.</p>
 <p>Samples are not synchronised with the other dataframes and sampling
@@ -256,8 +256,8 @@ Keep absolute reference.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.position">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.position" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.position">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and create pandas dataframe for Position. Cached data is
 used if already fetched.</p>
 <p>Samples are not synchronised with the other dataframes and sampling
@@ -273,7 +273,7 @@ Keep absolute reference.</p>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> – web path for base_url, see <a class="reference internal" href="#f1telemetry.api.make_path" title="f1telemetry.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
+<dd class="field-odd"><p><strong>path</strong> – web path for base_url, see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>pandas dataframe</p>
@@ -282,28 +282,28 @@ Keep absolute reference.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.fetch_page">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">fetch_page</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#fetch_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.fetch_page" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.fetch_page">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">fetch_page</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#fetch_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.fetch_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch formula1 web api, given url path and page name. An attempt
 to parse json or decode known messages is made.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> – url path (see <a class="reference internal" href="#f1telemetry.api.make_path" title="f1telemetry.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
-<li><p><strong>name</strong> – page name (see <a class="reference internal" href="#f1telemetry.api.pages" title="f1telemetry.api.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
+<li><p><strong>path</strong> – url path (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
+<li><p><strong>name</strong> – page name (see <a class="reference internal" href="#fastf1.api.pages" title="fastf1.api.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>dictionary if content was json, list of entries if jsonStream,
 where each element is len 2: [clock, content]. Content is
-parsed with <a class="reference internal" href="#f1telemetry.api.parse" title="f1telemetry.api.parse"><code class="xref py py-func docutils literal notranslate"><span class="pre">parse()</span></code></a>. None if request failed.</p>
+parsed with <a class="reference internal" href="#fastf1.api.parse" title="fastf1.api.parse"><code class="xref py py-func docutils literal notranslate"><span class="pre">parse()</span></code></a>. None if request failed.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
-<dt id="f1telemetry.api.parse">
-<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">zipped=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.parse" title="Permalink to this definition">¶</a></dt>
+<dt id="fastf1.api.parse">
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">zipped=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse json and jsonStream as known from livetiming.formula1.com</p>
 </dd></dl>
 
@@ -318,7 +318,7 @@ parsed with <a class="reference internal" href="#f1telemetry.api.parse" title="f
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="f1telemetry.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="core.html" class="btn btn-neutral float-left" title="fastf1.core - Core module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
