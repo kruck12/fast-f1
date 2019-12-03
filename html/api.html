@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>f1telemetry.api - F1 Api module &mdash; F1 Telemetry  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Introduction" href="f1telemetry.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> F1 Telemetry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="f1telemetry.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="f1telemetry.html#getting-started">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">f1telemetry.api</span></code> - F1 Api module</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">F1 Telemetry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">f1telemetry.api</span></code> - F1 Api module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-f1telemetry.api">
+<span id="f1telemetry-api-f1-api-module"></span><h1><a class="reference internal" href="#module-f1telemetry.api" title="f1telemetry.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">f1telemetry.api</span></code></a> - F1 Api module<a class="headerlink" href="#module-f1telemetry.api" title="Permalink to this headline">¶</a></h1>
+<p>Some notes on notation
+- line: driver position</p>
+<dl class="data">
+<dt id="f1telemetry.api.pages">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">pages</code><em class="property"> = {'archive_status': 'ArchiveStatus.json', 'audio_streams': 'AudioStreams.jsonStream', 'car_data': 'CarData.z.jsonStream', 'championship_predicion': 'ChampionshipPrediction.jsonStream', 'content_streams': 'ContentStreams.jsonStream', 'driver_list': 'DriverList.jsonStream', 'extrapolated_clock': 'ExtrapolatedClock.jsonStream', 'heartbeat': 'Heartbeat.jsonStream', 'lap_count': 'LapCount.jsonStream', 'position': 'Position.z.jsonStream', 'race_control_messages': 'RaceControlMessages.json', 'session_info': 'SessionInfo.json', 'session_status': 'SessionStatus.jsonStream', 'team_radio': 'TeamRadio.jsonStream', 'timing_app_data': 'TimingAppData.jsonStream', 'timing_data': 'TimingData.jsonStream', 'timing_stats': 'TimingStats.jsonStream', 'track_status': 'TrackStatus.jsonStream', 'weather_data': 'WeatherData.jsonStream'}</em><a class="headerlink" href="#f1telemetry.api.pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Known requests</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="f1telemetry.api.CACHE_ENABLE">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">CACHE_ENABLE</code><em class="property"> = True</em><a class="headerlink" href="#f1telemetry.api.CACHE_ENABLE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable/Disable cache for parsed data (Everything under
+./F1_Data). Note that raw requests are still cached, data is quite fixed
+and shouldn’t really change..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.make_path">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">make_path</code><span class="sig-paren">(</span><em class="sig-param">wname</em>, <em class="sig-param">d</em>, <em class="sig-param">session</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.make_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create web path to append on livetiming.formula1.com for api
+requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wname</strong> – Weekend name (e.g. ‘Italian Grand Prix’)</p></li>
+<li><p><strong>d</strong> – Weekend date (e.g. ‘2019-09-08’)</p></li>
+<li><p><strong>session</strong> – ‘Qualifying’ or ‘Race’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>string path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.summary">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">summary</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>From <cite>timing_data</cite> and <cite>timing_app_data</cite> a summary table is
+built. Lap by lap, information on tyre, sectors and times are
+organised in an accessible pandas data frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – path returned from <a class="reference internal" href="#f1telemetry.api.make_path" title="f1telemetry.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.timing_data">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">timing_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#timing_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.timing_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timing data is a mixed stream of information of each driver.
+At a given time a packet of data may indicate position, lap time,
+speed trap, sector time and so on.</p>
+<p>While most of this data can be mapped lap by lap given a readable and
+usable data structure, other entries like position and time gaps are
+separated and mapped on finer timeseries.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.timing_app_data">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">timing_app_data</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">response=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#timing_app_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full parse of timing app data. This parsing is quite ignorant,
+with  minimum logic just to fix data structure inconsistencies. Tyre
+information is passed to the summary table.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.car_data">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">car_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#car_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.car_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch and create pandas dataframe for Telemetry. Cached data is
+used if already fetched.</p>
+<p>Samples are not synchronised with the other dataframes and sampling
+time is not constant, usually 240ms but sometimes can be ~270ms.
+Keep absolute reference.</p>
+<dl class="simple">
+<dt>Useful columns:</dt><dd><ul class="simple">
+<li><p>Time: sample pandas datetime</p></li>
+<li><p>Driver: driver identifier</p></li>
+<li><p>Speed: Km/h</p></li>
+<li><p>RPM, Gear</p></li>
+<li><p>Throttle, Brake: 0-100 (don’t trust brake too much)</p></li>
+<li><p>DRS: Off, Available, Active</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.position">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch and create pandas dataframe for Position. Cached data is
+used if already fetched.</p>
+<p>Samples are not synchronised with the other dataframes and sampling
+time is not constant, usually 300ms but sometimes can be ~200ms.
+Keep absolute reference.</p>
+<dl class="simple">
+<dt>Useful columns:</dt><dd><ul class="simple">
+<li><p>Time: pandas datetime of sample</p></li>
+<li><p>Driver: driver identifier</p></li>
+<li><p>X, Y, Z: Position coordinates</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – web path for base_url, see <a class="reference internal" href="#f1telemetry.api.make_path" title="f1telemetry.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.fetch_page">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">fetch_page</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#fetch_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.fetch_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch formula1 web api, given url path and page name. An attempt
+to parse json or decode known messages is made.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – url path (see <a class="reference internal" href="#f1telemetry.api.make_path" title="f1telemetry.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
+<li><p><strong>name</strong> – page name (see <a class="reference internal" href="#f1telemetry.api.pages" title="f1telemetry.api.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary if content was json, list of entries if jsonStream,
+where each element is len 2: [clock, content]. Content is
+parsed with <a class="reference internal" href="#f1telemetry.api.parse" title="f1telemetry.api.parse"><code class="xref py py-func docutils literal notranslate"><span class="pre">parse()</span></code></a>. None if request failed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="f1telemetry.api.parse">
+<code class="sig-prename descclassname">f1telemetry.api.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">zipped=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/f1telemetry/api.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#f1telemetry.api.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse json and jsonStream as known from livetiming.formula1.com</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="f1telemetry.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright MIT
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
