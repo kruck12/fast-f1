@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; Fast F1  documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1  documentation</title>
   
 
   
@@ -35,9 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
- 
-
-
+    <link rel="next" title="fastf1.api - Api module" href="api.html" />
+    <link rel="prev" title="Introduction" href="fastf1.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,10 +85,10 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 </ul>
 
@@ -136,10 +135,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Python Module Index</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/core.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -151,40 +154,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <span class="target" id="module-fastf1.core"></span><div class="section" id="fastf1-core-core-module">
+<h1><a class="reference internal" href="#module-fastf1.core" title="fastf1.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code></a> - Core module<a class="headerlink" href="#fastf1-core-core-module" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="fastf1.core.get_session">
+<code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_session</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">gp</em>, <em class="sig-param">event=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.get_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main core function, will take care of crafting an object
+corresponding to the requested session. If not specified, full
+weekend is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> – session year (Tested only with 2019)</p></li>
+<li><p><strong>gp</strong> – weekend number (1: Australia, …, 21: Abu Dhabi)</p></li>
+<li><p><strong>event</strong> (<em>=None</em>) – may be ‘R’ or ‘Q’, full weekend otherwise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-f"><strong>f</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-f"><td></td><td>
-       <strong>f</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <a href="fastf1.html#module-fastf1"><code class="xref">fastf1</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="api.html#module-fastf1.api"><code class="xref">fastf1.api</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="core.html#module-fastf1.core"><code class="xref">fastf1.core</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="fastf1.api - Api module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="fastf1.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>f1telemetry.api &mdash; Fast F1  documentation</title>
+  <title>fastf1.api &mdash; Fast F1  documentation</title>
   
 
   
@@ -135,7 +135,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>f1telemetry.api</li>
+      <li>fastf1.api</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -150,9 +150,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for f1telemetry.api</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Some notes on notation</span>
-<span class="sd">- line: driver position</span>
+  <h1>Source code for fastf1.api</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:mod:`fastf1.api` - Api module</span>
+<span class="sd">==============================</span>
+
+<span class="sd">This module contains the main interfaces to the f1 web api</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -202,6 +205,8 @@
 <span class="p">}</span>
 <span class="sd">&quot;&quot;&quot;Known requests</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Some notes on notation:</span>
+<span class="c1"># - line: driver position</span>
 
 <span class="n">CACHE_ENABLE</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="sd">&quot;&quot;&quot;Boolean: Enable/Disable cache for parsed data (Everything under</span>
@@ -235,7 +240,7 @@
     <span class="k">return</span> <span class="n">data</span>
 
 
-<div class="viewcode-block" id="make_path"><a class="viewcode-back" href="../../api.html#f1telemetry.api.make_path">[docs]</a><span class="k">def</span> <span class="nf">make_path</span><span class="p">(</span><span class="n">wname</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+<div class="viewcode-block" id="make_path"><a class="viewcode-back" href="../../api.html#fastf1.api.make_path">[docs]</a><span class="k">def</span> <span class="nf">make_path</span><span class="p">(</span><span class="n">wname</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create web path to append on livetiming.formula1.com for api</span>
 <span class="sd">    requests.</span>
 
@@ -257,7 +262,7 @@
     <span class="k">return</span> <span class="s1">&#39;/static/&#39;</span> <span class="o">+</span> <span class="n">smooth_operator</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="summary"><a class="viewcode-back" href="../../api.html#f1telemetry.api.summary">[docs]</a><span class="nd">@_cached_panda</span>
+<div class="viewcode-block" id="summary"><a class="viewcode-back" href="../../api.html#fastf1.api.summary">[docs]</a><span class="nd">@_cached_panda</span>
 <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;From `timing_data` and `timing_app_data` a summary table is</span>
 <span class="sd">    built. Lap by lap, information on tyre, sectors and times are </span>
@@ -296,7 +301,7 @@
     <span class="k">return</span> <span class="n">df</span></div>
 
 
-<div class="viewcode-block" id="timing_data"><a class="viewcode-back" href="../../api.html#f1telemetry.api.timing_data">[docs]</a><span class="k">def</span> <span class="nf">timing_data</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="timing_data"><a class="viewcode-back" href="../../api.html#fastf1.api.timing_data">[docs]</a><span class="k">def</span> <span class="nf">timing_data</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Timing data is a mixed stream of information of each driver.</span>
 <span class="sd">    At a given time a packet of data may indicate position, lap time,</span>
 <span class="sd">    speed trap, sector time and so on.</span>
@@ -459,7 +464,7 @@
     <span class="k">return</span> <span class="n">data</span>
 
 
-<div class="viewcode-block" id="timing_app_data"><a class="viewcode-back" href="../../api.html#f1telemetry.api.timing_app_data">[docs]</a><span class="k">def</span> <span class="nf">timing_app_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="timing_app_data"><a class="viewcode-back" href="../../api.html#fastf1.api.timing_app_data">[docs]</a><span class="k">def</span> <span class="nf">timing_app_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Full parse of timing app data. This parsing is quite ignorant,</span>
 <span class="sd">    with  minimum logic just to fix data structure inconsistencies. Tyre</span>
 <span class="sd">    information is passed to the summary table.</span>
@@ -495,7 +500,7 @@
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="car_data"><a class="viewcode-back" href="../../api.html#f1telemetry.api.car_data">[docs]</a><span class="nd">@_cached_panda</span>
+<div class="viewcode-block" id="car_data"><a class="viewcode-back" href="../../api.html#fastf1.api.car_data">[docs]</a><span class="nd">@_cached_panda</span>
 <span class="k">def</span> <span class="nf">car_data</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and create pandas dataframe for Telemetry. Cached data is</span>
 <span class="sd">    used if already fetched.</span>
@@ -534,7 +539,7 @@
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="position"><a class="viewcode-back" href="../../api.html#f1telemetry.api.position">[docs]</a><span class="nd">@_cached_panda</span>
+<div class="viewcode-block" id="position"><a class="viewcode-back" href="../../api.html#fastf1.api.position">[docs]</a><span class="nd">@_cached_panda</span>
 <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and create pandas dataframe for Position. Cached data is</span>
 <span class="sd">    used if already fetched.</span>
@@ -572,7 +577,7 @@
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fetch_page"><a class="viewcode-back" href="../../api.html#f1telemetry.api.fetch_page">[docs]</a><span class="k">def</span> <span class="nf">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="fetch_page"><a class="viewcode-back" href="../../api.html#fastf1.api.fetch_page">[docs]</a><span class="k">def</span> <span class="nf">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch formula1 web api, given url path and page name. An attempt</span>
 <span class="sd">    to parse json or decode known messages is made.</span>
 
@@ -602,7 +607,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../api.html#f1telemetry.api.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../api.html#fastf1.api.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parse json and jsonStream as known from livetiming.formula1.com</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;{&#39;</span><span class="p">:</span>
