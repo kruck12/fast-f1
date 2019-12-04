@@ -82,7 +82,10 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
@@ -192,43 +195,45 @@
     <span class="k">return</span> <span class="n">weekend</span></div>
 
 
-<span class="k">class</span> <span class="nc">Weekend</span><span class="p">:</span>
+<div class="viewcode-block" id="Weekend"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend">[docs]</a><span class="k">class</span> <span class="nc">Weekend</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Weekend class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gp</span> <span class="o">=</span> <span class="n">gp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.init"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load web data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">fetch_weekend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gp</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
-    <span class="k">def</span> <span class="nf">get_practice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.get_practice"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.get_practice">[docs]</a>    <span class="k">def</span> <span class="nf">get_practice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            number: 1, 2 or 3 Free practice session number</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`Session` instance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_quali</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.get_quali"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.get_quali">[docs]</a>    <span class="k">def</span> <span class="nf">get_quali</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`Session` instance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_race</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.get_race"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.get_race">[docs]</a>    <span class="k">def</span> <span class="nf">get_race</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`Session` instance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -240,24 +245,26 @@
     <span class="k">def</span> <span class="nf">date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Weekend race date (YYYY-MM-DD)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span></div>
 
 
-<span class="k">class</span> <span class="nc">Session</span><span class="p">:</span>
+<div class="viewcode-block" id="Session"><a class="viewcode-back" href="../../core.html#fastf1.core.Session">[docs]</a><span class="k">class</span> <span class="nc">Session</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Session class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weekend</span><span class="p">,</span> <span class="n">session_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span> <span class="o">=</span> <span class="n">weekend</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_name</span> <span class="o">=</span> <span class="n">session_name</span>
 
-    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.init"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load web data or cache if available and populate object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">w</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">init</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">api_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">make_path</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">gp</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">_cached_laps</span>
+<div class="viewcode-block" id="Session.load_laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_laps">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">_cached_laps</span>
     <span class="k">def</span> <span class="nf">load_laps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;With load laps all the timing information is merged in a</span>
 <span class="sd">        single pandas dataframe. The first time you run the method on</span>
@@ -265,34 +272,34 @@
 <span class="sd">        data are downloaded and processed, but then laps will be </span>
 <span class="sd">        stored locally. Each dataframe entry has the following columns:</span>
 
-<span class="sd">            - &#39;Time&#39; (timedelta): Time when the lap was recorded</span>
-<span class="sd">            - &#39;Driver&#39; (string): Three letters driver identifier</span>
-<span class="sd">            - &#39;LapTime&#39; (timedelta): Recorded lap time</span>
-<span class="sd">            - &#39;LapNumber&#39; (int): Recorded lap number</span>
-<span class="sd">            - &#39;PitOutTime&#39; (timedelta): Time when car exited the pit</span>
-<span class="sd">            - &#39;PitInTime&#39; (timedelta): Time when car entered the pit</span>
-<span class="sd">            - &#39;Sector1Time&#39; (timedelta): Sector 1 recorded time</span>
-<span class="sd">            - &#39;Sector2Time&#39; (timedelta): Sector 2 recorded time</span>
-<span class="sd">            - &#39;Sector3Time&#39; (timedelta): Sector 3 recorded time</span>
-<span class="sd">            - &#39;SpeedI1&#39; (float): Speedtrap sector 1</span>
-<span class="sd">            - &#39;SpeedI2&#39; (float): Speedtrap sector 2</span>
-<span class="sd">            - &#39;SpeedFL&#39; (float): Speedtrap sector 3 (Not sure)</span>
-<span class="sd">            - &#39;SpeedST&#39; (float): Speedtrap on longest straight (Not sure)</span>
-<span class="sd">            - &#39;Stint&#39; (int): Indicates the stint number</span>
-<span class="sd">            - &#39;Compound&#39; (str): Tyre compound name: SOFT, MEDIUM ..</span>
-<span class="sd">            - &#39;TyreLife&#39; (int): Laps spent on that compound</span>
-<span class="sd">            - &#39;FreshTyre&#39; (bool): Tyre had TyreLife=0 at stint start</span>
-<span class="sd">            - &#39;DriverNumber&#39; (str): Car number</span>
-<span class="sd">            - &#39;Team&#39; (str): Team name</span>
-<span class="sd">            - &#39;LapStartDate&#39; (datetime): When the lap started</span>
-<span class="sd">            - &#39;telemetry&#39;: (pandas dataframe of lap telemetry)</span>
-<span class="sd">                - &#39;Time&#39; (timedelta): Time axis (0 is start of lap)</span>
-<span class="sd">                - &#39;RPM&#39; (int): Car RPM</span>
-<span class="sd">                - &#39;Speed&#39; (float): Car speed</span>
-<span class="sd">                - &#39;nGear&#39; (int): Car gear number</span>
-<span class="sd">                - &#39;Throttle&#39; (float): 0-100 Throttle pedal pressure</span>
-<span class="sd">                - &#39;Brake&#39; (float): 0-100 Brake pedal pressure</span>
-<span class="sd">                - &#39;DRS&#39; (int): DRS indicator</span>
+<span class="sd">            - `Time` (timedelta): Time when the lap was recorded</span>
+<span class="sd">            - `Driver` (string): Three letters driver identifier</span>
+<span class="sd">            - `LapTime` (timedelta): Recorded lap time</span>
+<span class="sd">            - `LapNumber` (int): Recorded lap number</span>
+<span class="sd">            - `PitOutTime` (timedelta): Time when car exited the pit</span>
+<span class="sd">            - `PitInTime` (timedelta): Time when car entered the pit</span>
+<span class="sd">            - `Sector1Time` (timedelta): Sector 1 recorded time</span>
+<span class="sd">            - `Sector2Time` (timedelta): Sector 2 recorded time</span>
+<span class="sd">            - `Sector3Time` (timedelta): Sector 3 recorded time</span>
+<span class="sd">            - `SpeedI1` (float): Speedtrap sector 1</span>
+<span class="sd">            - `SpeedI2` (float): Speedtrap sector 2</span>
+<span class="sd">            - `SpeedFL` (float): Speedtrap sector 3 (Not sure)</span>
+<span class="sd">            - `SpeedST` (float): Speedtrap on longest straight (Not sure)</span>
+<span class="sd">            - `Stint` (int): Indicates the stint number</span>
+<span class="sd">            - `Compound` (str): Tyre compound name: SOFT, MEDIUM ..</span>
+<span class="sd">            - `TyreLife` (int): Laps spent on that compound</span>
+<span class="sd">            - `FreshTyre` (bool): Tyre had TyreLife=0 at stint start</span>
+<span class="sd">            - `DriverNumber` (str): Car number</span>
+<span class="sd">            - `Team` (str): Team name</span>
+<span class="sd">            - `LapStartDate` (datetime): When the lap started</span>
+<span class="sd">            - `telemetry`: (pandas dataframe of lap telemetry)</span>
+<span class="sd">                - `Time` (timedelta): Time axis (0 is start of lap)</span>
+<span class="sd">                - `RPM` (int): Car RPM</span>
+<span class="sd">                - `Speed` (float): Car speed</span>
+<span class="sd">                - `nGear` (int): Car gear number</span>
+<span class="sd">                - `Throttle` (float): 0-100 Throttle pedal pressure</span>
+<span class="sd">                - `Brake` (float): 0-100 Brake pedal pressure</span>
+<span class="sd">                - `DRS` (int): DRS indicator</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading laps for </span><span class="si">{self.weekend.name}</span><span class="s2"> </span><span class="si">{self.session_name}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -301,14 +308,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;LapStartDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lap_start_date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;telemetry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">telemetry</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Laps loaded and saved!&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
-    <span class="k">def</span> <span class="nf">get_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.get_driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.get_driver">[docs]</a>    <span class="k">def</span> <span class="nf">get_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">identifier</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">Driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
     <span class="k">def</span> <span class="nf">_get_driver_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">lookup</span> <span class="o">=</span> <span class="p">{}</span>
@@ -432,10 +439,10 @@
         <span class="n">res</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drivers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Populate and fix columns lost with resampling </span>
         <span class="n">res</span><span class="p">[[</span><span class="s1">&#39;nGear&#39;</span><span class="p">,</span> <span class="s1">&#39;DRS&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[[</span><span class="s1">&#39;nGear&#39;</span><span class="p">,</span> <span class="s1">&#39;DRS&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
         <span class="n">res</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">offset_date</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">offset_date</span></div>
 
 
-<span class="k">class</span> <span class="nc">Driver</span><span class="p">:</span>
+<div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
@@ -473,7 +480,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;Constructor&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">]</span></div>
 
 </pre></div>
 

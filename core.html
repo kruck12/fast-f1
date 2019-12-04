@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
 
             
@@ -171,9 +172,167 @@ requested session. If not specified, full weekend is returned.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a> or <a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="fastf1.core.Weekend">
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Weekend</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">gp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Weekend class</p>
+<dl class="method">
+<dt id="fastf1.core.Weekend.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load web data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Weekend.get_practice">
+<code class="sig-name descname">get_practice</code><span class="sig-paren">(</span><em class="sig-param">number</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_practice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend.get_practice" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>number</strong> – 1, 2 or 3 Free practice session number</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Weekend.get_quali">
+<code class="sig-name descname">get_quali</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_quali"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend.get_quali" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Weekend.get_race">
+<code class="sig-name descname">get_race</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_race"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend.get_race" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Weekend.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#fastf1.core.Weekend.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weekend name, e.g. “British Grand Prix”</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Weekend.date">
+<em class="property">property </em><code class="sig-name descname">date</code><a class="headerlink" href="#fastf1.core.Weekend.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weekend race date (YYYY-MM-DD)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fastf1.core.Session">
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Session</code><span class="sig-paren">(</span><em class="sig-param">weekend</em>, <em class="sig-param">session_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Session class</p>
+<dl class="method">
+<dt id="fastf1.core.Session.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load web data or cache if available and populate object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Session.load_laps">
+<code class="sig-name descname">load_laps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.load_laps" title="Permalink to this definition">¶</a></dt>
+<dd><p>With load laps all the timing information is merged in a
+single pandas dataframe. The first time you run the method on
+a session it may take a while to load, some megabytes are of
+data are downloaded and processed, but then laps will be
+stored locally. Each dataframe entry has the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>Time</cite> (timedelta): Time when the lap was recorded</p></li>
+<li><p><cite>Driver</cite> (string): Three letters driver identifier</p></li>
+<li><p><cite>LapTime</cite> (timedelta): Recorded lap time</p></li>
+<li><p><cite>LapNumber</cite> (int): Recorded lap number</p></li>
+<li><p><cite>PitOutTime</cite> (timedelta): Time when car exited the pit</p></li>
+<li><p><cite>PitInTime</cite> (timedelta): Time when car entered the pit</p></li>
+<li><p><cite>Sector1Time</cite> (timedelta): Sector 1 recorded time</p></li>
+<li><p><cite>Sector2Time</cite> (timedelta): Sector 2 recorded time</p></li>
+<li><p><cite>Sector3Time</cite> (timedelta): Sector 3 recorded time</p></li>
+<li><p><cite>SpeedI1</cite> (float): Speedtrap sector 1</p></li>
+<li><p><cite>SpeedI2</cite> (float): Speedtrap sector 2</p></li>
+<li><p><cite>SpeedFL</cite> (float): Speedtrap sector 3 (Not sure)</p></li>
+<li><p><cite>SpeedST</cite> (float): Speedtrap on longest straight (Not sure)</p></li>
+<li><p><cite>Stint</cite> (int): Indicates the stint number</p></li>
+<li><p><cite>Compound</cite> (str): Tyre compound name: SOFT, MEDIUM ..</p></li>
+<li><p><cite>TyreLife</cite> (int): Laps spent on that compound</p></li>
+<li><p><cite>FreshTyre</cite> (bool): Tyre had TyreLife=0 at stint start</p></li>
+<li><p><cite>DriverNumber</cite> (str): Car number</p></li>
+<li><p><cite>Team</cite> (str): Team name</p></li>
+<li><p><cite>LapStartDate</cite> (datetime): When the lap started</p></li>
+<li><dl class="simple">
+<dt><cite>telemetry</cite>: (pandas dataframe of lap telemetry)</dt><dd><ul>
+<li><p><cite>Time</cite> (timedelta): Time axis (0 is start of lap)</p></li>
+<li><p><cite>RPM</cite> (int): Car RPM</p></li>
+<li><p><cite>Speed</cite> (float): Car speed</p></li>
+<li><p><cite>nGear</cite> (int): Car gear number</p></li>
+<li><p><cite>Throttle</cite> (float): 0-100 Throttle pedal pressure</p></li>
+<li><p><cite>Brake</cite> (float): 0-100 Brake pedal pressure</p></li>
+<li><p><cite>DRS</cite> (int): DRS indicator</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Session.get_driver">
+<code class="sig-name descname">get_driver</code><span class="sig-paren">(</span><em class="sig-param">identifier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.get_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.get_driver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fastf1.core.Driver">
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Driver</code><span class="sig-paren">(</span><em class="sig-param">session</em>, <em class="sig-param">info</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="fastf1.core.Driver.dnf">
+<em class="property">property </em><code class="sig-name descname">dnf</code><a class="headerlink" href="#fastf1.core.Driver.dnf" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if driver did not finish</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Driver.grid">
+<em class="property">property </em><code class="sig-name descname">grid</code><a class="headerlink" href="#fastf1.core.Driver.grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grid position</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Driver.position">
+<em class="property">property </em><code class="sig-name descname">position</code><a class="headerlink" href="#fastf1.core.Driver.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finishing position</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Driver.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#fastf1.core.Driver.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Driver.team">
+<em class="property">property </em><code class="sig-name descname">team</code><a class="headerlink" href="#fastf1.core.Driver.team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Team name</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
