@@ -162,19 +162,6 @@
 <dd><p>Known requests</p>
 </dd></dl>
 
-<dl class="data">
-<dt id="fastf1.api.CACHE_ENABLE">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">CACHE_ENABLE</code><em class="property"> = True</em><a class="headerlink" href="#fastf1.api.CACHE_ENABLE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable/Disable cache for parsed data (Everything under
-./F1_Data). Note that raw requests are still cached, data is quite fixed
-and shouldn’t really change..</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Boolean</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="function">
 <dt id="fastf1.api.make_path">
 <code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">make_path</code><span class="sig-paren">(</span><em class="sig-param">wname</em>, <em class="sig-param">d</em>, <em class="sig-param">session</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.make_path" title="Permalink to this definition">¶</a></dt>
@@ -239,7 +226,7 @@ time is not constant, usually 240ms but sometimes can be ~270ms.
 Keep absolute reference.</p>
 <dl class="simple">
 <dt>Useful columns:</dt><dd><ul class="simple">
-<li><p>Time: sample pandas datetime</p></li>
+<li><p>Date: sample pandas datetime</p></li>
 <li><p>Driver: driver identifier</p></li>
 <li><p>Speed: Km/h</p></li>
 <li><p>RPM, Gear</p></li>
@@ -265,7 +252,7 @@ time is not constant, usually 300ms but sometimes can be ~200ms.
 Keep absolute reference.</p>
 <dl class="simple">
 <dt>Useful columns:</dt><dd><ul class="simple">
-<li><p>Time: pandas datetime of sample</p></li>
+<li><p>Date: pandas datetime of sample</p></li>
 <li><p>Driver: driver identifier</p></li>
 <li><p>X, Y, Z: Position coordinates</p></li>
 </ul>
