@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                v0.1.1
+                v1.0.0
               </div>
             
           
@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -163,11 +164,11 @@
  | <a href="#D"><strong>D</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
- | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#W"><strong>W</strong></a>
@@ -190,11 +191,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Weekend.date">date() (fastf1.core.Weekend property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Driver.dnf">dnf() (fastf1.core.Driver property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Driver">Driver (class in fastf1.core)</a>
+</li>
+      <li><a href="selectors.html#fastf1.selectors.driver">driver() (in module fastf1.selectors)</a>
+</li>
+      <li><a href="selectors.html#fastf1.selectors.drivers">drivers() (in module fastf1.selectors)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -202,6 +207,8 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="selectors.html#fastf1.selectors.fastest">fastest() (in module fastf1.selectors)</a>
+</li>
       <li><a href="fastf1.html#module-fastf1">fastf1 (module)</a>
 </li>
       <li><a href="api.html#module-fastf1.api">fastf1.api (module)</a>
@@ -210,6 +217,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="selectors.html#module-fastf1.selectors">fastf1.selectors (module)</a>
+</li>
       <li><a href="utils.html#module-fastf1.utils">fastf1.utils (module)</a>
 </li>
       <li><a href="utils.html#fastf1.utils.fastf1.utils.CACHE_PATH">fastf1.utils.CACHE_PATH (in module fastf1.utils)</a>
@@ -232,6 +241,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Weekend.get_race">get_race() (fastf1.core.Weekend method)</a>
 </li>
+      <li><a href="core.html#fastf1.core.get_round">get_round() (in module fastf1.core)</a>
+</li>
       <li><a href="core.html#fastf1.core.get_session">get_session() (in module fastf1.core)</a>
 </li>
       <li><a href="core.html#fastf1.core.Driver.grid">grid() (fastf1.core.Driver property)</a>
@@ -239,20 +250,12 @@
   </ul></td>
 </tr></table>
 
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Session.init">init() (fastf1.core.Session method)</a>
-
-      <ul>
-        <li><a href="core.html#fastf1.core.Weekend.init">(fastf1.core.Weekend method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.html#fastf1.core.Laps">Laps (class in fastf1.core)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Session.load_laps">load_laps() (fastf1.core.Session method)</a>
 </li>
@@ -297,13 +300,23 @@
   </ul></td>
 </tr></table>
 
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="selectors.html#fastf1.selectors.quicklaps">quicklaps() (in module fastf1.selectors)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Session">Session (class in fastf1.core)</a>
+      <li><a href="core.html#fastf1.core.Laps.sel">sel() (fastf1.core.Laps method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.html#fastf1.core.Session">Session (class in fastf1.core)</a>
+</li>
       <li><a href="api.html#fastf1.api.summary">summary() (in module fastf1.api)</a>
 </li>
   </ul></td>
@@ -313,9 +326,15 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Driver.team">team() (fastf1.core.Driver property)</a>
+
+      <ul>
+        <li><a href="selectors.html#fastf1.selectors.team">(in module fastf1.selectors)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="selectors.html#fastf1.selectors.teams">teams() (in module fastf1.selectors)</a>
+</li>
       <li><a href="api.html#fastf1.api.timing_app_data">timing_app_data() (in module fastf1.api)</a>
 </li>
       <li><a href="api.html#fastf1.api.timing_data">timing_data() (in module fastf1.api)</a>

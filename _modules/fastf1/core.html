@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v0.1.1
+                v1.0.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -162,10 +163,12 @@
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">ergast</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">api</span>
+<span class="kn">from</span> <span class="nn">fuzzywuzzy</span> <span class="kn">import</span> <span class="n">fuzz</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="get_session"><a class="viewcode-back" href="../../core.html#fastf1.core.get_session">[docs]</a><span class="k">def</span> <span class="nf">get_session</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Main core function, also the only to be exposed at package level.</span>
@@ -174,13 +177,19 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        year: session year (Tested only with 2019)</span>
-<span class="sd">        gp: weekend number (1: Australia, ..., 21: Abu Dhabi)</span>
+<span class="sd">        gp: name or weekend number (1: Australia, ..., 21: Abu Dhabi)</span>
+<span class="sd">            if gp is a string, a fuzzy match will be performed on the</span>
+<span class="sd">            season rounds and the most likely will be selected.</span>
+<span class="sd">            &#39;bahrain&#39;, &#39;australia&#39;, &#39;abudabi&#39; are some of the examples</span>
+<span class="sd">            that you can pass and the correct week will be selected.</span>
 <span class="sd">        event(=None): may be &#39;R&#39; or &#39;Q&#39;, full weekend otherwise.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        :class:`Weekend` or :class:`Session`</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">gp</span> <span class="o">=</span> <span class="n">get_round</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">)</span>
     <span class="n">weekend</span> <span class="o">=</span> <span class="n">Weekend</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">)</span>
@@ -195,6 +204,20 @@
     <span class="k">return</span> <span class="n">weekend</span></div>
 
 
+<div class="viewcode-block" id="get_round"><a class="viewcode-back" href="../../core.html#fastf1.core.get_round">[docs]</a><span class="k">def</span> <span class="nf">get_round</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">match</span><span class="p">):</span>
+    <span class="n">ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+    <span class="k">def</span> <span class="nf">build_string</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;https://en.wikipedia.org/wiki/&#39;</span><span class="p">)</span>
+        <span class="n">c</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Circuit&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Circuit&#39;</span><span class="p">][</span><span class="s1">&#39;Location&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{d[&#39;url&#39;][r:]}</span><span class="s2"> </span><span class="si">{d[&#39;raceName&#39;]}</span><span class="s2"> </span><span class="si">{c[&#39;circuitId&#39;]}</span><span class="s2"> &quot;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{c[&#39;url&#39;][r:]}</span><span class="s2"> </span><span class="si">{c[&#39;circuitName&#39;]}</span><span class="s2"> </span><span class="si">{l[&#39;locality&#39;]}</span><span class="s2"> &quot;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{l[&#39;country&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">races</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">fetch_season</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+    <span class="n">to_match</span> <span class="o">=</span> <span class="p">[</span><span class="n">build_string</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">races</span><span class="p">]</span>
+    <span class="n">ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fuzz</span><span class="o">.</span><span class="n">partial_ratio</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">to_match</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">races</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ratios</span><span class="p">)][</span><span class="s1">&#39;round&#39;</span><span class="p">])</span></div>
+
+
 <div class="viewcode-block" id="Weekend"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend">[docs]</a><span class="k">class</span> <span class="nc">Weekend</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Weekend class</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -202,15 +225,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gp</span> <span class="o">=</span> <span class="n">gp</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">False</span>
-
-<div class="viewcode-block" id="Weekend.init"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load web data</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">fetch_weekend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gp</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">fetch_weekend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gp</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Weekend.get_practice"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.get_practice">[docs]</a>    <span class="k">def</span> <span class="nf">get_practice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -255,14 +270,9 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weekend</span><span class="p">,</span> <span class="n">session_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span> <span class="o">=</span> <span class="n">weekend</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_name</span> <span class="o">=</span> <span class="n">session_name</span>
-
-<div class="viewcode-block" id="Session.init"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load web data or cache if available and populate object</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">w</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">init</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_name</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">api_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">make_path</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">gp</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Session.load_laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_laps">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">_cached_laps</span>
     <span class="k">def</span> <span class="nf">load_laps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -301,6 +311,9 @@
 <span class="sd">                - `Brake` (float): 0-100 Brake pedal pressure</span>
 <span class="sd">                - `DRS` (int): DRS indicator</span>
 
+<span class="sd">        Returns:</span>
+<span class="sd">            laps</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading laps for </span><span class="si">{self.weekend.name}</span><span class="s2"> </span><span class="si">{self.session_name}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_summary</span><span class="p">()</span>
@@ -308,7 +321,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;LapStartDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lap_start_date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;telemetry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">telemetry</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Laps loaded and saved!&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">laps</span> <span class="o">=</span> <span class="n">Laps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">laps</span></div>
 
 <div class="viewcode-block" id="Session.get_driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.get_driver">[docs]</a>    <span class="k">def</span> <span class="nf">get_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
@@ -442,6 +456,39 @@
         <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">offset_date</span></div>
 
 
+<div class="viewcode-block" id="Laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps">[docs]</a><span class="k">class</span> <span class="nc">Laps</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class wraps :attr:`Session.laps` which is a classic pandas</span>
+<span class="sd">    DataFrame with the addition of the :meth:`sel` method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Laps.sel"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.sel">[docs]</a>    <span class="k">def</span> <span class="nf">sel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_filter_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method allows to simplify usage and code readability.</span>
+<span class="sd">        You can access useful lap entries quickly in combination with</span>
+<span class="sd">        :mod:`fastf1.selectors`.</span>
+
+<span class="sd">        If for example you want to get the fastest lap of Bottas you can</span>
+<span class="sd">        narrow it down like this::</span>
+
+<span class="sd">            import fastf1 as ff1</span>
+<span class="sd">            from fastf1 import selectors as ect    </span>
+
+<span class="sd">            laps = ff1.get_session(2019, &#39;Bahrain&#39;, &#39;Q&#39;).load_laps()</span>
+<span class="sd">            best_bottas = laps.sel(ect.driver(&#39;BOT&#39;)).sel(ect.fastest)</span>
+
+<span class="sd">            print(best_bottas[&#39;LapTime&#39;])</span>
+<span class="sd">            # Timedelta(&#39;0 days 00:01:28.256000&#39;)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            _filter_: selector function</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :class:`Laps` or pandas Series if only 1 entry is left</span>
+<span class="sd">    </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">_filter_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Laps</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">res</span></div></div>
+
+
 <div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
@@ -481,6 +528,7 @@
 
     <span class="k">def</span> <span class="nf">_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">]</span></div>
+
 
 </pre></div>
 

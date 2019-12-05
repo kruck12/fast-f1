@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v0.1.1
+                v1.0.0
               </div>
             
           
@@ -84,7 +84,10 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
@@ -167,7 +170,11 @@ requested session. If not specified, full weekend is returned.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>year</strong> – session year (Tested only with 2019)</p></li>
-<li><p><strong>gp</strong> – weekend number (1: Australia, …, 21: Abu Dhabi)</p></li>
+<li><p><strong>gp</strong> – name or weekend number (1: Australia, …, 21: Abu Dhabi)
+if gp is a string, a fuzzy match will be performed on the
+season rounds and the most likely will be selected.
+‘bahrain’, ‘australia’, ‘abudabi’ are some of the examples
+that you can pass and the correct week will be selected.</p></li>
 <li><p><strong>event</strong> (<em>=None</em>) – may be ‘R’ or ‘Q’, full weekend otherwise.</p></li>
 </ul>
 </dd>
@@ -177,17 +184,16 @@ requested session. If not specified, full weekend is returned.</p>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="fastf1.core.get_round">
+<code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_round</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">match</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_round"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.get_round" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="class">
 <dt id="fastf1.core.Weekend">
 <em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Weekend</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">gp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Weekend class</p>
-<dl class="method">
-<dt id="fastf1.core.Weekend.init">
-<code class="sig-name descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load web data</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="fastf1.core.Weekend.get_practice">
 <code class="sig-name descname">get_practice</code><span class="sig-paren">(</span><em class="sig-param">number</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_practice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend.get_practice" title="Permalink to this definition">¶</a></dt>
@@ -241,12 +247,6 @@ requested session. If not specified, full weekend is returned.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Session class</p>
 <dl class="method">
-<dt id="fastf1.core.Session.init">
-<code class="sig-name descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load web data or cache if available and populate object</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="fastf1.core.Session.load_laps">
 <code class="sig-name descname">load_laps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.load_laps" title="Permalink to this definition">¶</a></dt>
 <dd><p>With load laps all the timing information is merged in a
@@ -291,12 +291,53 @@ stored locally. Each dataframe entry has the following columns:</p>
 </li>
 </ul>
 </div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>laps</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="fastf1.core.Session.get_driver">
 <code class="sig-name descname">get_driver</code><span class="sig-paren">(</span><em class="sig-param">identifier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.get_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.get_driver" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fastf1.core.Laps">
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Laps</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">index=None</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">copy=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>This class wraps <code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code> which is a classic pandas
+DataFrame with the addition of the <a class="reference internal" href="#fastf1.core.Laps.sel" title="fastf1.core.Laps.sel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sel()</span></code></a> method.</p>
+<dl class="method">
+<dt id="fastf1.core.Laps.sel">
+<code class="sig-name descname">sel</code><span class="sig-paren">(</span><em class="sig-param">_filter_</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.sel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.sel" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method allows to simplify usage and code readability.
+You can access useful lap entries quickly in combination with
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code>.</p>
+<p>If for example you want to get the fastest lap of Bottas you can
+narrow it down like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
+<span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">selectors</span> <span class="k">as</span> <span class="n">ect</span>
+
+<span class="n">laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="n">best_bottas</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">ect</span><span class="o">.</span><span class="n">driver</span><span class="p">(</span><span class="s1">&#39;BOT&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">ect</span><span class="o">.</span><span class="n">fastest</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">best_bottas</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">])</span>
+<span class="c1"># Timedelta(&#39;0 days 00:01:28.256000&#39;)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_filter_</strong> – selector function</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> or pandas Series if only 1 entry is left</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
