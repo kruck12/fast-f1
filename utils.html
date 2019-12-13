@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                v1.0.0
+                v1.1.1
               </div>
             
           
@@ -90,7 +90,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -163,11 +165,25 @@
 <dt id="fastf1.utils.CACHE_ENABLE">
 <code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">CACHE_ENABLE</code><em class="property"> = True</em><a class="headerlink" href="#fastf1.utils.CACHE_ENABLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/Disable cache for parsed data (Everything under
-./F1_Data). Note that raw requests are still cached, data is quite fixed
-and shouldn’t really change..</p>
+./F1_Data). Note that raw http requests are still cached, data is quite
+fixed and shouldn’t really change..</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>Boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="fastf1.utils.clear_cache">
+<code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">clear_cache</code><span class="sig-paren">(</span><em class="sig-param">deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#clear_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.utils.clear_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is exposed at package level. It removes from disk
+cached data. Just in case you feel the need of a fresh start or you
+have too much bytes laying around. Use it with parsimony.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deep</strong> (<em>=False</em><em>, </em><em>optional</em>) – If true, going for removal of http
+cache as well.</p>
 </dd>
 </dl>
 </dd></dl>

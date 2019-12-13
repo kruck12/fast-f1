@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="fastf1.api - Api module" href="api.html" />
+    <link rel="next" title="fastf1.selectors - Selectors module" href="selectors.html" />
     <link rel="prev" title="Introduction" href="fastf1.html" /> 
 </head>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.0.0
+                v1.1.1
               </div>
             
           
@@ -91,7 +91,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -279,8 +281,9 @@ stored locally. Each dataframe entry has the following columns:</p>
 <li><dl class="simple">
 <dt><cite>telemetry</cite>: (pandas dataframe of lap telemetry)</dt><dd><ul>
 <li><p><cite>Time</cite> (timedelta): Time axis (0 is start of lap)</p></li>
-<li><p><cite>RPM</cite> (int): Car RPM</p></li>
+<li><p><cite>Space</cite> (float): Space in meters (from speed and time)</p></li>
 <li><p><cite>Speed</cite> (float): Car speed</p></li>
+<li><p><cite>RPM</cite> (int): Car RPM</p></li>
 <li><p><cite>nGear</cite> (int): Car gear number</p></li>
 <li><p><cite>Throttle</cite> (float): 0-100 Throttle pedal pressure</p></li>
 <li><p><cite>Brake</cite> (float): 0-100 Brake pedal pressure</p></li>
@@ -291,6 +294,14 @@ stored locally. Each dataframe entry has the following columns:</p>
 </li>
 </ul>
 </div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Absolute time is not super accurate. The moment a lap
+is logged is not always the same and there will be some
+jitter. At the moment absolute lap time reference is set to
+when “Sector 1” time is fired. Expect an error of ±10m when
+overlapping telemetry data of different laps.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>laps</p>
@@ -316,7 +327,7 @@ DataFrame with the addition of the <a class="reference internal" href="#fastf1.c
 <code class="sig-name descname">sel</code><span class="sig-paren">(</span><em class="sig-param">_filter_</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.sel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.sel" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method allows to simplify usage and code readability.
 You can access useful lap entries quickly in combination with
-<code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code>.</p>
+<a class="reference internal" href="selectors.html#module-fastf1.selectors" title="fastf1.selectors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code></a>.</p>
 <p>If for example you want to get the fastest lap of Bottas you can
 narrow it down like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
@@ -386,7 +397,7 @@ narrow it down like this:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api.html" class="btn btn-neutral float-right" title="fastf1.api - Api module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="selectors.html" class="btn btn-neutral float-right" title="fastf1.selectors - Selectors module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="fastf1.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

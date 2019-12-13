@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.0.0
+                v1.1.1
               </div>
             
           
@@ -91,7 +91,9 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -163,8 +165,8 @@
 <dl class="simple">
 <dt>This package features two main online sources of data:</dt><dd><ul class="simple">
 <li><p>The official f1 data stream -&gt;
-<a class="reference external" href="https://www.formula1.com/en/f1-live.html">link</a></p></li>
-<li><p>Ergast web api -&gt; <a class="reference external" href="http://ergast.com/mrd/">link</a></p></li>
+<a class="reference external" href="https://www.formula1.com/en/f1-live.html">f1-live</a></p></li>
+<li><p>Ergast web api -&gt; <a class="reference external" href="http://ergast.com/mrd/">ergast.com</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -210,6 +212,48 @@ information is stored locally as cached requests (be aware).</p>
 </pre></div>
 </div>
 <a class="reference external image-reference" href="_static/gettingstarted.svg"><img alt="_images/gettingstarted.svg" src="_images/gettingstarted.svg" /></a>
+</div>
+<div class="section" id="package-functions">
+<h1>Package functions<a class="headerlink" href="#package-functions" title="Permalink to this headline">¶</a></h1>
+<p>Available functions directly accessible from fastf1 package</p>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_session</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">gp</em>, <em class="sig-param">event=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Main core function, also the only to be exposed at package level.
+It will take care of crafting an object corresponding to the
+requested session. If not specified, full weekend is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> – session year (Tested only with 2019)</p></li>
+<li><p><strong>gp</strong> – name or weekend number (1: Australia, …, 21: Abu Dhabi)
+if gp is a string, a fuzzy match will be performed on the
+season rounds and the most likely will be selected.
+‘bahrain’, ‘australia’, ‘abudabi’ are some of the examples
+that you can pass and the correct week will be selected.</p></li>
+<li><p><strong>event</strong> (<em>=None</em>) – may be ‘R’ or ‘Q’, full weekend otherwise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="core.html#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a> or <a class="reference internal" href="core.html#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">clear_cache</code><span class="sig-paren">(</span><em class="sig-param">deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#clear_cache"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This function is exposed at package level. It removes from disk
+cached data. Just in case you feel the need of a fresh start or you
+have too much bytes laying around. Use it with parsimony.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deep</strong> (<em>=False</em><em>, </em><em>optional</em>) – If true, going for removal of http
+cache as well.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

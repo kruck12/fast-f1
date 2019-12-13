@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.0.0
+                v1.1.1
               </div>
             
           
@@ -89,6 +89,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
@@ -167,7 +168,6 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">zlib</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">requests_cache</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -175,7 +175,6 @@
 
 
 <span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://livetiming.formula1.com&#39;</span>
-<span class="n">requests_cache</span><span class="o">.</span><span class="n">install_cache</span><span class="p">(</span><span class="s1">&#39;formula1_cache&#39;</span><span class="p">,</span> <span class="n">allowable_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">))</span>
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">&#39;Host&#39;</span><span class="p">:</span> <span class="s1">&#39;livetiming.formula1.com&#39;</span><span class="p">,</span>
@@ -210,16 +209,6 @@
 <span class="p">}</span>
 <span class="sd">&quot;&quot;&quot;Known requests</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="c1"># Some notes on notation:</span>
-<span class="c1"># - line: driver position</span>
-
-
-<span class="c1">#def load(name, date, session):</span>
-<span class="c1">#    data = {}</span>
-<span class="c1">#    path = make_path(name, date, session)</span>
-<span class="c1">#    data[&#39;car_data&#39;] = car_data(path)</span>
-<span class="c1">#    data[&#39;position&#39;] = position(path)</span>
-<span class="c1">#    return data</span>
 
 
 <div class="viewcode-block" id="make_path"><a class="viewcode-back" href="../../api.html#fastf1.api.make_path">[docs]</a><span class="k">def</span> <span class="nf">make_path</span><span class="p">(</span><span class="n">wname</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
@@ -274,6 +263,8 @@
     <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">laps_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
         <span class="n">d1</span> <span class="o">=</span> <span class="n">laps_data</span><span class="p">[</span><span class="n">laps_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
         <span class="n">d2</span> <span class="o">=</span> <span class="n">useful</span><span class="p">[</span><span class="n">useful</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
+        <span class="n">d1</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+        <span class="n">d2</span> <span class="o">=</span> <span class="n">d2</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;Driver&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">stint</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Stint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
             <span class="n">sel</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Stint&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">stint</span>
@@ -306,6 +297,8 @@
     <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_data&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;Lines&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">continue</span>
         <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Position&#39;</span><span class="p">:</span> <span class="p">[],</span>
@@ -343,7 +336,7 @@
     <span class="k">return</span> <span class="n">df</span>
 
 
-<span class="k">def</span> <span class="nf">_timing_data_laps</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_timing_data_laps</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="p">{}):</span>
     <span class="sd">&quot;&quot;&quot;Path is mandatory to target cache file, but pre-fetched response</span>
 <span class="sd">    can be fed if other functions parse the same raw data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -351,9 +344,11 @@
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_data&#39;</span><span class="p">)</span>
     <span class="n">data</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="p">{},</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;Lines&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">continue</span>
         <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">_timing_data_laps_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-    
+            <span class="n">data</span><span class="p">,</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">_timing_data_laps_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+
     <span class="n">empty_check</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Driver&#39;</span><span class="p">]]</span>
     <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
@@ -373,7 +368,7 @@
     <span class="k">return</span> <span class="n">df</span>
 
 
-<span class="k">def</span> <span class="nf">_timing_data_laps_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{}):</span>
+<span class="k">def</span> <span class="nf">_timing_data_laps_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">flags</span><span class="o">=</span><span class="p">{}):</span>
     <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LastLapTime&#39;</span><span class="p">:[],</span>
                         <span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">:[],</span> <span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">:</span> <span class="p">[],</span>
@@ -381,24 +376,28 @@
                         <span class="s1">&#39;Sector1Time&#39;</span><span class="p">:[],</span> <span class="s1">&#39;Sector2Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">:</span> <span class="p">[],</span>
                         <span class="s1">&#39;SpeedI1&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;SpeedI2&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;SpeedFL&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;SpeedST&#39;</span><span class="p">:[]}</span>
         <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]]</span>
-    <span class="n">time</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">block</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">driver</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">:</span>
+        <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time_reference&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="s1">&#39;locked_times&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">]}</span>
 
+    <span class="n">time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">block</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">driver</span><span class="p">]</span>
     <span class="c1"># i is the row index that this block has to populate. The</span>
     <span class="c1"># arrival of information is a bit randomic. It is assumed that</span>
     <span class="c1"># if something arrives 5s after a new record is created, it</span>
     <span class="c1"># still belongs to the lap before</span>
     <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">block_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> 
-        <span class="n">last_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
-        <span class="k">if</span> <span class="n">block_time</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">last_time</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;5s&#39;</span><span class="p">)):</span>
+        <span class="n">last_time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">last_time</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;5s&#39;</span><span class="p">)):</span>
             <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
 
+    <span class="n">no_time_reference</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="n">no_locked_time</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;locked_times&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
     <span class="c1"># Final word on time remains to NumberOfLaps, but this</span>
     <span class="c1"># keeps also the last entry populated (in quali can be inlap)</span>
-    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">driver</span>
+    <span class="k">if</span> <span class="n">no_locked_time</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">driver</span>
 
     <span class="c1"># The easy one</span>
     <span class="k">if</span> <span class="s1">&#39;NumberOfPitStops&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
@@ -406,6 +405,7 @@
 
     <span class="c1"># Sectors are flattened on three separated series</span>
     <span class="k">if</span> <span class="s1">&#39;Sectors&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
+        <span class="c1"># Sectors is a list only if all three are present</span>
         <span class="k">for</span> <span class="n">_n</span><span class="p">,</span> <span class="n">sector</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">]):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="c1"># For this trip of pure consistency, we have that</span>
@@ -414,6 +414,42 @@
                 <span class="n">sector</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">_n</span><span class="p">)]</span>
             <span class="k">if</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">sector</span><span class="p">:</span>
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;Sector{str(_n+1)}Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sector</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span>
+            <span class="c1"># Sectors are used to calculate the sacred time reference.</span>
+            <span class="c1"># Following block has the only purpose to find the time with</span>
+            <span class="c1"># minimum measure delay. Otherwise laps will be out of sync</span>
+            <span class="n">has_measure</span> <span class="o">=</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">sector</span> <span class="ow">and</span> <span class="n">sector</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">if</span> <span class="n">_n</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">has_measure</span> <span class="ow">and</span> <span class="n">no_time_reference</span><span class="p">:</span>
+                <span class="n">sector_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;00:00:&#39;</span> <span class="o">+</span> <span class="n">sector</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
+                <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;base&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+                                                      <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="n">sector_time</span><span class="p">,</span>
+                                                      <span class="s1">&#39;ts0&#39;</span><span class="p">:</span> <span class="n">sector_time</span><span class="p">}</span>
+            <span class="n">reference_has_ts0</span> <span class="o">=</span> <span class="p">(</span><span class="ow">not</span> <span class="n">no_time_reference</span>
+                                 <span class="ow">and</span> <span class="s1">&#39;ts0&#39;</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">_n</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">has_measure</span> <span class="ow">and</span> <span class="n">reference_has_ts0</span><span class="p">:</span>
+                <span class="n">sector_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;00:00:&#39;</span> <span class="o">+</span> <span class="n">sector</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
+                <span class="n">old_reference</span> <span class="o">=</span> <span class="p">(</span><span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span>
+                                 <span class="o">-</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">])</span>
+                <span class="n">new_delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">sector_time</span> 
+                             <span class="o">+</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts0&#39;</span><span class="p">])</span>
+                <span class="n">new_reference</span> <span class="o">=</span> <span class="n">time</span> <span class="o">-</span> <span class="n">new_delta</span>
+                <span class="k">if</span> <span class="n">new_reference</span> <span class="o">&lt;</span> <span class="n">old_reference</span><span class="p">:</span>
+                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_delta</span>
+                <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sector_time</span>
+            <span class="n">reference_has_ts01</span> <span class="o">=</span> <span class="p">(</span><span class="n">reference_has_ts0</span>
+                                  <span class="ow">and</span> <span class="s1">&#39;ts1&#39;</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">_n</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">has_measure</span> <span class="ow">and</span> <span class="n">reference_has_ts01</span><span class="p">:</span>
+                <span class="n">sector_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;00:00:&#39;</span> <span class="o">+</span> <span class="n">sector</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
+                <span class="n">old_reference</span> <span class="o">=</span> <span class="p">(</span><span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span>
+                                 <span class="o">-</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">])</span>
+                <span class="n">new_delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">sector_time</span> 
+                             <span class="o">+</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts1&#39;</span><span class="p">]</span>
+                             <span class="o">+</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts0&#39;</span><span class="p">])</span>
+                <span class="n">new_reference</span> <span class="o">=</span> <span class="n">time</span> <span class="o">-</span> <span class="n">new_delta</span>
+                <span class="k">if</span> <span class="n">new_reference</span> <span class="o">&lt;</span> <span class="n">old_reference</span><span class="p">:</span>
+                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_delta</span>
+                <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sector_time</span>
 
     <span class="c1"># Same for speed traps</span>
     <span class="k">if</span> <span class="s1">&#39;Speeds&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
@@ -431,19 +467,31 @@
 
     <span class="c1"># Populate LastLapTime only if value is given sometimes it</span>
     <span class="c1"># tells it was personal best or something but nobody cares</span>
-    <span class="c1"># just use .min()</span>
+    <span class="c1"># just use .min() This is the last entry of a lap usually.</span>
     <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;LastLapTime&#39;</span> <span class="ow">in</span> <span class="n">block</span>
         <span class="ow">and</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">]</span>
         <span class="ow">and</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span>
+            <span class="c1"># Tricky tricks to discover with &#39;accuracy&#39;</span>
+            <span class="c1"># when lap time has been set</span>
+            <span class="n">lap_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;00:&#39;</span> <span class="o">+</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
+            <span class="n">time_reference</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">time_reference</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> 
+                <span class="n">lap_start_time</span> <span class="o">=</span> <span class="n">time_reference</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">time_reference</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lap_start_time</span> <span class="o">+</span> <span class="n">lap_time</span> 
+                <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;locked_times&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># Number of laps triggers a new entry it looks like always</span>
-    <span class="c1"># comes before LastLapTime, so is used as time reference</span>
+    <span class="c1"># comes before LastLapTime.</span>
+    <span class="c1"># Unless bottas qualifies under red flag in Monza but is later </span>
+    <span class="c1"># convalidated, but we are bullet proof against that as well, apart</span>
+    <span class="c1"># pit stop time. sorry.</span>
     <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">):</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
         <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span>
         <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]]</span>
-    <span class="k">return</span> <span class="n">data</span>
+        <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;locked_times&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">flags</span>
 
 
 <div class="viewcode-block" id="timing_app_data"><a class="viewcode-back" href="../../api.html#fastf1.api.timing_app_data">[docs]</a><span class="k">def</span> <span class="nf">timing_app_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
