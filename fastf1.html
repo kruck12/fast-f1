@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.1
+                v1.1.2
               </div>
             
           
@@ -219,9 +219,9 @@ information is stored locally as cached requests (be aware).</p>
 <dl class="function">
 <dt>
 <code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_session</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">gp</em>, <em class="sig-param">event=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Main core function, also the only to be exposed at package level.
-It will take care of crafting an object corresponding to the
-requested session. If not specified, full weekend is returned.</p>
+<dd><p>Main core function. It will take care of crafting an object
+corresponding to the requested session.
+If not specified, full weekend is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -231,7 +231,8 @@ if gp is a string, a fuzzy match will be performed on the
 season rounds and the most likely will be selected.
 ‘bahrain’, ‘australia’, ‘abudabi’ are some of the examples
 that you can pass and the correct week will be selected.</p></li>
-<li><p><strong>event</strong> (<em>=None</em>) – may be ‘R’ or ‘Q’, full weekend otherwise.</p></li>
+<li><p><strong>event</strong> (<em>=None</em>) – may be ‘FP1’, ‘FP2’, ‘FP3’, ‘Q’ or ‘R’, if not
+specified you get the full <a class="reference internal" href="core.html#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -243,9 +244,11 @@ that you can pass and the correct week will be selected.</p></li>
 <dl class="function">
 <dt>
 <code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">clear_cache</code><span class="sig-paren">(</span><em class="sig-param">deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#clear_cache"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>This function is exposed at package level. It removes from disk
-cached data. Just in case you feel the need of a fresh start or you
-have too much bytes laying around. Use it with parsimony.</p>
+<dd><p>Removes from disk cached data. Just in case you feel the need of
+a fresh start or you have too much bytes laying around.
+Use it with parsimony. In case of major update you may want to call
+this function, which will solve conflicts rising on unexpected data
+structures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>deep</strong> (<em>=False</em><em>, </em><em>optional</em>) – If true, going for removal of http

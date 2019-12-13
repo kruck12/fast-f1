@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.1.1
+                v1.1.2
               </div>
             
           
@@ -179,10 +179,12 @@
 <span class="n">requests_cache</span><span class="o">.</span><span class="n">install_cache</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CACHE_PATH</span><span class="p">,</span> <span class="s1">&#39;fastf1_http_cache&#39;</span><span class="p">),</span>
                              <span class="n">allowable_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">))</span>
 
-<div class="viewcode-block" id="clear_cache"><a class="viewcode-back" href="../../fastf1.html#fastf1.utils.clear_cache">[docs]</a><span class="k">def</span> <span class="nf">clear_cache</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This function is exposed at package level. It removes from disk</span>
-<span class="sd">    cached data. Just in case you feel the need of a fresh start or you</span>
-<span class="sd">    have too much bytes laying around. Use it with parsimony.</span>
+<div class="viewcode-block" id="clear_cache"><a class="viewcode-back" href="../../utils.html#fastf1.utils.clear_cache">[docs]</a><span class="k">def</span> <span class="nf">clear_cache</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Removes from disk cached data. Just in case you feel the need of</span>
+<span class="sd">    a fresh start or you have too much bytes laying around.</span>
+<span class="sd">    Use it with parsimony. In case of major update you may want to call</span>
+<span class="sd">    this function, which will solve conflicts rising on unexpected data</span>
+<span class="sd">    structures.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        deep (=False, optional): If true, going for removal of http</span>

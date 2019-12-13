@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.1
+                v1.1.2
               </div>
             
           
@@ -165,9 +165,9 @@
 <dl class="function">
 <dt id="fastf1.core.get_session">
 <code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_session</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">gp</em>, <em class="sig-param">event=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.get_session" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main core function, also the only to be exposed at package level.
-It will take care of crafting an object corresponding to the
-requested session. If not specified, full weekend is returned.</p>
+<dd><p>Main core function. It will take care of crafting an object
+corresponding to the requested session.
+If not specified, full weekend is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -177,7 +177,8 @@ if gp is a string, a fuzzy match will be performed on the
 season rounds and the most likely will be selected.
 ‘bahrain’, ‘australia’, ‘abudabi’ are some of the examples
 that you can pass and the correct week will be selected.</p></li>
-<li><p><strong>event</strong> (<em>=None</em>) – may be ‘R’ or ‘Q’, full weekend otherwise.</p></li>
+<li><p><strong>event</strong> (<em>=None</em>) – may be ‘FP1’, ‘FP2’, ‘FP3’, ‘Q’ or ‘R’, if not
+specified you get the full <a class="reference internal" href="#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                v1.1.1
+                v1.1.2
               </div>
             
           
@@ -177,9 +177,11 @@ fixed and shouldn’t really change..</p>
 <dl class="function">
 <dt id="fastf1.utils.clear_cache">
 <code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">clear_cache</code><span class="sig-paren">(</span><em class="sig-param">deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#clear_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.utils.clear_cache" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function is exposed at package level. It removes from disk
-cached data. Just in case you feel the need of a fresh start or you
-have too much bytes laying around. Use it with parsimony.</p>
+<dd><p>Removes from disk cached data. Just in case you feel the need of
+a fresh start or you have too much bytes laying around.
+Use it with parsimony. In case of major update you may want to call
+this function, which will solve conflicts rising on unexpected data
+structures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>deep</strong> (<em>=False</em><em>, </em><em>optional</em>) – If true, going for removal of http
