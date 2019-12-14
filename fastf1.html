@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.2
+                v1.1.4
               </div>
             
           
@@ -93,7 +93,6 @@
 <li class="toctree-l1"><a class="reference internal" href="#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -194,10 +193,9 @@ information is stored locally as cached requests (be aware).</p>
 <p>For some more advanced stuff, just a few more steps:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">plotting</span>
-<span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">selectors</span> <span class="k">as</span> <span class="n">ect</span>
 
 <span class="n">laps</span> <span class="o">=</span> <span class="n">monza_quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
-<span class="n">fast_leclerc</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">ect</span><span class="o">.</span><span class="n">driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">ect</span><span class="o">.</span><span class="n">fastest</span><span class="p">)</span>
+<span class="n">fast_leclerc</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">fast_leclerc</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
 <span class="n">vCar</span> <span class="o">=</span> <span class="n">fast_leclerc</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">]</span>
 

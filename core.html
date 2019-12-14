@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="fastf1.selectors - Selectors module" href="selectors.html" />
+    <link rel="next" title="&lt;no title&gt;" href="selectors.html" />
     <link rel="prev" title="Introduction" href="fastf1.html" /> 
 </head>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.2
+                v1.1.4
               </div>
             
           
@@ -93,7 +93,6 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -322,33 +321,61 @@ overlapping telemetry data of different laps.</p>
 <em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Laps</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">index=None</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">copy=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
 <p>This class wraps <code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code> which is a classic pandas
-DataFrame with the addition of the <a class="reference internal" href="#fastf1.core.Laps.sel" title="fastf1.core.Laps.sel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sel()</span></code></a> method.</p>
-<dl class="method">
-<dt id="fastf1.core.Laps.sel">
-<code class="sig-name descname">sel</code><span class="sig-paren">(</span><em class="sig-param">_filter_</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.sel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.sel" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method allows to simplify usage and code readability.
-You can access useful lap entries quickly in combination with
-<a class="reference internal" href="selectors.html#module-fastf1.selectors" title="fastf1.selectors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code></a>.</p>
+DataFrame with the addition of a few ‘pick’ methods to simplify lap
+selection and filtering.</p>
 <p>If for example you want to get the fastest lap of Bottas you can
 narrow it down like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
-<span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">selectors</span> <span class="k">as</span> <span class="n">ect</span>
 
 <span class="n">laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
-<span class="n">best_bottas</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">ect</span><span class="o">.</span><span class="n">driver</span><span class="p">(</span><span class="s1">&#39;BOT&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">ect</span><span class="o">.</span><span class="n">fastest</span><span class="p">)</span>
+<span class="n">best_bottas</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;BOT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">best_bottas</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">])</span>
 <span class="c1"># Timedelta(&#39;0 days 00:01:28.256000&#39;)</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>_filter_</strong> – selector function</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> or pandas Series if only 1 entry is left</p>
-</dd>
-</dl>
+<p>Pick methods will return <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> or pandas Series if only 1
+entry is left.</p>
+<dl class="attribute">
+<dt id="fastf1.core.Laps.QUICKLAP_THRESHOLD">
+<code class="sig-name descname">QUICKLAP_THRESHOLD</code><em class="property"> = 1.07</em><a class="headerlink" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Laps.pick_driver">
+<code class="sig-name descname">pick_driver</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select driver given his three letters identifier</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Laps.pick_drivers">
+<code class="sig-name descname">pick_drivers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select drivers given a list of their three letters identifiers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Laps.pick_team">
+<code class="sig-name descname">pick_team</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select team given its name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Laps.pick_teams">
+<code class="sig-name descname">pick_teams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select teams given a list of names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Laps.pick_fastest">
+<code class="sig-name descname">pick_fastest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_fastest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_fastest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select fastest lap time</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Laps.pick_quicklaps">
+<code class="sig-name descname">pick_quicklaps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select laps with lap time below <a class="reference internal" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="fastf1.core.Laps.QUICKLAP_THRESHOLD"><code class="xref py py-attr docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code></a>
+(default 107%) of the fastest lap from the given laps set</p>
 </dd></dl>
 
 </dd></dl>
@@ -398,7 +425,7 @@ narrow it down like this:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="selectors.html" class="btn btn-neutral float-right" title="fastf1.selectors - Selectors module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="selectors.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="fastf1.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

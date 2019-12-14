@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="fastf1.utils - Utils module" href="utils.html" />
-    <link rel="prev" title="fastf1.selectors - Selectors module" href="selectors.html" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="selectors.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.2
+                v1.1.4
               </div>
             
           
@@ -93,7 +93,6 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -189,22 +188,6 @@ requests.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="fastf1.api.summary">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">summary</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>From <cite>timing_data</cite> and <cite>timing_app_data</cite> a summary table is
-built. Lap by lap, information on tyre, sectors and times are
-organised in an accessible pandas data frame.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> – path returned from <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pandas dataframe</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
 <dt id="fastf1.api.timing_data">
 <code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">timing_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Timing data is a mixed stream of information of each driver.
@@ -226,9 +209,8 @@ information is passed to the summary table.</p>
 <dl class="function">
 <dt id="fastf1.api.car_data">
 <code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">car_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch and create pandas dataframe for Telemetry. Cached data is
-used if already fetched.</p>
-<p>Samples are not synchronised with the other dataframes and sampling
+<dd><p>Fetch and create pandas dataframe for Telemetry.
+Samples are not synchronised with the other dataframes and sampling
 time is not constant, usually 240ms but sometimes can be ~270ms.
 Keep absolute reference.</p>
 <dl class="simple">
@@ -252,8 +234,7 @@ Keep absolute reference.</p>
 <dl class="function">
 <dt id="fastf1.api.position">
 <code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.position" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch and create pandas dataframe for Position. Cached data is
-used if already fetched.</p>
+<dd><p>Fetch and create pandas dataframe for Position.</p>
 <p>Samples are not synchronised with the other dataframes and sampling
 time is not constant, usually 300ms but sometimes can be ~200ms.
 Keep absolute reference.</p>
@@ -314,7 +295,7 @@ parsed with <a class="reference internal" href="#fastf1.api.parse" title="fastf1
         <a href="utils.html" class="btn btn-neutral float-right" title="fastf1.utils - Utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="selectors.html" class="btn btn-neutral float-left" title="fastf1.selectors - Selectors module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="selectors.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

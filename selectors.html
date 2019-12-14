@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>fastf1.selectors - Selectors module &mdash; Fast F1  documentation</title>
+  <title>&lt;no title&gt; &mdash; Fast F1  documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.2
+                v1.1.4
               </div>
             
           
@@ -88,12 +88,11 @@
 <li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -141,7 +140,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</li>
+      <li>&lt;no title&gt;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -160,49 +159,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-fastf1.selectors"></span><div class="section" id="fastf1-selectors-selectors-module">
-<h1><a class="reference internal" href="#module-fastf1.selectors" title="fastf1.selectors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code></a> - Selectors module<a class="headerlink" href="#fastf1-selectors-selectors-module" title="Permalink to this headline">¶</a></h1>
-<p>This module provides a set of functions to be used in combination with
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">fastf1.core.Lap.sel()</span></code>.</p>
-<dl class="function">
-<dt id="fastf1.selectors.driver">
-<code class="sig-prename descclassname">fastf1.selectors.</code><code class="sig-name descname">driver</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/selectors.html#driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.selectors.driver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select driver given his three letters identifier</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="fastf1.selectors.drivers">
-<code class="sig-prename descclassname">fastf1.selectors.</code><code class="sig-name descname">drivers</code><span class="sig-paren">(</span><em class="sig-param">names</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/selectors.html#drivers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.selectors.drivers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select drivers given a list of their three letters identifiers</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="fastf1.selectors.team">
-<code class="sig-prename descclassname">fastf1.selectors.</code><code class="sig-name descname">team</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/selectors.html#team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.selectors.team" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select team given its name</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="fastf1.selectors.teams">
-<code class="sig-prename descclassname">fastf1.selectors.</code><code class="sig-name descname">teams</code><span class="sig-paren">(</span><em class="sig-param">names</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/selectors.html#teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.selectors.teams" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select teams given a list of names</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="fastf1.selectors.fastest">
-<code class="sig-prename descclassname">fastf1.selectors.</code><code class="sig-name descname">fastest</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/selectors.html#fastest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.selectors.fastest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select fastest lap time</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="fastf1.selectors.quicklaps">
-<code class="sig-prename descclassname">fastf1.selectors.</code><code class="sig-name descname">quicklaps</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/selectors.html#quicklaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.selectors.quicklaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select laps with lap time below <code class="xref py py-attr docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code>
-(default 107%) of the fastest lap from the given laps set</p>
-</dd></dl>
-
-</div>
-
+  
 
            </div>
            

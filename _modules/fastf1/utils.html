@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.1.2
+                v1.1.4
               </div>
             
           
@@ -91,7 +91,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -189,7 +188,6 @@
 <span class="sd">    Args:</span>
 <span class="sd">        deep (=False, optional): If true, going for removal of http</span>
 <span class="sd">                                 cache as well.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_names</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">CACHE_PATH</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">file_names</span><span class="p">:</span>
@@ -199,24 +197,9 @@
         <span class="n">requests_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
 
-<span class="n">_CACHED_PANDA_ENABLE</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="k">def</span> <span class="nf">_cached_panda</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">_CACHED_PANDA_ENABLE</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="n">pkl</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{CACHE_PATH}</span><span class="s2">/{&#39;_&#39;.join(path.split(&#39;/&#39;)[-3:-1])}_</span><span class="si">{name}</span><span class="s2">.pkl&quot;</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">pkl</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hit cache for </span><span class="si">{pkl}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">pkl</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">CACHE_PATH</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">pkl</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">df</span>
-    <span class="k">return</span> <span class="n">decorator</span>
+<span class="k">def</span> <span class="nf">laps_file_name</span><span class="p">(</span><span class="n">api_path</span><span class="p">):</span>
+    <span class="c1"># api path used as session identifier</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;{&#39;_&#39;.join(api_path.split(&#39;/&#39;)[-3:-1])}_laps.pkl&quot;</span>
 
 
 <span class="k">def</span> <span class="nf">_cached_laps</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -234,11 +217,6 @@
             <span class="n">laps</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">pkl</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">laps</span>
     <span class="k">return</span> <span class="n">decorator</span>
-
-
-<span class="k">def</span> <span class="nf">laps_file_name</span><span class="p">(</span><span class="n">api_path</span><span class="p">):</span>
-    <span class="c1"># api path used as session identifier</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;{&#39;_&#39;.join(api_path.split(&#39;/&#39;)[-3:-1])}_laps.pkl&quot;</span>
 </pre></div>
 
            </div>

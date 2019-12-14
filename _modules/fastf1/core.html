@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.1.2
+                v1.1.4
               </div>
             
           
@@ -91,7 +91,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../selectors.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.selectors</span></code> - Selectors module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 </ul>
@@ -168,6 +167,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">functools</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 
 
@@ -353,11 +353,42 @@
         <span class="k">return</span> <span class="n">lookup</span>
 
     <span class="k">def</span> <span class="nf">_load_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load summary data to be associated for each lap.</span>
+        <span class="sd">&quot;&quot;&quot;From `timing_data` and `timing_app_data` a summary table is</span>
+<span class="sd">        built. Lap by lap, information on tyre, sectors and times are </span>
+<span class="sd">        organised in an accessible pandas data frame.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path: path returned from :func:`make_path`</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas dataframe</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Getting summary...&quot;</span><span class="p">)</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
+        <span class="n">laps_data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">timing_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
+        <span class="n">laps_app_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">timing_app_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
+        <span class="c1"># Now we do some manipulation to make it beautiful</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Formatting summary...&quot;</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">laps_data</span><span class="p">[</span><span class="s1">&#39;Stint&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">laps_data</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">laps_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Matching laps_data and laps_app_data. Not super straightworward</span>
+        <span class="c1"># Sometimes a car may enter the pit without changing tyres, so</span>
+        <span class="c1"># new compound is associated with the help of logging time.</span>
+        <span class="n">useful</span> <span class="o">=</span> <span class="n">laps_app_data</span><span class="p">[[</span><span class="s1">&#39;Driver&#39;</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Compound&#39;</span><span class="p">,</span> <span class="s1">&#39;TotalLaps&#39;</span><span class="p">,</span> <span class="s1">&#39;New&#39;</span><span class="p">]]</span>
+        <span class="n">useful</span> <span class="o">=</span> <span class="n">useful</span><span class="p">[</span><span class="o">~</span><span class="n">useful</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
+        <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">laps_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+            <span class="n">d1</span> <span class="o">=</span> <span class="n">laps_data</span><span class="p">[</span><span class="n">laps_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
+            <span class="n">d2</span> <span class="o">=</span> <span class="n">useful</span><span class="p">[</span><span class="n">useful</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
+            <span class="n">d1</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+            <span class="n">d2</span> <span class="o">=</span> <span class="n">d2</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;Driver&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">stint</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Stint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+                <span class="n">sel</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Stint&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">stint</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sel</span><span class="p">,</span> <span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sel</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">result</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">result</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>    
+        <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;TotalLaps&#39;</span><span class="p">:</span> <span class="s1">&#39;TyreLife&#39;</span><span class="p">,</span> <span class="s1">&#39;New&#39;</span><span class="p">:</span> <span class="s1">&#39;FreshTyre&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">numbers</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span>
         <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span>
         <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_team_map</span><span class="p">())</span>
@@ -365,15 +396,6 @@
         <span class="n">summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">:</span> <span class="s1">&#39;LapTime&#39;</span><span class="p">,</span>
                                  <span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">:</span> <span class="s1">&#39;LapNumber&#39;</span><span class="p">},</span>
                                  <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">__time_formatter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;00:&#39;</span> <span class="o">+</span> <span class="n">x</span>
-        <span class="n">formatted_time</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">__time_formatter</span><span class="p">)</span>
-        <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">formatted_time</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;PitOutTime&#39;</span><span class="p">,</span> <span class="s1">&#39;PitInTime&#39;</span><span class="p">]:</span>
-            <span class="n">summary</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Sector1Time&#39;</span><span class="p">,</span><span class="s1">&#39;Sector2Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">]:</span>
-            <span class="n">numeric</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-            <span class="n">summary</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">numeric</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">summary</span>
 
     <span class="k">def</span> <span class="nf">_load_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -382,7 +404,6 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Getting telemetry data...&quot;</span><span class="p">)</span>
         <span class="n">car_data</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">car_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">),</span> <span class="p">{}</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing temetry...&quot;</span><span class="p">)</span>
-        <span class="n">car_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">car_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">_drv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
             <span class="n">to_pass</span> <span class="o">=</span> <span class="n">car_data</span><span class="p">[</span><span class="n">car_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">_drv</span><span class="p">]</span> <span class="c1"># 30 % time</span>
             <span class="n">res</span><span class="p">[</span><span class="n">_drv</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resample</span><span class="p">(</span><span class="n">to_pass</span><span class="p">)</span> <span class="c1"># 70 % time</span>
@@ -475,35 +496,70 @@
 
 <div class="viewcode-block" id="Laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps">[docs]</a><span class="k">class</span> <span class="nc">Laps</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class wraps :attr:`Session.laps` which is a classic pandas</span>
-<span class="sd">    DataFrame with the addition of the :meth:`sel` method.</span>
+<span class="sd">    DataFrame with the addition of a few &#39;pick&#39; methods to simplify lap</span>
+<span class="sd">    selection and filtering.</span>
+
+<span class="sd">    If for example you want to get the fastest lap of Bottas you can</span>
+<span class="sd">    narrow it down like this::</span>
+
+<span class="sd">        import fastf1 as ff1</span>
+
+<span class="sd">        laps = ff1.get_session(2019, &#39;Bahrain&#39;, &#39;Q&#39;).load_laps()</span>
+<span class="sd">        best_bottas = laps.pick_driver(&#39;BOT&#39;).pick_fastest()</span>
+
+<span class="sd">        print(best_bottas[&#39;LapTime&#39;])</span>
+<span class="sd">        # Timedelta(&#39;0 days 00:01:28.256000&#39;)</span>
+
+<span class="sd">    Pick methods will return :class:`Laps` or pandas Series if only 1</span>
+<span class="sd">    entry is left.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Laps.sel"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.sel">[docs]</a>    <span class="k">def</span> <span class="nf">sel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_filter_</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This method allows to simplify usage and code readability.</span>
-<span class="sd">        You can access useful lap entries quickly in combination with</span>
-<span class="sd">        :mod:`fastf1.selectors`.</span>
+    <span class="n">QUICKLAP_THRESHOLD</span> <span class="o">=</span> <span class="mf">1.07</span>
 
-<span class="sd">        If for example you want to get the fastest lap of Bottas you can</span>
-<span class="sd">        narrow it down like this::</span>
+    <span class="k">def</span> <span class="nf">__pick_wrap</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Laps</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">res</span>
+        <span class="k">return</span> <span class="n">decorator</span>
 
-<span class="sd">            import fastf1 as ff1</span>
-<span class="sd">            from fastf1 import selectors as ect    </span>
-
-<span class="sd">            laps = ff1.get_session(2019, &#39;Bahrain&#39;, &#39;Q&#39;).load_laps()</span>
-<span class="sd">            best_bottas = laps.sel(ect.driver(&#39;BOT&#39;)).sel(ect.fastest)</span>
-
-<span class="sd">            print(best_bottas[&#39;LapTime&#39;])</span>
-<span class="sd">            # Timedelta(&#39;0 days 00:01:28.256000&#39;)</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            _filter_: selector function</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            :class:`Laps` or pandas Series if only 1 entry is left</span>
-<span class="sd">    </span>
+<div class="viewcode-block" id="Laps.pick_driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_driver">[docs]</a>    <span class="nd">@__pick_wrap</span>
+    <span class="k">def</span> <span class="nf">pick_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Select driver given his three letters identifier</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">_filter_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Laps</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">res</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Laps.pick_drivers"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_drivers">[docs]</a>    <span class="nd">@__pick_wrap</span>
+    <span class="k">def</span> <span class="nf">pick_drivers</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Select drivers given a list of their three letters identifiers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">names</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="Laps.pick_team"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_team">[docs]</a>    <span class="nd">@__pick_wrap</span>
+    <span class="k">def</span> <span class="nf">pick_team</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Select team given its name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Laps.pick_teams"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_teams">[docs]</a>    <span class="nd">@__pick_wrap</span>
+    <span class="k">def</span> <span class="nf">pick_teams</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Select teams given a list of names</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">names</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="Laps.pick_fastest"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_fastest">[docs]</a>    <span class="nd">@__pick_wrap</span>
+    <span class="k">def</span> <span class="nf">pick_fastest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Select fastest lap time </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span></div>
+
+<div class="viewcode-block" id="Laps.pick_quicklaps"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_quicklaps">[docs]</a>    <span class="nd">@__pick_wrap</span>
+    <span class="k">def</span> <span class="nf">pick_quicklaps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Select laps with lap time below :attr:`QUICKLAP_THRESHOLD`</span>
+<span class="sd">        (default 107%) of the fastest lap from the given laps set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time_threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">*</span> <span class="n">Laps</span><span class="o">.</span><span class="n">QUICKLAP_THRESHOLD</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">time_threshold</span><span class="p">]</span></div></div>
 
 
 <div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">:</span>
@@ -545,8 +601,6 @@
 
     <span class="k">def</span> <span class="nf">_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">]</span></div>
-
-
 </pre></div>
 
            </div>
