@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="selectors.html" />
+    <link rel="next" title="fastf1.api - Api module" href="api.html" />
     <link rel="prev" title="Introduction" href="fastf1.html" /> 
 </head>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.4
+                v1.3.0
               </div>
             
           
@@ -288,6 +288,10 @@ stored locally. Each dataframe entry has the following columns:</p>
 <li><p><cite>Throttle</cite> (float): 0-100 Throttle pedal pressure</p></li>
 <li><p><cite>Brake</cite> (float): 0-100 Brake pedal pressure</p></li>
 <li><p><cite>DRS</cite> (int): DRS indicator</p></li>
+<li><p><cite>X</cite> (float): GPS X position (normalized)</p></li>
+<li><p><cite>Y</cite> (float): GPS X position (normalized)</p></li>
+<li><p><cite>Status</cite> (string): flags OffTrack/OnTrack for GPS</p></li>
+<li><p><cite>SessionTime</cite> (timedelta): time elapsed from session start</p></li>
 </ul>
 </dd>
 </dl>
@@ -425,7 +429,7 @@ entry is left.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="selectors.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api.html" class="btn btn-neutral float-right" title="fastf1.api - Api module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="fastf1.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

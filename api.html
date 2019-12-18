@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="fastf1.utils - Utils module" href="utils.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="selectors.html" /> 
+    <link rel="prev" title="fastf1.core - Core module" href="core.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.1.4
+                v1.3.0
               </div>
             
           
@@ -209,8 +209,9 @@ information is passed to the summary table.</p>
 <dl class="function">
 <dt id="fastf1.api.car_data">
 <code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">car_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch and create pandas dataframe for Telemetry.
-Samples are not synchronised with the other dataframes and sampling
+<dd><p>Fetch and create pandas dataframe for each driver containing
+Telemetry data.</p>
+<p>Samples are not synchronised with the other dataframes and sampling
 time is not constant, usually 240ms but sometimes can be ~270ms.
 Keep absolute reference.</p>
 <dl class="simple">
@@ -295,7 +296,7 @@ parsed with <a class="reference internal" href="#fastf1.api.parse" title="fastf1
         <a href="utils.html" class="btn btn-neutral float-right" title="fastf1.utils - Utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="selectors.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="core.html" class="btn btn-neutral float-left" title="fastf1.core - Core module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
