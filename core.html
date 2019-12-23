@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.3.0
+                v1.4.0
               </div>
             
           
@@ -302,9 +302,10 @@ stored locally. Each dataframe entry has the following columns:</p>
 <p class="admonition-title">Note</p>
 <p>Absolute time is not super accurate. The moment a lap
 is logged is not always the same and there will be some
-jitter. At the moment absolute lap time reference is set to
-when “Sector 1” time is fired. Expect an error of ±10m when
-overlapping telemetry data of different laps.</p>
+jitter. At the moment lap time reference is synchronised
+on the sector time triggered with lowest latency.
+Expect an error of around ±10m when overlapping telemetry
+data of different laps.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -353,19 +354,31 @@ entry is left.</p>
 
 <dl class="method">
 <dt id="fastf1.core.Laps.pick_drivers">
-<code class="sig-name descname">pick_drivers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pick_drivers</code><span class="sig-paren">(</span><em class="sig-param">names</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select drivers given a list of their three letters identifiers</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="fastf1.core.Laps.pick_driver_number">
+<code class="sig-name descname">pick_driver_number</code><span class="sig-paren">(</span><em class="sig-param">number</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select driver given his car number</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fastf1.core.Laps.pick_driver_numbers">
+<code class="sig-name descname">pick_driver_numbers</code><span class="sig-paren">(</span><em class="sig-param">numbers</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver_numbers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select drivers given their car numbers</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="fastf1.core.Laps.pick_team">
-<code class="sig-name descname">pick_team</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pick_team</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select team given its name</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="fastf1.core.Laps.pick_teams">
-<code class="sig-name descname">pick_teams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pick_teams</code><span class="sig-paren">(</span><em class="sig-param">names</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select teams given a list of names</p>
 </dd></dl>
 
@@ -417,6 +430,12 @@ entry is left.</p>
 <dd><p>Team name</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="fastf1.core.ETL">
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">ETL</code><span class="sig-paren">(</span><em class="sig-param">api_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#ETL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.ETL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 </div>
