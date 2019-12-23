@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.4.0
+                v1.4.1
               </div>
             
           
@@ -317,8 +317,11 @@
 <span class="sd">                - `DRS` (int): DRS indicator</span>
 <span class="sd">                - `X` (float): GPS X position (normalized)</span>
 <span class="sd">                - `Y` (float): GPS X position (normalized)</span>
+<span class="sd">                - `Z` (float): GPS Z position (normalized)</span>
 <span class="sd">                - `Status` (string): flags OffTrack/OnTrack for GPS </span>
 <span class="sd">                - `SessionTime` (timedelta): time elapsed from session start</span>
+<span class="sd">                - `DistanceToDriverAhead` (string): distance to next car</span>
+<span class="sd">                - `DriverAhead` (string): the car ahead</span>
 
 <span class="sd">        .. note:: Absolute time is not super accurate. The moment a lap</span>
 <span class="sd">            is logged is not always the same and there will be some</span>
@@ -408,6 +411,7 @@
             <span class="n">pos</span><span class="p">[</span><span class="n">driver</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resample</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">car_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">tel</span><span class="p">,</span> <span class="n">pos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_augment_position</span><span class="p">()</span>
+        <span class="n">d_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating laps...&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
             <span class="n">_log_progress</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
@@ -417,6 +421,7 @@
                 <span class="n">telemetry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_stream</span><span class="p">(</span><span class="n">tel</span><span class="p">[</span><span class="n">driver</span><span class="p">],</span> <span class="n">lap</span><span class="p">)</span>
                 <span class="n">telemetry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inject_position</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="n">driver</span><span class="p">],</span> <span class="n">lap</span><span class="p">,</span> <span class="n">telemetry</span><span class="p">)</span>
                 <span class="n">telemetry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inject_space</span><span class="p">(</span><span class="n">telemetry</span><span class="p">)</span>
+                <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">d_map</span><span class="p">)</span>
                 <span class="n">event_telemetry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">telemetry</span><span class="p">)</span>
                 <span class="c1"># Calc lap start date</span>
                 <span class="n">lap_start_time</span> <span class="o">=</span> <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;SessionTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
