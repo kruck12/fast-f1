@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.4.1
+                v1.4.3
               </div>
             
           
@@ -93,6 +93,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../known_bugs.html">Known bugs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../known_bugs.html#unexpected-car-numbers-being-parsed-from-fastf1-api-car-data">1. Unexpected car numbers being parsed from <code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -308,6 +312,8 @@
         <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
             <span class="n">data</span><span class="p">,</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">_timing_data_laps_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
     <span class="n">data_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Driver&#39;</span><span class="p">]]</span>
+    <span class="n">td_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">,</span> <span class="s1">&#39;PitInTime&#39;</span><span class="p">,</span> <span class="s1">&#39;PitOutTime&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Sector1Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">data_cols</span><span class="p">]</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
@@ -322,6 +328,11 @@
             <span class="c1"># (Should always have 0 pitstops at start)</span>
             <span class="n">_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_df</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;=</span> <span class="n">lap</span><span class="p">,</span> <span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pit_stops</span>
             <span class="n">pit_stops</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">td_cols</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[ns]&#39;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">_df</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">_df</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">df</span>
 
@@ -522,18 +533,20 @@
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching car data&quot;</span><span class="p">)</span> 
     <span class="n">raw</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;car_data&#39;</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing car data&quot;</span><span class="p">)</span> 
+    <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">%z&quot;</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">:</span>
         <span class="n">time</span> <span class="o">=</span> <span class="n">__to_time</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Entries&#39;</span><span class="p">]:</span>
             <span class="n">cars</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Cars&#39;</span><span class="p">]</span>
-            <span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">%z&quot;</span><span class="p">)</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="n">date_format</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">cars</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
                     <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">main_structure</span><span class="p">)</span>
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cars</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Channels&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Channels&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">data</span></div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>fastf1.utils - Utils module &mdash; Fast F1  documentation</title>
+  <title>Known bugs &mdash; Fast F1  documentation</title>
   
 
   
@@ -35,8 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Known bugs" href="known_bugs.html" />
-    <link rel="prev" title="fastf1.api - Api module" href="api.html" /> 
+    <link rel="prev" title="fastf1.utils - Utils module" href="utils.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,9 +93,9 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="known_bugs.html#unexpected-car-numbers-being-parsed-from-fastf1-api-car-data">1. Unexpected car numbers being parsed from <code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Known bugs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#unexpected-car-numbers-being-parsed-from-fastf1-api-car-data">1. Unexpected car numbers being parsed from <code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -144,13 +143,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</li>
+      <li>Known bugs</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/known_bugs.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,44 +162,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-fastf1.utils"></span><div class="section" id="fastf1-utils-utils-module">
-<h1><a class="reference internal" href="#module-fastf1.utils" title="fastf1.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code></a> - Utils module<a class="headerlink" href="#fastf1-utils-utils-module" title="Permalink to this headline">¶</a></h1>
-<dl class="data">
-<dt id="fastf1.utils.CACHE_ENABLE">
-<code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">CACHE_ENABLE</code><em class="property"> = True</em><a class="headerlink" href="#fastf1.utils.CACHE_ENABLE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable/Disable cache for parsed data (Everything under
-./F1_Data). Note that raw http requests are still cached, data is quite
-fixed and shouldn’t really change..</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Boolean</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="fastf1.utils.clear_cache">
-<code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">clear_cache</code><span class="sig-paren">(</span><em class="sig-param">deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#clear_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.utils.clear_cache" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes from disk cached data. Just in case you feel the need of
-a fresh start or you have too much bytes laying around.
-Use it with parsimony. In case of major update you may want to call
-this function, which will solve conflicts rising on unexpected data
-structures.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>deep</strong> (<em>=False</em><em>, </em><em>optional</em>) – If true, going for removal of http
-cache as well.</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="known-bugs">
+<h1>Known bugs<a class="headerlink" href="#known-bugs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="unexpected-car-numbers-being-parsed-from-fastf1-api-car-data">
+<h2>1. Unexpected car numbers being parsed from <a class="reference internal" href="api.html#fastf1.api.car_data" title="fastf1.api.car_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a><a class="headerlink" href="#unexpected-car-numbers-being-parsed-from-fastf1-api-car-data" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>There are some cases like 2019 Germany Q where the returned
+structure of car_data api function contains also telemetry data from
+inexistent drivers like driver number 1, 6 and so on. Telemetry is
+empty so this might just be a mishandled single entry. Currently
+this is bypassed by referring to timing_data drivers.</p>
+</div></blockquote>
 </div>
-<dl class="data">
-<dt id="fastf1.utils.fastf1.utils.CACHE_PATH">
-<code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">CACHE_PATH</code><a class="headerlink" href="#fastf1.utils.fastf1.utils.CACHE_PATH" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path for cache, default location is ~/Documents/FF1Data/</p>
-</dd></dl>
-
+</div>
 
 
            </div>
@@ -210,10 +184,8 @@ cache as well.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="known_bugs.html" class="btn btn-neutral float-right" title="Known bugs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="api.html" class="btn btn-neutral float-left" title="fastf1.api - Api module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-left" title="fastf1.utils - Utils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
