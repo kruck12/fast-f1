@@ -94,10 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Known bugs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#unexpected-car-numbers-being-parsed-from-fastf1-api-car-data">1. Unexpected car numbers being parsed from <code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Known bugs</a></li>
 </ul>
 
             
@@ -164,8 +161,8 @@
             
   <div class="section" id="known-bugs">
 <h1>Known bugs<a class="headerlink" href="#known-bugs" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="unexpected-car-numbers-being-parsed-from-fastf1-api-car-data">
-<h2>1. Unexpected car numbers being parsed from <a class="reference internal" href="api.html#fastf1.api.car_data" title="fastf1.api.car_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a><a class="headerlink" href="#unexpected-car-numbers-being-parsed-from-fastf1-api-car-data" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Unexpected car numbers being parsed from <a class="reference internal" href="api.html#fastf1.api.car_data" title="fastf1.api.car_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a>:</p>
 <blockquote>
 <div><p>There are some cases like 2019 Germany Q where the returned
 structure of car_data api function contains also telemetry data from
@@ -173,7 +170,8 @@ inexistent drivers like driver number 1, 6 and so on. Telemetry is
 empty so this might just be a mishandled single entry. Currently
 this is bypassed by referring to timing_data drivers.</p>
 </div></blockquote>
-</div>
+</li>
+</ul>
 </div>
 
 
