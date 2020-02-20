@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.4.3
+                v1.5.0
               </div>
             
           
@@ -211,25 +211,20 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="make_path"><a class="viewcode-back" href="../../api.html#fastf1.api.make_path">[docs]</a><span class="k">def</span> <span class="nf">make_path</span><span class="p">(</span><span class="n">wname</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+<div class="viewcode-block" id="make_path"><a class="viewcode-back" href="../../api.html#fastf1.api.make_path">[docs]</a><span class="k">def</span> <span class="nf">make_path</span><span class="p">(</span><span class="n">wname</span><span class="p">,</span> <span class="n">wdate</span><span class="p">,</span> <span class="n">sname</span><span class="p">,</span> <span class="n">sdate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create web path to append on livetiming.formula1.com for api</span>
 <span class="sd">    requests.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        wname: Weekend name (e.g. &#39;Italian Grand Prix&#39;)</span>
-<span class="sd">        d: Weekend date (e.g. &#39;2019-09-08&#39;)</span>
-<span class="sd">        session: &#39;Qualifying&#39; or &#39;Race&#39;</span>
+<span class="sd">        wdate: Weekend date (e.g. &#39;2019-09-08&#39;)</span>
+<span class="sd">        sname: Session name &#39;Qualifying&#39; or &#39;Race&#39;</span>
+<span class="sd">        sdate: Session date (formatted as wdate)</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
 <span class="sd">        string path</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">session</span> <span class="o">==</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">:</span>
-        <span class="c1"># Assuming that quali was one day before race... well not always</span>
-        <span class="c1"># Should check if also formula1 makes this assumption</span>
-        <span class="n">d_real</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">d_real</span> <span class="o">=</span> <span class="n">d</span>
-    <span class="n">smooth_operator</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{d[:4]}</span><span class="s1">/</span><span class="si">{d}</span><span class="s1"> </span><span class="si">{wname}</span><span class="s1">/</span><span class="si">{d_real}</span><span class="s1"> </span><span class="si">{session}</span><span class="s1">/&#39;</span>
+    <span class="n">smooth_operator</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{wdate[:4]}</span><span class="s1">/</span><span class="si">{wdate}</span><span class="s1"> </span><span class="si">{wname}</span><span class="s1">/</span><span class="si">{sdate}</span><span class="s1"> </span><span class="si">{sname}</span><span class="s1">/&#39;</span>
     <span class="k">return</span> <span class="s1">&#39;/static/&#39;</span> <span class="o">+</span> <span class="n">smooth_operator</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span></div>
 
 
@@ -567,12 +562,15 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        pandas dataframe</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">index</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span> <span class="s1">&#39;Z&#39;</span><span class="p">}</span>
     <span class="n">data</span><span class="p">,</span> <span class="n">main_structure</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span> <span class="p">[],</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[]}</span>
     <span class="p">[</span><span class="n">main_structure</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="p">[]})</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index</span><span class="p">]</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching position&quot;</span><span class="p">)</span> 
     <span class="n">raw</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing position&quot;</span><span class="p">)</span> 
+    <span class="k">if</span> <span class="n">raw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">:</span>
         <span class="n">time</span> <span class="o">=</span> <span class="n">__to_time</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Position&#39;</span><span class="p">]:</span>

@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.4.3
+                v1.5.0
               </div>
             
           
@@ -95,10 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="known_bugs.html#unexpected-car-numbers-being-parsed-from-fastf1-api-car-data">1. Unexpected car numbers being parsed from <code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.car_data()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
 </ul>
 
             
@@ -228,13 +225,16 @@ If not specified, full weekend is returned.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>year</strong> – session year (Tested only with 2019)</p></li>
-<li><p><strong>gp</strong> – name or weekend number (1: Australia, …, 21: Abu Dhabi)
+<li><p><strong>gp</strong> – <p>name or weekend number (1: Australia, …, 21: Abu Dhabi)
 if gp is a string, a fuzzy match will be performed on the
 season rounds and the most likely will be selected.
 ‘bahrain’, ‘australia’, ‘abudabi’ are some of the examples
-that you can pass and the correct week will be selected.</p></li>
+that you can pass and the correct week will be selected.</p>
+<p>Pass ‘testing’ to fetch barcelona tests.</p>
+</p></li>
 <li><p><strong>event</strong> (<em>=None</em>) – may be ‘FP1’, ‘FP2’, ‘FP3’, ‘Q’ or ‘R’, if not
-specified you get the full <a class="reference internal" href="core.html#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a>.</p></li>
+specified you get the full <a class="reference internal" href="core.html#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a>.
+If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
