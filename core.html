@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.5.0
+                v1.5.1
               </div>
             
           
@@ -402,9 +402,15 @@ entry is left.</p>
 
 <dl class="method">
 <dt id="fastf1.core.Laps.pick_quicklaps">
-<code class="sig-name descname">pick_quicklaps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pick_quicklaps</code><span class="sig-paren">(</span><em class="sig-param">threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select laps with lap time below <a class="reference internal" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="fastf1.core.Laps.QUICKLAP_THRESHOLD"><code class="xref py py-attr docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code></a>
 (default 107%) of the fastest lap from the given laps set</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threshold</strong> (<em>optional</em><em>, </em><em>float</em>) – custom threshold coefficent
+(e.g. 1.05 for 105%)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
