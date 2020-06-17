@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.5.1
+                v2.0.0
               </div>
             
           
@@ -83,7 +83,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -93,7 +93,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Experimental:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../experimental.html">Experimental functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -168,16 +181,25 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">core</span>
 
-<span class="n">CACHE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/Documents/FF1Data&#39;</span>
+<span class="n">CACHE_ENABLE</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">CACHE_PATH</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-<span class="n">CACHE_ENABLE</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="sd">&quot;&quot;&quot;Boolean: Enable/Disable cache for parsed data (Everything under</span>
-<span class="sd">./F1_Data). Note that raw http requests are still cached, data is quite</span>
-<span class="sd">fixed and shouldn&#39;t really change..</span>
-<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">requests_cache</span><span class="o">.</span><span class="n">install_cache</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CACHE_PATH</span><span class="p">,</span> <span class="s1">&#39;fastf1_http_cache&#39;</span><span class="p">),</span>
-                             <span class="n">allowable_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">))</span>
+<div class="viewcode-block" id="enable_cache"><a class="viewcode-back" href="../../utils.html#fastf1.utils.enable_cache">[docs]</a><span class="k">def</span> <span class="nf">enable_cache</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enable cache for parsed data.</span>
+
+<span class="sd">    If not enabled, raw http requests are still cached, data is quite</span>
+<span class="sd">    fixed and shouldn&#39;t really change.</span>
+
+<span class="sd">    :param path: Path to a folder which to use as cache directory</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">CACHE_ENABLE</span><span class="p">,</span> <span class="n">CACHE_PATH</span>
+    <span class="n">requests_cache</span><span class="o">.</span><span class="n">install_cache</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;fastf1_http_cache&#39;</span><span class="p">),</span> <span class="n">allowable_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">))</span>
+
+    <span class="n">CACHE_PATH</span> <span class="o">=</span> <span class="n">path</span>
+    <span class="n">CACHE_ENABLE</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 
 <div class="viewcode-block" id="clear_cache"><a class="viewcode-back" href="../../utils.html#fastf1.utils.clear_cache">[docs]</a><span class="k">def</span> <span class="nf">clear_cache</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Removes from disk cached data. Just in case you feel the need of</span>
@@ -185,6 +207,7 @@
 <span class="sd">    Use it with parsimony. In case of major update you may want to call</span>
 <span class="sd">    this function, which will solve conflicts rising on unexpected data</span>
 <span class="sd">    structures.</span>
+<span class="sd">    The cache needs to be enabled first, so that the cache path is known.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        deep (=False, optional): If true, going for removal of http</span>
@@ -200,7 +223,7 @@
 
 <span class="k">def</span> <span class="nf">laps_file_name</span><span class="p">(</span><span class="n">api_path</span><span class="p">):</span>
     <span class="c1"># api path used as session identifier</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;{&#39;_&#39;.join(api_path.split(&#39;/&#39;)[-3:-1])}_laps.pkl&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">api_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">_laps.pkl&quot;</span>
 
 
 <span class="k">def</span> <span class="nf">_cached_laps</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>

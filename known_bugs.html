@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="fastf1.utils - Utils module" href="utils.html" /> 
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="fastf1.func - General functions" href="func.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -59,7 +60,7 @@
             
             
               <div class="version">
-                v1.5.1
+                v2.0.0
               </div>
             
           
@@ -84,7 +85,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
@@ -94,7 +95,20 @@
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Experimental:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -171,6 +185,13 @@ empty so this might just be a mishandled single entry. Currently
 this is bypassed by referring to timing_data drivers.</p>
 </div></blockquote>
 </li>
+<li><p>Inlap and outlap handling in <a class="reference internal" href="track.html#fastf1.track.Track.resync_lap_times" title="fastf1.track.Track.resync_lap_times"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.track.Track.resync_lap_times()</span></code></a>:</p>
+<blockquote>
+<div><p>Inlaps and outlaps may not be resynced correctly because of the addtional time
+in pit. Whether there is actually a bug is not sure yet though. Further analysis
+of the data is necessary. Only inlaps and outlaps seem to be concerned.</p>
+</div></blockquote>
+</li>
 </ul>
 </div>
 
@@ -182,8 +203,10 @@ this is bypassed by referring to timing_data drivers.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="utils.html" class="btn btn-neutral float-left" title="fastf1.utils - Utils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="func.html" class="btn btn-neutral float-left" title="fastf1.func - General functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

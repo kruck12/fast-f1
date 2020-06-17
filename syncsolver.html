@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>fastf1.experimental.syncsolver - Multicore solver for advanced synchronization &mdash; Fast F1  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="fastf1.experimental.conditions - Solver conditions" href="conditions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Fast F1
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v2.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Experimental:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fast F1</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/syncsolver.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-fastf1.experimental.syncsolver"></span><div class="section" id="fastf1-experimental-syncsolver-multicore-solver-for-advanced-synchronization">
+<h1><a class="reference internal" href="#module-fastf1.experimental.syncsolver" title="fastf1.experimental.syncsolver"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code></a> - Multicore solver for advanced synchronization<a class="headerlink" href="#fastf1-experimental-syncsolver-multicore-solver-for-advanced-synchronization" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="fastf1.experimental.syncsolver.AdvancedSyncSolver">
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.experimental.syncsolver.</code><code class="sig-name descname">AdvancedSyncSolver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">track</span></em>, <em class="sig-param"><span class="n">telemetry_data</span></em>, <em class="sig-param"><span class="n">position_data</span></em>, <em class="sig-param"><span class="n">laps_data</span></em>, <em class="sig-param"><span class="n">processes</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#AdvancedSyncSolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.AdvancedSyncSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Advanced Data Synchronization and Determination of Sectors and Start/Finish Line Position</p>
+<p>This class is called a ‘solver’ because the plan was (is, maybe) to make this fully automated. As it is, the results need a fair
+amount of analysis and interpretation, taking into account the shape of the track and so on. I do currently deem it impossible to
+automate this process. So the solver is only doing calculations. It is not actually returning a simple solution though.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>assumptions</dt><dd><ul class="simple">
+<li><p>a session is always started on a full minute: should be possible to do without but it is easier for now</p></li>
+</ul>
+</dd>
+<dt>data is synchronized based on the following conditions</dt><dd><ul class="simple">
+<li><p>the finish line needs to be in a fixed place (x/y coordinates): minimum variation in lap-to-lap position</p></li>
+<li><p>last lap start time + lap duration = current lap start time</p></li>
+</ul>
+</dd>
+<dt>possible issues</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>lap and sector times are reported with what seems to be a +-0.5s accuracy</dt><dd><p>with no further information about this process, it has to be assumed that a lap/sector time can be reported with
+an earlier or later time than its correct time (correct time = the time it was actually set at)</p>
+</dd>
+</dl>
+</li>
+<li><p>inaccuracies due to only ms precision –&gt; max rounding error (if any) ~50ms after the race; probably not that critical</p></li>
+<li><p>laps with pit stops –&gt; skip laps with pit in or pit out for now; only add the lap times</p></li>
+<li><p>there is no fixed start time which is the same for every driver –&gt; maybe use race end timing?</p></li>
+</ul>
+</dd>
+<dt>possible further sources of data</dt><dd><ul class="simple">
+<li><p>race result time between drivers for fixed values at the end too</p></li>
+</ul>
+</dd>
+<dt>approach for now</dt><dd><ul class="simple">
+<li><p>get min/max values for start finish position from the first coarse synchronization</p></li>
+<li><p>iterate over this range in small increments
+- always skip first lap
+- from selected position, interpolate a lap start time
+- subtract the last lap time from the current lap start time to get the previous lap start time
+- interpolate start/finish x/y for each calculated lap start time which does not have pit in or pit out</p></li>
+<li><p>calculate metrics after each pass
+- arithmetic mean of x and y
+- standard deviation of x and y
+- plot metrics</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.AdvancedSyncSolver.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#AdvancedSyncSolver.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.AdvancedSyncSolver.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do some one-off calculations. This needs to be called before solve() can be _run.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.AdvancedSyncSolver.auto_range">
+<code class="sig-name descname">auto_range</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#AdvancedSyncSolver.auto_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.AdvancedSyncSolver.auto_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically determine the range of points for the solver.</p>
+<p>This is done by calculating all current points at which a lap time is set.
+Very far outliers are removed and all remaining points are added to self.point_range.
+The solver will later iterate over these points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.AdvancedSyncSolver.manual_range">
+<code class="sig-name descname">manual_range</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">point_a</span></em>, <em class="sig-param"><span class="n">point_b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#AdvancedSyncSolver.manual_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.AdvancedSyncSolver.manual_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the range of points for the solver.</p>
+<p>The closest unique track points will be calculated and all points between those two
+will be added to self.point_range.
+The solver will later iterate over these points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point_a</strong> (<a class="reference internal" href="track.html#fastf1.track.TrackPoint" title="fastf1.track.TrackPoint"><em>TrackPoint</em></a>) – First point</p></li>
+<li><p><strong>point_b</strong> (<a class="reference internal" href="track.html#fastf1.track.TrackPoint" title="fastf1.track.TrackPoint"><em>TrackPoint</em></a>) – Last point</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.AdvancedSyncSolver.solve">
+<code class="sig-name descname">solve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_size</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#AdvancedSyncSolver.solve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.AdvancedSyncSolver.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main solver function which starts all the heavy processing.</p>
+<p>Before calling this function it is necessary to .setup() the solver.
+The range for the solver needs to be set and condition(s) need to be added.</p>
+<p>This function will create the requested number of subprocesses (default: 1) and start processing the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>step_size</strong> (<em>int</em>) – (optional) Step size for iterating through the range of points. (default: 1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.AdvancedSyncSolver.solve_one_condition_single_process">
+<code class="sig-name descname">solve_one_condition_single_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#AdvancedSyncSolver.solve_one_condition_single_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.AdvancedSyncSolver.solve_one_condition_single_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alternative way for solving the condition (usage not recommended!)</p>
+<p>This function will do all processing inside the main thread. Additionally, only one condition can
+be solved. If conditions were added, only the one which was added first will be considered.</p>
+<p>This function is not intended for productive use, but rather for debugging or profiling!</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.AdvancedSyncSolver.add_condition">
+<code class="sig-name descname">add_condition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#AdvancedSyncSolver.add_condition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.AdvancedSyncSolver.add_condition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a condition class to the solver. Currently there is no check against adding duplicate conditions. Conditions can also not
+be removed again.
+Additionally passed arguments and keyword arguments will be passed on to the condition when it is initialized.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fastf1.experimental.syncsolver.SolverSubprocess">
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.experimental.syncsolver.</code><code class="sig-name descname">SolverSubprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task_queue</span></em>, <em class="sig-param"><span class="n">result_queue</span></em>, <em class="sig-param"><span class="n">command_queue</span></em>, <em class="sig-param"><span class="n">conditions</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#SolverSubprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.SolverSubprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a single subprocess/worker.
+It will store all calculation results until the main process request them. The results will then be send
+trough a queue to the main process. The main process will join all results from all subprocesses.</p>
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.SolverSubprocess.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#SolverSubprocess.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.SolverSubprocess.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the process. Wraps multiprocessing.Process.start</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.experimental.syncsolver.SolverSubprocess.join">
+<code class="sig-name descname">join</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/experimental/syncsolver.html#SolverSubprocess.join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.experimental.syncsolver.SolverSubprocess.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for this process to join. Wraps multiprocessing.Process.join</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="conditions.html" class="btn btn-neutral float-left" title="fastf1.experimental.conditions - Solver conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright MIT
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -22,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -59,7 +58,7 @@
             
             
               <div class="version">
-                v1.5.1
+                v2.0.0
               </div>
             
           
@@ -84,7 +83,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -94,7 +93,20 @@
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Experimental:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -161,31 +173,57 @@
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#C"><strong>C</strong></a>
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
-<h2 id="C">C</h2>
+<h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#fastf1.utils.CACHE_ENABLE">CACHE_ENABLE (in module fastf1.utils)</a>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.add_condition">add_condition() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>
+</li>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver">AdvancedSyncSolver (class in fastf1.experimental.syncsolver)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="conditions.html#fastf1.experimental.conditions.AllSectorBordersCondition">AllSectorBordersCondition (class in fastf1.experimental.conditions)</a>
+</li>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.auto_range">auto_range() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="conditions.html#fastf1.experimental.conditions.BaseCondition">BaseCondition (class in fastf1.experimental.conditions)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#fastf1.api.car_data">car_data() (in module fastf1.api)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils.html#fastf1.utils.clear_cache">clear_cache() (in module fastf1.utils)</a>
 </li>
   </ul></td>
@@ -195,6 +233,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Weekend.date">date() (fastf1.core.Weekend property)</a>
+</li>
+      <li><a href="track.html#fastf1.track.Track.direction_to_point">direction_to_point() (fastf1.track.Track method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -208,6 +248,10 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#fastf1.utils.enable_cache">enable_cache() (in module fastf1.utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.ETL">ETL (class in fastf1.core)</a>
 </li>
   </ul></td>
@@ -216,27 +260,93 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="fastf1.html#module-fastf1">fastf1 (module)</a>
+      <li>
+    fastf1
+
+      <ul>
+        <li><a href="fastf1.html#module-fastf1">module</a>
 </li>
-      <li><a href="api.html#module-fastf1.api">fastf1.api (module)</a>
+      </ul></li>
+      <li>
+    fastf1.api
+
+      <ul>
+        <li><a href="api.html#module-fastf1.api">module</a>
 </li>
-      <li><a href="core.html#module-fastf1.core">fastf1.core (module)</a>
+      </ul></li>
+      <li>
+    fastf1.core
+
+      <ul>
+        <li><a href="core.html#module-fastf1.core">module</a>
 </li>
+      </ul></li>
+      <li>
+    fastf1.experimental.conditions
+
+      <ul>
+        <li><a href="conditions.html#module-fastf1.experimental.conditions">module</a>
+</li>
+      </ul></li>
+      <li>
+    fastf1.experimental.syncsolver
+
+      <ul>
+        <li><a href="syncsolver.html#module-fastf1.experimental.syncsolver">module</a>
+</li>
+      </ul></li>
+      <li>
+    fastf1.func
+
+      <ul>
+        <li><a href="func.html#module-fastf1.func">module</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#module-fastf1.utils">fastf1.utils (module)</a>
+      <li>
+    fastf1.track
+
+      <ul>
+        <li><a href="track.html#module-fastf1.track">module</a>
 </li>
-      <li><a href="utils.html#fastf1.utils.fastf1.utils.CACHE_PATH">fastf1.utils.CACHE_PATH (in module fastf1.utils)</a>
+      </ul></li>
+      <li>
+    fastf1.utils
+
+      <ul>
+        <li><a href="utils.html#module-fastf1.utils">module</a>
 </li>
+      </ul></li>
       <li><a href="api.html#fastf1.api.fetch_page">fetch_page() (in module fastf1.api)</a>
 </li>
+      <li><a href="conditions.html#fastf1.experimental.conditions.AllSectorBordersCondition.for_driver">for_driver() (fastf1.experimental.conditions.AllSectorBordersCondition method)</a>
+
+      <ul>
+        <li><a href="conditions.html#fastf1.experimental.conditions.BaseCondition.for_driver">(fastf1.experimental.conditions.BaseCondition method)</a>
+</li>
+        <li><a href="conditions.html#fastf1.experimental.conditions.Sector12Condition.for_driver">(fastf1.experimental.conditions.Sector12Condition method)</a>
+</li>
+        <li><a href="conditions.html#fastf1.experimental.conditions.Sector23Condition.for_driver">(fastf1.experimental.conditions.Sector23Condition method)</a>
+</li>
+        <li><a href="conditions.html#fastf1.experimental.conditions.SectorBorderCondition.for_driver">(fastf1.experimental.conditions.SectorBorderCondition method)</a>
+</li>
+        <li><a href="conditions.html#fastf1.experimental.conditions.StartFinishCondition.for_driver">(fastf1.experimental.conditions.StartFinishCondition method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="track.html#fastf1.track.Track.generate_track">generate_track() (fastf1.track.Track method)</a>
+</li>
+      <li><a href="track.html#fastf1.track.Track.get_closest_point">get_closest_point() (fastf1.track.Track method)</a>
+</li>
       <li><a href="core.html#fastf1.core.Session.get_driver">get_driver() (fastf1.core.Session method)</a>
+</li>
+      <li><a href="track.html#fastf1.track.Track.get_points_between">get_points_between() (fastf1.track.Track method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Weekend.get_practice">get_practice() (fastf1.core.Weekend method)</a>
 </li>
@@ -248,7 +358,13 @@
 </li>
       <li><a href="core.html#fastf1.core.get_round">get_round() (in module fastf1.core)</a>
 </li>
+      <li><a href="track.html#fastf1.track.Track.get_second_coord">get_second_coord() (fastf1.track.Track method)</a>
+</li>
       <li><a href="core.html#fastf1.core.get_session">get_session() (in module fastf1.core)</a>
+</li>
+      <li><a href="track.html#fastf1.track.TrackPoint.get_sqr_dist">get_sqr_dist() (fastf1.track.TrackPoint method)</a>
+</li>
+      <li><a href="track.html#fastf1.track.Track.get_time_from_pos">get_time_from_pos() (fastf1.track.Track method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Driver.grid">grid() (fastf1.core.Driver property)</a>
 </li>
@@ -258,7 +374,19 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="track.html#fastf1.track.Track.interpolate_pos_from_time">interpolate_pos_from_time() (fastf1.track.Track method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Weekend.is_testing">is_testing() (fastf1.core.Weekend method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.SolverSubprocess.join">join() (fastf1.experimental.syncsolver.SolverSubprocess method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -270,6 +398,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="track.html#fastf1.track.Track.lazy_is_track_point">lazy_is_track_point() (fastf1.track.Track method)</a>
+</li>
       <li><a href="core.html#fastf1.core.Session.load_laps">load_laps() (fastf1.core.Session method)</a>
 </li>
   </ul></td>
@@ -280,6 +410,33 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#fastf1.api.make_path">make_path() (in module fastf1.api)</a>
 </li>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.manual_range">manual_range() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>
+</li>
+      <li><a href="func.html#fastf1.func.max_index">max_index() (in module fastf1.func)</a>
+</li>
+      <li><a href="func.html#fastf1.func.min_index">min_index() (in module fastf1.func)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="fastf1.html#module-fastf1">fastf1</a>
+</li>
+        <li><a href="api.html#module-fastf1.api">fastf1.api</a>
+</li>
+        <li><a href="core.html#module-fastf1.core">fastf1.core</a>
+</li>
+        <li><a href="conditions.html#module-fastf1.experimental.conditions">fastf1.experimental.conditions</a>
+</li>
+        <li><a href="syncsolver.html#module-fastf1.experimental.syncsolver">fastf1.experimental.syncsolver</a>
+</li>
+        <li><a href="func.html#module-fastf1.func">fastf1.func</a>
+</li>
+        <li><a href="track.html#module-fastf1.track">fastf1.track</a>
+</li>
+        <li><a href="utils.html#module-fastf1.utils">fastf1.utils</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -339,10 +496,46 @@
   </ul></td>
 </tr></table>
 
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="func.html#fastf1.func.reject_outliers">reject_outliers() (in module fastf1.func)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="track.html#fastf1.track.Track.resync_lap_times">resync_lap_times() (fastf1.track.Track method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="conditions.html#fastf1.experimental.conditions.Sector12Condition">Sector12Condition (class in fastf1.experimental.conditions)</a>
+</li>
+      <li><a href="conditions.html#fastf1.experimental.conditions.Sector23Condition">Sector23Condition (class in fastf1.experimental.conditions)</a>
+</li>
+      <li><a href="conditions.html#fastf1.experimental.conditions.SectorBorderCondition">SectorBorderCondition (class in fastf1.experimental.conditions)</a>
+</li>
       <li><a href="core.html#fastf1.core.Session">Session (class in fastf1.core)</a>
+</li>
+      <li><a href="conditions.html#fastf1.experimental.conditions.BaseCondition.set_data">set_data() (fastf1.experimental.conditions.BaseCondition method)</a>
+</li>
+      <li><a href="track.html#fastf1.track.Track.set_finish_line">set_finish_line() (fastf1.track.Track method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.setup">setup() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>
+</li>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.solve">solve() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>
+</li>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.solve_one_condition_single_process">solve_one_condition_single_process() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>
+</li>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.SolverSubprocess">SolverSubprocess (class in fastf1.experimental.syncsolver)</a>
+</li>
+      <li><a href="syncsolver.html#fastf1.experimental.syncsolver.SolverSubprocess.start">start() (fastf1.experimental.syncsolver.SolverSubprocess method)</a>
+</li>
+      <li><a href="conditions.html#fastf1.experimental.conditions.StartFinishCondition">StartFinishCondition (class in fastf1.experimental.conditions)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -352,11 +545,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Driver.team">team() (fastf1.core.Driver property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#fastf1.api.timing_app_data">timing_app_data() (in module fastf1.api)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#fastf1.api.timing_data">timing_data() (in module fastf1.api)</a>
+</li>
+      <li><a href="track.html#fastf1.track.Track">Track (class in fastf1.track)</a>
+</li>
+      <li><a href="track.html#fastf1.track.TrackPoint">TrackPoint (class in fastf1.track)</a>
 </li>
   </ul></td>
 </tr></table>

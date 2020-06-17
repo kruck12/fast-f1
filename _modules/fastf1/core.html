@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                v1.5.1
+                v2.0.0
               </div>
             
           
@@ -83,7 +83,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -93,7 +93,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Experimental:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../experimental.html">Experimental functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -228,8 +241,8 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Cannot fetch testing without correct event day.&quot;</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="n">gp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Pre-Season Test </span><span class="si">{week}</span><span class="s1">&#39;</span>
-        <span class="n">event</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Practice </span><span class="si">{event}</span><span class="s1">&#39;</span>
+        <span class="n">gp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Pre-Season Test </span><span class="si">{</span><span class="n">week</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Practice </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="n">weekend</span> <span class="o">=</span> <span class="n">Weekend</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
 
@@ -254,9 +267,9 @@
     <span class="k">def</span> <span class="nf">build_string</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
         <span class="n">r</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;https://en.wikipedia.org/wiki/&#39;</span><span class="p">)</span>
         <span class="n">c</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Circuit&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Circuit&#39;</span><span class="p">][</span><span class="s1">&#39;Location&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{d[&#39;url&#39;][r:]}</span><span class="s2"> </span><span class="si">{d[&#39;raceName&#39;]}</span><span class="s2"> </span><span class="si">{c[&#39;circuitId&#39;]}</span><span class="s2"> &quot;</span>
-                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{c[&#39;url&#39;][r:]}</span><span class="s2"> </span><span class="si">{c[&#39;circuitName&#39;]}</span><span class="s2"> </span><span class="si">{l[&#39;locality&#39;]}</span><span class="s2"> &quot;</span>
-                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{l[&#39;country&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">][</span><span class="n">r</span><span class="p">:]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;raceName&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;circuitId&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">][</span><span class="n">r</span><span class="p">:]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;circuitName&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">l</span><span class="p">[</span><span class="s1">&#39;locality&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">l</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">races</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">fetch_season</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
     <span class="n">to_match</span> <span class="o">=</span> <span class="p">[</span><span class="n">build_string</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">races</span><span class="p">]</span>
     <span class="n">ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fuzz</span><span class="o">.</span><span class="n">partial_ratio</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">to_match</span><span class="p">])</span>
@@ -302,7 +315,10 @@
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Weekend.is_testing"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.is_testing">[docs]</a>    <span class="k">def</span> <span class="nf">is_testing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;Test&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gp</span></div>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gp</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Test&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gp</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -326,11 +342,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">session_name</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">is_testing</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">weekend</span><span class="o">.</span><span class="n">year</span><span class="p">)][</span><span class="nb">int</span><span class="p">(</span><span class="n">session_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="n">session_name</span> <span class="o">==</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">:</span>
-            <span class="c1"># Assuming that quali was one day before race... well not always</span>
-            <span class="c1"># Should check if also formula1 makes this assumption</span>
+        <span class="k">elif</span> <span class="n">session_name</span> <span class="o">==</span> <span class="s1">&#39;Race&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">date</span>
+
+        <span class="c1"># Assuming  date offsets here which is not always correct</span>
+        <span class="c1"># Should check if also formula1 makes this assumption</span>
+        <span class="k">elif</span> <span class="n">session_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Qualifying&#39;</span><span class="p">,</span> <span class="s1">&#39;Practice 3&#39;</span><span class="p">):</span>
             <span class="n">offset_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">weekend</span><span class="o">.</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">offset_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">session_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Practice 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Practice 2&#39;</span><span class="p">):</span>
+            <span class="n">offset_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">weekend</span><span class="o">.</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">offset_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+
         <span class="n">w</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="p">,</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">api_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">make_path</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">weekend</span><span class="o">.</span><span class="n">is_testing</span><span class="p">():</span>
@@ -394,7 +417,7 @@
 <span class="sd">            laps</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{self.weekend.name}</span><span class="s2"> </span><span class="si">{self.name}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span> <span class="o">=</span> <span class="n">Laps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_summary</span><span class="p">())</span>
         <span class="n">telemetry</span><span class="p">,</span> <span class="n">lap_start_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_telemetry</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;LapStartDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lap_start_date</span>
@@ -489,11 +512,11 @@
             <span class="k">if</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">car_data</span><span class="p">:</span>
                 <span class="n">tel</span><span class="p">[</span><span class="n">driver</span><span class="p">],</span> <span class="n">date_offset</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resample</span><span class="p">(</span><span class="n">car_data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find telemetry data for driver </span><span class="si">{driver}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find telemetry data for driver </span><span class="si">{</span><span class="n">driver</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">position</span><span class="p">:</span>
                 <span class="n">pos</span><span class="p">[</span><span class="n">driver</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resample</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find gps data for driver </span><span class="si">{driver}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find gps data for driver </span><span class="si">{</span><span class="n">driver</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">car_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">tel</span><span class="p">,</span> <span class="n">pos</span>
         <span class="n">can_find_reference</span> <span class="o">=</span> <span class="n">position</span> <span class="o">!=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">can_find_reference</span><span class="p">:</span>
@@ -518,7 +541,7 @@
                     <span class="n">lap_start_date</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date_offset</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">+</span> <span class="n">lap_start_time</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Empty telemetry slice from lap &quot;</span>
-                                  <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{lap[&#39;LapNumber&#39;]}</span><span class="s2"> of driver </span><span class="si">{driver}</span><span class="s2">&quot;</span><span class="p">)</span>
+                                  <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;LapNumber&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> of driver </span><span class="si">{</span><span class="n">driver</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="n">event_telemetry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
                     <span class="n">lap_start_date</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -617,7 +640,7 @@
         <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">unmap</span>
 
     <span class="k">def</span> <span class="nf">_slice_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">lap</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="n">pad</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;{pad*0.1}s&#39;</span><span class="p">)</span>
+        <span class="n">pad</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pad</span><span class="o">*</span><span class="mf">0.1</span><span class="si">}</span><span class="s1">s&#39;</span><span class="p">)</span>
         <span class="n">end_time</span><span class="p">,</span> <span class="n">lap_time</span> <span class="o">=</span> <span class="n">lap</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">],</span> <span class="n">lap</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span>
         <span class="n">sel</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">+</span> <span class="n">pad</span><span class="p">))</span>
                 <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">lap_time</span> <span class="o">-</span> <span class="n">pad</span><span class="p">)))</span>
@@ -828,6 +851,10 @@
 
     <span class="n">QUICKLAP_THRESHOLD</span> <span class="o">=</span> <span class="mf">1.07</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Laps</span>
+
     <span class="k">def</span> <span class="nf">__pick_wrap</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -954,7 +981,7 @@
     <span class="k">if</span> <span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">level</span> <span class="o">&gt;=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">/</span> <span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">p</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">i</span> <span class="o">/</span> <span class="n">length</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span>
         <span class="n">is_last</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">c</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">[{&#39;+&#39;*p}{&#39;-&#39;*(c-p)}] ({length if is_last else i}/</span><span class="si">{length}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">[</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="o">*</span><span class="n">p</span><span class="si">}{</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="si">}</span><span class="s2">] (</span><span class="si">{</span><span class="n">length</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="n">i</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
               <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 

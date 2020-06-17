@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.5.1
+                v2.0.0
               </div>
             
           
@@ -85,7 +85,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
@@ -95,7 +95,20 @@
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Experimental:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -163,15 +176,15 @@
   <span class="target" id="module-fastf1.api"></span><div class="section" id="fastf1-api-api-module">
 <h1><a class="reference internal" href="#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> - Api module<a class="headerlink" href="#fastf1-api-api-module" title="Permalink to this headline">¶</a></h1>
 <p>This module contains the main interfaces to the f1 web api</p>
-<dl class="data">
+<dl class="py data">
 <dt id="fastf1.api.pages">
 <code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">pages</code><em class="property"> = {'archive_status': 'ArchiveStatus.json', 'audio_streams': 'AudioStreams.jsonStream', 'car_data': 'CarData.z.jsonStream', 'championship_predicion': 'ChampionshipPrediction.jsonStream', 'content_streams': 'ContentStreams.jsonStream', 'driver_list': 'DriverList.jsonStream', 'extrapolated_clock': 'ExtrapolatedClock.jsonStream', 'heartbeat': 'Heartbeat.jsonStream', 'lap_count': 'LapCount.jsonStream', 'position': 'Position.z.jsonStream', 'race_control_messages': 'RaceControlMessages.json', 'session_info': 'SessionInfo.json', 'session_status': 'SessionStatus.jsonStream', 'team_radio': 'TeamRadio.jsonStream', 'timing_app_data': 'TimingAppData.jsonStream', 'timing_data': 'TimingData.jsonStream', 'timing_stats': 'TimingStats.jsonStream', 'track_status': 'TrackStatus.jsonStream', 'weather_data': 'WeatherData.jsonStream'}</em><a class="headerlink" href="#fastf1.api.pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Known requests</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="fastf1.api.make_path">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">make_path</code><span class="sig-paren">(</span><em class="sig-param">wname</em>, <em class="sig-param">wdate</em>, <em class="sig-param">sname</em>, <em class="sig-param">sdate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.make_path" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">make_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wname</span></em>, <em class="sig-param"><span class="n">wdate</span></em>, <em class="sig-param"><span class="n">sname</span></em>, <em class="sig-param"><span class="n">sdate</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.make_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create web path to append on livetiming.formula1.com for api
 requests.</p>
 <dl class="field-list simple">
@@ -189,9 +202,9 @@ requests.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="fastf1.api.timing_data">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">timing_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">timing_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Timing data is a mixed stream of information of each driver.
 At a given time a packet of data may indicate position, lap time,
 speed trap, sector time and so on.</p>
@@ -200,17 +213,17 @@ usable data structure, other entries like position and time gaps are
 separated and mapped on finer timeseries.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="fastf1.api.timing_app_data">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">timing_app_data</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">response=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_app_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">timing_app_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">response</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_app_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Full parse of timing app data. This parsing is quite ignorant,
 with  minimum logic just to fix data structure inconsistencies. Tyre
 information is passed to the summary table.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="fastf1.api.car_data">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">car_data</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">car_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and create pandas dataframe for each driver containing
 Telemetry data.</p>
 <p>Samples are not synchronised with the other dataframes and sampling
@@ -234,9 +247,9 @@ Keep absolute reference.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="fastf1.api.position">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.position" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and create pandas dataframe for Position.</p>
 <p>Samples are not synchronised with the other dataframes and sampling
 time is not constant, usually 300ms but sometimes can be ~200ms.
@@ -259,9 +272,9 @@ Keep absolute reference.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="fastf1.api.fetch_page">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">fetch_page</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#fetch_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.fetch_page" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">fetch_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#fetch_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.fetch_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch formula1 web api, given url path and page name. An attempt
 to parse json or decode known messages is made.</p>
 <dl class="field-list simple">
@@ -279,9 +292,9 @@ parsed with <a class="reference internal" href="#fastf1.api.parse" title="fastf1
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="fastf1.api.parse">
-<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">zipped=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.parse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">zipped</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse json and jsonStream as known from livetiming.formula1.com</p>
 </dd></dl>
 

@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                v1.5.1
+                v2.0.0
               </div>
             
           
@@ -85,7 +85,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/Ax6/Fast-F1">← Back to Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
@@ -95,7 +95,20 @@
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Experimental:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -178,16 +191,21 @@ you can import and gives some color to your graphs.</p>
 <p>Modules handle big chunks of data (~30mb per session) so most of the
 information is stored locally as cached requests (be aware).</p>
 <p>Have fun!</p>
+<p>This module was originally developed by Ax6.</p>
+<p>This fork is maintained by theOehrly.
+I’m very grateful for all the work that was done previously by Ax6!</p>
 </div>
 <div class="section" id="getting-started">
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <p>Setting up a running snippet is straightforward:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
 
+<span class="n">ff1</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">enable_cache</span><span class="p">(</span><span class="s1">&#39;path/to/folder/for/cache&#39;</span><span class="p">)</span>  <span class="c1"># optional but recommended</span>
+
 <span class="n">monza_quali</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Monza&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
 
 <span class="n">vettel</span> <span class="o">=</span> <span class="n">monza_quali</span><span class="o">.</span><span class="n">get_driver</span><span class="p">(</span><span class="s1">&#39;VET&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pronto </span><span class="si">{vettel.name}</span><span class="s2">?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pronto </span><span class="si">{</span><span class="n">vettel</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">?&quot;</span><span class="p">)</span>
 <span class="c1"># Pronto Se🅱️astian?</span>
 </pre></div>
 </div>
@@ -211,13 +229,15 @@ information is stored locally as cached requests (be aware).</p>
 </pre></div>
 </div>
 <a class="reference external image-reference" href="_static/gettingstarted.svg"><img alt="_images/gettingstarted.svg" src="_images/gettingstarted.svg" /></a>
+<p>It is not necessary to enable the usage of a cache but it is recommended. Simply provide
+the path to some empty folder on your system.</p>
 </div>
 <div class="section" id="package-functions">
 <h1>Package functions<a class="headerlink" href="#package-functions" title="Permalink to this headline">¶</a></h1>
 <p>Available functions directly accessible from fastf1 package</p>
-<dl class="function">
+<dl class="py function">
 <dt>
-<code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_session</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">gp</em>, <em class="sig-param">event=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_session</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">year</span></em>, <em class="sig-param"><span class="n">gp</span></em>, <em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Main core function. It will take care of crafting an object
 corresponding to the requested session.
 If not specified, full weekend is returned.</p>
@@ -243,14 +263,15 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt>
-<code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">clear_cache</code><span class="sig-paren">(</span><em class="sig-param">deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#clear_cache"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname">fastf1.utils.</code><code class="sig-name descname">clear_cache</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">deep</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#clear_cache"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Removes from disk cached data. Just in case you feel the need of
 a fresh start or you have too much bytes laying around.
 Use it with parsimony. In case of major update you may want to call
 this function, which will solve conflicts rising on unexpected data
-structures.</p>
+structures.
+The cache needs to be enabled first, so that the cache path is known.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>deep</strong> (<em>=False</em><em>, </em><em>optional</em>) – If true, going for removal of http
