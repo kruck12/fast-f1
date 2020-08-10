@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,14 +34,10 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Experimental functionality" href="experimental.html" />
-    <link rel="prev" title="Known bugs" href="known_bugs.html" /> 
+    <link rel="prev" title="Known bugs and caveats" href="known_bugs.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Fast F1
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Fast F1
           
 
           
@@ -60,7 +61,7 @@
             
             
               <div class="version">
-                v2.0.0
+                v2.0.1
               </div>
             
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -97,10 +99,12 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
 </li>
 </ul>
@@ -114,6 +118,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -152,7 +157,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Changelog</li>
     
@@ -175,16 +180,58 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="v1-5-1-last-release-by-ax6">
-<h2>v1.5.1: last release by Ax6<a class="headerlink" href="#v1-5-1-last-release-by-ax6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">
+<h2>v2.0.1: integration of a newer version of Ax6’s old repository<a class="headerlink" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository" title="Permalink to this headline">¶</a></h2>
+<p>This integrates a more recent version of the old repository.
+See Issue #1</p>
+<ul>
+<li><dl>
+<dt>Possibly breaking changes</dt><dd><ul>
+<li><p><a class="reference internal" href="plotting.html#module-fastf1.plotting" title="fastf1.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a>: access to team colors changed</p>
+<p>use new function <a class="reference internal" href="plotting.html#fastf1.plotting.team_color" title="fastf1.plotting.team_color"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.plotting.team_color()</span></code></a></p>
+</li>
+<li><p><a class="reference internal" href="core.html#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core.Laps</span></code></a>: <code class="xref py py-func docutils literal notranslate"><span class="pre">pick_driver_number()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">pick_driver_numbers()</span></code> have been removed.</p>
+<p><a class="reference internal" href="core.html#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.core.Laps.pick_driver()</span></code></a> and <a class="reference internal" href="core.html#fastf1.core.Laps.pick_drivers" title="fastf1.core.Laps.pick_drivers"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.core.Laps.pick_drivers()</span></code></a> do now accept driver numbers a drivers’
+three letter identifiers. Number and letter identifiers can be mixed in a single function call.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Changes:</dt><dd><ul>
+<li><p>An error that previously resulted in the loading of laps failing completely is now handled slightly better.
+Data loading will now only fail for a driver which is actually concerned by this error and not for all drivers.</p>
+<p>See: <a class="reference external" href="https://github.com/theOehrly/Fast-F1/issues/1#issuecomment-670712178">https://github.com/theOehrly/Fast-F1/issues/1#issuecomment-670712178</a>
+This still needs to be fixed properly at some point.</p>
+</li>
+<li><p>Fix crash if cache dir does not exist</p></li>
+<li><p>Some under the hood cleanups and improvements</p></li>
+<li><p>Somewhat improved documentation</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>New:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="utils.html#fastf1.utils.delta_time" title="fastf1.utils.delta_time"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.utils.delta_time()</span></code></a> for comparing lost/gained time between two drivers</p></li>
+<li><p>manual patch file for Bottas in testing</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
 <div class="section" id="v2-0-0-first-release-of-this-fork">
 <h2>v2.0.0: first release of this fork<a class="headerlink" href="#v2-0-0-first-release-of-this-fork" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Changes:</dt><dd><ul>
-<li><p>fixed a bug where pandas.DataFrame functionality did not properly work with
-the <cite>Laps class</cite></p></li>
+<li><dl class="simple">
+<dt>fixed a bug where pandas.DataFrame functionality did not properly work with</dt><dd><p>the <cite>Laps class</cite></p>
+</dd>
+</dl>
+</li>
 <li><p>additional fixes for some minor bugs in <cite>core.get_session</cite></p></li>
 </ul>
 </dd>
@@ -200,6 +247,9 @@ the <cite>Laps class</cite></p></li>
 </li>
 </ul>
 </div>
+<div class="section" id="v1-5-1-last-release-by-ax6">
+<h2>v1.5.1: last release by Ax6<a class="headerlink" href="#v1-5-1-last-release-by-ax6" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -213,7 +263,7 @@ the <cite>Laps class</cite></p></li>
         <a href="experimental.html" class="btn btn-neutral float-right" title="Experimental functionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="known_bugs.html" class="btn btn-neutral float-left" title="Known bugs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="known_bugs.html" class="btn btn-neutral float-left" title="Known bugs and caveats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -222,11 +272,19 @@ the <cite>Laps class</cite></p></li>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright MIT
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -237,7 +295,6 @@ the <cite>Laps class</cite></p></li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

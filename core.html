@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="fastf1.api - Api module" href="api.html" />
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Fast F1
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Fast F1
           
 
           
@@ -60,7 +61,7 @@
             
             
               <div class="version">
-                v2.0.0
+                v2.0.1
               </div>
             
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -97,10 +99,11 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
 </li>
 </ul>
@@ -114,6 +117,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -152,7 +156,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</li>
     
@@ -175,6 +179,15 @@
             
   <span class="target" id="module-fastf1.core"></span><div class="section" id="fastf1-core-core-module">
 <h1><a class="reference internal" href="#module-fastf1.core" title="fastf1.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code></a> - Core module<a class="headerlink" href="#fastf1-core-core-module" title="Permalink to this headline">¶</a></h1>
+<p>Contains the main classes and functions.</p>
+<dl class="py data">
+<dt id="fastf1.core.REFERENCE_LAP_RESOLUTION">
+<code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">REFERENCE_LAP_RESOLUTION</code><em class="property"> = 0.667</em><a class="headerlink" href="#fastf1.core.REFERENCE_LAP_RESOLUTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>A distance in meters which indicates the resolution of the reference
+lap. This reference is used to project car positions and calculate
+things like distance between cars.</p>
+</dd></dl>
+
 <dl class="py function">
 <dt id="fastf1.core.get_session">
 <code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_session</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">year</span></em>, <em class="sig-param"><span class="n">gp</span></em>, <em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.get_session" title="Permalink to this definition">¶</a></dt>
@@ -184,13 +197,17 @@ If not specified, full weekend is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>year</strong> – session year (Tested only with 2019)</p></li>
-<li><p><strong>gp</strong> – <p>name or weekend number (1: Australia, …, 21: Abu Dhabi)
-if gp is a string, a fuzzy match will be performed on the
-season rounds and the most likely will be selected.
-‘bahrain’, ‘australia’, ‘abudabi’ are some of the examples
-that you can pass and the correct week will be selected.</p>
-<p>Pass ‘testing’ to fetch barcelona tests.</p>
+<li><p><strong>year</strong> (<em>number</em>) – Session year</p></li>
+<li><p><strong>gp</strong> (<em>number</em><em> or </em><em>string</em>) – <p>Name or weekend number (1: Australia,
+…, 21: Abu Dhabi). If gp is a string,
+a fuzzy match will be performed on the
+season rounds and the most likely will be
+selected.</p>
+<p>Some examples that will be correctly
+interpreted: ‘bahrain’, ‘australia’,
+‘abudabi’, ‘monza’.</p>
+<p>Pass ‘testing’ to fetch Barcelona winter
+tests.</p>
 </p></li>
 <li><p><strong>event</strong> (<em>=None</em>) – may be ‘FP1’, ‘FP2’, ‘FP3’, ‘Q’ or ‘R’, if not
 specified you get the full <a class="reference internal" href="#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a>.
@@ -206,13 +223,35 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 <dl class="py function">
 <dt id="fastf1.core.get_round">
 <code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">get_round</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">year</span></em>, <em class="sig-param"><span class="n">match</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_round"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.get_round" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>From the year and a text to match, will try to find the most
+likely week number of the event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – Year of the event</p></li>
+<li><p><strong>match</strong> (<em>string</em>) – Name of the race or gp (e.g. ‘Bahrain’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The round number. (2019, ‘Bahrain’) -&gt; 2</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py class">
 <dt id="fastf1.core.Weekend">
 <em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Weekend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">year</span></em>, <em class="sig-param"><span class="n">gp</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Weekend class</p>
+<p>If you want to handle multiple sessions from the same race event
+you can use a :class:Weekend instance.</p>
+<p>For example you could do the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
+
+<span class="n">weekend</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Monza&#39;</span><span class="p">)</span>
+<span class="n">quali</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">get_quali</span><span class="p">()</span> <span class="c1"># Q Session</span>
+<span class="n">race</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">get_race</span><span class="p">()</span> <span class="c1"># R Session</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="fastf1.core.Weekend.get_practice">
 <code class="sig-name descname">get_practice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">number</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_practice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Weekend.get_practice" title="Permalink to this definition">¶</a></dt>
@@ -269,39 +308,46 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 <dt id="fastf1.core.Session">
 <em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Session</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weekend</span></em>, <em class="sig-param"><span class="n">session_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Session class</p>
+<p>The session class usually will be your starting point. This
+object will have various information about the event such as <cite>name</cite> and
+<cite>date</cite>. To get the sessions laps use <a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.load_laps()</span></code></a>.</p>
 <dl class="py method">
 <dt id="fastf1.core.Session.load_laps">
-<code class="sig-name descname">load_laps</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.load_laps" title="Permalink to this definition">¶</a></dt>
-<dd><p>With load laps all the timing information is merged in a
-single pandas dataframe. The first time you run the method on
-a session it may take a while to load, some megabytes are of
-data are downloaded and processed, but then laps will be
-stored locally. Each dataframe entry has the following columns:</p>
+<code class="sig-name descname">load_laps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.load_laps" title="Permalink to this definition">¶</a></dt>
+<dd><p>With load laps all the timing information is merged into a
+single pandas dataframe. The first time you run this method on
+a session it may take a while to load. Multiple megabytes of
+data have to be downloaded and processed. After that, laps will
+be stored locally and execution will be much faster.</p>
+<p>The returned <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> instance can be used just like a
+pandas DataFrame with some additional enhancements.</p>
+<p>The dataframe columns, therefore, each lap, has the following
+properties:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Time</strong> (timedelta): Time when the lap was recorded</p></li>
+<li><p><strong>Driver</strong> (string): Three letters driver identifier</p></li>
+<li><p><strong>LapTime</strong> (timedelta): Recorded lap time</p></li>
+<li><p><strong>LapNumber</strong> (int): Recorded lap number</p></li>
+<li><p><strong>PitOutTime</strong> (timedelta): Time when car exited the pit</p></li>
+<li><p><strong>PitInTime</strong> (timedelta): Time when car entered the pit</p></li>
+<li><p><strong>Sector1Time</strong> (timedelta): Sector 1 recorded time</p></li>
+<li><p><strong>Sector2Time</strong> (timedelta): Sector 2 recorded time</p></li>
+<li><p><strong>Sector3Time</strong> (timedelta): Sector 3 recorded time</p></li>
+<li><p><strong>SpeedI1</strong> (float): Speedtrap sector 1</p></li>
+<li><p><strong>SpeedI2</strong> (float): Speedtrap sector 2</p></li>
+<li><p><strong>SpeedFL</strong> (float): Speedtrap sector 3 (Not sure)</p></li>
+<li><p><strong>SpeedST</strong> (float): Speedtrap on longest straight (Not sure)</p></li>
+<li><p><strong>Stint</strong> (int): Indicates the stint number</p></li>
+<li><p><strong>Compound</strong> (str): Tyre compound name: SOFT, MEDIUM ..</p></li>
+<li><p><strong>TyreLife</strong> (int): Laps spent on that compound</p></li>
+<li><p><strong>FreshTyre</strong> (bool): Tyre had TyreLife=0 at stint start</p></li>
+<li><p><strong>DriverNumber</strong> (str): Car number</p></li>
+<li><p><strong>Team</strong> (str): Team name</p></li>
+<li><p><strong>LapStartDate</strong> (datetime): When the lap started</p></li>
+<li><p><strong>telemetry</strong> (pandas.DataFrame): Telemetry with the                                                 following channels:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><cite>Time</cite> (timedelta): Time when the lap was recorded</p></li>
-<li><p><cite>Driver</cite> (string): Three letters driver identifier</p></li>
-<li><p><cite>LapTime</cite> (timedelta): Recorded lap time</p></li>
-<li><p><cite>LapNumber</cite> (int): Recorded lap number</p></li>
-<li><p><cite>PitOutTime</cite> (timedelta): Time when car exited the pit</p></li>
-<li><p><cite>PitInTime</cite> (timedelta): Time when car entered the pit</p></li>
-<li><p><cite>Sector1Time</cite> (timedelta): Sector 1 recorded time</p></li>
-<li><p><cite>Sector2Time</cite> (timedelta): Sector 2 recorded time</p></li>
-<li><p><cite>Sector3Time</cite> (timedelta): Sector 3 recorded time</p></li>
-<li><p><cite>SpeedI1</cite> (float): Speedtrap sector 1</p></li>
-<li><p><cite>SpeedI2</cite> (float): Speedtrap sector 2</p></li>
-<li><p><cite>SpeedFL</cite> (float): Speedtrap sector 3 (Not sure)</p></li>
-<li><p><cite>SpeedST</cite> (float): Speedtrap on longest straight (Not sure)</p></li>
-<li><p><cite>Stint</cite> (int): Indicates the stint number</p></li>
-<li><p><cite>Compound</cite> (str): Tyre compound name: SOFT, MEDIUM ..</p></li>
-<li><p><cite>TyreLife</cite> (int): Laps spent on that compound</p></li>
-<li><p><cite>FreshTyre</cite> (bool): Tyre had TyreLife=0 at stint start</p></li>
-<li><p><cite>DriverNumber</cite> (str): Car number</p></li>
-<li><p><cite>Team</cite> (str): Team name</p></li>
-<li><p><cite>LapStartDate</cite> (datetime): When the lap started</p></li>
-<li><dl class="simple">
-<dt><cite>telemetry</cite>: (pandas dataframe of lap telemetry)</dt><dd><ul>
 <li><p><cite>Time</cite> (timedelta): Time axis (0 is start of lap)</p></li>
 <li><p><cite>Space</cite> (float): Space in meters (from speed and time)</p></li>
 <li><p><cite>Speed</cite> (float): Car speed</p></li>
@@ -315,11 +361,10 @@ stored locally. Each dataframe entry has the following columns:</p>
 <li><p><cite>Z</cite> (float): GPS Z position (normalized)</p></li>
 <li><p><cite>Status</cite> (string): flags OffTrack/OnTrack for GPS</p></li>
 <li><p><cite>SessionTime</cite> (timedelta): time elapsed from session start</p></li>
-<li><p><cite>DistanceToDriverAhead</cite> (string): distance to next car</p></li>
+<li><p><cite>DistanceToDriverAhead</cite> (string): distance to next car in m</p></li>
 <li><p><cite>DriverAhead</cite> (string): the car ahead</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 </ul>
 </div></blockquote>
@@ -334,7 +379,7 @@ data of different laps.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>laps</p>
+<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -373,51 +418,55 @@ entry is left.</p>
 
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_driver">
-<code class="sig-name descname">pick_driver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select driver given his three letters identifier</p>
+<code class="sig-name descname">pick_driver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select driver given his three letters identifier or its car
+number:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perez_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;PER&#39;</span><span class="p">)</span>
+<span class="n">bottas_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="mi">77</span><span class="p">)</span>
+<span class="n">kimi_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;RAI&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_drivers">
-<code class="sig-name descname">pick_drivers</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select drivers given a list of their three letters identifiers</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_driver_number">
-<code class="sig-name descname">pick_driver_number</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver_number" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select driver given his car number</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_driver_numbers">
-<code class="sig-name descname">pick_driver_numbers</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver_numbers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver_numbers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select drivers given their car numbers</p>
+<code class="sig-name descname">pick_drivers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifiers</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select drivers given a list of their identifiers. Same as
+<a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for lists:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_drivers_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_drivers</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_team">
-<code class="sig-name descname">pick_team</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select team given its name</p>
+<code class="sig-name descname">pick_team</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select team given its name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mercedes</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">)</span>
+<span class="n">alfa_romeo</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Have a look to <code class="xref py py-attr docutils literal notranslate"><span class="pre">fastf1.plotting.TEAM_COLORS</span></code> for a quick
+reference on team names.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_teams">
-<code class="sig-name descname">pick_teams</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select teams given a list of names</p>
+<code class="sig-name descname">pick_teams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">names</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for a list of teams.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_fastest">
-<code class="sig-name descname">pick_fastest</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_fastest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_fastest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select fastest lap time</p>
+<code class="sig-name descname">pick_fastest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_fastest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_fastest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get lap with best <cite>LapTime</cite>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_quicklaps">
-<code class="sig-name descname">pick_quicklaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select laps with lap time below <a class="reference internal" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="fastf1.core.Laps.QUICKLAP_THRESHOLD"><code class="xref py py-attr docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code></a>
-(default 107%) of the fastest lap from the given laps set</p>
+<code class="sig-name descname">pick_quicklaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select laps with <cite>LapTime</cite> faster than a certain limit.
+By default 107% of the best <cite>LapTime</cite> of the given laps set.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>threshold</strong> (<em>optional</em><em>, </em><em>float</em>) – custom threshold coefficent
@@ -428,8 +477,13 @@ entry is left.</p>
 
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_tyre">
-<code class="sig-name descname">pick_tyre</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_tyre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_tyre" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select tyres between “SOFT”, “MEDIUM” and “HARD”</p>
+<code class="sig-name descname">pick_tyre</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">compound</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_tyre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps.pick_tyre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get laps done on a specific compound.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compound</strong> (<em>string</em>) – may be “SOFT”, “MEDIUM” or “HARD”</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -497,11 +551,19 @@ entry is left.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright MIT
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -512,7 +574,6 @@ entry is left.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

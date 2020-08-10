@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Fast F1
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Fast F1
           
 
           
@@ -58,7 +59,7 @@
             
             
               <div class="version">
-                v2.0.0
+                v2.0.1
               </div>
             
           
@@ -75,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -95,10 +97,12 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
 </li>
 </ul>
@@ -112,6 +116,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -150,7 +155,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Index</li>
     
@@ -234,10 +239,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Weekend.date">date() (fastf1.core.Weekend property)</a>
 </li>
-      <li><a href="track.html#fastf1.track.Track.direction_to_point">direction_to_point() (fastf1.track.Track method)</a>
+      <li><a href="utils.html#fastf1.utils.delta_time">delta_time() (in module fastf1.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="track.html#fastf1.track.Track.direction_to_point">direction_to_point() (fastf1.track.Track method)</a>
+</li>
       <li><a href="core.html#fastf1.core.Driver.dnf">dnf() (fastf1.core.Driver property)</a>
 </li>
       <li><a href="core.html#fastf1.core.Driver">Driver (class in fastf1.core)</a>
@@ -304,6 +311,13 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    fastf1.plotting
+
+      <ul>
+        <li><a href="plotting.html#module-fastf1.plotting">module</a>
+</li>
+      </ul></li>
       <li>
     fastf1.track
 
@@ -396,6 +410,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Laps">Laps (class in fastf1.core)</a>
 </li>
+      <li><a href="plotting.html#fastf1.plotting.laptime_axis">laptime_axis() (in module fastf1.plotting)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="track.html#fastf1.track.Track.lazy_is_track_point">lazy_is_track_point() (fastf1.track.Track method)</a>
@@ -432,6 +448,8 @@
 </li>
         <li><a href="func.html#module-fastf1.func">fastf1.func</a>
 </li>
+        <li><a href="plotting.html#module-fastf1.plotting">fastf1.plotting</a>
+</li>
         <li><a href="track.html#module-fastf1.track">fastf1.track</a>
 </li>
         <li><a href="utils.html#module-fastf1.utils">fastf1.utils</a>
@@ -461,16 +479,12 @@
 </li>
       <li><a href="core.html#fastf1.core.Laps.pick_driver">pick_driver() (fastf1.core.Laps method)</a>
 </li>
-      <li><a href="core.html#fastf1.core.Laps.pick_driver_number">pick_driver_number() (fastf1.core.Laps method)</a>
-</li>
-      <li><a href="core.html#fastf1.core.Laps.pick_driver_numbers">pick_driver_numbers() (fastf1.core.Laps method)</a>
-</li>
       <li><a href="core.html#fastf1.core.Laps.pick_drivers">pick_drivers() (fastf1.core.Laps method)</a>
+</li>
+      <li><a href="core.html#fastf1.core.Laps.pick_fastest">pick_fastest() (fastf1.core.Laps method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Laps.pick_fastest">pick_fastest() (fastf1.core.Laps method)</a>
-</li>
       <li><a href="core.html#fastf1.core.Laps.pick_quicklaps">pick_quicklaps() (fastf1.core.Laps method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Laps.pick_team">pick_team() (fastf1.core.Laps method)</a>
@@ -499,10 +513,12 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="func.html#fastf1.func.reject_outliers">reject_outliers() (in module fastf1.func)</a>
+      <li><a href="core.html#fastf1.core.REFERENCE_LAP_RESOLUTION">REFERENCE_LAP_RESOLUTION (in module fastf1.core)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="func.html#fastf1.func.reject_outliers">reject_outliers() (in module fastf1.func)</a>
+</li>
       <li><a href="track.html#fastf1.track.Track.resync_lap_times">resync_lap_times() (fastf1.track.Track method)</a>
 </li>
   </ul></td>
@@ -545,10 +561,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Driver.team">team() (fastf1.core.Driver property)</a>
 </li>
-      <li><a href="api.html#fastf1.api.timing_app_data">timing_app_data() (in module fastf1.api)</a>
+      <li><a href="plotting.html#fastf1.plotting.team_color">team_color() (in module fastf1.plotting)</a>
+</li>
+      <li><a href="plotting.html#fastf1.plotting.timedelta_converter">timedelta_converter() (in module fastf1.plotting)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#fastf1.api.timing_app_data">timing_app_data() (in module fastf1.api)</a>
+</li>
       <li><a href="api.html#fastf1.api.timing_data">timing_data() (in module fastf1.api)</a>
 </li>
       <li><a href="track.html#fastf1.track.Track">Track (class in fastf1.track)</a>
@@ -578,11 +598,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright MIT
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -593,7 +621,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
