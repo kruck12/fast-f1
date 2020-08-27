@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                v2.0.1
+                2.0.2
               </div>
             
           
@@ -99,8 +99,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../troubleshooting.html#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../troubleshooting.html#module-core">module <cite>core</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
@@ -183,11 +193,12 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">base64</span>
-<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">zlib</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
 <span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://livetiming.formula1.com&#39;</span>
@@ -203,25 +214,25 @@
 <span class="p">}</span>
 
 <span class="n">pages</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;session_info&#39;</span><span class="p">:</span> <span class="s1">&#39;SessionInfo.json&#39;</span><span class="p">,</span> <span class="c1"># more rnd</span>
-  <span class="s1">&#39;archive_status&#39;</span><span class="p">:</span> <span class="s1">&#39;ArchiveStatus.json&#39;</span><span class="p">,</span> <span class="c1"># rnd=1880327548</span>
-  <span class="s1">&#39;heartbeat&#39;</span><span class="p">:</span> <span class="s1">&#39;Heartbeat.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Probably time sinchronization?</span>
-  <span class="s1">&#39;audio_streams&#39;</span><span class="p">:</span> <span class="s1">&#39;AudioStreams.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Link to audio commentary</span>
-  <span class="s1">&#39;driver_list&#39;</span><span class="p">:</span> <span class="s1">&#39;DriverList.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Driver info and line story</span>
-  <span class="s1">&#39;extrapolated_clock&#39;</span><span class="p">:</span> <span class="s1">&#39;ExtrapolatedClock.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Boolean</span>
-  <span class="s1">&#39;race_control_messages&#39;</span><span class="p">:</span> <span class="s1">&#39;RaceControlMessages.json&#39;</span><span class="p">,</span> <span class="c1"># Flags etc</span>
-  <span class="s1">&#39;session_status&#39;</span><span class="p">:</span> <span class="s1">&#39;SessionStatus.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Start and finish times</span>
-  <span class="s1">&#39;team_radio&#39;</span><span class="p">:</span> <span class="s1">&#39;TeamRadio.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Links to team radios</span>
-  <span class="s1">&#39;timing_app_data&#39;</span><span class="p">:</span> <span class="s1">&#39;TimingAppData.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Tyres and laps (juicy)</span>
-  <span class="s1">&#39;timing_stats&#39;</span><span class="p">:</span> <span class="s1">&#39;TimingStats.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># &#39;Best times/speed&#39; useless</span>
-  <span class="s1">&#39;track_status&#39;</span><span class="p">:</span> <span class="s1">&#39;TrackStatus.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># SC, VSC and Yellow</span>
-  <span class="s1">&#39;weather_data&#39;</span><span class="p">:</span> <span class="s1">&#39;WeatherData.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Temp, wind and rain</span>
-  <span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="s1">&#39;Position.z.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Coordinates, not GPS? (.z)</span>
-  <span class="s1">&#39;car_data&#39;</span><span class="p">:</span> <span class="s1">&#39;CarData.z.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Telemetry channels (.z)</span>
-  <span class="s1">&#39;content_streams&#39;</span><span class="p">:</span> <span class="s1">&#39;ContentStreams.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Lap by lap feeds</span>
-  <span class="s1">&#39;timing_data&#39;</span><span class="p">:</span> <span class="s1">&#39;TimingData.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Gap to car ahead </span>
-  <span class="s1">&#39;lap_count&#39;</span><span class="p">:</span> <span class="s1">&#39;LapCount.jsonStream&#39;</span><span class="p">,</span> <span class="c1"># Lap counter</span>
-  <span class="s1">&#39;championship_predicion&#39;</span><span class="p">:</span> <span class="s1">&#39;ChampionshipPrediction.jsonStream&#39;</span> <span class="c1"># Points</span>
+  <span class="s1">&#39;session_info&#39;</span><span class="p">:</span> <span class="s1">&#39;SessionInfo.json&#39;</span><span class="p">,</span>  <span class="c1"># more rnd</span>
+  <span class="s1">&#39;archive_status&#39;</span><span class="p">:</span> <span class="s1">&#39;ArchiveStatus.json&#39;</span><span class="p">,</span>  <span class="c1"># rnd=1880327548</span>
+  <span class="s1">&#39;heartbeat&#39;</span><span class="p">:</span> <span class="s1">&#39;Heartbeat.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Probably time sinchronization?</span>
+  <span class="s1">&#39;audio_streams&#39;</span><span class="p">:</span> <span class="s1">&#39;AudioStreams.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Link to audio commentary</span>
+  <span class="s1">&#39;driver_list&#39;</span><span class="p">:</span> <span class="s1">&#39;DriverList.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Driver info and line story</span>
+  <span class="s1">&#39;extrapolated_clock&#39;</span><span class="p">:</span> <span class="s1">&#39;ExtrapolatedClock.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Boolean</span>
+  <span class="s1">&#39;race_control_messages&#39;</span><span class="p">:</span> <span class="s1">&#39;RaceControlMessages.json&#39;</span><span class="p">,</span>  <span class="c1">#  Flags etc</span>
+  <span class="s1">&#39;session_status&#39;</span><span class="p">:</span> <span class="s1">&#39;SessionStatus.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Start and finish times</span>
+  <span class="s1">&#39;team_radio&#39;</span><span class="p">:</span> <span class="s1">&#39;TeamRadio.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Links to team radios</span>
+  <span class="s1">&#39;timing_app_data&#39;</span><span class="p">:</span> <span class="s1">&#39;TimingAppData.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Tyres and laps (juicy)</span>
+  <span class="s1">&#39;timing_stats&#39;</span><span class="p">:</span> <span class="s1">&#39;TimingStats.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># &#39;Best times/speed&#39; useless</span>
+  <span class="s1">&#39;track_status&#39;</span><span class="p">:</span> <span class="s1">&#39;TrackStatus.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># SC, VSC and Yellow</span>
+  <span class="s1">&#39;weather_data&#39;</span><span class="p">:</span> <span class="s1">&#39;WeatherData.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Temp, wind and rain</span>
+  <span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="s1">&#39;Position.z.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Coordinates, not GPS? (.z)</span>
+  <span class="s1">&#39;car_data&#39;</span><span class="p">:</span> <span class="s1">&#39;CarData.z.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Telemetry channels (.z)</span>
+  <span class="s1">&#39;content_streams&#39;</span><span class="p">:</span> <span class="s1">&#39;ContentStreams.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Lap by lap feeds</span>
+  <span class="s1">&#39;timing_data&#39;</span><span class="p">:</span> <span class="s1">&#39;TimingData.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Gap to car ahead</span>
+  <span class="s1">&#39;lap_count&#39;</span><span class="p">:</span> <span class="s1">&#39;LapCount.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Lap counter</span>
+  <span class="s1">&#39;championship_predicion&#39;</span><span class="p">:</span> <span class="s1">&#39;ChampionshipPrediction.jsonStream&#39;</span>  <span class="c1"># Points</span>
 <span class="p">}</span>
 <span class="sd">&quot;&quot;&quot;Known requests</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -252,262 +263,325 @@
 <span class="sd">    While most of this data can be mapped lap by lap given a readable and</span>
 <span class="sd">    usable data structure, other entries like position and time gaps are</span>
 <span class="sd">    separated and mapped on finer timeseries.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">raw</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_data&#39;</span><span class="p">)</span>
-    <span class="n">laps_data</span> <span class="o">=</span> <span class="n">_timing_data_laps</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">raw</span><span class="p">)</span>
-    <span class="n">stream_data</span> <span class="o">=</span> <span class="n">_timing_data_stream</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">raw</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">laps_data</span><span class="p">,</span> <span class="n">stream_data</span></div>
 
+<span class="sd">    Args:</span>
+<span class="sd">        path: url path (see :func:`make_path`)</span>
 
-<span class="k">def</span> <span class="nf">_timing_data_stream</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;pre-fetched response can be fed if other functions parse the same</span>
-<span class="sd">    raw data.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pandas.Dataframe for timing/lap data,</span>
+<span class="sd">        pandas.Dataframe for position/time gaps</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">data</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="p">{},</span> <span class="kc">None</span>
+
+    <span class="c1"># possible optional sanity checks (TODO, maybe):</span>
+    <span class="c1">#   - inlap has to be followed by outlap</span>
+    <span class="c1">#   - pit stops may never be negative (missing outlap)</span>
+    <span class="c1">#   - speed traps against telemetry (especially in Q FastLap - Slow Lap)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_data&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_data&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+
+    <span class="c1"># split up response per driver for easier iteration and processing later</span>
+    <span class="n">resp_per_driver</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
         <span class="k">if</span> <span class="s1">&#39;Lines&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
             <span class="k">continue</span>
-        <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Position&#39;</span><span class="p">:</span> <span class="p">[],</span>
-                                <span class="s1">&#39;GapToLeader&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;IntervalToPositionAhead&#39;</span><span class="p">:[]}</span>
-            <span class="n">time</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">block</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">driver</span><span class="p">]</span>
-            <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">drv</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">drv</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">resp_per_driver</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">resp_per_driver</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">drv</span><span class="p">])]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">resp_per_driver</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">drv</span><span class="p">]))</span>
 
-            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;Position&#39;</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-                <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;GapToLeader&#39;</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-                <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;IntervalToPositionAhead&#39;</span>  
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
-                    <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="c1"># define all empty columns</span>
+    <span class="n">empty_laps</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(),</span> <span class="s1">&#39;LapTime&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span>
+                  <span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="s1">&#39;PitOutTime&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;PitInTime&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span>
+                  <span class="s1">&#39;Sector1Time&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;Sector2Time&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span>
+                  <span class="s1">&#39;Sector1SessionTime&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;Sector2SessionTime&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;Sector3SessionTime&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span>
+                  <span class="s1">&#39;SpeedI1&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="s1">&#39;SpeedI2&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="s1">&#39;SpeedFL&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="s1">&#39;SpeedST&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">}</span>
 
-            <span class="k">if</span> <span class="n">new_entry</span><span class="p">:</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
-                <span class="n">expected_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
-                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]:</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">expected_length</span><span class="p">:</span>
-                        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">df</span>
+    <span class="n">empty_stream</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(),</span> <span class="s1">&#39;Position&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span>
+                    <span class="s1">&#39;GapToLeader&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="s1">&#39;IntervalToPositionAhead&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">}</span>
+
+    <span class="c1"># create empty data dicts and populate them with data from all drivers after that</span>
+    <span class="n">laps_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">list</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">empty_laps</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">stream_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">list</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">empty_stream</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="k">for</span> <span class="n">drv</span> <span class="ow">in</span> <span class="n">resp_per_driver</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">drv_laps_data</span> <span class="o">=</span> <span class="n">_laps_data_driver</span><span class="p">(</span><span class="n">resp_per_driver</span><span class="p">[</span><span class="n">drv</span><span class="p">],</span> <span class="n">empty_laps</span><span class="p">,</span> <span class="n">drv</span><span class="p">)</span>
+        <span class="n">drv_stream_data</span> <span class="o">=</span> <span class="n">_stream_data_driver</span><span class="p">(</span><span class="n">resp_per_driver</span><span class="p">[</span><span class="n">drv</span><span class="p">],</span> <span class="n">empty_stream</span><span class="p">,</span> <span class="n">drv</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">empty_laps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">laps_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">drv_laps_data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">empty_stream</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">stream_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">drv_stream_data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">laps_data</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stream_data</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_timing_data_laps</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;pre-fetched response can be fed if other functions parse the same</span>
-<span class="sd">    raw data.</span>
+<span class="k">def</span> <span class="nf">_laps_data_driver</span><span class="p">(</span><span class="n">driver_raw</span><span class="p">,</span> <span class="n">empty_vals</span><span class="p">,</span> <span class="n">drv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Data is on a per-lap basis.</span>
 
+<span class="sd">    Boolean flag &#39;PitOut&#39; is not evaluated. Meaning is unknown and flag is only sometimes present when a car leaves</span>
+<span class="sd">    the pits.</span>
+
+<span class="sd">    Params:</span>
+<span class="sd">        driver_raw (list): raw api response for this driver only [(Timestamp, data), (...), ...]</span>
+<span class="sd">        empty_vals (dict): dictionary of column names and empty column values</span>
+<span class="sd">        drv (str): driver identifier</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">         dictionary of laps data for this driver</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_data&#39;</span><span class="p">)</span>
-    <span class="n">data</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{},</span> <span class="kc">None</span>
-    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s1">&#39;Lines&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+
+    <span class="c1"># do a quick first pass over the data to find out when laps start and end</span>
+    <span class="c1"># this is needed so we can work with a more efficient &quot;look ahead&quot; on the main pass</span>
+    <span class="c1"># example: we can have &#39;PitOut&#39; 0.01s before a new lap starts, but &#39;PitOut&#39; belongs to the new lap, not the old one</span>
+
+    <span class="n">lapcnt</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># we&#39;re keeping two separate lap counts because sometimes the api has a non existent lap too much...</span>
+    <span class="n">api_lapcnt</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># ...at the beginning; we can correct that though;</span>
+    <span class="c1"># api_lapcnt does not count backwards even if the source data does</span>
+    <span class="n">in_past</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># flag for when the data went back in time</span>
+    <span class="n">out_of_pit</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># flag set to true when driver drives out FOR THE FIRST TIME; stays true from then on</span>
+
+    <span class="c1"># entries are prefilled with empty values and only overwritten if they exist in the response line</span>
+    <span class="n">drv_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="p">[</span><span class="n">val</span><span class="p">,</span> <span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">empty_vals</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">resp</span> <span class="ow">in</span> <span class="n">driver_raw</span><span class="p">:</span>
+        <span class="n">data_in_lap</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># the first three ifs are just edge case handling for the rare sessions were the data goes back in time</span>
+        <span class="k">if</span> <span class="n">in_past</span> <span class="ow">and</span> <span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">api_lapcnt</span><span class="p">:</span>
+            <span class="n">in_past</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># we&#39;re back in the present</span>
+
+        <span class="k">if</span> <span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">api_lapcnt</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The api attempted to rewrite history for driver </span><span class="si">{</span><span class="n">drv</span><span class="si">}</span><span class="s2">. This was ignored! The data may not&quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot; be entirely correct. (near lap </span><span class="si">{</span><span class="n">lapcnt</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="n">in_past</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">continue</span>
-        <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
-            <span class="n">data</span><span class="p">,</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">_timing_data_laps_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
-    <span class="n">data_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Driver&#39;</span><span class="p">]]</span>
-    <span class="n">td_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">,</span> <span class="s1">&#39;PitInTime&#39;</span><span class="p">,</span> <span class="s1">&#39;PitOutTime&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Sector1Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Sector1SessionTime&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2SessionTime&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3SessionTime&#39;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">data_cols</span><span class="p">]</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-            <span class="c1"># Pop last row if all entries are empty</span>
-            <span class="n">_df</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># To increase pitstop count on next lap start and not end </span>
-        <span class="n">pit_stops</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="n">pit_laps</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="o">~</span><span class="n">_df</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span>
-        <span class="k">for</span> <span class="n">lap</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pit_laps</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">_df</span><span class="p">)])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="c1"># Going in reverse to spot easily if this messes up</span>
-            <span class="c1"># (Should always have 0 pitstops at start)</span>
-            <span class="n">_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_df</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;=</span> <span class="n">lap</span><span class="p">,</span> <span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pit_stops</span>
-            <span class="n">pit_stops</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">td_cols</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[ns]&#39;</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">in_past</span><span class="p">:</span>  <span class="c1"># still in the past, just continue and ignore everything</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;InPit&#39;</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;InPit&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">out_of_pit</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># drove out of the pits for the first time</span>
+
+        <span class="c1"># new lap; create next row</span>
+        <span class="k">if</span> <span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">api_lapcnt</span><span class="p">:</span>
+            <span class="n">api_lapcnt</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># make sure the car actually drove out of the pits already; it can&#39;t be a new lap if it didn&#39;t</span>
+            <span class="k">if</span> <span class="n">out_of_pit</span><span class="p">:</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">lapcnt</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="c1"># append a new empty row; last row may not be populated (depending on session) and may be removed later</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">empty_vals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+    <span class="c1"># now, do the main pass where all the other data is actually filled in</span>
+    <span class="c1"># same counters and flags as before, reset them</span>
+    <span class="n">lapcnt</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># we&#39;re keeping two separate lap counts because sometimes the api has a non existent lap too much...</span>
+    <span class="n">api_lapcnt</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># ...at the beginning; we can correct that though;</span>
+    <span class="c1"># api_lapcnt does not count backwards even if the source data does</span>
+    <span class="n">in_past</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># flag for when the data went back in time</span>
+
+    <span class="n">pitstops</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># start with -1 because first is out lap, needs to be zero after that</span>
+
+    <span class="c1"># iterate through the data; new lap triggers next row in data</span>
+    <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">resp</span> <span class="ow">in</span> <span class="n">driver_raw</span><span class="p">:</span>
+        <span class="c1"># the first three ifs are just edge case handling for the rare sessions were the data goes back in time</span>
+        <span class="k">if</span> <span class="n">in_past</span> <span class="ow">and</span> <span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">api_lapcnt</span><span class="p">:</span>
+            <span class="n">in_past</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># we&#39;re back in the present</span>
+        <span class="k">if</span> <span class="n">in_past</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">api_lapcnt</span><span class="p">):</span>
+            <span class="n">in_past</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">lapcnt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">((</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">-</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">)):</span>
+            <span class="c1"># ignore any data which arrives more than 5 minutes before the end of the first lap, except &#39;PitOut&#39;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;InPit&#39;</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;InPit&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">pitstops</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># special here, can be multiple times for no reason therefore set zero instead of +=1</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># values which are up to five seconds late are still counted towards the previous lap</span>
+        <span class="c1"># (sector times, speed traps and lap times)</span>
+        <span class="n">lap_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lapcnt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">-</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)):</span>
+            <span class="n">lap_offset</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Sectors&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># sometimes it&#39;s a list but then it never contains values...</span>
+            <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">sector</span><span class="p">,</span> <span class="n">sesst</span> <span class="ow">in</span> <span class="p">((</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector1Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector1SessionTime&#39;</span><span class="p">),</span>
+                                      <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2SessionTime&#39;</span><span class="p">),</span>
+                                      <span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3SessionTime&#39;</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;Sectors&#39;</span><span class="p">,</span> <span class="n">sn</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">):</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="n">sector</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="n">sesst</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;LastLapTime&#39;</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">):</span>
+            <span class="c1"># if &#39;LastLapTime&#39; is received less than five seconds after the start of a new lap, it is still added</span>
+            <span class="c1"># to the last lap</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Speeds&#39;</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">trapkey</span><span class="p">,</span> <span class="n">trapname</span> <span class="ow">in</span> <span class="p">((</span><span class="s1">&#39;I1&#39;</span><span class="p">,</span> <span class="s1">&#39;SpeedI1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I2&#39;</span><span class="p">,</span> <span class="s1">&#39;SpeedI2&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;FL&#39;</span><span class="p">,</span> <span class="s1">&#39;SpeedFL&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;ST&#39;</span><span class="p">,</span> <span class="s1">&#39;SpeedST&#39;</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;Speeds&#39;</span><span class="p">,</span> <span class="n">trapkey</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">):</span>
+                    <span class="c1"># speed has to be float because int does not support NaN</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="n">trapname</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;InPit&#39;</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="c1"># &#39;InPit&#39;: True is received once when entering pits, False is received once when leaving</span>
+            <span class="k">if</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;InPit&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">pitstops</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">-</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">):</span>
+                <span class="c1"># same response line as beginning of next lap or beginning of next lap less than 5 seconds away</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># add to next lap</span>
+                <span class="n">pitstops</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># add to current lap</span>
+                <span class="n">pitstops</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># new lap; create next row</span>
+        <span class="k">if</span> <span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">api_lapcnt</span><span class="p">:</span>
+            <span class="n">api_lapcnt</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># make sure the car actually drove out of the pits already; it can&#39;t be a new lap if it didn&#39;t</span>
+            <span class="k">if</span> <span class="n">pitstops</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">lapcnt</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># don&#39;t use F1&#39;s lap count; ours is better</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">pitstops</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv</span>
+                <span class="n">lapcnt</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">lapcnt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># no data at all for this driver</span>
+        <span class="k">return</span> <span class="n">drv_data</span>
+
+    <span class="c1"># done reading the data, do postprocessing</span>
+
+    <span class="k">def</span> <span class="nf">data_in_lap</span><span class="p">(</span><span class="n">lap_n</span><span class="p">):</span>
+        <span class="n">relevant</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Sector1Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">,</span> <span class="s1">&#39;SpeedI1&#39;</span><span class="p">,</span> <span class="s1">&#39;SpeedI2&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;SpeedFL&#39;</span><span class="p">,</span> <span class="s1">&#39;SpeedST&#39;</span><span class="p">,</span> <span class="s1">&#39;LapTime&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">relevant</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="n">lap_n</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># &#39;NumberOfLaps&#39; always introduces a new lap (can be a previous one) but sometimes there is one more lap at the end</span>
+    <span class="c1"># in this case the data will be added as usual above, lap count and pit stops are added here and the &#39;Time&#39; is</span>
+    <span class="c1"># calculated below from sector times</span>
+    <span class="k">if</span> <span class="n">data_in_lap</span><span class="p">(</span><span class="n">lapcnt</span><span class="p">):</span>
+        <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">lapcnt</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">pitstops</span>
+        <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># if there was no more data after the last lap count increase, delete the last empty record</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">drv_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data_in_lap</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>  <span class="c1"># remove first lap if there&#39;s no data; &quot;pseudo outlap&quot; that didn&#39;t exist</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">drv_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]))</span>  <span class="c1"># reduce each lap count by one</span>
+
+    <span class="c1"># lap time sync; check which sector time was triggered with the lowest latency</span>
+    <span class="c1"># Sector3SessionTime == end of lap</span>
+    <span class="c1"># Sector2SessionTime + Sector3Time == end of lap</span>
+    <span class="c1"># Sector1SessionTime + Sector2Time + Sector3Time == end of lap</span>
+    <span class="c1"># all of these three have slightly different times; take earliest one -&gt; most exact because can&#39;t trigger too early</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])):</span>
+        <span class="n">sector_sum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">min_time</span> <span class="o">=</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">sector_time</span><span class="p">,</span> <span class="n">session_time</span> <span class="ow">in</span> <span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Sector3SessionTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                                          <span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Sector3Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Sector2SessionTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                                          <span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Sector2Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Sector1SessionTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])):</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">session_time</span><span class="p">):</span>
                 <span class="k">continue</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">_df</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">_df</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">df</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">sector_time</span><span class="p">):</span>
+                <span class="k">break</span>  <span class="c1"># need to stop here because else the sector sum will be incorrect</span>
+
+            <span class="n">sector_sum</span> <span class="o">+=</span> <span class="n">sector_time</span>
+            <span class="n">new_time</span> <span class="o">=</span> <span class="n">session_time</span> <span class="o">+</span> <span class="n">sector_sum</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">new_time</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">new_time</span> <span class="o">&lt;</span> <span class="n">min_time</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">min_time</span><span class="p">)):</span>
+                <span class="n">min_time</span> <span class="o">=</span> <span class="n">new_time</span>
+        <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_time</span>
+
+    <span class="c1"># one last check</span>
+    <span class="c1"># last lap needs to be removed if it does not have a &#39;Time&#39; and it could not be calculated (likely an inlap)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">drv_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">drv_data</span>
 
 
-<span class="k">def</span> <span class="nf">_timing_data_laps_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">flags</span><span class="o">=</span><span class="p">{}):</span>
-    <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="c1"># create empty dictionary for driver</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LastLapTime&#39;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s1">&#39;PitOutTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;PitInTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Sector1Time&#39;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s1">&#39;Sector2Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Sector1SessionTime&#39;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s1">&#39;Sector2SessionTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Sector3SessionTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;SpeedI1&#39;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s1">&#39;SpeedI2&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;SpeedFL&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;SpeedST&#39;</span><span class="p">:</span> <span class="p">[]}</span>
-        <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]]</span>  <span class="c1"># append None to all lists in the dictionary</span>
+<span class="k">def</span> <span class="nf">_stream_data_driver</span><span class="p">(</span><span class="n">driver_raw</span><span class="p">,</span> <span class="n">empty_vals</span><span class="p">,</span> <span class="n">drv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Data is on a timestamp basis.</span>
 
-    <span class="c1"># add flag for driver if driver is not yet in flags</span>
-    <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">:</span>
-        <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time_reference&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="s1">&#39;locked_times&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">]}</span>
+<span class="sd">    Params:</span>
+<span class="sd">        driver_raw (list): raw api response for this driver only [(Timestamp, data), (...), ...]</span>
+<span class="sd">        empty_vals (dict): dictionary of column names and empty column values</span>
+<span class="sd">        drv (str): driver identifier</span>
 
-    <span class="n">time</span> <span class="o">=</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># entry[0] is session time; convert string to pandas timedelta</span>
-    <span class="n">block</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">driver</span><span class="p">]</span>  <span class="c1"># contains data</span>
+<span class="sd">    Returns:</span>
+<span class="sd">         dictionary of timing stream data for this driver</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># entries are prefilled with empty or previous values and only overwritten if they exist in the response line</span>
+    <span class="c1"># basically interpolation by filling up with last known value because not every value is in every response</span>
+    <span class="n">drv_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="p">[</span><span class="n">val</span><span class="p">,</span> <span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">empty_vals</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="c1"># i is the row index that this block has to populate. The</span>
-    <span class="c1"># arrival of information is a bit randomic. It is assumed that</span>
-    <span class="c1"># if something arrives 5s after a new record is created, it</span>
-    <span class="c1"># still belongs to the lap before</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">last_time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">last_time</span> <span class="o">+</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="s1">&#39;5.000&#39;</span><span class="p">)):</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+    <span class="c1"># iterate through the data; timestamp + any of the values triggers new row in data</span>
+    <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">resp</span> <span class="ow">in</span> <span class="n">driver_raw</span><span class="p">:</span>
+        <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;Position&#39;</span><span class="p">):</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Position&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;GapToLeader&#39;</span><span class="p">):</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;GapToLeader&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;IntervalToPositionAhead&#39;</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">):</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;IntervalToPositionAhead&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="n">new_entry</span> <span class="o">=</span> <span class="kc">True</span>
 
-    <span class="n">no_time_reference</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-    <span class="n">no_locked_time</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;locked_times&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-    <span class="c1"># Final word on time remains to NumberOfLaps, but this</span>
-    <span class="c1"># keeps also the last entry populated (in quali can be inlap)</span>
-    <span class="k">if</span> <span class="n">no_locked_time</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">driver</span>
+        <span class="c1"># at least one value was present, create next row</span>
+        <span class="k">if</span> <span class="n">new_entry</span><span class="p">:</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+            <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    <span class="c1"># The easy one</span>
-    <span class="k">if</span> <span class="s1">&#39;NumberOfPitStops&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span>
+            <span class="c1"># create next row of data from the last values; there will always be one row too much at the end which is</span>
+            <span class="c1"># removed again</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">empty_vals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="c1"># Sectors are flattened on three separated series</span>
-    <span class="k">if</span> <span class="s1">&#39;Sectors&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
-        <span class="c1"># Sectors is a list only if all three are present</span>
-        <span class="k">for</span> <span class="n">_n</span><span class="p">,</span> <span class="n">sector</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">]):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="c1"># For this trip of pure consistency, we have that</span>
-                <span class="c1"># sometimes Sectors is a list, so it will be... </span>
-                <span class="n">_n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sector</span><span class="p">)</span>
-                <span class="n">sector</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">_n</span><span class="p">)]</span>
-            <span class="k">if</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">sector</span><span class="p">:</span>
-                <span class="n">sector_time</span> <span class="o">=</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="n">sector</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;Sector</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">_n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s1">Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sector_time</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;Sector</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">_n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s1">SessionTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">drv_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># remove very last row again</span>
 
-            <span class="c1"># Sectors are used to calculate the sacred time reference.</span>
-            <span class="c1"># The following block of code has the only purpose to find the</span>
-            <span class="c1"># time with the minimum measuring delay.</span>
-            <span class="c1"># Otherwise laps will be out of sync (by a lot)!</span>
-            <span class="n">has_measure</span> <span class="o">=</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">sector</span> <span class="ow">and</span> <span class="n">sector</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span>
-
-            <span class="c1"># Sector 1</span>
-            <span class="k">if</span> <span class="n">_n</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">has_measure</span> <span class="ow">and</span> <span class="n">no_time_reference</span><span class="p">:</span>
-                <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;base&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
-                                                      <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="n">sector_time</span><span class="p">,</span>
-                                                      <span class="s1">&#39;ts0&#39;</span><span class="p">:</span> <span class="n">sector_time</span><span class="p">}</span>
-
-            <span class="c1"># Sector 2</span>
-            <span class="n">reference_has_ts0</span> <span class="o">=</span> <span class="p">(</span><span class="ow">not</span> <span class="n">no_time_reference</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;ts0&#39;</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">_n</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">has_measure</span> <span class="ow">and</span> <span class="n">reference_has_ts0</span><span class="p">:</span>
-                <span class="n">old_reference</span> <span class="o">=</span> <span class="p">(</span><span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span>
-                                 <span class="o">-</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">])</span>
-                <span class="n">new_delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">sector_time</span> 
-                             <span class="o">+</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts0&#39;</span><span class="p">])</span>
-                <span class="n">new_reference</span> <span class="o">=</span> <span class="n">time</span> <span class="o">-</span> <span class="n">new_delta</span>
-                <span class="k">if</span> <span class="n">new_reference</span> <span class="o">&lt;</span> <span class="n">old_reference</span><span class="p">:</span>
-                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_delta</span>
-                <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sector_time</span>
-
-            <span class="c1"># Sector 3</span>
-            <span class="n">reference_has_ts01</span> <span class="o">=</span> <span class="n">reference_has_ts0</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;ts1&#39;</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">_n</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">has_measure</span> <span class="ow">and</span> <span class="n">reference_has_ts01</span><span class="p">:</span>
-                <span class="n">old_reference</span> <span class="o">=</span> <span class="p">(</span><span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span>
-                                 <span class="o">-</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">])</span>
-                <span class="n">new_delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">sector_time</span> 
-                             <span class="o">+</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts1&#39;</span><span class="p">]</span>
-                             <span class="o">+</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts0&#39;</span><span class="p">])</span>
-                <span class="n">new_reference</span> <span class="o">=</span> <span class="n">time</span> <span class="o">-</span> <span class="n">new_delta</span>
-                <span class="k">if</span> <span class="n">new_reference</span> <span class="o">&lt;</span> <span class="n">old_reference</span><span class="p">:</span>
-                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-                    <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_delta</span>
-                <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ts2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sector_time</span>
-
-    <span class="c1"># Same for speed traps</span>
-    <span class="k">if</span> <span class="s1">&#39;Speeds&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">trap</span> <span class="ow">in</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;Speeds&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;Speeds&#39;</span><span class="p">][</span><span class="n">trap</span><span class="p">]:</span>
-                <span class="n">speedtrap_value</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;Speeds&#39;</span><span class="p">][</span><span class="n">trap</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;Speed</span><span class="si">{</span><span class="n">trap</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">speedtrap_value</span>
-
-    <span class="c1"># F1 Reports start and end time of InPit and PitOut</span>
-    <span class="c1"># To simplify these are reduced to a single pit in start</span>
-    <span class="c1"># and pit out end time</span>
-    <span class="k">if</span> <span class="s1">&#39;InPit&#39;</span> <span class="ow">in</span> <span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;InPit&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-    <span class="k">if</span> <span class="s1">&#39;InPit&#39;</span> <span class="ow">in</span> <span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;InPit&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-
-    <span class="c1"># Populate LastLapTime only if value is given sometimes it</span>
-    <span class="c1"># tells it was personal best or something but nobody cares</span>
-    <span class="c1"># just use .min() This is the last entry of a lap usually.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;LastLapTime&#39;</span> <span class="ow">in</span> <span class="n">block</span>
-            <span class="ow">and</span> <span class="s1">&#39;Value&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">]</span>
-            <span class="ow">and</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-
-        <span class="n">lap_time</span> <span class="o">=</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
-        <span class="c1"># Pandas here is very smart (i guess?) because even if I</span>
-        <span class="c1"># append None it will be guessed as NaT to keep datatype</span>
-        <span class="c1"># consistency. Very silent behaviour though.</span>
-        <span class="c1"># UNLESS, no time has been set by this guy (shit #1)</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lap_time</span>
-        <span class="c1"># Tricky tricks to discover with &#39;accuracy&#39;</span>
-        <span class="c1"># when lap time has been set</span>
-        <span class="n">time_ref</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">time_ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">lap_start_time</span> <span class="o">=</span> <span class="n">time_ref</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">time_ref</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
-            <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lap_start_time</span> <span class="o">+</span> <span class="n">lap_time</span>
-            <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;locked_times&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="c1"># Number of laps triggers a new entry it looks like always</span>
-    <span class="c1"># comes before LastLapTime.</span>
-    <span class="c1"># Unless bottas qualifies under red flag in Monza but is later </span>
-    <span class="c1"># convalidated, but we are bullet proof against that as well, apart</span>
-    <span class="c1"># pit stop time. sorry.</span>
-    <span class="k">if</span> <span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span>
-        <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]]</span>
-        <span class="c1"># prevent shit #1 and put a NaT</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;LastLapTime&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;time_reference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-        <span class="n">flags</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;locked_times&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">flags</span>
+    <span class="k">return</span> <span class="n">drv_data</span>
 
 
 <div class="viewcode-block" id="timing_app_data"><a class="viewcode-back" href="../../api.html#fastf1.api.timing_app_data">[docs]</a><span class="k">def</span> <span class="nf">timing_app_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Full parse of timing app data. This parsing is quite ignorant,</span>
 <span class="sd">    with  minimum logic just to fix data structure inconsistencies. Tyre</span>
 <span class="sd">    information is passed to the summary table.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str): web path for base_url, see :func:`make_path`</span>
+<span class="sd">        response (optional): api response can be passed if data was already downloaded</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pandas.Dataframe</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_app_data&#39;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LapNumber&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Stint&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s1">&#39;TotalLaps&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Compound&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;New&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s1">&#39;TyresNotChanged&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapFlags&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s1">&#39;LapCountTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;StartLaps&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Outlap&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LapNumber&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Stint&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;TotalLaps&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Compound&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;New&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;TyresNotChanged&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapFlags&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapCountTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;StartLaps&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Outlap&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
         <span class="n">row</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">driver_number</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="s1">&#39;Stints&#39;</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">driver_number</span><span class="p">]:</span>
-                <span class="n">update</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Lines&#39;</span><span class="p">][</span><span class="n">driver_number</span><span class="p">][</span><span class="s1">&#39;Stints&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">update</span> <span class="o">:=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s1">&#39;Lines&#39;</span><span class="p">,</span> <span class="n">driver_number</span><span class="p">,</span> <span class="s1">&#39;Stints&#39;</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">stint_number</span><span class="p">,</span> <span class="n">stint</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">update</span><span class="p">):</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                         <span class="n">stint_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">stint</span><span class="p">)</span>
@@ -519,11 +593,12 @@
                             <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">stint</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                            <span class="c1"># Just for debug, maybe remove one day?</span>
-                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> not in data!&quot;</span><span class="p">)</span>
+                            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found unknown key in timing app data: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
                     <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
                     <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">driver_number</span>
                     <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Stint&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">stint_number</span>
+
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
@@ -535,40 +610,70 @@
 <span class="sd">    time is not constant, usually 240ms but sometimes can be ~270ms.</span>
 <span class="sd">    Keep absolute reference.</span>
 
-<span class="sd">    Useful columns:</span>
-<span class="sd">        - Date: sample pandas datetime</span>
-<span class="sd">        - Driver: driver identifier</span>
-<span class="sd">        - Speed: Km/h</span>
-<span class="sd">        - RPM, Gear</span>
-<span class="sd">        - Throttle, Brake: 0-100 (don&#39;t trust brake too much)</span>
-<span class="sd">        - DRS: Off, Available, Active</span>
+<span class="sd">    Dataframe columns:</span>
+<span class="sd">        - Date (pandas.Timestamp): timestamp for this sample as Date + Time; more or less exact</span>
+<span class="sd">        - Time (pandas.Timedelta): session timestamp; inaccurate, has duplicate values; use Date instead</span>
+<span class="sd">        - Speed (int): Km/h</span>
+<span class="sd">        - RPM (int)</span>
+<span class="sd">        - Gear (int)</span>
+<span class="sd">        - Throttle (int): 0-100%</span>
+<span class="sd">        - Brake (int): 0-100% (don&#39;t trust brake too much)</span>
+<span class="sd">        - DRS (int): 0=Off, 8=Active; sometimes other values --&gt; to be researched still</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path: url path (see :func:`make_path`)</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        pandas dataframe</span>
+<span class="sd">        dictionary containing one pandas dataframe for each driver; dictionary keys are driver numbers as string</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;RPM&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;Speed&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;nGear&#39;</span><span class="p">,</span>
-             <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="s1">&#39;Throttle&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">:</span> <span class="s1">&#39;Brake&#39;</span><span class="p">,</span> <span class="s1">&#39;45&#39;</span><span class="p">:</span> <span class="s1">&#39;DRS&#39;</span><span class="p">}</span>
-    <span class="n">data</span><span class="p">,</span> <span class="n">main_structure</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[]}</span>
-    <span class="p">[</span><span class="n">main_structure</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="p">[]})</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index</span><span class="p">]</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching car data&quot;</span><span class="p">)</span> 
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching car data&quot;</span><span class="p">)</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;car_data&#39;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing car data&quot;</span><span class="p">)</span> 
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing car data&quot;</span><span class="p">)</span>
+
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;RPM&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;Speed&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;nGear&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="s1">&#39;Throttle&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">:</span> <span class="s1">&#39;Brake&#39;</span><span class="p">,</span> <span class="s1">&#39;45&#39;</span><span class="p">:</span> <span class="s1">&#39;DRS&#39;</span><span class="p">}</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;RPM&#39;</span><span class="p">,</span> <span class="s1">&#39;Speed&#39;</span><span class="p">,</span> <span class="s1">&#39;nGear&#39;</span><span class="p">,</span> <span class="s1">&#39;Throttle&#39;</span><span class="p">,</span> <span class="s1">&#39;Brake&#39;</span><span class="p">,</span> <span class="s1">&#39;DRS&#39;</span><span class="p">}</span>
     <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">%z&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">:</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Entries&#39;</span><span class="p">]:</span>
-            <span class="n">cars</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Cars&#39;</span><span class="p">]</span>
             <span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="n">date_format</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">cars</span><span class="p">:</span>
+
+            <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Cars&#39;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">main_structure</span><span class="p">)</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="nb">list</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">}</span>
+
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-                    <span class="n">value</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Channels&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s1">&#39;Cars&#39;</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="s1">&#39;Channels&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">val</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">channels</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+    <span class="c1"># create one dataframe per driver and check for the longest dataframe</span>
+    <span class="n">most_complete_ref</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>  <span class="c1"># convert dict to dataframe</span>
+        <span class="c1"># check length of dataframe; sometimes there can be missing data</span>
+        <span class="k">if</span> <span class="n">most_complete_ref</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">most_complete_ref</span><span class="p">):</span>
+            <span class="n">most_complete_ref</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span>
+
+    <span class="c1"># if everything is well, all dataframes should have the same length and no postprocessing is necessary</span>
+    <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">most_complete_ref</span><span class="p">):</span>
+            <span class="c1"># there is missing data for this driver</span>
+            <span class="c1"># extend the Date column and fill up missing telemetry values with zero,</span>
+            <span class="c1"># except Time which is left as NaT and will be calculated correctly during resampling</span>
+            <span class="n">index_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span> <span class="n">most_complete_ref</span><span class="p">})</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">index_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">channels</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">channels</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Car data for driver </span><span class="si">{</span><span class="n">driver</span><span class="si">}</span><span class="s2"> is incomplete!&quot;</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">data</span></div>
 
 
@@ -579,49 +684,76 @@
 <span class="sd">    time is not constant, usually 300ms but sometimes can be ~200ms.</span>
 <span class="sd">    Keep absolute reference.</span>
 
-<span class="sd">    Useful columns:</span>
-<span class="sd">        - Date: pandas datetime of sample</span>
-<span class="sd">        - Driver: driver identifier</span>
-<span class="sd">        - X, Y, Z: Position coordinates</span>
+<span class="sd">    Dataframe columns:</span>
+<span class="sd">        - Date (pandas.Timestamp): timestamp for this sample as Date + Time; more or less exact</span>
+<span class="sd">        - Time (pandas.Timedelta): session timestamp; inaccurate, has duplicate values; use Date instead</span>
+<span class="sd">        - X, Y, Z (int): Position coordinates</span>
+<span class="sd">        - Status (str): &#39;OnTrack&#39; or &#39;OffTrack&#39;</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path: web path for base_url, see :func:`make_path`</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        pandas dataframe</span>
+<span class="sd">        dictionary containing one pandas dataframe for each driver, dictionary keys are driver numbers as string</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">tl</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c1"># length of timestamp: len(&#39;00:00:00:000&#39;)</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">,</span> <span class="n">main_structure</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[]}</span>
-    <span class="p">[</span><span class="n">main_structure</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="p">[]})</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index</span><span class="p">]</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching position&quot;</span><span class="p">)</span> 
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching position&quot;</span><span class="p">)</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing position&quot;</span><span class="p">)</span> 
 
-    <span class="k">if</span> <span class="n">raw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">raw</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="n">ts_length</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c1"># length of timestamp: len(&#39;00:00:00:000&#39;)</span>
+    <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
     <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">:</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">__to_timedelta</span><span class="p">(</span><span class="n">record</span><span class="p">[:</span><span class="n">tl</span><span class="p">])</span>
-        <span class="n">jrecord</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">tl</span><span class="p">:],</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">record</span><span class="p">[:</span><span class="n">ts_length</span><span class="p">])</span>
+        <span class="n">jrecord</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">ts_length</span><span class="p">:],</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">jrecord</span><span class="p">[</span><span class="s1">&#39;Position&#39;</span><span class="p">]:</span>
-            <span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">],</span>
-                                  <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span>
-                                  <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">entries</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;Entries&#39;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="n">date_format</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;Entries&#39;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">driver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">main_structure</span><span class="p">)</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="nb">list</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">}</span>
+
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
                 <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
-                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+
+                <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]:</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="n">coord</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_dict_get</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="s1">&#39;Entries&#39;</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">coord</span><span class="p">))</span>
+
+                <span class="n">status</span> <span class="o">=</span> <span class="n">_dict_get</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="s1">&#39;Entries&#39;</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
                     <span class="c1"># Fallback on older api status mapping and convert</span>
-                    <span class="n">int_val</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
-                    <span class="n">new_map</span> <span class="o">=</span> <span class="s1">&#39;OffTrack&#39;</span> <span class="k">if</span> <span class="n">int_val</span> <span class="k">else</span> <span class="s1">&#39;OnTrack&#39;</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_map</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;OffTrack&#39;</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">status</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;OnTrack&#39;</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+
+    <span class="c1"># create one dataframe per driver and check for the longest dataframe</span>
+    <span class="n">most_complete_ref</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">])</span>  <span class="c1"># convert dict to dataframe</span>
+        <span class="c1"># check length of dataframe; sometimes there can be missing data</span>
+        <span class="k">if</span> <span class="n">most_complete_ref</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">most_complete_ref</span><span class="p">):</span>
+            <span class="n">most_complete_ref</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span>
+
+    <span class="c1"># if everything is well, all dataframes should have the same length and no postprocessing is necessary</span>
+    <span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">most_complete_ref</span><span class="p">):</span>
+            <span class="c1"># there is missing data for this driver</span>
+            <span class="c1"># extend the Date column and fill up missing telemetry values with zero,</span>
+            <span class="c1"># except Time which is left as NaT and will be calculated correctly during resampling</span>
+            <span class="c1"># and except Status which should be &#39;OffTrack&#39; for missing data</span>
+            <span class="n">index_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span> <span class="n">most_complete_ref</span><span class="p">})</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">index_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;OffTrack&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">driver</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Position data for driver </span><span class="si">{</span><span class="n">driver</span><span class="si">}</span><span class="s2"> is incomplete!&quot;</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">data</span></div>
 
 
@@ -673,40 +805,24 @@
     <span class="k">return</span> <span class="n">text</span></div>
 
 
-<span class="k">def</span> <span class="nf">_json_inspector</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This function builds a unique data structure from any jsonStream,</span>
-<span class="sd">    it allows further inspection for debug/features.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        obj: structure returned from fetch_page, usually array </span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        dictionary</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">structure</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">start</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">structure</span> <span class="o">=</span> <span class="p">[{}]</span>
-        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
-            <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">json_inspector</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">structure</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">structure</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">structure</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-                <span class="k">except</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inconsistent structure&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="kc">None</span>
-            <span class="n">structure</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">json_inspector</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">start</span><span class="o">=</span><span class="n">structure</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">structure</span>
-    <span class="k">return</span> <span class="n">obj</span>
-
-
-<span class="k">def</span> <span class="nf">__to_timedelta</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_to_timedelta</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;00:00:00.000&#39;</span><span class="p">[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_dict_get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Recursive dict get. Can take an arbitrary number of keys and returns an empty</span>
+<span class="sd">    dict if any key does not exist.</span>
+<span class="sd">    https://stackoverflow.com/a/28225747&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">{}),</span> <span class="n">keys</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SessionNotAvailableError"><a class="viewcode-back" href="../../api.html#fastf1.api.SessionNotAvailableError">[docs]</a><span class="k">class</span> <span class="nc">SessionNotAvailableError</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised if an api request returned no data for the requested session.</span>
+<span class="sd">    A likely cause is that the session does not exist because it was cancelled.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                v2.0.1
+                2.0.2
               </div>
             
           
@@ -99,9 +99,20 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-core">module <cite>core</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
@@ -325,18 +336,21 @@ pandas DataFrame with some additional enhancements.</p>
 properties:</p>
 <blockquote>
 <div><ul>
-<li><p><strong>Time</strong> (timedelta): Time when the lap was recorded</p></li>
+<li><p><strong>Time</strong> (pandas.Timedelta): Time when the lap time was set (end of lap)</p></li>
 <li><p><strong>Driver</strong> (string): Three letters driver identifier</p></li>
-<li><p><strong>LapTime</strong> (timedelta): Recorded lap time</p></li>
+<li><p><strong>LapTime</strong> (pandas.Timedelta): Recorded lap time</p></li>
 <li><p><strong>LapNumber</strong> (int): Recorded lap number</p></li>
-<li><p><strong>PitOutTime</strong> (timedelta): Time when car exited the pit</p></li>
-<li><p><strong>PitInTime</strong> (timedelta): Time when car entered the pit</p></li>
-<li><p><strong>Sector1Time</strong> (timedelta): Sector 1 recorded time</p></li>
-<li><p><strong>Sector2Time</strong> (timedelta): Sector 2 recorded time</p></li>
-<li><p><strong>Sector3Time</strong> (timedelta): Sector 3 recorded time</p></li>
+<li><p><strong>PitOutTime</strong> (pandas.Timedelta): Time when car exited the pit</p></li>
+<li><p><strong>PitInTime</strong> (pandas.Timedelta): Time when car entered the pit</p></li>
+<li><p><strong>Sector1Time</strong> (pandas.Timedelta): Sector 1 recorded time</p></li>
+<li><p><strong>Sector2Time</strong> (pandas.Timedelta): Sector 2 recorded time</p></li>
+<li><p><strong>Sector3Time</strong> (pandas.Timedelta): Sector 3 recorded time</p></li>
+<li><p><strong>Sector1Time</strong> (pandas.Timedelta): Sector 1 timestamp (end of sector)</p></li>
+<li><p><strong>Sector2Time</strong> (pandas.Timedelta): Sector 2 timestamp (end of sector)</p></li>
+<li><p><strong>Sector3Time</strong> (pandas.Timedelta): Sector 3 timestamp (end of sector)</p></li>
 <li><p><strong>SpeedI1</strong> (float): Speedtrap sector 1</p></li>
 <li><p><strong>SpeedI2</strong> (float): Speedtrap sector 2</p></li>
-<li><p><strong>SpeedFL</strong> (float): Speedtrap sector 3 (Not sure)</p></li>
+<li><p><strong>SpeedFL</strong> (float): Speedtrap at finish line</p></li>
 <li><p><strong>SpeedST</strong> (float): Speedtrap on longest straight (Not sure)</p></li>
 <li><p><strong>Stint</strong> (int): Indicates the stint number</p></li>
 <li><p><strong>Compound</strong> (str): Tyre compound name: SOFT, MEDIUM ..</p></li>
@@ -344,8 +358,8 @@ properties:</p>
 <li><p><strong>FreshTyre</strong> (bool): Tyre had TyreLife=0 at stint start</p></li>
 <li><p><strong>DriverNumber</strong> (str): Car number</p></li>
 <li><p><strong>Team</strong> (str): Team name</p></li>
-<li><p><strong>LapStartDate</strong> (datetime): When the lap started</p></li>
-<li><p><strong>telemetry</strong> (pandas.DataFrame): Telemetry with the                                                 following channels:</p>
+<li><p><strong>LapStartDate</strong> (pandas.Timestamp): Timestamp (Date+Time) for the start of the lap</p></li>
+<li><p><strong>telemetry</strong> (pandas.DataFrame): Telemetry with the following channels:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><cite>Time</cite> (timedelta): Time axis (0 is start of lap)</p></li>
@@ -387,13 +401,21 @@ data of different laps.</p>
 <dl class="py method">
 <dt id="fastf1.core.Session.get_driver">
 <code class="sig-name descname">get_driver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.get_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Session.get_driver" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – driver’s three letter identifier (for example ‘VER’)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Driver" title="fastf1.core.Driver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Driver</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="fastf1.core.Laps">
-<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Laps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Collection<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">columns</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Collection<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>numpy.dtype<span class="p">, </span>ExtensionDtype<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">copy</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Laps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Collection<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">columns</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Collection<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>ExtensionDtype<span class="p">, </span>str<span class="p">, </span>numpy.dtype<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>float<span class="p">, </span>int<span class="p">, </span>complex<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">copy</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Laps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
 <p>This class wraps <code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code> which is a classic pandas
 DataFrame with the addition of a few ‘pick’ methods to simplify lap
@@ -492,6 +514,18 @@ By default 107% of the best <cite>LapTime</cite> of the given laps set.</p>
 <dt id="fastf1.core.Driver">
 <em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">Driver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">info</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.Driver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Driver class that provides some information on drivers and their finishing results.</p>
+<p>see also <a class="reference internal" href="#fastf1.core.Session.get_driver" title="fastf1.core.Session.get_driver"><code class="xref py py-func docutils literal notranslate"><span class="pre">Session.get_driver()</span></code></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Driver data is only available if the Ergast api lookup did not fail.</p>
+</div>
+<dl class="py attribute">
+<dt id="fastf1.core.Driver.info">
+<code class="sig-name descname">info</code><a class="headerlink" href="#fastf1.core.Driver.info" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>Driver.info</cite> contains some more info from the Ergast api</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="fastf1.core.Driver.dnf">
 <em class="property">property </em><code class="sig-name descname">dnf</code><a class="headerlink" href="#fastf1.core.Driver.dnf" title="Permalink to this definition">¶</a></dt>
@@ -513,7 +547,14 @@ By default 107% of the best <cite>LapTime</cite> of the given laps set.</p>
 <dl class="py method">
 <dt id="fastf1.core.Driver.name">
 <em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#fastf1.core.Driver.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Driver first name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Driver.familyname">
+<em class="property">property </em><code class="sig-name descname">familyname</code><a class="headerlink" href="#fastf1.core.Driver.familyname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Driver family name</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="fastf1.core.Driver.team">
@@ -521,12 +562,6 @@ By default 107% of the best <cite>LapTime</cite> of the given laps set.</p>
 <dd><p>Team name</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt id="fastf1.core.ETL">
-<em class="property">class </em><code class="sig-prename descclassname">fastf1.core.</code><code class="sig-name descname">ETL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">api_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#ETL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.core.ETL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 </div>

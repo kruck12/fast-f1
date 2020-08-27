@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                v2.0.1
+                2.0.2
               </div>
             
           
@@ -99,8 +99,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../troubleshooting.html#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../troubleshooting.html#module-core">module <cite>core</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
@@ -245,15 +255,23 @@
 
 
 <div class="viewcode-block" id="laptime_axis"><a class="viewcode-back" href="../../plotting.html#fastf1.plotting.laptime_axis">[docs]</a><span class="k">def</span> <span class="nf">laptime_axis</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;yaxis&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Convert axis to change time formatting from seconds to &quot;mm:ss.ms&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Add formatting to change time formatting from (nano)seconds to &quot;mm:ss.ms&quot;</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ax: matplotlib axis</span>
 <span class="sd">        axis (=&#39;yaxis&#39;, optional): can be &#39;xaxis&#39; or &#39;yaxis&#39;</span>
 
+<span class="sd">    Returns:</span>
+<span class="sd">        the modified axis instance</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">time_ticks</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+            <span class="c1"># data is sometimes seconds and sometimes nanoseconds if the source is pandas.Timedelta</span>
+            <span class="c1"># assume nanoseconds if the value is very large</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mf">1e9</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">/=</span> <span class="mf">1e9</span>
+
             <span class="n">mm</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span>
             <span class="n">ss</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">mm</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
             <span class="n">ms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">mm</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">-</span> <span class="n">ss</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
@@ -264,8 +282,23 @@
 
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">time_ticks</span><span class="p">)</span>
     <span class="nb">getattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
-    <span class="nb">getattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span><span class="o">.</span><span class="n">convert_units</span> <span class="o">=</span> <span class="n">timedelta_converter</span>  <span class="c1"># replace the converter for this axis (and only this one)</span>
-    <span class="nb">getattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;xaxis&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_major_locator</span><span class="p">()</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_n_ticks</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">getattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span><span class="o">.</span><span class="n">convert_units</span> <span class="o">=</span> <span class="n">timedelta_converter</span>
+
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="lapnumber_axis"><a class="viewcode-back" href="../../plotting.html#fastf1.plotting.lapnumber_axis">[docs]</a><span class="k">def</span> <span class="nf">lapnumber_axis</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;xaxis&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set axis to integer ticks only.&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax: matplotlib axis</span>
+<span class="sd">        axis (=&#39;xaxis&#39;, optional): can be &#39;xaxis&#39; or &#39;yaxis&#39;</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the modified axis instance</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">getattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span><span class="o">.</span><span class="n">get_major_locator</span><span class="p">()</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_n_ticks</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">ax</span></div>
 

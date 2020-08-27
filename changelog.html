@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Experimental functionality" href="experimental.html" />
-    <link rel="prev" title="Known bugs and caveats" href="known_bugs.html" /> 
+    <link rel="prev" title="Troubleshooting" href="troubleshooting.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                v2.0.1
+                2.0.2
               </div>
             
           
@@ -101,8 +101,18 @@
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-core">module <cite>core</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
@@ -180,8 +190,56 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="v2-0-2-api-code-overhaul">
+<h2>v2.0.2: API code overhaul<a class="headerlink" href="#v2-0-2-api-code-overhaul" title="Permalink to this headline">¶</a></h2>
+<p>This version integrates a major overhaul of the api code (<a class="reference internal" href="api.html#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a>)</p>
+<ul>
+<li><dl>
+<dt>Possibly breaking changes:</dt><dd><ul>
+<li><dl>
+<dt>Renamed dataframe column ‘LastLapTime’ to ‘LapTime’ for the dataframe returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.timing_data()</span></code></dt><dd><p>First, this makes more sense.
+Second, this column is currently already renamed to ‘LapTime’ later and already accessible under this name
+in the dataframe returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">core.Session.load_laps()</span></code>.</p>
+<p>(also applies to the dictionary returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api._laps_data_driver()</span></code>)</p>
+</dd>
+</dl>
+</li>
+<li><p>Data types in dataframes may have changed</p></li>
+<li><p>Some internal functions (prefixed by ‘_’) may have a different name, parameters and return value now</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Changes:</dt><dd><ul>
+<li><p>rewrote large parts of <a class="reference internal" href="api.html#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> with a somewhat cleaner implementation</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>more stability</p></li>
+<li><p>better/more correct PitIn/PitOut and general lap data in some sessions (was missing last lap sometimes but had
+a first lap that didn’t actually exist</p></li>
+<li><p>api.timing_data and thereby also session.load_laps will raise api.SessionNotAvailableError
+if the api request returned no data. This usually happens if the session never took place because it was cancelled.</p></li>
+<li><p>Attempted to fix a bug where timing data from two sources can not be merged. This is caused by the received API
+data going backwards in time by one lap. This causes data to be added to the wrong lap.
+This problem was the reason for having patch files for some drivers/sessions. The patch files have now been
+removed as they are no longer necessary.</p></li>
+<li><p>improved documentation a bit</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>light cleanup and light documentation improvements of <a class="reference internal" href="core.html#module-fastf1.core" title="fastf1.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code></a></p></li>
+<li><p>supressed python-levenshtein warning; it is really not necessary to have it installed for this module</p></li>
+<li><p>changed logging format for hopefully better readability</p></li>
+<li><p>tried to fix lap time axis again; hopefully this time I got it right</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
 <div class="section" id="v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">
-<h2>v2.0.1: integration of a newer version of Ax6’s old repository<a class="headerlink" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository" title="Permalink to this headline">¶</a></h2>
+<h2>v2.0.1: Integration of a newer version of Ax6’s old repository<a class="headerlink" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository" title="Permalink to this headline">¶</a></h2>
 <p>This integrates a more recent version of the old repository.
 See Issue #1</p>
 <ul>
@@ -263,7 +321,7 @@ This still needs to be fixed properly at some point.</p>
         <a href="experimental.html" class="btn btn-neutral float-right" title="Experimental functionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="known_bugs.html" class="btn btn-neutral float-left" title="Known bugs and caveats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

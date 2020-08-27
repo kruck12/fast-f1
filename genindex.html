@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                v2.0.1
+                2.0.2
               </div>
             
           
@@ -99,8 +99,18 @@
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-core">module <cite>core</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
@@ -258,15 +268,13 @@
       <li><a href="utils.html#fastf1.utils.enable_cache">enable_cache() (in module fastf1.utils)</a>
 </li>
   </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.ETL">ETL (class in fastf1.core)</a>
-</li>
-  </ul></td>
 </tr></table>
 
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.html#fastf1.core.Driver.familyname">familyname() (fastf1.core.Driver property)</a>
+</li>
       <li>
     fastf1
 
@@ -388,10 +396,12 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="track.html#fastf1.track.Track.interpolate_pos_from_time">interpolate_pos_from_time() (fastf1.track.Track method)</a>
+      <li><a href="core.html#fastf1.core.Driver.info">info (fastf1.core.Driver attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="track.html#fastf1.track.Track.interpolate_pos_from_time">interpolate_pos_from_time() (fastf1.track.Track method)</a>
+</li>
       <li><a href="core.html#fastf1.core.Weekend.is_testing">is_testing() (fastf1.core.Weekend method)</a>
 </li>
   </ul></td>
@@ -408,12 +418,14 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Laps">Laps (class in fastf1.core)</a>
+      <li><a href="plotting.html#fastf1.plotting.lapnumber_axis">lapnumber_axis() (in module fastf1.plotting)</a>
 </li>
-      <li><a href="plotting.html#fastf1.plotting.laptime_axis">laptime_axis() (in module fastf1.plotting)</a>
+      <li><a href="core.html#fastf1.core.Laps">Laps (class in fastf1.core)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="plotting.html#fastf1.plotting.laptime_axis">laptime_axis() (in module fastf1.plotting)</a>
+</li>
       <li><a href="track.html#fastf1.track.Track.lazy_is_track_point">lazy_is_track_point() (fastf1.track.Track method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Session.load_laps">load_laps() (fastf1.core.Session method)</a>
@@ -535,12 +547,14 @@
 </li>
       <li><a href="core.html#fastf1.core.Session">Session (class in fastf1.core)</a>
 </li>
-      <li><a href="conditions.html#fastf1.experimental.conditions.BaseCondition.set_data">set_data() (fastf1.experimental.conditions.BaseCondition method)</a>
+      <li><a href="api.html#fastf1.api.SessionNotAvailableError">SessionNotAvailableError</a>
 </li>
-      <li><a href="track.html#fastf1.track.Track.set_finish_line">set_finish_line() (fastf1.track.Track method)</a>
+      <li><a href="conditions.html#fastf1.experimental.conditions.BaseCondition.set_data">set_data() (fastf1.experimental.conditions.BaseCondition method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="track.html#fastf1.track.Track.set_finish_line">set_finish_line() (fastf1.track.Track method)</a>
+</li>
       <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.setup">setup() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>
 </li>
       <li><a href="syncsolver.html#fastf1.experimental.syncsolver.AdvancedSyncSolver.solve">solve() (fastf1.experimental.syncsolver.AdvancedSyncSolver method)</a>

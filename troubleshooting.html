@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>fastf1.plotting - Plotting module &mdash; Fast F1  documentation</title>
+  <title>Troubleshooting &mdash; Fast F1  documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Known bugs and caveats" href="known_bugs.html" />
-    <link rel="prev" title="fastf1.func - General functions" href="func.html" /> 
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Known bugs and caveats" href="known_bugs.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,13 +99,13 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-api">module <cite>api</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-core">module <cite>core</cite></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-core">module <cite>core</cite></a></li>
 </ul>
 </li>
 </ul>
@@ -169,13 +169,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</li>
+      <li>Troubleshooting</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/plotting.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -188,70 +188,76 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-fastf1.plotting"></span><div class="section" id="fastf1-plotting-plotting-module">
-<h1><a class="reference internal" href="#module-fastf1.plotting" title="fastf1.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a> - Plotting module<a class="headerlink" href="#fastf1-plotting-plotting-module" title="Permalink to this headline">¶</a></h1>
-<p>Helpers for charming graphs.</p>
-<dl class="py function">
-<dt id="fastf1.plotting.team_color">
-<code class="sig-prename descclassname">fastf1.plotting.</code><code class="sig-name descname">team_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/plotting.html#team_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.plotting.team_color" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a teams color.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – Abbreviation or full name of the team.
-For example “RBR” or “Red Bull” would both return the same result.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>hex color code</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
+  <div class="section" id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="something-doesn-t-work">
+<h2>Something doesn’t work<a class="headerlink" href="#something-doesn-t-work" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Have you updated to the newest version of fastf1?</p></li>
+<li><dl class="simple">
+<dt>Clear the cache or run your script without cache enabled first if you don’t want to clear it just for a test.</dt><dd><p>If everything works when running without cache enabled, clear the cache and enable it again.
+After updating it can be necessary to clear the cache.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="fastf1.plotting.timedelta_converter">
-<code class="sig-prename descclassname">fastf1.plotting.</code><code class="sig-name descname">timedelta_converter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/plotting.html#timedelta_converter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.plotting.timedelta_converter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Special data type converter for laptime axis.</p>
-<p>Masks <cite>NaT</cite> and <cite>NaN</cite> values in data arrays and converts nanoseconds
-based times to seconds if necessary.
-Other data types but <cite>np.ndarray</cite> are left unchanged.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="fastf1.plotting.laptime_axis">
-<code class="sig-prename descclassname">fastf1.plotting.</code><code class="sig-name descname">laptime_axis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span></em>, <em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">'yaxis'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/plotting.html#laptime_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.plotting.laptime_axis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add formatting to change time formatting from (nano)seconds to “mm:ss.ms”</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> – matplotlib axis</p></li>
-<li><p><strong>axis</strong> (<em>='yaxis'</em><em>, </em><em>optional</em>) – can be ‘xaxis’ or ‘yaxis’</p></li>
+</li>
+<li><p>Does the log produce any warnings that sound like they might be related? Maybe the data you are looking for
+is not available or can not be processed correctly.</p></li>
+<li><p>Open an issue on github.</p></li>
+</ol>
+</div>
+<div class="section" id="what-does-this-error-message-mean">
+<h2>What does this error message mean?<a class="headerlink" href="#what-does-this-error-message-mean" title="Permalink to this headline">¶</a></h2>
+<p>Short explanation of some error messages</p>
+<div class="section" id="module-api">
+<h3>module <cite>api</cite><a class="headerlink" href="#module-api" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><dl>
+<dt><cite>Car data/position data for driver x is incomplete.</cite></dt><dd><p>Usually data for all drivers is available for the whole duration of a session. Even if the driver did not drive for
+most parts of the session. All values for each sample will simply be zero (or whatever is equivalent to zero) then.
+But in some cases samples are simply missing.
+In this case data will be filled in with zero values. This is to make sure that all data streams for each driver
+have the same length because some calculations will else fail.
+This has the side effect that ‘DistanceToDriverAhead’ and ‘DriverAhead’ information may be (but not necessarily)
+wrong for other drivers too. Simply because there might have been another car on track but we don’t know the
+position.</p>
+<p>If you get this message for nonexistent drivers:
+Sometimes the api sends empty/zero-valued samples for drivers that don’t exist. When this happens, it usually
+only happens for a short part of the session. Because there is only data for a part of the session, this warning is
+triggered. If this is the case this warning means nothing at all. The nonexistent drivers will be filtered out
+later.</p>
+</dd>
+</dl>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the modified axis instance</p>
+</div>
+<div class="section" id="module-core">
+<h3>module <cite>core</cite><a class="headerlink" href="#module-core" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt><cite>Ergast api not supported for testing</cite></dt><dd><p>Ergast does not have data for testing session.
+This means that some data (for example driver data) is simply not available.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="fastf1.plotting.lapnumber_axis">
-<code class="sig-prename descclassname">fastf1.plotting.</code><code class="sig-name descname">lapnumber_axis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span></em>, <em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">'xaxis'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/plotting.html#lapnumber_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.plotting.lapnumber_axis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set axis to integer ticks only.”</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> – matplotlib axis</p></li>
-<li><p><strong>axis</strong> (<em>='xaxis'</em><em>, </em><em>optional</em>) – can be ‘xaxis’ or ‘yaxis’</p></li>
+</li>
+<li><dl class="simple">
+<dt><cite>Ergast lookup failed</cite></dt><dd><p>Session information on Ergast is usually only available after a race weekend.
+If you want to analyze a session during the race weekend, there will likely be no data on Ergast yet.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>Could not find position/telemetry data for driver x</cite></dt><dd><p>For some unknown reason the data does not exist.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>Empty telemetry slice from lap y of driver x</cite></dt><dd><p>There is a timed lap of which we know beginning and end but for some unknown reason there is no telemetry for it.</p>
+</dd>
+</dl>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the modified axis instance</p>
-</dd>
-</dl>
-</dd></dl>
-
+</div>
+</div>
 </div>
 
 
@@ -262,10 +268,10 @@ Other data types but <cite>np.ndarray</cite> are left unchanged.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="known_bugs.html" class="btn btn-neutral float-right" title="Known bugs and caveats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="func.html" class="btn btn-neutral float-left" title="fastf1.func - General functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="known_bugs.html" class="btn btn-neutral float-left" title="Known bugs and caveats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

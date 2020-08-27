@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
     <link rel="prev" title="fastf1.plotting - Plotting module" href="plotting.html" /> 
 </head>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                v2.0.1
+                2.0.2
               </div>
             
           
@@ -101,8 +101,18 @@
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-core">module <cite>core</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
@@ -191,15 +201,6 @@ referring to timing_data drivers. For winter test we have driver number
 65535 and it is not bypassed.</p>
 </div></blockquote>
 </li>
-<li><p>Day 3 and 6 of winter testing 2020</p>
-<blockquote>
-<div><p>Usually times obtained from the <cite>timing_app_data</cite> and <cite>timing_data</cite>
-requests are synchronised and because of this, the two data sources are
-merged on the time index. For some reason and only for Vettel on 21/02/2020
-and Bottas on 28/02/2020, time doesn’t match. A manually patched file is
-included with the code. A more sofisticated solution is needed.</p>
-</div></blockquote>
-</li>
 <li><p><a class="reference internal" href="track.html#module-fastf1.track" title="fastf1.track"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code></a> is currently broken:</p>
 <blockquote>
 <div><p>Changes made to the position data by F1 broke the functionality of this module.
@@ -225,7 +226,7 @@ In this case, channels are stuck towards the end of the morning session.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="plotting.html" class="btn btn-neutral float-left" title="fastf1.plotting - Plotting module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

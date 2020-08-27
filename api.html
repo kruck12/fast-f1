@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                v2.0.1
+                2.0.2
               </div>
             
           
@@ -99,9 +99,20 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-api">module <cite>api</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-core">module <cite>core</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
@@ -215,6 +226,15 @@ speed trap, sector time and so on.</p>
 <p>While most of this data can be mapped lap by lap given a readable and
 usable data structure, other entries like position and time gaps are
 separated and mapped on finer timeseries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – url path (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas.Dataframe for timing/lap data,
+pandas.Dataframe for position/time gaps</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -223,6 +243,17 @@ separated and mapped on finer timeseries.</p>
 <dd><p>Full parse of timing app data. This parsing is quite ignorant,
 with  minimum logic just to fix data structure inconsistencies. Tyre
 information is passed to the summary table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – web path for base_url, see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p></li>
+<li><p><strong>response</strong> (<em>optional</em>) – api response can be passed if data was already downloaded</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas.Dataframe</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -234,19 +265,24 @@ Telemetry data.</p>
 time is not constant, usually 240ms but sometimes can be ~270ms.
 Keep absolute reference.</p>
 <dl class="simple">
-<dt>Useful columns:</dt><dd><ul class="simple">
-<li><p>Date: sample pandas datetime</p></li>
-<li><p>Driver: driver identifier</p></li>
-<li><p>Speed: Km/h</p></li>
-<li><p>RPM, Gear</p></li>
-<li><p>Throttle, Brake: 0-100 (don’t trust brake too much)</p></li>
-<li><p>DRS: Off, Available, Active</p></li>
+<dt>Dataframe columns:</dt><dd><ul class="simple">
+<li><p>Date (pandas.Timestamp): timestamp for this sample as Date + Time; more or less exact</p></li>
+<li><p>Time (pandas.Timedelta): session timestamp; inaccurate, has duplicate values; use Date instead</p></li>
+<li><p>Speed (int): Km/h</p></li>
+<li><p>RPM (int)</p></li>
+<li><p>Gear (int)</p></li>
+<li><p>Throttle (int): 0-100%</p></li>
+<li><p>Brake (int): 0-100% (don’t trust brake too much)</p></li>
+<li><p>DRS (int): 0=Off, 8=Active; sometimes other values –&gt; to be researched still</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>pandas dataframe</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – url path (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary containing one pandas dataframe for each driver; dictionary keys are driver numbers as string</p>
 </dd>
 </dl>
 </dd></dl>
@@ -259,10 +295,11 @@ Keep absolute reference.</p>
 time is not constant, usually 300ms but sometimes can be ~200ms.
 Keep absolute reference.</p>
 <dl class="simple">
-<dt>Useful columns:</dt><dd><ul class="simple">
-<li><p>Date: pandas datetime of sample</p></li>
-<li><p>Driver: driver identifier</p></li>
-<li><p>X, Y, Z: Position coordinates</p></li>
+<dt>Dataframe columns:</dt><dd><ul class="simple">
+<li><p>Date (pandas.Timestamp): timestamp for this sample as Date + Time; more or less exact</p></li>
+<li><p>Time (pandas.Timedelta): session timestamp; inaccurate, has duplicate values; use Date instead</p></li>
+<li><p>X, Y, Z (int): Position coordinates</p></li>
+<li><p>Status (str): ‘OnTrack’ or ‘OffTrack’</p></li>
 </ul>
 </dd>
 </dl>
@@ -271,7 +308,7 @@ Keep absolute reference.</p>
 <dd class="field-odd"><p><strong>path</strong> – web path for base_url, see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pandas dataframe</p>
+<dd class="field-even"><p>dictionary containing one pandas dataframe for each driver, dictionary keys are driver numbers as string</p>
 </dd>
 </dl>
 </dd></dl>
@@ -300,6 +337,13 @@ parsed with <a class="reference internal" href="#fastf1.api.parse" title="fastf1
 <dt id="fastf1.api.parse">
 <code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">zipped</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse json and jsonStream as known from livetiming.formula1.com</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="fastf1.api.SessionNotAvailableError">
+<em class="property">exception </em><code class="sig-prename descclassname">fastf1.api.</code><code class="sig-name descname">SessionNotAvailableError</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#SessionNotAvailableError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fastf1.api.SessionNotAvailableError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if an api request returned no data for the requested session.
+A likely cause is that the session does not exist because it was cancelled.</p>
 </dd></dl>
 
 </div>
