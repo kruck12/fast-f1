@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>fastf1.legacy &mdash; Fast F1 file: VERSION.txt documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Fast F1
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                file: VERSION.txt
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../time_explanation.html">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../time_explanation.html#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../time_explanation.html#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Fast F1</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>fastf1.legacy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for fastf1.legacy</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:mod:`fastf1.legacy` - Provides access to legacy functionality</span>
+<span class="sd">==============================================================</span>
+
+<span class="sd">This module contains the legacy implementation for calculating distance to driver ahead.</span>
+
+<span class="sd">:func:`inject_driver_ahead` adds &#39;DriverAhead&#39; and &#39;DistanceToDriverAhead&#39; to the position data for all laps of all</span>
+<span class="sd">drivers. This functionality has been replaced with :func:`fastf1.core.Telemetry.add_driver_ahead`.</span>
+<span class="sd">The new implementation provides smoother and more accurate results. Additionally, it can be applied to arbitrary slices</span>
+<span class="sd">of data. But it suffers from integration error when used over multiple laps. The legacy implementation has no</span>
+<span class="sd">integration error issues.</span>
+
+<span class="sd">It is recommended to use the new version. If necessary, it should be applied lap</span>
+<span class="sd">by lap and the lap data should be concatenated afterwards. Still, the old version can be used if so desired.</span>
+
+<span class="sd">The following is an example comparison plot of the legacy version and the new version. It also shows how the two</span>
+<span class="sd">versions can be used.</span>
+
+<span class="sd">.. code-block::</span>
+
+<span class="sd">    import fastf1</span>
+<span class="sd">    import numpy as np</span>
+<span class="sd">    import matplotlib.pyplot as plt</span>
+
+<span class="sd">    fastf1.Cache.enable_cache(&quot;test_cache/&quot;)</span>
+
+<span class="sd">    session = fastf1.get_session(2020, &#39;Italy&#39;, &#39;R&#39;)</span>
+<span class="sd">    laps = session.load_laps()</span>
+
+<span class="sd">    DRIVER = &#39;VER&#39;  # which driver; need to specify number and abbreviation</span>
+<span class="sd">    DRIVER_NUMBER = &#39;33&#39;</span>
+<span class="sd">    LAP_N = 10  # which lap number to plot</span>
+
+<span class="sd">    drv_laps = laps.pick_driver(DRIVER)</span>
+<span class="sd">    drv_lap = drv_laps[(drv_laps[&#39;LapNumber&#39;] == LAP_N)]  # select the lap</span>
+
+
+<span class="sd">    # define a function for plotting &#39;DistanceToDriverAhead&#39; over &#39;SessionTime&#39; for varying drivers ahead</span>
+<span class="sd">    def plot_ahead_over_distance(df, suffix):</span>
+<span class="sd">        drvs = df[&#39;DriverAhead&#39;].unique()</span>
+
+<span class="sd">        for drv in drvs:  # plot a segment for each driver ahead</span>
+<span class="sd">            mask = df[&#39;DriverAhead&#39;] != drv</span>
+<span class="sd">            dist_to_drv = np.ma.masked_array(df[&#39;DistanceToDriverAhead&#39;].to_numpy(), mask)</span>
+<span class="sd">            ref_time = np.ma.masked_array(df[&#39;SessionTime&#39;].to_numpy(), mask)</span>
+<span class="sd">            ax.plot(ref_time, dist_to_drv, label=str(drv)+suffix)</span>
+
+
+<span class="sd">    fig = plt.figure()</span>
+<span class="sd">    ax = fig.add_subplot()</span>
+
+<span class="sd">    # ############### new</span>
+<span class="sd">    df_new = drv_lap.get_car_data().add_driver_ahead()</span>
+<span class="sd">    plot_ahead_over_distance(df_new, &#39;_new&#39;)</span>
+
+<span class="sd">    # ############### legacy</span>
+<span class="sd">    df_legacy = fastf1.legacy.inject_driver_ahead(session)[DRIVER_NUMBER].slice_by_lap(drv_lap)</span>
+<span class="sd">    plot_ahead_over_distance(df_legacy, &#39;_legacy&#39;)</span>
+
+<span class="sd">    plt.legend()</span>
+<span class="sd">    plt.show()</span>
+
+<span class="sd">.. image:: _static/dist_ahead_new_legacy.svg</span>
+<span class="sd">    :target: _static/dist_ahead_new_legacy.svg</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.spatial</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+
+<span class="n">REFERENCE_LAP_RESOLUTION</span> <span class="o">=</span> <span class="mf">0.667</span>
+<span class="sd">&quot;&quot;&quot;A distance in meters which indicates the resolution of the reference</span>
+<span class="sd">lap. This reference is used to project car positions and calculate</span>
+<span class="sd">things like distance between cars.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_get_reference_lap</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find a reference lap for creating the track map in `_make_trajectory`.&quot;&quot;&quot;</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="p">)):</span>
+        <span class="n">lap</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">times</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+        <span class="n">car_data</span> <span class="o">=</span> <span class="n">lap</span><span class="o">.</span><span class="n">get_car_data</span><span class="p">()</span>  <span class="c1"># TODO interpolate_edges ?</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">car_data</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>  <span class="c1"># check for valid telemetry</span>
+            <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">lap</span>
+
+
+<span class="k">def</span> <span class="nf">_make_trajectory</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">ref_lap</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create telemetry Distance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">telemetry</span> <span class="o">=</span> <span class="n">ref_lap</span><span class="o">.</span><span class="n">telemetry</span>
+
+    <span class="k">if</span> <span class="n">telemetry</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="c1"># Assuming constant speed in the last tenth</span>
+        <span class="n">dt0_</span> <span class="o">=</span> <span class="p">(</span><span class="n">ref_lap</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">ds0_</span> <span class="o">=</span> <span class="p">(</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">3.6</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt0_</span>
+        <span class="n">total_s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds0_</span>
+
+        <span class="c1"># To prolong start and finish and have a correct linear interpolation</span>
+        <span class="n">full_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">s</span> <span class="o">-</span> <span class="n">total_s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="n">total_s</span><span class="p">])</span>
+        <span class="n">full_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">])</span>
+        <span class="n">full_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+        <span class="n">full_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span>
+
+        <span class="n">reference_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_s</span><span class="p">,</span> <span class="n">REFERENCE_LAP_RESOLUTION</span><span class="p">)</span>
+
+        <span class="n">reference_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">reference_s</span><span class="p">,</span> <span class="n">full_s</span><span class="p">,</span> <span class="n">full_x</span><span class="p">)</span>
+        <span class="n">reference_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">reference_s</span><span class="p">,</span> <span class="n">full_s</span><span class="p">,</span> <span class="n">full_y</span><span class="p">)</span>
+        <span class="n">reference_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">reference_s</span><span class="p">,</span> <span class="n">full_s</span><span class="p">,</span> <span class="n">full_z</span><span class="p">)</span>
+
+        <span class="n">ssize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">reference_s</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;Build track map and project driver position to one trajectory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">fix_suzuka</span><span class="p">(</span><span class="n">projection_index</span><span class="p">,</span> <span class="n">_s</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Yes, suzuka is bad</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="c1"># For tracks like suzuka (therefore only suzuka) we have</span>
+            <span class="c1"># a beautiful crossing point. So, FOR F**K SAKE, sometimes</span>
+            <span class="c1"># shortest distance may fall below the bridge or viceversa</span>
+            <span class="c1"># gotta do some monotony sort of check. Not the cleanest</span>
+            <span class="c1"># solution.</span>
+            <span class="k">def</span> <span class="nf">moving_average</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                <span class="n">ret</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ret</span><span class="p">[:</span><span class="o">-</span><span class="n">n</span><span class="p">]</span>
+                <span class="n">ma</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">/</span> <span class="n">n</span>
+
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">ma</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="n">ma</span><span class="p">,</span> <span class="n">ma</span><span class="p">[</span><span class="o">-</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+
+            <span class="n">ma_projection</span> <span class="o">=</span> <span class="n">moving_average</span><span class="p">(</span><span class="n">_s</span><span class="p">[</span><span class="n">projection_index</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">_s</span><span class="p">[</span><span class="n">projection_index</span><span class="p">]</span> <span class="o">-</span> <span class="n">ma_projection</span><span class="p">)</span>
+            <span class="c1"># 1000 and 3000, very suzuka specific. Damn magic numbers</span>
+            <span class="n">sel_bridge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">spikes</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">spikes</span> <span class="o">&lt;</span> <span class="mi">3000</span><span class="p">)</span>
+            <span class="n">unexpected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sel_bridge</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">max_length</span> <span class="o">=</span> <span class="n">_s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unexpected</span><span class="p">:</span>
+                <span class="c1"># Just assuming linearity for this 2 or 3 samples</span>
+                <span class="n">last_value</span> <span class="o">=</span> <span class="n">_s</span><span class="p">[</span><span class="n">projection_index</span><span class="p">[</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+                <span class="n">last_step</span> <span class="o">=</span> <span class="n">last_value</span> <span class="o">-</span> <span class="n">_s</span><span class="p">[</span><span class="n">projection_index</span><span class="p">[</span><span class="n">p</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]]</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">last_value</span> <span class="o">+</span> <span class="n">last_step</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
+                    <span class="c1"># Over the finish line</span>
+                    <span class="n">corrected_distance</span> <span class="o">=</span> <span class="o">-</span><span class="n">max_length</span> <span class="o">+</span> <span class="n">last_step</span> <span class="o">+</span> <span class="n">last_value</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">corrected_distance</span> <span class="o">=</span> <span class="n">last_value</span> <span class="o">+</span> <span class="n">last_step</span>
+
+                <span class="n">corrected_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">_s</span> <span class="o">-</span> <span class="n">corrected_distance</span><span class="p">))</span>
+                <span class="n">projection_index</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">corrected_index</span>
+
+            <span class="k">return</span> <span class="n">projection_index</span>
+
+        <span class="n">track</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">ssize</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="n">track</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">reference_x</span>
+        <span class="n">track</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">reference_y</span>
+        <span class="n">track</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">reference_z</span>
+
+        <span class="n">track_tree</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">cKDTree</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+        <span class="n">drivers_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">drivers</span><span class="p">))</span>
+        <span class="n">stream_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drivers_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="n">dmap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">stream_length</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">drivers_list</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">fast_query</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_jobs&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;distance_upper_bound&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+        <span class="c1"># fast_query &lt; Increases speed</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">drv</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drivers_list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">drv</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Driver </span><span class="si">{</span><span class="n">drv</span><span class="si">:</span><span class="s2"> &gt;2</span><span class="si">}</span><span class="s2">: No position data. (_make_trajectory)&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">trajectory</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drv</span><span class="p">][[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">projection_index</span> <span class="o">=</span> <span class="n">track_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="o">**</span><span class="n">fast_query</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># When tree cannot solve super far points means there is some</span>
+            <span class="c1"># pit shit shutdown. We can replace these index with 0</span>
+            <span class="n">projection_index</span><span class="p">[</span><span class="n">projection_index</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">reference_s</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">dmap</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">fix_suzuka</span><span class="p">(</span><span class="n">projection_index</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">reference_s</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;Create transform matrix to change distance point of reference</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">t_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">ssize</span><span class="p">,</span> <span class="n">ssize</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ssize</span><span class="p">):</span>
+            <span class="n">rref</span> <span class="o">=</span> <span class="n">reference_s</span> <span class="o">-</span> <span class="n">reference_s</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">rref</span><span class="p">[</span><span class="n">rref</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_s</span> <span class="o">+</span> <span class="n">rref</span><span class="p">[</span><span class="n">rref</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">t_matrix</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">rref</span>
+
+        <span class="sd">&quot;&quot;&quot;Create mask to remove distance elements when car is on track</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drivers_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
+        <span class="n">pit_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">stream_length</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">drivers_list</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">driver_index</span><span class="p">,</span> <span class="n">driver_number</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drivers_list</span><span class="p">):</span>
+            <span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="n">driver_number</span><span class="p">)</span>
+            <span class="n">in_pit</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="p">[[],</span> <span class="p">[]]</span>
+            <span class="k">for</span> <span class="n">lap_index</span> <span class="ow">in</span> <span class="n">laps</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                <span class="n">lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lap_index</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">in_pit</span><span class="p">:</span>
+                    <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">])</span>
+                    <span class="n">in_pit</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">in_pit</span><span class="p">:</span>
+                    <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">])</span>
+                    <span class="n">in_pit</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">in_pit</span><span class="p">:</span>
+                <span class="c1"># Car crashed, we put a time and &#39;Status&#39; will take care</span>
+                <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">inout</span> <span class="ow">in</span> <span class="n">times</span><span class="p">:</span>
+                <span class="n">out_of_pit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">inout</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="n">inout</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">pit_mask</span><span class="p">[:,</span> <span class="n">driver_index</span><span class="p">]</span> <span class="o">|=</span> <span class="n">out_of_pit</span>
+            <span class="n">on_track</span> <span class="o">=</span> <span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">driver_number</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;OnTrack&#39;</span><span class="p">)</span>
+            <span class="n">pit_mask</span><span class="p">[:,</span> <span class="n">driver_index</span><span class="p">]</span> <span class="o">&amp;=</span> <span class="n">on_track</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="sd">&quot;&quot;&quot;Calculate relative distances using transform matrix</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">driver_ahead</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">stream_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">stream_length</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">my_di</span><span class="p">,</span> <span class="n">my_d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drivers_list</span><span class="p">):</span>
+            <span class="n">rel_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">dmap</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">his_di</span><span class="p">,</span> <span class="n">his_d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drivers_list</span><span class="p">):</span>
+                <span class="n">my_pos_i</span> <span class="o">=</span> <span class="n">dmap</span><span class="p">[:,</span> <span class="n">my_di</span><span class="p">]</span>
+                <span class="n">his_pos_i</span> <span class="o">=</span> <span class="n">dmap</span><span class="p">[:,</span> <span class="n">his_di</span><span class="p">]</span>
+                <span class="n">rel_distance</span><span class="p">[:,</span> <span class="n">his_di</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_matrix</span><span class="p">[</span><span class="n">my_pos_i</span><span class="p">,</span> <span class="n">his_pos_i</span><span class="p">]</span>
+
+            <span class="n">his_in_pit</span> <span class="o">=</span> <span class="o">~</span><span class="n">pit_mask</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">his_in_pit</span><span class="p">[:,</span> <span class="n">my_di</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">my_in_pit</span> <span class="o">=</span> <span class="o">~</span><span class="n">pit_mask</span><span class="p">[:,</span> <span class="n">drivers_list</span> <span class="o">==</span> <span class="n">my_d</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">rel_distance</span><span class="p">[</span><span class="n">his_in_pit</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+            <span class="n">closest_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">rel_distance</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">closest_distance</span> <span class="o">=</span> <span class="n">rel_distance</span><span class="p">[</span><span class="n">stream_axis</span><span class="p">,</span> <span class="n">closest_index</span><span class="p">]</span>
+            <span class="n">closest_driver</span> <span class="o">=</span> <span class="n">drivers_list</span><span class="p">[</span><span class="n">closest_index</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+            <span class="n">closest_distance</span><span class="p">[</span><span class="n">my_in_pit</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">closest_driver</span><span class="p">[</span><span class="n">my_in_pit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">:</span> <span class="n">closest_distance</span><span class="p">,</span>
+                    <span class="s1">&#39;DriverAhead&#39;</span><span class="p">:</span> <span class="n">closest_driver</span><span class="p">}</span>
+            <span class="n">driver_ahead</span><span class="p">[</span><span class="n">my_d</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">my_d</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># no data to base calculations on; create empty results</span>
+        <span class="n">driver_ahead</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">drv</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">drivers</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">:</span> <span class="p">(),</span> <span class="s1">&#39;DriverAhead&#39;</span><span class="p">:</span> <span class="p">()}</span>
+            <span class="n">driver_ahead</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">driver_ahead</span>
+
+
+<div class="viewcode-block" id="inject_driver_ahead"><a class="viewcode-back" href="../../legacy.html#fastf1.legacy.inject_driver_ahead">[docs]</a><span class="k">def</span> <span class="nf">inject_driver_ahead</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add &#39;DistanceToDriverAhead&#39; and &#39;DriverAhead&#39; column to position data of all drivers in session.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        session: :class:`fastf1.core.Session`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary containing :class:`fastf1.core.Telemetry` for each driver. The telemetry is the same as</span>
+<span class="sd">        :any:`fastf1.core.Session.pos_data` but with &#39;DriverAhead&#39; and &#39;DistanceToDriverAhead&#39; columns added</span>
+<span class="sd">        to each drivers telemetry.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ref_lap</span> <span class="o">=</span> <span class="n">_get_reference_lap</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ref_lap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">driver_ahead</span> <span class="o">=</span> <span class="n">_make_trajectory</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">ref_lap</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No valid telemetry for calculating distance to driver ahead!&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">driver_ahead</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, theOehrly.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

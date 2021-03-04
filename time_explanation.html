@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Time, Date and Timing - Explanation &mdash; Fast F1 2.1-rc documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to perform calculations accurately" href="howto_accurate_calculations.html" />
+    <link rel="prev" title="fastf1.legacy - Provides access to legacy functionality" href="legacy.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Fast F1
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1-rc
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fast F1</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Time, Date and Timing - Explanation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/time_explanation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="time-date-and-timing-explanation">
+<h1>Time, Date and Timing - Explanation<a class="headerlink" href="#time-date-and-timing-explanation" title="Permalink to this headline">¶</a></h1>
+<p>Working with Formula 1 data (or any motorsport data for that matter) requires working working with lots of different
+values of time. These values can denote a point in time or a duration. The following is an explanation of the different
+values of time which are used in this module.</p>
+<div class="section" id="points-in-time">
+<h2>Points in Time<a class="headerlink" href="#points-in-time" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Three different values of time can denote a point in time in this module. These are:</dt><dd><ul class="simple">
+<li><p>Time</p></li>
+<li><p>SessionTime</p></li>
+<li><p>Date</p></li>
+</ul>
+</dd>
+</dl>
+<p><cite>SessionTime</cite> is a time which has a more or less arbitrary zero point multiple minutes before a session officially starts.
+It is directly provided by the F1 live timing api. SessionTime zero marks the beginning of all data streams. The
+SessionTime references events within the boundaries of one session.</p>
+<blockquote>
+<div><p>–&gt; SessionTime is relative to the beginning of a session</p>
+</div></blockquote>
+<p><cite>Date</cite> is a UTC timestamp containing date and time. It is therefore an absolute reference to tell when something
+happened in the context of the time of day.</p>
+<blockquote>
+<div><p>–&gt; Date is an absolute point in time</p>
+</div></blockquote>
+<p><cite>Time</cite> references data relative in the current data set. The first sample of a given set of data will always mark the
+zero point for this set of data.</p>
+<blockquote>
+<div><p>–&gt; Time is relative to the first sample of data in a set of data</p>
+</div></blockquote>
+<p>For a sample of telemetry data this means, that the sample will always have the same value for its <cite>Date</cite> and
+<cite>SessionTime</cite>. But its value for <cite>Time</cite> will change when the dataset is modified.</p>
+<p>Take the following set of example telemetry. Lets assume the variable <cite>tel</cite> holds previously loaded telemetry data
+for one driver an for a full session (only time data is shown for simplification).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span>
+<span class="go">                        Time            SessionTime                    Date</span>
+<span class="go">0     0 days 00:00:02.984000 0 days 00:00:02.984000 2020-09-06 12:40:03.180</span>
+<span class="go">1     0 days 00:00:03.224000 0 days 00:00:03.224000 2020-09-06 12:40:03.420</span>
+<span class="go">2     0 days 00:00:03.464000 0 days 00:00:03.464000 2020-09-06 12:40:03.660</span>
+<span class="go">3     0 days 00:00:03.704000 0 days 00:00:03.704000 2020-09-06 12:40:03.900</span>
+<span class="go">4     0 days 00:00:03.944000 0 days 00:00:03.944000 2020-09-06 12:40:04.140</span>
+<span class="go">                      ...                    ...                     ...</span>
+<span class="go">35533 0 days 02:23:27.764000 0 days 02:23:27.764000 2020-09-06 15:03:27.960</span>
+<span class="go">35534 0 days 02:23:28.004000 0 days 02:23:28.004000 2020-09-06 15:03:28.200</span>
+<span class="go">35535 0 days 02:23:28.244000 0 days 02:23:28.244000 2020-09-06 15:03:28.440</span>
+<span class="go">35536 0 days 02:23:28.484000 0 days 02:23:28.484000 2020-09-06 15:03:28.680</span>
+<span class="go">35537 0 days 02:23:28.724000 0 days 02:23:28.724000 2020-09-06 15:03:28.920</span>
+<span class="go">[35538 rows x 3 columns]</span>
+</pre></div>
+</div>
+<p>The session (a race in this case) lasted about 2 hours and 23 minutes. <cite>SessionTime</cite> and <cite>Time</cite> are exactly the same
+for this set of data. This is how the data looks as it is created by the api functions.
+Next, the data is sliced to only include a subset of the full session.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span><span class="o">.</span><span class="n">slice_by_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
+<span class="go">                        Time            SessionTime                    Date</span>
+<span class="go">19811 0 days 00:00:00.195000 0 days 01:20:00.195000 2020-09-06 14:00:00.391</span>
+<span class="go">19812 0 days 00:00:00.435000 0 days 01:20:00.435000 2020-09-06 14:00:00.631</span>
+<span class="go">19813 0 days 00:00:00.676000 0 days 01:20:00.676000 2020-09-06 14:00:00.872</span>
+<span class="go">19814 0 days 00:00:00.916000 0 days 01:20:00.916000 2020-09-06 14:00:01.112</span>
+<span class="go">19815 0 days 00:00:01.156000 0 days 01:20:01.156000 2020-09-06 14:00:01.352</span>
+<span class="go">                      ...                    ...                     ...</span>
+<span class="go">22288 0 days 00:09:59.076000 0 days 01:29:59.076000 2020-09-06 14:09:59.272</span>
+<span class="go">22289 0 days 00:09:59.277000 0 days 01:29:59.277000 2020-09-06 14:09:59.473</span>
+<span class="go">22290 0 days 00:09:59.517000 0 days 01:29:59.517000 2020-09-06 14:09:59.713</span>
+<span class="go">22291 0 days 00:09:59.757000 0 days 01:29:59.757000 2020-09-06 14:09:59.953</span>
+<span class="go">22292 0 days 00:09:59.997000 0 days 01:29:59.997000 2020-09-06 14:10:00.193</span>
+<span class="go">[2482 rows x 3 columns]</span>
+</pre></div>
+</div>
+<p><cite>SessionTime</cite> and <cite>Date</cite> have kept there reference point. But the reference point for <cite>Time</cite> has changed and its new
+zero is now the first sample of this set of data.
+If this subset of data was sliced again, <cite>Time</cite> would change again so as to start at zero on the first sample.</p>
+<p>All three of these values have a use for different reasons. Here are some exmaples.</p>
+<p>To check which other cars are on track while one driver is on a fast lap <cite>SessionTime</cite> is useful.</p>
+<p>When overlapping multiple laps for comparison the data can be plotted over <cite>Time</cite> so that different laps have
+a common zero point.</p>
+<p><cite>Date</cite> is useful when checking out something in reference to commonly used human time.</p>
+<p>The relation between <cite>SessionTime</cite> and <cite>Date</cite> is a constant offset. This value is available through the session class.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">t0_date</span>
+<span class="go">Timestamp(&#39;2020-09-06 12:40:00.196000&#39;)</span>
+</pre></div>
+</div>
+<p>As already mentioned above, the zero point of the session time is before the actual start of a session. The session
+itself officially starts at some later point in time. This value is also available through the session class.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">session_start_time</span>
+<span class="go">datetime.timedelta(seconds=2008, microseconds=79000)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">session_start_time</span><span class="p">)</span>
+<span class="go">&#39;0:33:28.079000&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="lap-timing">
+<h2>Lap timing<a class="headerlink" href="#lap-timing" title="Permalink to this headline">¶</a></h2>
+<p>Lap timing data is available in an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code> in <code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code>.
+For each lap, the usual official timing information is available. It consists of the lap time and the sector times.
+The columns for this data in <code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code> are called ‘LapTime’, ‘Sector1Time’, ‘Sector2Time’ and ‘Sector3Time’.
+These four values are highly accurate and are considered the absolute truth.</p>
+<dl class="simple">
+<dt>For each lap, additional data is available. Amongst others the following time related data:</dt><dd><ul class="simple">
+<li><p>‘Time’: This marks the point in time when a lap was set, i.e. finished, as a SessionTime. The name ‘Time’ is
+confusing here as it should be ‘SessionTime’. It is kept mainly for backwards compatibility.</p></li>
+<li><p>‘Sector*SessionTime’: For each sector a session time is available. This marks the point in time when a sector time
+was set. The ‘Sector3Session’ time is mathematically the same as the end of the lap (‘Time’). In most cases this is
+true, but there can be minor deviations in some edge cases. (In some cases the api function can not calculate the
+timestamps correctly.)</p></li>
+<li><p>‘LapStartTime’: This marks the point in time (SessionTime) when a lap was started and is equivalent to the ‘Time’
+and ‘Sector3Time’ of the previous lap.</p></li>
+<li><p>‘LapStartDate’: This is the same as ‘LapStartTime’ just expressed as ‘Date’ instead of ‘SessionTime’</p></li>
+<li><p>‘PitInTime’/’PitOutTime’: This marks the point in time (SessionTime) when a car entered or left the pits.</p></li>
+</ul>
+</dd>
+</dl>
+<p>These additional timestamps are not provided by the api. They are calculated as accurate as possible from the available
+data but the accuracy can not be verified to millisecond precision.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="howto_accurate_calculations.html" class="btn btn-neutral float-right" title="How to perform calculations accurately" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="legacy.html" class="btn btn-neutral float-left" title="fastf1.legacy - Provides access to legacy functionality" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, theOehrly.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

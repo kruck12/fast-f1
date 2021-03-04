@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Changelog &mdash; Fast F1  documentation</title>
+  <title>Changelog &mdash; Fast F1 2.1-rc documentation</title>
   
 
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,14 +32,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Experimental functionality" href="experimental.html" />
     <link rel="prev" title="Troubleshooting" href="troubleshooting.html" /> 
 </head>
 
@@ -51,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Fast F1
+            <a href="index.html" class="icon icon-home"> Fast F1
           
 
           
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.0.2
+                2.1-rc
               </div>
             
           
@@ -90,39 +91,43 @@
 <li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="time_explanation.html">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="time_explanation.html#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time_explanation.html#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-does-this-error-message-mean">What does this error message mean?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-api">module <cite>api</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#module-core">module <cite>core</cite></a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
 </li>
-</ul>
-<p class="caption"><span class="caption-text">Experimental:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental functionality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -163,6 +168,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -174,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -190,29 +197,117 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">
+<h2>v2.1: Refactoring, accuracy improvements and a more accessible interface<a class="headerlink" href="#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Possibly breaking changes:</p>
+<ul>
+<li><p>The ‘Space’ column has been renamed to ‘Distance’ as this makes more sense</p></li>
+<li><p><a class="reference internal" href="utils.html#fastf1.utils.delta_time" title="fastf1.utils.delta_time"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.utils.delta_time()</span></code></a> now returns two values; see explanation in the documentation</p></li>
+<li><p>Lap telemetry is no longer precalculated and no longer saved in a separate column of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code> DataFrame.
+This telemetry is now a computed property of <code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></p>
+<ul>
+<li><p>calculated property <cite>.telemetry</cite>: This contains position and car data merged into one instance of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code> (instance of <cite>DataFrame</cite>). The data is comparable to the previous ‘telemetry’ column.
+This data is intended for easy plotting of all data as it is.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="n">fastest</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+
+<span class="n">tel</span> <span class="o">=</span> <span class="n">fastest</span><span class="p">[</span><span class="s1">&#39;telemetry&#39;</span><span class="p">]</span>  <span class="c1"># will now fail as telemetry is no longer saved in DataFrame/Series</span>
+<span class="n">tel</span> <span class="o">=</span> <span class="n">fastest</span><span class="o">.</span><span class="n">telemetry</span>  <span class="c1"># will (still) work as this now accesses the computed property</span>
+</pre></div>
+</div>
+</li>
+<li><p>function <cite>get_car_data</cite>, <cite>get_pos_data</cite>: These functions are available for <code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code>.
+They return the telemetry data as received from the api with minimal postprocessing and crucially
+unmerged and without any interpolated values. This data should be used if you intend to do any further
+calculations with it.</p>
+<p>Also read the new documentation section about doing accurate calculations: <a class="reference internal" href="howto_accurate_calculations.html"><span class="doc">How to perform calculations accurately</span></a></p>
+</li>
+</ul>
+</li>
+<li><p>Patches and color scheme changes which were automatically applied when importing <a class="reference internal" href="plotting.html#module-fastf1.plotting" title="fastf1.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a>
+now need to be enabled explicitly. This is done by calling <code class="xref py py-func docutils literal notranslate"><span class="pre">fasf1.plotting.setup_mpl()</span></code>.
+This function offers configuration through keyword arguments. The defaults are equal to what was done
+automatically before.
+It is highly recommended that you call this function to set up your matplotlib plotting environment.</p></li>
+<li><p>The formatting of timedelta values in matplotlib plots is now handled by an external module called ‘Timple’.
+As part of this change, the function <code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.plotting.laptime_axis()</span></code> has been removed. Timedelta data
+is now detected automatically if matplotlib timedelta support is enabled through <a class="reference internal" href="plotting.html#fastf1.plotting.setup_mpl" title="fastf1.plotting.setup_mpl"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.plotting.setup_mpl()</span></code></a>.
+This will hopefully make the plotting of timedelta values considerably more reliable.</p></li>
+<li><p>The computed telemetry channels ‘Distance’ (before: ‘Space’), ‘DriverAhead’ and ‘DistanceToDriverAhead’ are no
+longer added to the telemetry data by default. This is done for speed and accuracy reasons. These channels can now
+be added by calling the appropriate <code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.add_*()</span></code> methods of the new <a class="reference internal" href="core.html#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Telemetry</span></code></a> class.</p></li>
+<li><p>The cache has been completely rewritten. It is now fully supported again and can detect version updates which
+require updating the cached data.
+Enabling the cache is now done using <a class="reference internal" href="api.html#fastf1.api.Cache.enable_cache" title="fastf1.api.Cache.enable_cache"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.Cache.enable_cache()</span></code></a></p></li>
+</ul>
+</li>
+<li><p>Changes:
+- Accuracy improvement: Changes to some parts of the general flow of processing data to reduce calculation errors</p>
+<ul>
+<li><p>Accuracy improvement: slightly better determination of the time at which a lap starts</p></li>
+<li><p>Speed improvement: Faster parsing of API data</p></li>
+<li><p>Added track status information to laps data</p></li>
+<li><p>Added lap accuracy validation as a boolean ‘IsAccurate’ value for each lap. This is set based on track status,
+availability of some required lap data, pit stops</p></li>
+<li><p>Added ‘Source’ to telemetry data to indicate whether a value is original (‘car’ or ‘pos’ depending on source)
+or interpolated</p></li>
+<li><p>Added the class <a class="reference internal" href="core.html#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Lap</span></code></a> which subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">pd.Series</span></code>. <code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code> is now the result of
+slicing <a class="reference internal" href="core.html#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Laps</span></code></a>.</p></li>
+<li><p>Added additional <cite>pick_*()</cite> functions to <a class="reference internal" href="core.html#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Laps</span></code></a></p></li>
+<li><p>Added <a class="reference internal" href="core.html#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Telemetry</span></code></a> which subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code>. This class offers various methods
+for working with the telemetry data and should make it easier to work with the data. Previously inaccessible
+functionality is now accessible in a more DataFrame-like style.</p></li>
+<li><p>Added various slicing capabilities for <a class="reference internal" href="core.html#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Telemetry</span></code></a></p></li>
+<li><p>Telemetry data can be sliced at any point and calculated telemetry channels (Distance, Driver Ahead, …)
+can be added to this slice specifically.</p>
+<p>Example usages:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘Distance’ can be calculated continuously over multiple laps (starts at zero on the first lap
+and increases all the time).</p></li>
+<li><p>‘DriverAhead’ can now be calculated for small telemetry slices more efficiently</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>DistanceToDriverAhead is reimplemented and returns a considerably smoother result now. This is at the cost of
+increasing integration error when used over longer periods of time (i.e. over multiple laps). To work around this,
+it should be applied to laps individually. Additionally, the old implementation is still available in
+<a class="reference internal" href="legacy.html#module-fastf1.legacy" title="fastf1.legacy"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code></a>.</p></li>
+</ul>
+</li>
+<li><p>Fixed:
+- fix: SessionNotAvailableError is now raised as Exception instead of BaseException</p>
+<ul class="simple">
+<li><p>fix a crash when there is no valid car telemetry data at all (2019, Australia, FP3)</p></li>
+<li><p>fix a crash caused by the resampling progressbar when there are very few laps in a session (2019, Azerbaijan, FP1)</p></li>
+<li><p>fix a crash in _inject_position when some telemetry data is missing (2019, Silverstone, FP1)</p></li>
+<li><p>fix a crash when data for a session can be requested but the data does not contain any useful values at
+all (2020, Styria, ‘FP3’)</p></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="v2-0-2-api-code-overhaul">
 <h2>v2.0.2: API code overhaul<a class="headerlink" href="#v2-0-2-api-code-overhaul" title="Permalink to this headline">¶</a></h2>
 <p>This version integrates a major overhaul of the api code (<a class="reference internal" href="api.html#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a>)</p>
 <ul>
-<li><dl>
-<dt>Possibly breaking changes:</dt><dd><ul>
-<li><dl>
-<dt>Renamed dataframe column ‘LastLapTime’ to ‘LapTime’ for the dataframe returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.timing_data()</span></code></dt><dd><p>First, this makes more sense.
+<li><p>Possibly breaking changes:</p>
+<ul>
+<li><p>Renamed dataframe column ‘LastLapTime’ to ‘LapTime’ for the dataframe returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.timing_data()</span></code>
+First, this makes more sense.
 Second, this column is currently already renamed to ‘LapTime’ later and already accessible under this name
-in the dataframe returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">core.Session.load_laps()</span></code>.</p>
-<p>(also applies to the dictionary returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api._laps_data_driver()</span></code>)</p>
-</dd>
-</dl>
+in the dataframe returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">core.Session.load_laps()</span></code>. Therefore the renaming makes the column name
+be consistend between api and core.</p>
+<p>(This also applies to the dictionary returned by the private function <code class="xref py py-func docutils literal notranslate"><span class="pre">api._laps_data_driver()</span></code>),</p>
 </li>
 <li><p>Data types in dataframes may have changed</p></li>
-<li><p>Some internal functions (prefixed by ‘_’) may have a different name, parameters and return value now</p></li>
+<li><p>Some private functions (prefixed by ‘_’) may have a different name, parameters and return value now</p></li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>Changes:</dt><dd><ul>
-<li><p>rewrote large parts of <a class="reference internal" href="api.html#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> with a somewhat cleaner implementation</p>
+<li><p>Changes:
+- rewrote large parts of <a class="reference internal" href="api.html#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> with a somewhat cleaner implementation</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>more stability</p></li>
@@ -227,14 +322,12 @@ removed as they are no longer necessary.</p></li>
 <li><p>improved documentation a bit</p></li>
 </ul>
 </div></blockquote>
-</li>
+<ul class="simple">
 <li><p>light cleanup and light documentation improvements of <a class="reference internal" href="core.html#module-fastf1.core" title="fastf1.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code></a></p></li>
 <li><p>supressed python-levenshtein warning; it is really not necessary to have it installed for this module</p></li>
 <li><p>changed logging format for hopefully better readability</p></li>
 <li><p>tried to fix lap time axis again; hopefully this time I got it right</p></li>
 </ul>
-</dd>
-</dl>
 </li>
 </ul>
 </div>
@@ -243,21 +336,20 @@ removed as they are no longer necessary.</p></li>
 <p>This integrates a more recent version of the old repository.
 See Issue #1</p>
 <ul>
-<li><dl>
-<dt>Possibly breaking changes</dt><dd><ul>
-<li><p><a class="reference internal" href="plotting.html#module-fastf1.plotting" title="fastf1.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a>: access to team colors changed</p>
-<p>use new function <a class="reference internal" href="plotting.html#fastf1.plotting.team_color" title="fastf1.plotting.team_color"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.plotting.team_color()</span></code></a></p>
-</li>
+<li><p>Possibly breaking changes
+- <a class="reference internal" href="plotting.html#module-fastf1.plotting" title="fastf1.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a>: access to team colors changed</p>
+<blockquote>
+<div><p>use new function <a class="reference internal" href="plotting.html#fastf1.plotting.team_color" title="fastf1.plotting.team_color"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.plotting.team_color()</span></code></a></p>
+</div></blockquote>
+<ul>
 <li><p><a class="reference internal" href="core.html#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core.Laps</span></code></a>: <code class="xref py py-func docutils literal notranslate"><span class="pre">pick_driver_number()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">pick_driver_numbers()</span></code> have been removed.</p>
 <p><a class="reference internal" href="core.html#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.core.Laps.pick_driver()</span></code></a> and <a class="reference internal" href="core.html#fastf1.core.Laps.pick_drivers" title="fastf1.core.Laps.pick_drivers"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.core.Laps.pick_drivers()</span></code></a> do now accept driver numbers a drivers’
 three letter identifiers. Number and letter identifiers can be mixed in a single function call.</p>
 </li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>Changes:</dt><dd><ul>
+<li><p>Changes:</p>
+<ul>
 <li><p>An error that previously resulted in the loading of laps failing completely is now handled slightly better.
 Data loading will now only fail for a driver which is actually concerned by this error and not for all drivers.</p>
 <p>See: <a class="reference external" href="https://github.com/theOehrly/Fast-F1/issues/1#issuecomment-670712178">https://github.com/theOehrly/Fast-F1/issues/1#issuecomment-670712178</a>
@@ -267,41 +359,30 @@ This still needs to be fixed properly at some point.</p>
 <li><p>Some under the hood cleanups and improvements</p></li>
 <li><p>Somewhat improved documentation</p></li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>New:</dt><dd><ul class="simple">
+<li><p>New:</p>
+<ul class="simple">
 <li><p><a class="reference internal" href="utils.html#fastf1.utils.delta_time" title="fastf1.utils.delta_time"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.utils.delta_time()</span></code></a> for comparing lost/gained time between two drivers</p></li>
 <li><p>manual patch file for Bottas in testing</p></li>
 </ul>
-</dd>
-</dl>
 </li>
 </ul>
 </div>
 <div class="section" id="v2-0-0-first-release-of-this-fork">
 <h2>v2.0.0: first release of this fork<a class="headerlink" href="#v2-0-0-first-release-of-this-fork" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><dl class="simple">
-<dt>Changes:</dt><dd><ul>
-<li><dl class="simple">
-<dt>fixed a bug where pandas.DataFrame functionality did not properly work with</dt><dd><p>the <cite>Laps class</cite></p>
-</dd>
-</dl>
-</li>
+<li><p>Changes:</p>
+<ul>
+<li><p>fixed a bug where pandas.DataFrame functionality did not properly work with
+the <cite>Laps class</cite></p></li>
 <li><p>additional fixes for some minor bugs in <cite>core.get_session</cite></p></li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>New:</dt><dd><ul>
+<li><p>New:</p>
+<ul>
 <li><p><cite>track</cite>: module for track and track position related stuff</p></li>
 <li><p><cite>experimental.syncsolver</cite>: an attempt at better data synchronization</p></li>
 </ul>
-</dd>
-</dl>
 </li>
 </ul>
 </div>
@@ -315,37 +396,28 @@ This still needs to be fixed properly at some point.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="experimental.html" class="btn btn-neutral float-right" title="Experimental functionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright MIT
+        &#169; Copyright 2021, theOehrly.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

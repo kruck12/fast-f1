@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Troubleshooting &mdash; Fast F1  documentation</title>
+  <title>Troubleshooting &mdash; Fast F1 2.1-rc documentation</title>
   
 
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -51,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Fast F1
+            <a href="index.html" class="icon icon-home"> Fast F1
           
 
           
@@ -61,7 +63,7 @@
             
             
               <div class="version">
-                2.0.2
+                2.1-rc
               </div>
             
           
@@ -90,39 +92,43 @@
 <li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="track.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.track</span></code> - Track module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="func.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.func</span></code> - General functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="time_explanation.html">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="time_explanation.html#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time_explanation.html#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#something-doesn-t-work">Something doesn’t work</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-does-this-error-message-mean">What does this error message mean?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-api">module <cite>api</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-core">module <cite>core</cite></a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
 </ul>
 </li>
-</ul>
-<p class="caption"><span class="caption-text">Experimental:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental functionality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conditions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.conditions</span></code> - Solver conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="syncsolver.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.experimental.syncsolver</span></code> - Multicore solver for advanced synchronization</a></li>
 </ul>
 
             
@@ -163,6 +169,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -174,7 +182,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -194,69 +202,12 @@
 <h2>Something doesn’t work<a class="headerlink" href="#something-doesn-t-work" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Have you updated to the newest version of fastf1?</p></li>
-<li><dl class="simple">
-<dt>Clear the cache or run your script without cache enabled first if you don’t want to clear it just for a test.</dt><dd><p>If everything works when running without cache enabled, clear the cache and enable it again.
-After updating it can be necessary to clear the cache.</p>
-</dd>
-</dl>
-</li>
+<li><p>Clear the cache or run your script without cache enabled first if you don’t want to clear it just for a test.
+If everything works when running without cache enabled, clear the cache and enable it again.</p></li>
 <li><p>Does the log produce any warnings that sound like they might be related? Maybe the data you are looking for
 is not available or can not be processed correctly.</p></li>
 <li><p>Open an issue on github.</p></li>
 </ol>
-</div>
-<div class="section" id="what-does-this-error-message-mean">
-<h2>What does this error message mean?<a class="headerlink" href="#what-does-this-error-message-mean" title="Permalink to this headline">¶</a></h2>
-<p>Short explanation of some error messages</p>
-<div class="section" id="module-api">
-<h3>module <cite>api</cite><a class="headerlink" href="#module-api" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><dl>
-<dt><cite>Car data/position data for driver x is incomplete.</cite></dt><dd><p>Usually data for all drivers is available for the whole duration of a session. Even if the driver did not drive for
-most parts of the session. All values for each sample will simply be zero (or whatever is equivalent to zero) then.
-But in some cases samples are simply missing.
-In this case data will be filled in with zero values. This is to make sure that all data streams for each driver
-have the same length because some calculations will else fail.
-This has the side effect that ‘DistanceToDriverAhead’ and ‘DriverAhead’ information may be (but not necessarily)
-wrong for other drivers too. Simply because there might have been another car on track but we don’t know the
-position.</p>
-<p>If you get this message for nonexistent drivers:
-Sometimes the api sends empty/zero-valued samples for drivers that don’t exist. When this happens, it usually
-only happens for a short part of the session. Because there is only data for a part of the session, this warning is
-triggered. If this is the case this warning means nothing at all. The nonexistent drivers will be filtered out
-later.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</div>
-<div class="section" id="module-core">
-<h3>module <cite>core</cite><a class="headerlink" href="#module-core" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><dl class="simple">
-<dt><cite>Ergast api not supported for testing</cite></dt><dd><p>Ergast does not have data for testing session.
-This means that some data (for example driver data) is simply not available.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><cite>Ergast lookup failed</cite></dt><dd><p>Session information on Ergast is usually only available after a race weekend.
-If you want to analyze a session during the race weekend, there will likely be no data on Ergast yet.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><cite>Could not find position/telemetry data for driver x</cite></dt><dd><p>For some unknown reason the data does not exist.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><cite>Empty telemetry slice from lap y of driver x</cite></dt><dd><p>There is a timed lap of which we know beginning and end but for some unknown reason there is no telemetry for it.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</div>
 </div>
 </div>
 
@@ -265,37 +216,29 @@ If you want to analyze a session during the race weekend, there will likely be n
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="known_bugs.html" class="btn btn-neutral float-left" title="Known bugs and caveats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="known_bugs.html" class="btn btn-neutral float-left" title="Known bugs and caveats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright MIT
+        &#169; Copyright 2021, theOehrly.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
