@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.api - Api module &mdash; Fast F1 2.1-rc documentation</title>
+  <title>fastf1.api - Api module &mdash; Fast F1 2.1.1 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1-rc
+                2.1.1
               </div>
             
           
@@ -96,10 +96,28 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -122,6 +140,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
@@ -301,7 +320,7 @@ requests.</p>
 
 <dl class="py function">
 <dt id="fastf1.api.timing_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">timing_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">timing_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse timing data.</p>
 <p>Timing data is a mixed stream of information. At a given time a packet of data may indicate position, lap time,
 speed trap, sector times and so on.</p>
@@ -379,7 +398,7 @@ sector 1 and 2 respectively; ST maybe a speed trap on the longest straight (?)</
 
 <dl class="py function">
 <dt id="fastf1.api.timing_app_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">timing_app_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_app_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">timing_app_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_app_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse ‘timing app data’.</p>
 <dl class="simple">
 <dt>Timing app data provides the following data channels per sample:</dt><dd><ul class="simple">
@@ -408,6 +427,7 @@ frequently (for example ‘Compound’ only after tire changes).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<em>str</em>) – api path base string (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
 <li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -421,7 +441,7 @@ frequently (for example ‘Compound’ only after tire changes).</p>
 
 <dl class="py function">
 <dt id="fastf1.api.car_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">car_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">car_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse car data.</p>
 <dl class="simple">
 <dt>Car data provides the following data channels per sample:</dt><dd><ul class="simple">
@@ -443,6 +463,7 @@ car data do not line up. Resampling/interpolation is required to merge them.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<em>str</em>) – api path base string (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
 <li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -461,7 +482,7 @@ string (e.g. ‘16’). You should never assume that a number exists!</div>
 
 <dl class="py function">
 <dt id="fastf1.api.position_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">position_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.position_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">position_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.position_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse position data.</p>
 <dl class="simple">
 <dt>Position data provides the following data channels per sample:</dt><dd><ul class="simple">
@@ -479,6 +500,7 @@ car data do not line up. Resampling/interpolation is required to merge them.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
 <li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -497,7 +519,7 @@ string (e.g. ‘16’). You should never assume that a number exists!</div>
 
 <dl class="py function">
 <dt id="fastf1.api.track_status_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">track_status_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#track_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.track_status_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">track_status_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#track_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.track_status_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse track status data.</p>
 <p>Track status contains information on yellow/red/green flags, safety car and virtual safety car. It provides the
 following data channels per sample:</p>
@@ -528,6 +550,7 @@ will mark the actual end)</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
 <li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -541,7 +564,7 @@ will mark the actual end)</p></li>
 
 <dl class="py function">
 <dt id="fastf1.api.session_status_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">session_status_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#session_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.session_status_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">session_status_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#session_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.session_status_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse session status data.</p>
 <p>Session status contains information on when a session was started and when it ended (amongst others). It
 provides the following data channels per sample:</p>
@@ -557,6 +580,7 @@ provides the following data channels per sample:</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
 <li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

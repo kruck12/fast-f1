@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>fastf1.livetiming &mdash; Fast F1 2.1-rc documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Fast F1
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1-rc
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../time_explanation.html">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../time_explanation.html#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../time_explanation.html#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Fast F1</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>fastf1.livetiming</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for fastf1.livetiming</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:mod:`fastf1.livetiming` - Live Timing Client</span>
+<span class="sd">=====================================================</span>
+
+<span class="sd">This module can be used to save live timing data during a session.</span>
+
+<span class="sd">.. warning:: Receiving and saving the SignalR live timing data is</span>
+<span class="sd">    experimental. This functionality is largely untested due to a distinct</span>
+<span class="sd">    lack of testing opportunities.</span>
+
+<span class="sd">.. note:: While data can be saved, it is not yet possible to actually use</span>
+<span class="sd">    the saved data. An update which allows using the data will likely be</span>
+<span class="sd">    available after the 2021 pre-season testing.</span>
+
+
+<span class="sd">There are two ways to interact with this module.</span>
+
+<span class="sd">    - From a python script by creating an instance of</span>
+<span class="sd">      :class:`SignalRClient`</span>
+
+<span class="sd">    - From the command line by calling ``python -m fastf1.livetiming``</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">fastf1.utils</span> <span class="kn">import</span> <span class="n">to_datetime</span>
+
+
+<div class="viewcode-block" id="LivetimingDataResponse"><a class="viewcode-back" href="../../livetiming.html#fastf1.livetiming.LivetimingDataResponse">[docs]</a><span class="k">class</span> <span class="nc">LivetimingDataResponse</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Livetiming data object for use with the api calls.</span>
+
+<span class="sd">    This object is created from data that was recorded using</span>
+<span class="sd">    :class:`fastf1.livetiming.SignalRClient`. It can be passed to</span>
+<span class="sd">    api call functions using the ``response`` keyword.</span>
+
+<span class="sd">    See :mod:`fastf1.livetiming` for a usage example.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fname (str) : file name (opt. with path);</span>
+<span class="sd">            file from which to read the live timing data from</span>
+<span class="sd">        reference_zero (datetime.datetime) : the timestamp which should</span>
+<span class="sd">            be used as the zero reference for the data; defaults to the</span>
+<span class="sd">            timestamp of the first message</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">reference_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_by_category</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_zero</span> <span class="o">=</span> <span class="n">reference_zero</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errorcount</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">fobj</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+        <span class="n">prev_td</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="c1"># fix F1&#39;s not json compliant data</span>
+            <span class="n">elem</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>\
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>\
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">)</span>
+            <span class="c1"># load the three parts of each data element</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cat</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">errorcount</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+            <span class="c1"># convert string to datetime; need to strip trailing &#39;Z&#39;,</span>
+            <span class="c1"># sometimes zero-pad right and sometimes cut to us precision</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_zero</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reference_zero</span> <span class="o">=</span> <span class="n">dt</span>
+                <span class="n">td</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">td</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_zero</span>
+
+            <span class="c1"># skip wrong timestamps; TODO: maybe fix?</span>
+            <span class="k">if</span> <span class="n">td</span> <span class="o">&lt;</span> <span class="n">prev_td</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">prev_td</span> <span class="o">=</span> <span class="n">td</span>
+
+            <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_by_category</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_by_category</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">td</span><span class="p">,</span> <span class="n">msg</span><span class="p">),</span> <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_by_category</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">td</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+
+<div class="viewcode-block" id="LivetimingDataResponse.get_category"><a class="viewcode-back" href="../../livetiming.html#fastf1.livetiming.LivetimingDataResponse.get_category">[docs]</a>    <span class="k">def</span> <span class="nf">get_category</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_by_category</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, theOehrly.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Introduction &mdash; Fast F1 2.1-rc documentation</title>
+  <title>Introduction &mdash; Fast F1 2.1.1 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1-rc
+                2.1.1
               </div>
             
           
@@ -96,10 +96,28 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -122,6 +140,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
@@ -236,7 +255,7 @@ I’m very grateful for all the work that was done previously by Ax6!</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">plotting</span>
 
-<span class="n">laps</span> <span class="o">=</span> <span class="n">monza_quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="n">laps</span> <span class="o">=</span> <span class="n">monza_quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">fast_leclerc</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">fast_leclerc</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
 <span class="n">vCar</span> <span class="o">=</span> <span class="n">fast_leclerc</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">]</span>
@@ -261,7 +280,9 @@ the path to some empty folder on your system. Using the cache will greatly speed
 <dl class="py function">
 <dt>
 <code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">get_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Main core function. It will take care of crafting an object
+<dd><p>Create a <a class="reference internal" href="core.html#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> or <a class="reference internal" href="core.html#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a> object based on year,
+event name and session name.
+This function will take care of crafting an object
 corresponding to the requested session.
 If no session is specified, the full weekend is returned.</p>
 <dl class="field-list simple">

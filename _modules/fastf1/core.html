@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core &mdash; Fast F1 file: VERSION.txt documentation</title>
+  <title>fastf1.core &mdash; Fast F1 2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                file: VERSION.txt
+                2.1
               </div>
             
           
@@ -94,10 +94,28 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -197,7 +215,67 @@
 <span class="sd">:mod:`fastf1.core` - Core module</span>
 <span class="sd">================================</span>
 
-<span class="sd">Contains the main classes and functions.</span>
+<span class="sd">The Fast-F1 core is a collection of functions and data objects for accessing</span>
+<span class="sd">and analyzing F1 timing and telemetry data.</span>
+
+<span class="sd">Data Objects</span>
+<span class="sd">------------</span>
+
+<span class="sd">All data is provided through the following data objects:</span>
+
+<span class="sd">    .. autosummary::</span>
+<span class="sd">       :nosignatures:</span>
+
+<span class="sd">       Weekend</span>
+<span class="sd">       Session</span>
+<span class="sd">       Laps</span>
+<span class="sd">       Lap</span>
+<span class="sd">       Telemetry</span>
+<span class="sd">       Driver</span>
+
+
+<span class="sd">The :class:`Weekend` object holds some generic information about the race</span>
+<span class="sd">weekend. Furthermore, :class:`Session` objects for the various sessions of</span>
+<span class="sd">a weekend can be created from a :class:`Weekend` object.</span>
+
+<span class="sd">The :class:`Session` object is mainly used as an entry point for loading</span>
+<span class="sd">timing data and telemetry data. The :class:`Session` can create a</span>
+<span class="sd">:class:`Laps` object which contains all timing, track and session status</span>
+<span class="sd">data for a whole session.</span>
+
+<span class="sd">Usually you will be using :func:`get_session` to to get a :class:`Session`</span>
+<span class="sd">or :class:`Weekend` object.</span>
+
+<span class="sd">The :class:`Laps` object holds detailed information about multiples laps.</span>
+
+<span class="sd">The :class:`Lap` object holds the same information as :class:`Laps` but only</span>
+<span class="sd">for one single lap. When selecting a singel lap from a :class:`Laps` object,</span>
+<span class="sd">an object of type :class:`Lap` will be returned.</span>
+
+<span class="sd">Apart from only providing data, the :class:`Laps`, :class:`Lap` and</span>
+<span class="sd">:class:`Telemetry` objects implement various methods for selecting and</span>
+<span class="sd">analyzing specific parts of the data.</span>
+
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   :nosignatures:</span>
+
+<span class="sd">    get_session</span>
+<span class="sd">    get_round</span>
+
+
+<span class="sd">Exceptions</span>
+<span class="sd">----------</span>
+
+<span class="sd">:class:`NoLapDataError` can be raised when calling :meth:`Session.load_laps`</span>
+<span class="sd">if the API does not return any usable data.</span>
+
+
+<span class="sd">API Reference</span>
+<span class="sd">-------------</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">ergast</span>
@@ -218,23 +296,25 @@
 
 
 <span class="n">TESTING_LOOKUP</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;2020&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;2020-02-19&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-20&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-21&#39;</span><span class="p">],</span>
-                           <span class="p">[</span><span class="s1">&#39;2020-02-26&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-27&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-28&#39;</span><span class="p">]]}</span>
+                           <span class="p">[</span><span class="s1">&#39;2020-02-26&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-27&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-28&#39;</span><span class="p">]],</span>
+                  <span class="s1">&#39;2021&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;2021-03-12&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-03-13&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-03-14&#39;</span><span class="p">]]}</span>
 
 <span class="n">D_LOOKUP</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">44</span><span class="p">,</span> <span class="s1">&#39;HAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;VET&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;LEC&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">33</span><span class="p">,</span> <span class="s1">&#39;VER&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;ALB&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">55</span><span class="p">,</span> <span class="s1">&#39;SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;NOR&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;PER&#39;</span><span class="p">,</span> <span class="s1">&#39;Racing Point&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="s1">&#39;STR&#39;</span><span class="p">,</span> <span class="s1">&#39;Racing Point&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;RIC&#39;</span><span class="p">,</span> <span class="s1">&#39;Renault&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;OCO&#39;</span><span class="p">,</span> <span class="s1">&#39;Renault&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">26</span><span class="p">,</span> <span class="s1">&#39;KVY&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpha Tauri&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;GAS&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpha Tauri&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;GRO&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;MAG&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">55</span><span class="p">,</span> <span class="s1">&#39;SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;LEC&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">33</span><span class="p">,</span> <span class="s1">&#39;VER&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;PER&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;RIC&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;NOR&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;VET&#39;</span><span class="p">,</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="s1">&#39;STR&#39;</span><span class="p">,</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;RIC&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;OCO&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="s1">&#39;TSU&#39;</span><span class="p">,</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;GAS&#39;</span><span class="p">,</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">47</span><span class="p">,</span> <span class="s1">&#39;SCH&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;MAZ&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;RAI&#39;</span><span class="p">,</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="s1">&#39;GIO&#39;</span><span class="p">,</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;LAT&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">63</span><span class="p">,</span> <span class="s1">&#39;RUS&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">88</span><span class="p">,</span> <span class="s1">&#39;KUB&#39;</span><span class="p">,</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">]]</span>
+            <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;LAT&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">63</span><span class="p">,</span> <span class="s1">&#39;RUS&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">]]</span>
 
 
 <div class="viewcode-block" id="get_session"><a class="viewcode-back" href="../../fastf1.html#fastf1.core.get_session">[docs]</a><span class="k">def</span> <span class="nf">get_session</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Main core function. It will take care of crafting an object</span>
+    <span class="sd">&quot;&quot;&quot;Create a :class:`Session` or :class:`Weekend` object based on year,</span>
+<span class="sd">    event name and session name.</span>
+<span class="sd">    This function will take care of crafting an object</span>
 <span class="sd">    corresponding to the requested session.</span>
 <span class="sd">    If no session is specified, the full weekend is returned.</span>
 
@@ -313,15 +393,20 @@
     <span class="sd">&quot;&quot;&quot;Get the correct weekend and event for testing from the</span>
 <span class="sd">    year and day of the test. (where day is 1, 2, 3, ...)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
-        <span class="n">week</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">day</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="k">else</span> <span class="mi">2</span>  <span class="c1"># TODO Probably will change from 2021</span>
-    <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa: E722 TODO: improve</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Cannot fetch testing without correct event day.&quot;</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-    <span class="n">week_day</span> <span class="o">=</span> <span class="p">((</span><span class="n">day</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># TODO Probably will change from 2021</span>
-    <span class="n">pre_season_week</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Pre-Season Test </span><span class="si">{</span><span class="n">week</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="n">event</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Practice </span><span class="si">{</span><span class="n">week_day</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">2020</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
+            <span class="n">week</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">day</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="k">else</span> <span class="mi">2</span>
+        <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa: E722 TODO: improve</span>
+            <span class="k">raise</span> <span class="n">InvalidSessionError</span>
+        <span class="n">week_day</span> <span class="o">=</span> <span class="p">((</span><span class="n">day</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">pre_season_week</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Pre-Season Test </span><span class="si">{</span><span class="n">week</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Practice </span><span class="si">{</span><span class="n">week_day</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">2021</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="n">pre_season_week</span> <span class="o">=</span> <span class="s1">&#39;Pre-Season Test&#39;</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Practice </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidSessionError</span>
 
     <span class="k">return</span> <span class="n">pre_season_week</span><span class="p">,</span> <span class="n">event</span>
 
@@ -350,20 +435,43 @@
 <span class="sd">            - `Z` (float): Z position</span>
 <span class="sd">            - `Status` (string): Flag - OffTrack/OnTrack</span>
 
-<span class="sd">        - **Both**:</span>
+<span class="sd">        - **For both of the above**:</span>
 <span class="sd">            - `Time` (timedelta): Time (0 is start of the data slice)</span>
 <span class="sd">            - `SessionTime` (timedelta): Time elapsed since the start of the session</span>
 <span class="sd">            - `Date` (datetime): The full date + time at which this sample was created</span>
 <span class="sd">            - `Source` (str): Flag indicating how this sample was created:</span>
-<span class="sd">              | &#39;car&#39;: sample from car data; values not listed above as car data channels are computed/interpolated</span>
-<span class="sd">              | &#39;pos&#39;: sample from pos data; values not listed above as pos data channels are computed/interpolated</span>
-<span class="sd">              | &#39;interpolated&#39;: this sample was artificially created; all values are computed/interpolated</span>
 
-<span class="sd">        Through merging/slicing it is possible to obtain any combination of telemetry channels! Additional computed</span>
-<span class="sd">        data channels can be added. For information on these see there respective methods.</span>
+<span class="sd">                - &#39;car&#39;: sample from original api car data</span>
+<span class="sd">                - &#39;pos&#39;: sample from original api position data</span>
+<span class="sd">                - &#39;interpolated&#39;: this sample was artificially created; all values are computed/interpolated</span>
+
+<span class="sd">                Example:</span>
+<span class="sd">                    A sample&#39;s source is indicated as &#39;car&#39;. It contains</span>
+<span class="sd">                    values for speed, rpm and x, y, z coordinates.</span>
+<span class="sd">                    Originally, this sample (with its timestamp) was received</span>
+<span class="sd">                    when loading car data.</span>
+<span class="sd">                    This means that the speed and rpm value are original</span>
+<span class="sd">                    values as received from the api. The coordinates are</span>
+<span class="sd">                    interpolated for this sample.</span>
+
+<span class="sd">                    All methods of :class:`Telemetry` which resample or</span>
+<span class="sd">                    interpolate data will preserve and adjust the source flag</span>
+<span class="sd">                    correctly when modifying data.</span>
+
+<span class="sd">        Through merging/slicing it is possible to obtain any combination of telemetry channels!</span>
+<span class="sd">        The following additional computed data channels can be added:</span>
+
+<span class="sd">            - Distance driven between two samples:</span>
+<span class="sd">              :meth:`add_differential_distance`</span>
+<span class="sd">            - Distance driven since the first sample:</span>
+<span class="sd">              :meth:`add_distance`</span>
+<span class="sd">            - Relative distance driven since the first sample:</span>
+<span class="sd">              :meth:`add_relative_distance`</span>
+<span class="sd">            - Distance to driver ahead and car number of said driver:</span>
+<span class="sd">              :meth:`add_driver_ahead`</span>
 
 <span class="sd">        .. note:: See the separate explanation concerning the various definitions of &#39;Time&#39; for more information on the</span>
-<span class="sd">          three date and time related channels.</span>
+<span class="sd">          three date and time related channels: :ref:`time-explanation`</span>
 
 <span class="sd">    Slicing this class will return :class:`Telemetry` again for slices containing multiple rows. Single rows will be</span>
 <span class="sd">    returned as :class:`pandas.Series`.</span>
@@ -376,9 +484,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">TELEMETRY_FREQUENCY</span> <span class="o">=</span> <span class="s1">&#39;original&#39;</span>
-    <span class="sd">&quot;&quot;&quot;Sets the frequency used when resampling the telemetry. Either &#39;original&#39; or an integer to specify a</span>
-<span class="sd">    frequency in Hz.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Defines the frequency used when resampling the telemetry data. Either</span>
+<span class="sd">    the string ``&#39;original&#39;`` or an integer to specify a frequency in Hz.&quot;&quot;&quot;</span>
 
     <span class="n">_CHANNELS</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;quadratic&#39;</span><span class="p">},</span>
@@ -770,9 +877,11 @@
 <span class="sd">                - &#39;continuous&#39;: Speed, RPM, Distance, ...</span>
 <span class="sd">                - &#39;discrete&#39;: DRS, nGear, status values, ...</span>
 <span class="sd">                - &#39;excluded&#39;: Data channel will be ignored during resampling</span>
-<span class="sd">            interpolation_method (optional, str): The interpolation method which should be used. Can only be specified</span>
-<span class="sd">                and is required in combination with signal_type=&#39;continuous&#39;. See :meth:`pandas.Series.interpolate` for</span>
-<span class="sd">                possible interpolation methods.</span>
+<span class="sd">            interpolation_method (optional, str): The interpolation method</span>
+<span class="sd">                which should be used. Can only be specified and is required</span>
+<span class="sd">                in combination with ``signal_type=&#39;continuous&#39;``. See</span>
+<span class="sd">                :meth:`pandas.Series.interpolate` for possible interpolation</span>
+<span class="sd">                methods.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">signal_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;discrete&#39;</span><span class="p">,</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;excluded&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown signal type </span><span class="si">{</span><span class="n">signal_type</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
@@ -793,6 +902,9 @@
         <span class="sd">&quot;&quot;&quot;Add column &#39;DifferentialDistance&#39; to self.</span>
 
 <span class="sd">        This column contains the distance driven between subsequent samples.</span>
+
+<span class="sd">        Calls :meth:`calculate_differential_distance` and joins the result</span>
+<span class="sd">        with self.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            drop_existing (bool): Drop and recalculate column if it already exists</span>
@@ -815,6 +927,8 @@
 <span class="sd">        You should not apply this function to telemetry of many laps simultaneously to reduce integration error.</span>
 <span class="sd">        Instead apply it only to single laps or few laps at a time!</span>
 
+<span class="sd">        Calls :meth:`integrate_distance` and joins the result with self.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            drop_existing (bool): Drop and recalculate column if it already exists</span>
 <span class="sd">        Returns:</span>
@@ -829,8 +943,9 @@
 <div class="viewcode-block" id="Telemetry.add_relative_distance"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.add_relative_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_relative_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add column &#39;RelativeDistance&#39; to self.</span>
 
-<span class="sd">        This column contains the distance driven since the first sample as a floating point number in the range</span>
-<span class="sd">        from 0.0 to 1.0.</span>
+<span class="sd">        This column contains the distance driven since the first sample as</span>
+<span class="sd">        a floating point number where ``0.0`` is the first sample of self</span>
+<span class="sd">        and ``1.0`` is the last sample.</span>
 
 <span class="sd">        This is calculated the same way as &#39;Distance&#39; (see: :meth:`add_distance`). The same warnings apply.</span>
 
@@ -865,8 +980,12 @@
 <span class="sd">            improvements.</span>
 
 <span class="sd">        This should only be applied to data of single laps or few laps at a time to reduce integration error.</span>
+<span class="sd">        For longer time spans it should be applied per lap and the laps</span>
+<span class="sd">        should be merged afterwards.</span>
 <span class="sd">        If you absolutely need to apply it to a whole session, use the legacy implementation. Note that data of</span>
 <span class="sd">        the legacy implementation will be considerably less smooth. (see :mod:`fastf1.legacy`)</span>
+
+<span class="sd">        Calls :meth:`calculate_driver_ahead` and joins the result with self.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            drop_existing (bool): Drop and recalculate column if it already exists</span>
@@ -1029,8 +1148,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">gp</span> <span class="o">=</span> <span class="n">gp</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_testing</span><span class="p">():</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The Ergast API is not supported for testing&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raceName&#39;</span><span class="p">:</span> <span class="n">gp</span><span class="p">,</span>
-                         <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)][</span><span class="nb">int</span><span class="p">(</span><span class="n">gp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]}</span>
+            <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">2020</span><span class="p">:</span>
+                <span class="n">date</span> <span class="o">=</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)][</span><span class="nb">int</span><span class="p">(</span><span class="n">gp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">2021</span><span class="p">:</span>
+                <span class="n">date</span> <span class="o">=</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)][</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">InvalidSessionError</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raceName&#39;</span><span class="p">:</span> <span class="n">gp</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">fetch_weekend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gp</span><span class="p">)</span>
@@ -1134,9 +1258,13 @@
         <span class="sd">&quot;&quot;&quot;Session time at which the session was started.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">car_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="sd">&quot;&quot;&quot;Car telemetry (Speed, RPM, etc.) as received from the api.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Dictionary of car telemetry (Speed, RPM, etc.) as received from</span>
+<span class="sd">        the api by car number (where car number is a string and the telemetry</span>
+<span class="sd">        is an instance of :class:`Telemetry`)&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="sd">&quot;&quot;&quot;Car position data as received from the api.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Dictionary of car position data as received from the api by car</span>
+<span class="sd">        number (where car number is a string and the telemetry</span>
+<span class="sd">        is an instance of :class:`Telemetry`)&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;List of all drivers that took part in this session; contains driver numbers as string. Drivers for which</span>
@@ -1154,10 +1282,14 @@
     <span class="k">def</span> <span class="nf">_get_session_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Session date formatted as &#39;%Y-%m-%d&#39; (e.g. &#39;2019-03-12&#39;)&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">is_testing</span><span class="p">():</span>
-            <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
-            <span class="n">week_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
-            <span class="n">day_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
-            <span class="n">date</span> <span class="o">=</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="n">year</span><span class="p">][</span><span class="n">week_index</span><span class="p">][</span><span class="n">day_index</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">year</span> <span class="o">:=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">year</span><span class="p">))</span> <span class="o">==</span> <span class="s1">&#39;2020&#39;</span><span class="p">:</span>
+                <span class="n">week_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">day_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">date</span> <span class="o">=</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="n">year</span><span class="p">][</span><span class="n">week_index</span><span class="p">][</span><span class="n">day_index</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="s1">&#39;2021&#39;</span><span class="p">:</span>
+                <span class="n">day_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">date</span> <span class="o">=</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="n">year</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">day_index</span><span class="p">]</span>
+
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Qualifying&#39;</span><span class="p">,</span> <span class="s1">&#39;Practice 3&#39;</span><span class="p">):</span>
             <span class="c1"># Assuming that quali was one day before race which is not always correct</span>
             <span class="c1"># TODO Should check if also formula1 makes this assumption</span>
@@ -1173,7 +1305,7 @@
 
         <span class="k">return</span> <span class="n">date</span>
 
-<div class="viewcode-block" id="Session.load_laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_laps">[docs]</a>    <span class="k">def</span> <span class="nf">load_laps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.load_laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_laps">[docs]</a>    <span class="k">def</span> <span class="nf">load_laps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_telemetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load lap timing information and telemetry data.</span>
 
 <span class="sd">        This method creates a :class:`Laps` instance (:attr:`Session.laps`) which subclasses :class:`pandas.DataFrame`</span>
@@ -1181,41 +1313,6 @@
 
 <span class="sd">        The returned :class:`Laps` instance can be used just like a pandas DataFrame but offers some</span>
 <span class="sd">        additional functionality.</span>
-
-<span class="sd">        The following information is available per lap (one DataFrame column for each):</span>
-<span class="sd">            - **Time** (pandas.Timedelta): Session time when the lap time was set (end of lap)</span>
-<span class="sd">            - **Driver** (string): Three letter driver identifier</span>
-<span class="sd">            - **DriverNumber** (str): Driver number</span>
-<span class="sd">            - **LapTime** (pandas.Timedelta): Recorded lap time</span>
-<span class="sd">            - **LapNumber** (int): Recorded lap number</span>
-<span class="sd">            - **Stint** (int): Stint number</span>
-<span class="sd">            - **PitOutTime** (pandas.Timedelta): Session time when car exited the pit</span>
-<span class="sd">            - **PitInTime** (pandas.Timedelta): Session time when car entered the pit</span>
-<span class="sd">            - **Sector1Time** (pandas.Timedelta): Sector 1 recorded time</span>
-<span class="sd">            - **Sector2Time** (pandas.Timedelta): Sector 2 recorded time</span>
-<span class="sd">            - **Sector3Time** (pandas.Timedelta): Sector 3 recorded time</span>
-<span class="sd">            - **Sector1SessionTime** (pandas.Timedelta): Session time when the Sector 1 time was set</span>
-<span class="sd">            - **Sector2SessionTime** (pandas.Timedelta): Session time when the Sector 2 time was set</span>
-<span class="sd">            - **Sector3SessionTime** (pandas.Timedelta): Session time when the Sector 3 time was set</span>
-<span class="sd">            - **SpeedI1** (float): Speedtrap sector 1</span>
-<span class="sd">            - **SpeedI2** (float): Speedtrap sector 2</span>
-<span class="sd">            - **SpeedFL** (float): Speedtrap at finish line</span>
-<span class="sd">            - **SpeedST** (float): Speedtrap on longest straight (Not sure)</span>
-<span class="sd">            - **Compound** (str): Tyre compound name: SOFT, MEDIUM ..</span>
-<span class="sd">            - **TyreLife** (float): Laps driven on this tire (includes laps in other sessions for used sets of tires)</span>
-<span class="sd">            - **FreshTyre** (bool): Tyre had TyreLife=0 at stint start, i.e. was a new tire</span>
-<span class="sd">            - **Team** (str): Team name</span>
-<span class="sd">            - **LapStartTime** (pandas.Timedelta): Session time at the start of the lap</span>
-<span class="sd">            - **LapStartDate** (pandas.Timestamp): Timestamp at the start of the lap</span>
-<span class="sd">            - **TrackStatus** (str): A string that contains track status numbers for all track status that occurred</span>
-<span class="sd">              during this lap. The meaning of the track status numbers is explained in</span>
-<span class="sd">              :func:`fastf1.api.track_status_data`. (Currently, track status data is only implemented per lap.</span>
-<span class="sd">              If a finer resolution is desired, you need to directly use the data returned by</span>
-<span class="sd">              :func:`fastf1.api.track_status_data`)  # TODO updated when implemented</span>
-<span class="sd">            - **IsAccurate** (bool): If True, the lap has passed a basic accuracy check for timing data **and**</span>
-<span class="sd">              telemetry data. This does not guarantee accuracy but laps marked as inaccurate need to be handled with</span>
-<span class="sd">              caution. They might contain errors which can not be spotted easily.</span>
-
 
 <span class="sd">        Downloading and parsing of the data takes a considerable amount of time. Therefore, it is highly recommended</span>
 <span class="sd">        to enable caching so that most of the data processing needs to be done only once.</span>
@@ -1229,6 +1326,9 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            with_telemetry (bool): Load telemetry data also. (Same as calling :meth:`Session.load_telemetry` manually)</span>
+<span class="sd">            livedata (fastf1.api.LivetimingResponse, optional) :</span>
+<span class="sd">                instead of requesting the data from the api, locally saved</span>
+<span class="sd">                livetiming data can be used as a data source</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            instance of :class:`Laps`</span>
@@ -1243,8 +1343,8 @@
 <span class="sd">            pandas dataframe</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">timing_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
-        <span class="n">app_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">timing_app_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">timing_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
+        <span class="n">app_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">timing_app_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
         <span class="c1"># Now we do some manipulation to make it beautiful</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing timing data...&quot;</span><span class="p">)</span>
 
@@ -1260,8 +1360,9 @@
             <span class="k">raise</span> <span class="n">NoLapDataError</span>
 
         <span class="c1"># check when a session was started; for a race this indicates the start of the race</span>
-        <span class="n">session_status</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">session_status_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">session_status</span><span class="p">)):</span>
+        <span class="n">session_status</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">session_status_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span>
+                                                 <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">])):</span>
             <span class="k">if</span> <span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Started&#39;</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="k">break</span>
@@ -1302,7 +1403,7 @@
         <span class="n">d_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
         <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">d_map</span><span class="p">)</span>
         <span class="c1"># add track status data</span>
-        <span class="n">ts_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">track_status_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
+        <span class="n">ts_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">track_status_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
         <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
 
         <span class="k">def</span> <span class="nf">applicator</span><span class="p">(</span><span class="n">new_status</span><span class="p">,</span> <span class="n">current_status</span><span class="p">):</span>
@@ -1313,7 +1414,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">current_status</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">t</span> <span class="o">=</span> <span class="n">ts_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">ts_data</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">next_t</span><span class="p">,</span> <span class="n">next_status</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ts_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:],</span> <span class="n">ts_data</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:]):</span>
@@ -1347,7 +1448,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_lap_accuracy</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">with_telemetry</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">load_telemetry</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_telemetry</span><span class="p">(</span><span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded data for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">)</span><span class="si">}</span><span class="s2"> drivers: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -1399,7 +1500,7 @@
             <span class="k">if</span> <span class="n">integrity_errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Driver </span><span class="si">{</span><span class="n">drv</span><span class="si">:</span><span class="s2"> &gt;2</span><span class="si">}</span><span class="s2">: Lap timing integrity check failed for </span><span class="si">{</span><span class="n">integrity_errors</span><span class="si">}</span><span class="s2"> lap(s)&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Session.load_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">load_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.load_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">load_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load telemetry data from API.</span>
 
 <span class="sd">        The raw data is divided into car data (Speed, RPM, ...) and position data (coordinates, on/off track). For each</span>
@@ -1413,9 +1514,14 @@
 
 <span class="sd">        Note that this method additionally calculates :attr:`Session.t0_date` and adds a `LapStartDate` column to</span>
 <span class="sd">        :attr:`Session.laps`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            response (fastf1.api.LivetimingResponse, optional) :</span>
+<span class="sd">                instead of requesting the data from the api, locally saved</span>
+<span class="sd">                livetiming data can be used as a data source</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">car_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">car_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
-        <span class="n">pos_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">position_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">)</span>
+        <span class="n">car_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">car_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
+        <span class="n">pos_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">position_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">car_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">pos_data</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
         <span class="c1"># self.drivers should only contain drivers which exist in all parts of the data</span>
@@ -1486,6 +1592,13 @@
 <div class="viewcode-block" id="Laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps">[docs]</a><span class="k">class</span> <span class="nc">Laps</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Object for accessing lap (timing) data of multiple laps.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        *args (any): passed through to :class:`pandas.DataFrame` super class</span>
+<span class="sd">        session (:class:`Session`): instance of session class; required for</span>
+<span class="sd">          full functionality</span>
+<span class="sd">        **kwargs (any): passed through to :class:`pandas.DataFrame`</span>
+<span class="sd">          super class</span>
+
 <span class="sd">    This class allows for easily picking specific laps from all laps in a session. It implements some additional</span>
 <span class="sd">    functionality on top off the usual `pandas.DataFrame` functionality. Among others, the laps&#39; associated telemetry</span>
 <span class="sd">    data can be accessed.</span>
@@ -1502,11 +1615,58 @@
 
 <span class="sd">    Slicing this class will return :class:`Laps` again for slices containing multiple rows. Single rows will be</span>
 <span class="sd">    returned as :class:`Lap`.</span>
+
+<span class="sd">    The following information is available per lap (one DataFrame column for each):</span>
+<span class="sd">        - **Time** (pandas.Timedelta): Session time when the lap time was set (end of lap)</span>
+<span class="sd">        - **Driver** (string): Three letter driver identifier</span>
+<span class="sd">        - **DriverNumber** (str): Driver number</span>
+<span class="sd">        - **LapTime** (pandas.Timedelta): Recorded lap time</span>
+<span class="sd">        - **LapNumber** (int): Recorded lap number</span>
+<span class="sd">        - **Stint** (int): Stint number</span>
+<span class="sd">        - **PitOutTime** (pandas.Timedelta): Session time when car exited the pit</span>
+<span class="sd">        - **PitInTime** (pandas.Timedelta): Session time when car entered the pit</span>
+<span class="sd">        - **Sector1Time** (pandas.Timedelta): Sector 1 recorded time</span>
+<span class="sd">        - **Sector2Time** (pandas.Timedelta): Sector 2 recorded time</span>
+<span class="sd">        - **Sector3Time** (pandas.Timedelta): Sector 3 recorded time</span>
+<span class="sd">        - **Sector1SessionTime** (pandas.Timedelta): Session time when the Sector 1 time was set</span>
+<span class="sd">        - **Sector2SessionTime** (pandas.Timedelta): Session time when the Sector 2 time was set</span>
+<span class="sd">        - **Sector3SessionTime** (pandas.Timedelta): Session time when the Sector 3 time was set</span>
+<span class="sd">        - **SpeedI1** (float): Speedtrap sector 1</span>
+<span class="sd">        - **SpeedI2** (float): Speedtrap sector 2</span>
+<span class="sd">        - **SpeedFL** (float): Speedtrap at finish line</span>
+<span class="sd">        - **SpeedST** (float): Speedtrap on longest straight (Not sure)</span>
+<span class="sd">        - **Compound** (str): Tyre compound name: SOFT, MEDIUM ..</span>
+<span class="sd">        - **TyreLife** (float): Laps driven on this tire (includes laps in other sessions for used sets of tires)</span>
+<span class="sd">        - **FreshTyre** (bool): Tyre had TyreLife=0 at stint start, i.e. was a new tire</span>
+<span class="sd">        - **Team** (str): Team name</span>
+<span class="sd">        - **LapStartTime** (pandas.Timedelta): Session time at the start of the lap</span>
+<span class="sd">        - **LapStartDate** (pandas.Timestamp): Timestamp at the start of the lap</span>
+<span class="sd">        - **TrackStatus** (str): A string that contains track status numbers for all track status that occurred</span>
+<span class="sd">          during this lap. The meaning of the track status numbers is explained in</span>
+<span class="sd">          :func:`fastf1.api.track_status_data`. (Currently, track status data is only implemented per lap.</span>
+<span class="sd">          If a finer resolution is desired, you need to directly use the data returned by</span>
+<span class="sd">          :func:`fastf1.api.track_status_data`)  # TODO updated when implemented</span>
+<span class="sd">        - **IsAccurate** (bool): If True, the lap has passed a basic accuracy check for timing data.</span>
+<span class="sd">          This does not guarantee accuracy but laps marked as inaccurate need to be handled with</span>
+<span class="sd">          caution. They might contain errors which can not be spotted easily.</span>
+<span class="sd">          Laps need to satisfy the following criteria to be marked</span>
+<span class="sd">          as accurate:</span>
+
+<span class="sd">            - not an inlap or outlap</span>
+<span class="sd">            - set under green or yellow flag (the api sometimes has issues</span>
+<span class="sd">              with data from SC/VSC laps)</span>
+<span class="sd">            - is not the first lap after a safety car period</span>
+<span class="sd">              (issues with SC/VSC might still apear on the first lap</span>
+<span class="sd">              after it has ended)</span>
+<span class="sd">            - has a value for lap time and all sector times</span>
+<span class="sd">            - the sum of the sector times matches the lap time</span>
+<span class="sd">              (will be additionally logged as integrity error if not)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_metadata</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span>
 
     <span class="n">QUICKLAP_THRESHOLD</span> <span class="o">=</span> <span class="mf">1.07</span>
+    <span class="sd">&quot;&quot;&quot;Used to determine &#39;quick&#39; laps. Defaults to the 107% rule.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1525,7 +1685,8 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">base_class_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># for a nicer debugging experience; can now select base_class_view -&gt; show as dataframe in IDE</span>
+        <span class="sd">&quot;&quot;&quot;For a nicer debugging experience; can now view as</span>
+<span class="sd">        dataframe in various IDEs&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@cached_property</span>
@@ -1919,6 +2080,16 @@
     <span class="sd">&quot;&quot;&quot;Raised if the API request does not fail but there is no usable data after processing the result.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">NoLapDataError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Failed to load session because the API did not provide any usable data.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="InvalidSessionError"><a class="viewcode-back" href="../../core.html#fastf1.core.InvalidSessionError">[docs]</a><span class="k">class</span> <span class="nc">InvalidSessionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised if no session for the specified event name, type and year</span>
+<span class="sd">    can be found.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">InvalidSessionError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="s2">&quot;No matching session can be found.&quot;</span>
+        <span class="p">)</span></div>
 </pre></div>
 
            </div>

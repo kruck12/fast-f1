@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.api &mdash; Fast F1 file: VERSION.txt documentation</title>
+  <title>fastf1.api &mdash; Fast F1 2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                file: VERSION.txt
+                2.1
               </div>
             
           
@@ -94,10 +94,28 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -120,6 +138,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
@@ -209,9 +228,9 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>  <span class="c1"># TODO use utils.to_datetime and add tests!</span>
 
-<span class="kn">from</span> <span class="nn">fastf1.utils</span> <span class="kn">import</span> <span class="n">recursive_dict_get</span>
+<span class="kn">from</span> <span class="nn">fastf1.utils</span> <span class="kn">import</span> <span class="n">recursive_dict_get</span><span class="p">,</span> <span class="n">to_timedelta</span>
 
 <span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://livetiming.formula1.com&#39;</span>
 
@@ -335,7 +354,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            The wrapped function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">cached_api_request</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">cached_api_request</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_CACHE_DIR</span><span class="p">:</span>
                 <span class="c1"># caching is enabled, extend the cache dir path using the api path</span>
                 <span class="n">cache_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_CACHE_DIR</span><span class="p">,</span> <span class="n">api_path</span><span class="p">[</span><span class="mi">8</span><span class="p">:])</span>  <span class="c1"># remove leading &#39;/static/&#39; from api path</span>
@@ -355,7 +374,7 @@
 
                     <span class="k">else</span><span class="p">:</span>  <span class="c1"># created with different version or force renew --&gt; download again and update</span>
                         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updating cache for </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-                        <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                             <span class="n">new_cached</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_API_CORE_VERSION</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
                             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">new_cached</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
@@ -367,7 +386,7 @@
 
                 <span class="k">else</span><span class="p">:</span>  <span class="c1"># cached data does not yet exist for this request, try to download and create cache</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No cached data found. Downloading...&quot;</span><span class="p">)</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">new_cached</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_API_CORE_VERSION</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
                         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">new_cached</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
@@ -385,7 +404,7 @@
 
                     <span class="bp">cls</span><span class="o">.</span><span class="n">_has_been_warned</span> <span class="o">=</span> <span class="kc">True</span>
 
-                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
         <span class="n">wrapped</span> <span class="o">=</span> <span class="n">cached_api_request</span>
         <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span>  <span class="c1"># necessary to make docstrings work</span>
@@ -413,7 +432,7 @@
 
 
 <div class="viewcode-block" id="timing_data"><a class="viewcode-back" href="../../api.html#fastf1.api.timing_data">[docs]</a><span class="nd">@Cache</span><span class="o">.</span><span class="n">api_request_wrapper</span>
-<span class="k">def</span> <span class="nf">timing_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">timing_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and parse timing data.</span>
 
 <span class="sd">    Timing data is a mixed stream of information. At a given time a packet of data may indicate position, lap time,</span>
@@ -475,11 +494,14 @@
     <span class="c1">#   - inlap has to be followed by outlap</span>
     <span class="c1">#   - pit stops may never be negative (missing outlap)</span>
     <span class="c1">#   - speed traps against telemetry (especially in Q FastLap - Slow Lap)</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no previous response provided</span>
+    <span class="k">if</span> <span class="n">livedata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">livedata</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;TimingData&#39;</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">livedata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TimingData&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no previous response provided</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching timing data...&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_data&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
-        <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
+            <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing timing data...&quot;</span><span class="p">)</span>
 
     <span class="c1"># split up response per driver for easier iteration and processing later</span>
@@ -579,7 +601,7 @@
             <span class="n">api_lapcnt</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="c1"># make sure the car actually drove out of the pits already; it can&#39;t be a new lap if it didn&#39;t</span>
             <span class="k">if</span> <span class="n">out_of_pit</span><span class="p">:</span>
-                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
                 <span class="n">lapcnt</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="c1"># append a new empty row; last row may not be populated (depending on session) and may be removed later</span>
                 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">empty_vals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -603,17 +625,17 @@
             <span class="n">in_past</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">continue</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">lapcnt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">((</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">-</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lapcnt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">((</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">-</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">)):</span>
             <span class="c1"># ignore any data which arrives more than 5 minutes before the end of the first lap, except &#39;PitOut&#39;</span>
             <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;InPit&#39;</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;InPit&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
-                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
                 <span class="n">pitstops</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># special here, can be multiple times for no reason therefore set zero instead of +=1</span>
             <span class="k">continue</span>
 
         <span class="c1"># values which are up to five seconds late are still counted towards the previous lap</span>
         <span class="c1"># (sector times, speed traps and lap times)</span>
         <span class="n">lap_offset</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">lapcnt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">-</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lapcnt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">-</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)):</span>
             <span class="n">lap_offset</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="s1">&#39;Sectors&#39;</span> <span class="ow">in</span> <span class="n">resp</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;Sectors&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
@@ -622,13 +644,13 @@
                                       <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector2SessionTime&#39;</span><span class="p">),</span>
                                       <span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Sector3SessionTime&#39;</span><span class="p">)):</span>
                 <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">recursive_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;Sectors&#39;</span><span class="p">,</span> <span class="n">sn</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">):</span>
-                    <span class="n">drv_data</span><span class="p">[</span><span class="n">sector</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                    <span class="n">drv_data</span><span class="p">[</span><span class="n">sesst</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="n">sector</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="n">sesst</span><span class="p">][</span><span class="n">lapcnt</span> <span class="o">-</span> <span class="n">lap_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">val</span> <span class="o">:=</span> <span class="n">recursive_dict_get</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;LastLapTime&#39;</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">):</span>
             <span class="c1"># if &#39;LastLapTime&#39; is received less than five seconds after the start of a new lap, it is still added</span>
             <span class="c1"># to the last lap</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">150</span><span class="p">:</span>
                 <span class="c1"># laps which are longer than 150 seconds are ignored; usually this is the case between Q1, Q2 and Q3</span>
                 <span class="c1"># because all three qualifying sessions are one session here. Those timestamps are often wrong and</span>
@@ -645,14 +667,14 @@
             <span class="c1"># &#39;InPit&#39;: True is received once when entering pits, False is received once when leaving</span>
             <span class="k">if</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;InPit&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">pitstops</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                    <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
             <span class="k">elif</span> <span class="p">(((</span><span class="s1">&#39;NumberOfLaps&#39;</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">)</span> <span class="ow">and</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">api_lapcnt</span><span class="p">)</span>
-                  <span class="ow">or</span> <span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">-</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)):</span>
+                  <span class="ow">or</span> <span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">-</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)):</span>
                 <span class="c1"># same response line as beginning of next lap or beginning of next lap less than 5 seconds away</span>
-                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># add to next lap</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># add to next lap</span>
                 <span class="n">pitstops</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># add to current lap</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># add to current lap</span>
                 <span class="n">pitstops</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># new lap; create next row</span>
@@ -660,7 +682,7 @@
             <span class="n">api_lapcnt</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="c1"># make sure the car actually drove out of the pits already; it can&#39;t be a new lap if it didn&#39;t</span>
             <span class="k">if</span> <span class="n">pitstops</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
                 <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">lapcnt</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># don&#39;t use F1&#39;s lap count; ours is better</span>
                 <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">pitstops</span>
                 <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="n">lapcnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv</span>
@@ -805,7 +827,7 @@
 
 
 <div class="viewcode-block" id="timing_app_data"><a class="viewcode-back" href="../../api.html#fastf1.api.timing_app_data">[docs]</a><span class="nd">@Cache</span><span class="o">.</span><span class="n">api_request_wrapper</span>
-<span class="k">def</span> <span class="nf">timing_app_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">timing_app_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and parse &#39;timing app data&#39;.</span>
 
 <span class="sd">    Timing app data provides the following data channels per sample:</span>
@@ -831,6 +853,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        path (str): api path base string (see :func:`make_path`)</span>
 <span class="sd">        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A DataFrame contianing one column for each data channel as listed above.</span>
@@ -838,17 +861,19 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        SessionNotAvailableError: in case the F1 livetiming api returns no data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response provided</span>
+    <span class="k">if</span> <span class="n">livedata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">livedata</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;TimingAppData&#39;</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">livedata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TimingAppData&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no previous response provided</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching timing app data...&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;timing_app_data&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
-        <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
+            <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LapNumber&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Stint&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;TotalLaps&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Compound&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;New&#39;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s1">&#39;TyresNotChanged&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapFlags&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;LapCountTime&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;StartLaps&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Outlap&#39;</span><span class="p">:</span> <span class="p">[]}</span>
 
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="n">row</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">driver_number</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Lines&#39;</span><span class="p">]:</span>
@@ -874,7 +899,7 @@
 
 
 <div class="viewcode-block" id="car_data"><a class="viewcode-back" href="../../api.html#fastf1.api.car_data">[docs]</a><span class="nd">@Cache</span><span class="o">.</span><span class="n">api_request_wrapper</span>
-<span class="k">def</span> <span class="nf">car_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">car_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and parse car data.</span>
 
 <span class="sd">    Car data provides the following data channels per sample:</span>
@@ -893,6 +918,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        path (str): api path base string (see :func:`make_path`)</span>
 <span class="sd">        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        | A dictionary containing one pandas DataFrame per driver. Dictionary keys are the driver&#39;s numbers as</span>
@@ -902,11 +928,17 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        SessionNotAvailableError: in case the F1 livetiming api returns no data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># data recorded from live timing has a slightly different structure</span>
+    <span class="n">is_livedata</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># flag to indicate live timing data</span>
+
+    <span class="k">if</span> <span class="n">livedata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">livedata</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;CarData.z&#39;</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">livedata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CarData.z&#39;</span><span class="p">)</span>
+        <span class="n">is_livedata</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching car data...&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;car_data&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
-        <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
+            <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing car data...&quot;</span><span class="p">)</span>
 
@@ -915,9 +947,14 @@
 
     <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Entries&#39;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">is_livedata</span><span class="p">:</span>
+            <span class="n">jrecord</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">jrecord</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">jrecord</span><span class="p">[</span><span class="s1">&#39;Entries&#39;</span><span class="p">]:</span>
             <span class="c1"># date format is &#39;2020-08-08T09:45:03.0619797Z&#39; with a varying number of millisecond decimal points</span>
             <span class="c1"># always remove last char (&#39;z&#39;), max len 26, right pad to len 26 with zeroes if shorter</span>
             <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&lt;026}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">26</span><span class="p">]))</span>
@@ -961,7 +998,7 @@
 
 
 <div class="viewcode-block" id="position_data"><a class="viewcode-back" href="../../api.html#fastf1.api.position_data">[docs]</a><span class="nd">@Cache</span><span class="o">.</span><span class="n">api_request_wrapper</span>
-<span class="k">def</span> <span class="nf">position_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">position_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and parse position data.</span>
 
 <span class="sd">    Position data provides the following data channels per sample:</span>
@@ -976,6 +1013,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
 <span class="sd">        response: Response as returned by :func:`api.fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        | A dictionary containing one pandas DataFrame per driver. Dictionary keys are the driver&#39;s numbers as</span>
@@ -985,11 +1023,17 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        SessionNotAvailableError: in case the F1 livetiming api returns no data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># data recorded from live timing has a slightly different structure</span>
+    <span class="n">is_livedata</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># flag to indicate live timing data</span>
+
+    <span class="k">if</span> <span class="n">livedata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">livedata</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;Position.z&#39;</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">livedata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Position.z&#39;</span><span class="p">)</span>
+        <span class="n">is_livedata</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching position data...&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
-        <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
+            <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parsing position data...&quot;</span><span class="p">)</span>
 
@@ -1002,8 +1046,12 @@
     <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
     <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">_to_timedelta</span><span class="p">(</span><span class="n">record</span><span class="p">[:</span><span class="n">ts_length</span><span class="p">])</span>
-        <span class="n">jrecord</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">ts_length</span><span class="p">:],</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_livedata</span><span class="p">:</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">jrecord</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">to_timedelta</span><span class="p">(</span><span class="n">record</span><span class="p">[:</span><span class="n">ts_length</span><span class="p">])</span>
+            <span class="n">jrecord</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">ts_length</span><span class="p">:],</span> <span class="n">zipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">jrecord</span><span class="p">[</span><span class="s1">&#39;Position&#39;</span><span class="p">]:</span>
             <span class="c1"># date format is &#39;2020-08-08T09:45:03.0619797Z&#39; with a varying number of millisecond decimal points</span>
@@ -1053,7 +1101,7 @@
 
 
 <div class="viewcode-block" id="track_status_data"><a class="viewcode-back" href="../../api.html#fastf1.api.track_status_data">[docs]</a><span class="nd">@Cache</span><span class="o">.</span><span class="n">api_request_wrapper</span>
-<span class="k">def</span> <span class="nf">track_status_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">track_status_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and parse track status data.</span>
 
 <span class="sd">    Track status contains information on yellow/red/green flags, safety car and virtual safety car. It provides the</span>
@@ -1080,6 +1128,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
 <span class="sd">        response: Response as returned by :func:`api.fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A dictionary containing one key for each data channel and a list of values per key.</span>
@@ -1087,17 +1136,20 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        SessionNotAvailableError: in case the F1 livetiming api returns no data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">livedata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">livedata</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">):</span>
+        <span class="c1"># does not need any further processing</span>
+        <span class="k">return</span> <span class="n">livedata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching track status data...&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;track_status&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
-        <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
+            <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Message&#39;</span><span class="p">:</span> <span class="p">[]}</span>
 
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
         <span class="n">row</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">])</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Message&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Message&#39;</span><span class="p">])</span>
 
@@ -1105,7 +1157,7 @@
 
 
 <div class="viewcode-block" id="session_status_data"><a class="viewcode-back" href="../../api.html#fastf1.api.session_status_data">[docs]</a><span class="nd">@Cache</span><span class="o">.</span><span class="n">api_request_wrapper</span>
-<span class="k">def</span> <span class="nf">session_status_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">session_status_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and parse session status data.</span>
 
 <span class="sd">    Session status contains information on when a session was started and when it ended (amongst others). It</span>
@@ -1119,6 +1171,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
 <span class="sd">        response: Response as returned by :func:`api.fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A dictionary containing one key for each data channel and a list of values per key.</span>
@@ -1126,16 +1179,19 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        SessionNotAvailableError: in case the F1 livetiming api returns no data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">livedata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">livedata</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">):</span>
+        <span class="c1"># does not need any further processing</span>
+        <span class="k">return</span> <span class="n">livedata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching session status data...&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_page</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;session_status&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
-        <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no response received</span>
+            <span class="k">raise</span> <span class="n">SessionNotAvailableError</span><span class="p">(</span><span class="s2">&quot;No data for this session! Are you sure this session wasn&#39;t cancelled?&quot;</span><span class="p">)</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="p">[]}</span>
 
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">data</span></div>
@@ -1200,32 +1256,6 @@
         <span class="k">return</span> <span class="n">parse</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8-sig&#39;</span><span class="p">))</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t parse text&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">text</span></div>
-
-
-<span class="k">def</span> <span class="nf">_to_timedelta</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Fast timedelta object creation from a time string</span>
-
-<span class="sd">    | String format: hh:mm:ss.ms</span>
-<span class="sd">    | Hours or minutes do not necessarily need to be present.</span>
-<span class="sd">    | Hours minutes and seconds always need to be zero padded so as to have two digits.</span>
-<span class="sd">    | An arbitrary part of the left side can be skipped for example &#39;mm:ss.ms&#39; is acceptable too</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        x (str): [hh:][mm:]ss.ms</span>
-<span class="sd">    Returns:</span>
-<span class="sd">        timedelta object</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO should &quot;fix&quot; this; it does work for the given use case but actually does not quite behave as expected</span>
-    <span class="c1"># this is faster than using pd.timedelta on a string</span>
-    <span class="k">def</span> <span class="nf">tdformat</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-        <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">sms</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-        <span class="n">s</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="n">sms</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;hours&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="s1">&#39;minutes&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="s1">&#39;seconds&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">ms</span><span class="p">)}</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span><span class="o">**</span><span class="n">tdformat</span><span class="p">(</span><span class="s1">&#39;00:00:00.000&#39;</span><span class="p">[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="SessionNotAvailableError"><a class="viewcode-back" href="../../api.html#fastf1.api.SessionNotAvailableError">[docs]</a><span class="k">class</span> <span class="nc">SessionNotAvailableError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>

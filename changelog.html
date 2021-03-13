@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Changelog &mdash; Fast F1 2.1-rc documentation</title>
+  <title>Changelog &mdash; Fast F1 2.1.1 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.1-rc
+                2.1.1
               </div>
             
           
@@ -95,10 +95,28 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -121,6 +139,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
@@ -197,6 +216,25 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="v2-1-1-add-support-for-recording-and-using-live-timing-data">
+<h2>v2.1.1 Add support for recording and using live timing data<a class="headerlink" href="#v2-1-1-add-support-for-recording-and-using-live-timing-data" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Possibly breaking changes:</p>
+<ul>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">fastf1.Session.load_laps()</span></code>: Data will now be loaded without
+telemetry by default, i.e. only timing data is loaded.
+Telemetry data is usually not available anyways, therefore this prevents
+a confusing error.</p></li>
+</ul>
+</li>
+<li><p>Changes:</p>
+<ul>
+<li><p>Possibility to record live timing data</p></li>
+<li><p>Possibility to use recorded live timing data as a data source</p></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">
 <h2>v2.1: Refactoring, accuracy improvements and a more accessible interface<a class="headerlink" href="#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -209,7 +247,8 @@ This telemetry is now a computed property of <code class="xref py py-class docut
 <ul>
 <li><p>calculated property <cite>.telemetry</cite>: This contains position and car data merged into one instance of
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code> (instance of <cite>DataFrame</cite>). The data is comparable to the previous ‘telemetry’ column.
-This data is intended for easy plotting of all data as it is.</p>
+This data is intended for easy plotting. It should not be used for any further calculations as it
+contains interpolated values.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
 <span class="n">fastest</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 
@@ -275,6 +314,7 @@ and increases all the time).</p></li>
 increasing integration error when used over longer periods of time (i.e. over multiple laps). To work around this,
 it should be applied to laps individually. Additionally, the old implementation is still available in
 <a class="reference internal" href="legacy.html#module-fastf1.legacy" title="fastf1.legacy"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code></a>.</p></li>
+<li><p>Add a SignalR client for receiving and saving live timing and telemetry data during a session.</p></li>
 </ul>
 </li>
 <li><p>Fixed:

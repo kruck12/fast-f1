@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; Fast F1 2.1-rc documentation</title>
+  <title>Index &mdash; Fast F1 2.1.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1-rc
+                2.1.1
               </div>
             
           
@@ -94,10 +94,28 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -120,6 +138,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
@@ -203,6 +222,7 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#L"><strong>L</strong></a>
@@ -320,13 +340,34 @@
         <li><a href="core.html#module-fastf1.core">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     fastf1.legacy
 
       <ul>
         <li><a href="legacy.html#module-fastf1.legacy">module</a>
+</li>
+      </ul></li>
+      <li>
+    fastf1.livetiming
+
+      <ul>
+        <li><a href="livetiming.html#module-fastf1.livetiming">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    fastf1.livetiming.client
+
+      <ul>
+        <li><a href="livetiming.html#module-fastf1.livetiming.client">module</a>
+</li>
+      </ul></li>
+      <li>
+    fastf1.livetiming.data
+
+      <ul>
+        <li><a href="livetiming.html#module-fastf1.livetiming.data">module</a>
 </li>
       </ul></li>
       <li>
@@ -353,6 +394,8 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="livetiming.html#fastf1.livetiming.data.LiveTimingData.get">get() (fastf1.livetiming.data.LiveTimingData method)</a>
+</li>
       <li><a href="core.html#fastf1.core.Lap.get_car_data">get_car_data() (fastf1.core.Lap method)</a>
 
       <ul>
@@ -369,10 +412,10 @@
         <li><a href="core.html#fastf1.core.Laps.get_pos_data">(fastf1.core.Laps method)</a>
 </li>
       </ul></li>
-      <li><a href="core.html#fastf1.core.Weekend.get_practice">get_practice() (fastf1.core.Weekend method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.html#fastf1.core.Weekend.get_practice">get_practice() (fastf1.core.Weekend method)</a>
+</li>
       <li><a href="core.html#fastf1.core.Weekend.get_quali">get_quali() (fastf1.core.Weekend method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Weekend.get_race">get_race() (fastf1.core.Weekend method)</a>
@@ -392,6 +435,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="livetiming.html#fastf1.livetiming.data.LiveTimingData.has">has() (fastf1.livetiming.data.LiveTimingData method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -399,9 +450,11 @@
 </li>
       <li><a href="legacy.html#fastf1.legacy.inject_driver_ahead">inject_driver_ahead() (in module fastf1.legacy)</a>
 </li>
+      <li><a href="core.html#fastf1.core.Telemetry.integrate_distance">integrate_distance() (fastf1.core.Telemetry method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Telemetry.integrate_distance">integrate_distance() (fastf1.core.Telemetry method)</a>
+      <li><a href="core.html#fastf1.core.InvalidSessionError">InvalidSessionError</a>
 </li>
       <li><a href="core.html#fastf1.core.Weekend.is_testing">is_testing() (fastf1.core.Weekend method)</a>
 </li>
@@ -427,9 +480,15 @@
 </li>
       <li><a href="core.html#fastf1.core.Laps">Laps (class in fastf1.core)</a>
 </li>
+      <li><a href="core.html#fastf1.core.Session.laps">laps (fastf1.core.Session attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Session.laps">laps (fastf1.core.Session attribute)</a>
+      <li><a href="livetiming.html#fastf1.livetiming.data.LiveTimingData.list_categories">list_categories() (fastf1.livetiming.data.LiveTimingData method)</a>
+</li>
+      <li><a href="livetiming.html#fastf1.livetiming.data.LiveTimingData">LiveTimingData (class in fastf1.livetiming.data)</a>
+</li>
+      <li><a href="livetiming.html#fastf1.livetiming.data.LiveTimingData.load">load() (fastf1.livetiming.data.LiveTimingData method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Session.load_laps">load_laps() (fastf1.core.Session method)</a>
 </li>
@@ -447,6 +506,8 @@
 </li>
       <li><a href="core.html#fastf1.core.Telemetry.merge_channels">merge_channels() (fastf1.core.Telemetry method)</a>
 </li>
+      <li><a href="livetiming.html#fastf1.livetiming.client.messages_from_raw">messages_from_raw() (in module fastf1.livetiming.client)</a>
+</li>
       <li>
     module
 
@@ -458,6 +519,12 @@
         <li><a href="core.html#module-fastf1.core">fastf1.core</a>
 </li>
         <li><a href="legacy.html#module-fastf1.legacy">fastf1.legacy</a>
+</li>
+        <li><a href="livetiming.html#module-fastf1.livetiming">fastf1.livetiming</a>
+</li>
+        <li><a href="livetiming.html#module-fastf1.livetiming.client">fastf1.livetiming.client</a>
+</li>
+        <li><a href="livetiming.html#module-fastf1.livetiming.data">fastf1.livetiming.data</a>
 </li>
         <li><a href="plotting.html#module-fastf1.plotting">fastf1.plotting</a>
 </li>
@@ -556,15 +623,19 @@
 </li>
       <li><a href="api.html#fastf1.api.SessionNotAvailableError">SessionNotAvailableError</a>
 </li>
+      <li><a href="plotting.html#fastf1.plotting.setup_mpl">setup_mpl() (in module fastf1.plotting)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="plotting.html#fastf1.plotting.setup_mpl">setup_mpl() (in module fastf1.plotting)</a>
+      <li><a href="livetiming.html#fastf1.livetiming.client.SignalRClient">SignalRClient (class in fastf1.livetiming.client)</a>
 </li>
       <li><a href="core.html#fastf1.core.Telemetry.slice_by_lap">slice_by_lap() (fastf1.core.Telemetry method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Telemetry.slice_by_mask">slice_by_mask() (fastf1.core.Telemetry method)</a>
 </li>
       <li><a href="core.html#fastf1.core.Telemetry.slice_by_time">slice_by_time() (fastf1.core.Telemetry method)</a>
+</li>
+      <li><a href="livetiming.html#fastf1.livetiming.client.SignalRClient.start">start() (fastf1.livetiming.client.SignalRClient method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -584,19 +655,23 @@
 </li>
       <li><a href="core.html#fastf1.core.Telemetry">Telemetry (class in fastf1.core)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Lap.telemetry">telemetry() (fastf1.core.Lap property)</a>
 
       <ul>
         <li><a href="core.html#fastf1.core.Laps.telemetry">(fastf1.core.Laps property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Telemetry.TELEMETRY_FREQUENCY">TELEMETRY_FREQUENCY (fastf1.core.Telemetry attribute)</a>
 </li>
       <li><a href="api.html#fastf1.api.timing_app_data">timing_app_data() (in module fastf1.api)</a>
 </li>
       <li><a href="api.html#fastf1.api.timing_data">timing_data() (in module fastf1.api)</a>
+</li>
+      <li><a href="utils.html#fastf1.utils.to_datetime">to_datetime() (in module fastf1.utils)</a>
+</li>
+      <li><a href="utils.html#fastf1.utils.to_timedelta">to_timedelta() (in module fastf1.utils)</a>
 </li>
       <li><a href="api.html#fastf1.api.track_status_data">track_status_data() (in module fastf1.api)</a>
 </li>

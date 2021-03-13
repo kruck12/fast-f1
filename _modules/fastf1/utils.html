@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.utils &mdash; Fast F1 file: VERSION.txt documentation</title>
+  <title>fastf1.utils &mdash; Fast F1 2.1-rc documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                file: VERSION.txt
+                2.1-rc
               </div>
             
           
@@ -98,6 +98,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#livetiming-data-object">Livetiming Data Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#module-fastf1.livetiming.client">Livetiming Client</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -200,6 +205,8 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 
 
 <div class="viewcode-block" id="delta_time"><a class="viewcode-back" href="../../utils.html#fastf1.utils.delta_time">[docs]</a><span class="k">def</span> <span class="nf">delta_time</span><span class="p">(</span><span class="n">reference_lap</span><span class="p">,</span> <span class="n">compare_lap</span><span class="p">):</span>
@@ -275,6 +282,60 @@
 <span class="sd">    dict if any key does not exist.</span>
 <span class="sd">    https://stackoverflow.com/a/28225747&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">{}),</span> <span class="n">keys</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="to_timedelta"><a class="viewcode-back" href="../../utils.html#fastf1.utils.to_timedelta">[docs]</a><span class="k">def</span> <span class="nf">to_timedelta</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fast timedelta object creation from a time string</span>
+
+<span class="sd">    | String format: hh:mm:ss.ms</span>
+<span class="sd">    | Hours or minutes do not necessarily need to be present.</span>
+<span class="sd">    | Hours minutes and seconds always need to be zero padded so as to have two digits.</span>
+<span class="sd">    | An arbitrary part of the left side can be skipped for example &#39;mm:ss.ms&#39; is acceptable too</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (str): [hh:][mm:]ss.ms</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        timedelta object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO should &quot;fix&quot; this; it does work for the given use case but actually does not quite behave as expected</span>
+    <span class="c1"># this is faster than using pd.timedelta on a string</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">tdformat</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">sms</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="n">s</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="n">sms</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;hours&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="s1">&#39;minutes&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="s1">&#39;seconds&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">ms</span><span class="p">)}</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span><span class="o">**</span><span class="n">tdformat</span><span class="p">(</span><span class="s1">&#39;00:00:00.000&#39;</span><span class="p">[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># attempted catch-all; slow!</span></div>
+
+
+<div class="viewcode-block" id="to_datetime"><a class="viewcode-back" href="../../utils.html#fastf1.utils.to_datetime">[docs]</a><span class="k">def</span> <span class="nf">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fast datetime object creation from a date string.</span>
+
+<span class="sd">    Permissible formats:</span>
+<span class="sd">        For example &#39;2020-12-13T13:27:320000Z&#39; with:</span>
+<span class="sd">            - seconds or no seconds</span>
+<span class="sd">            - optional milliseconds and microseconds with</span>
+<span class="sd">              arbitrary precision</span>
+<span class="sd">            - with optional trailing letter &#39;Z&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">date</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+    <span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">seconds</span><span class="p">:</span>
+        <span class="n">seconds</span><span class="p">,</span> <span class="n">msus</span> <span class="o">=</span> <span class="n">seconds</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">msus</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">msus</span> <span class="o">=</span> <span class="n">msus</span><span class="o">+</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="p">(</span><span class="mi">6</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">msus</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">msus</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">msus</span> <span class="o">=</span> <span class="n">msus</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msus</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">datetime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">hours</span><span class="p">),</span>
+                    <span class="nb">int</span><span class="p">(</span><span class="n">minutes</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">seconds</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">msus</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

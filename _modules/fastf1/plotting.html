@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.plotting &mdash; Fast F1 file: VERSION.txt documentation</title>
+  <title>fastf1.plotting &mdash; Fast F1 2.1-rc documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                file: VERSION.txt
+                2.1-rc
               </div>
             
           
@@ -94,10 +94,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#live-timing-data-object">Live Timing Data Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../livetiming.html#live-timing-client">Live Timing Client</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -240,19 +251,18 @@
 
 
 <span class="n">TEAM_COLORS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">:</span> <span class="s1">&#39;#00d2be&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">:</span> <span class="s1">&#39;#dc0000&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Red Bull&#39;</span><span class="p">:</span> <span class="s1">&#39;#1e41ff&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">:</span> <span class="s1">&#39;#ff8700&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Renault&#39;</span><span class="p">:</span> <span class="s1">&#39;#fff500&#39;</span><span class="p">,</span> <span class="s1">&#39;Racing Point&#39;</span><span class="p">:</span> <span class="s1">&#39;#f596c8&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">:</span> <span class="s1">&#39;#9b0000&#39;</span><span class="p">,</span> <span class="s1">&#39;Toro Rosso&#39;</span><span class="p">:</span> <span class="s1">&#39;#469bff&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">:</span> <span class="s1">&#39;#7e7e7e&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">:</span> <span class="s1">&#39;#469bff&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Alpha Tauri&#39;</span><span class="p">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">}</span>
-<span class="sd">&quot;&quot;&quot;Mapping of team colors (hex color code) to team names.&quot;&quot;&quot;</span>
+               <span class="s1">&#39;Red Bull&#39;</span><span class="p">:</span> <span class="s1">&#39;#0600ef&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">:</span> <span class="s1">&#39;#ff8700&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Alpine&#39;</span><span class="p">:</span> <span class="s1">&#39;#0090ff&#39;</span><span class="p">,</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">:</span> <span class="s1">&#39;#006f62&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">:</span> <span class="s1">&#39;#900000&#39;</span><span class="p">,</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">:</span> <span class="s1">&#39;#2b4562&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">:</span> <span class="s1">&#39;#005aff&#39;</span><span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;Mapping of team colors (hex color code) to team names.</span>
+<span class="sd">(current season only)&quot;&quot;&quot;</span>
 
 <span class="n">TEAM_TRANSLATE</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;MER&#39;</span><span class="p">:</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">,</span> <span class="s1">&#39;FER&#39;</span><span class="p">:</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;RBR&#39;</span><span class="p">:</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">,</span> <span class="s1">&#39;MCL&#39;</span><span class="p">:</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;REN&#39;</span><span class="p">:</span> <span class="s1">&#39;Renault&#39;</span><span class="p">,</span> <span class="s1">&#39;RPT&#39;</span><span class="p">:</span> <span class="s1">&#39;Racing Point&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;ARR&#39;</span><span class="p">:</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">,</span> <span class="s1">&#39;STR&#39;</span><span class="p">:</span> <span class="s1">&#39;Toro Rosso&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;HAA&#39;</span><span class="p">:</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">,</span> <span class="s1">&#39;WIL&#39;</span><span class="p">:</span> <span class="s1">&#39;Williams&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;ALP&#39;</span><span class="p">:</span> <span class="s1">&#39;Alpha Tauri&#39;</span><span class="p">}</span>
+                  <span class="s1">&#39;APN&#39;</span><span class="p">:</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">,</span> <span class="s1">&#39;AMR&#39;</span><span class="p">:</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;ARR&#39;</span><span class="p">:</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">,</span> <span class="s1">&#39;APT&#39;</span><span class="p">:</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;HAA&#39;</span><span class="p">:</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">,</span> <span class="s1">&#39;WIL&#39;</span><span class="p">:</span> <span class="s1">&#39;Williams&#39;</span><span class="p">}</span>
 <span class="sd">&quot;&quot;&quot;Mapping of team names to theirs respective abbreviations.&quot;&quot;&quot;</span>
 
 <span class="n">COLOR_PALETTE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#FF79C6&#39;</span><span class="p">,</span> <span class="s1">&#39;#50FA7B&#39;</span><span class="p">,</span> <span class="s1">&#39;#8BE9FD&#39;</span><span class="p">,</span> <span class="s1">&#39;#BD93F9&#39;</span><span class="p">,</span>

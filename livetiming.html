@@ -1,0 +1,529 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>fastf1.livetiming - Live Timing Client &mdash; Fast F1 2.1.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="fastf1.legacy - Provides access to legacy functionality" href="legacy.html" />
+    <link rel="prev" title="fastf1.plotting - Plotting module" href="plotting.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Fast F1
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="time_explanation.html">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="time_explanation.html#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time_explanation.html#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fast F1</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/livetiming.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-fastf1.livetiming"></span><div class="section" id="fastf1-livetiming-live-timing-client">
+<h1><a class="reference internal" href="#module-fastf1.livetiming" title="fastf1.livetiming"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code></a> - Live Timing Client<a class="headerlink" href="#fastf1-livetiming-live-timing-client" title="Permalink to this headline">¶</a></h1>
+<p>This module can be used to save live timing data during a session.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Receiving and saving the SignalR live timing data is
+experimental. This functionality is largely untested due to a distinct
+lack of testing opportunities.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While data can be saved, it is not yet possible to actually use
+the saved data. An update which allows using the data will likely be
+available after the 2021 pre-season testing.</p>
+</div>
+<p>There are two ways to interact with this module.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>From a python script by creating an instance of
+<a class="reference internal" href="#fastf1.livetiming.client.SignalRClient" title="fastf1.livetiming.client.SignalRClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignalRClient</span></code></a></p></li>
+<li><p>From the command line by calling <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">fastf1.livetiming</span></code></p></li>
+</ul>
+</div></blockquote>
+<div class="section" id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Record live timing data during a session</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m fastf1.livetiming save saved_data.txt</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Load this data into FastF1 after the session has finished</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span>
+<span class="kn">from</span> <span class="nn">fastf1.livetiming.data</span> <span class="kn">import</span> <span class="n">LiveTimingData</span>
+
+<span class="n">fastf1</span><span class="o">.</span><span class="n">Cache</span><span class="o">.</span><span class="n">enable_cache</span><span class="p">(</span><span class="s1">&#39;cache_directory&#39;</span><span class="p">)</span>
+
+<span class="n">livedata</span> <span class="o">=</span> <span class="n">LiveTimingData</span><span class="p">(</span><span class="s1">&#39;saved_data.txt&#39;</span><span class="p">)</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;testing&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>optionally you can load live timing data from two or more files</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">livedata</span> <span class="o">=</span> <span class="n">LiveTimingData</span><span class="p">(</span><span class="s1">&#39;saved_data_1.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;saved_data_2.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="important-notes">
+<h2>Important Notes<a class="headerlink" href="#important-notes" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>You should try to record a full session whenever possible. Recording should
+start 2-3 minutes before a sessions starts. The api parser may not be able to
+deal with the data correctly if the beginning of a session is missing.
+Your mileage may vary depending on what and how much data is missing.</p></li>
+<li><p>You should not mix recorded live timing data and data requested from the api
+after a session. The data will likely not be synchronized correctly.</p></li>
+<li><p>You should use the cache with saved live timing data too. This will speed up
+loading of the data considerably after the first run.</p></li>
+<li><p>You need to used different cache directories if you want to cache
+saved live timing data and api data <strong>for the same session</strong>!
+The cache cannot tell the data sources apart. If cached data from one source
+already exists it will not be reloaded automatically from a different source.</p></li>
+<li><p>You need to force a cache update if you modify the <code class="xref py py-class docutils literal notranslate"><span class="pre">LiveTimingData</span></code>
+(e.g. by adding a second file). The cache cannot tell that the input source
+was modified and will still use the old cached data.</p>
+<p>You can force-refresh the cache:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastf1</span><span class="o">.</span><span class="n">Cache</span><span class="o">.</span><span class="n">enable_cache</span><span class="p">(</span><span class="s1">&#39;cache_directory&#39;</span><span class="p">,</span> <span class="n">force_renew</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You only need to use <code class="docutils literal notranslate"><span class="pre">forece_renew=True</span></code> once after modifying the
+input data.</p>
+</li>
+<li><p>The SignalR Client seems to get disconnected after 2 hours of recording. It looks
+like the connection is terminated by the server. You need to manually start a
+second recording before the first one disconnects if you want to have no gap in
+your recording.</p>
+<p>Use a different output file name for the second (or any subsequent) recording.
+You can then load <a class="reference internal" href="#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">data.LiveTimingData</span></code></a> from multiple files. The files need
+to be provided in chronological order. The content of the files may overlap.
+Data from overlapping recordings is recognized and will not be loaded as a
+duplicate.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<p>Available commands and options when calling <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">fastf1.livetiming</span></code></p>
+<p>The module has two main commands</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">{save,extract}</span>
+<span class="go">  save          Save live timing data</span>
+<span class="go">  extract       Extract messages from saved debug-mode data</span>
+</pre></div>
+</div>
+<div class="section" id="save">
+<h3>Save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h3>
+<p><strong>The main command for recording live timing data during a session</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: python -m fastf1.livetiming save [-h] [--append] [--debug] [--timeout TIMEOUT] file</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  file               Output file name</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help         show this help message and exit</span>
+<span class="go">  --append           Append to output file. By default the file is overwritten if it exists already.</span>
+<span class="go">  --debug            Enable debug mode: save full SignalR message, not just the data.</span>
+<span class="go">  --timeout TIMEOUT  Timeout in seconds after which the client will automatically exit if no data is received</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract">
+<h3>Extract<a class="headerlink" href="#extract" title="Permalink to this headline">¶</a></h3>
+<p><strong>Only for when data was saved with the optional ‘–debug’ argument</strong></p>
+<p>Recording in debug mode saves the full SignalR messages as received. The non debug mode saves only the
+important data part of a message. The data part of each message needs to be extracted to utilize the debug-mode
+data.
+The extracted data is the same data you get when saving without the ‘–debug’ argument.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: python -m fastf1.livetiming extract [-h] input output</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  input       Input file name</span>
+<span class="go">  output      Output file name</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help  show this help message and exit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="module-fastf1.livetiming.client">
+<span id="live-timing-client"></span><h2>Live Timing Client<a class="headerlink" href="#module-fastf1.livetiming.client" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="fastf1.livetiming.client.messages_from_raw">
+<code class="sig-prename descclassname"><span class="pre">fastf1.livetiming.client.</span></code><code class="sig-name descname"><span class="pre">messages_from_raw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/client.html#messages_from_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.client.messages_from_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract data messages from raw recorded SignalR data.</p>
+<p>This function can be used to extract message data from raw SignalR data
+which was saved using <a class="reference internal" href="#fastf1.livetiming.client.SignalRClient" title="fastf1.livetiming.client.SignalRClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignalRClient</span></code></a> in debug mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>iterable</em>) – Iterable containing raw SignalR responses.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="fastf1.livetiming.client.SignalRClient">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.livetiming.client.</span></code><code class="sig-name descname"><span class="pre">SignalRClient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filemode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/client.html#SignalRClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.client.SignalRClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A client for receiving and saving F1 timing data which is streamed
+live over the SignalR protocol.</p>
+<p>During an F1 session, timing data and telemetry data are streamed live
+using the SignalR protocol. This class can be used to connect to the
+stream and save the received data into a file.</p>
+<p>The data will be saved in a raw text format without any postprocessing.
+It is <strong>not</strong> possible to use this data during a session. Instead, the
+data can be processed after the session using the <a class="reference internal" href="api.html#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> and
+<a class="reference internal" href="core.html#module-fastf1.core" title="fastf1.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – filename (opt. with path) for the output file</p></li>
+<li><p><strong>filemode</strong> (<em>str</em><em>, </em><em>optional</em>) – one of ‘w’ or ‘a’; append to or overwrite
+file content it the file already exists. Append-mode may be useful
+if the client is restarted during a session.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – When set to true, the complete SignalR
+message is saved. By default, only the actual data from a
+message is saved.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of seconds after which the client
+will automatically exit when no message data is received.
+Set to zero to disable.</p></li>
+<li><p><strong>logger</strong> (<em>Logger</em><em> or </em><em>None</em>) – By default, errors are logged to the
+console. If you wish to customize logging, you can pass an
+instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code> (see: <code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="fastf1.livetiming.client.SignalRClient.start">
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/client.html#SignalRClient.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.client.SignalRClient.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to the data stream and start writing the data to a file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-fastf1.livetiming.data">
+<span id="live-timing-data-object"></span><h2>Live Timing Data Object<a class="headerlink" href="#module-fastf1.livetiming.data" title="Permalink to this headline">¶</a></h2>
+<p>Data object for livetiming data</p>
+<dl class="py class">
+<dt id="fastf1.livetiming.data.LiveTimingData">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.livetiming.data.</span></code><code class="sig-name descname"><span class="pre">LiveTimingData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">files</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/data.html#LiveTimingData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.data.LiveTimingData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Live timing data object for using saved livetiming data as data source.</p>
+<p>This object is created from data that was recorded using
+<code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.SignalRClient</span></code>. It can be passed to
+various api calling functions using the <code class="docutils literal notranslate"><span class="pre">livedata</span></code> keyword.</p>
+<p>Usually you will only instantiate this function and pass it to
+other functions.</p>
+<p>See <a class="reference internal" href="#module-fastf1.livetiming" title="fastf1.livetiming"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code></a> for a usage example.</p>
+<p>If you want to load data from multiple files you can simply pass multiple
+filenames:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">livedata</span> <span class="o">=</span> <span class="n">LiveTimingData</span><span class="p">(</span><span class="s1">&#39;file1.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;file2.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;file3.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The files need to be in chronological order but may overlap. I.e. if the
+last five minutes of file1 are the same as the first 5 minutes of file2
+this will be recognized while loading the data. No duplicate data will
+be loaded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*files</strong> – One or multiple file names</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="fastf1.livetiming.data.LiveTimingData.load">
+<code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/data.html#LiveTimingData.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.data.LiveTimingData.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read all files and parse data.</p>
+<p>Should usually not be called manually. This is called
+automatically the first time <a class="reference internal" href="#fastf1.livetiming.data.LiveTimingData.get" title="fastf1.livetiming.data.LiveTimingData.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a> or <code class="xref py py-meth docutils literal notranslate"><span class="pre">set()</span></code>
+are called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.livetiming.data.LiveTimingData.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/data.html#LiveTimingData.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.data.LiveTimingData.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return data for category name.</p>
+<p>Will load data on first call, this will take a bit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of the category</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.livetiming.data.LiveTimingData.has">
+<code class="sig-name descname"><span class="pre">has</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/data.html#LiveTimingData.has"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.data.LiveTimingData.has" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if data for a category name exists.</p>
+<p>Will load data on first call, this will take a bit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of the category</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.livetiming.data.LiveTimingData.list_categories">
+<code class="sig-name descname"><span class="pre">list_categories</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/livetiming/data.html#LiveTimingData.list_categories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.livetiming.data.LiveTimingData.list_categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all available data categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of category names</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="legacy.html" class="btn btn-neutral float-right" title="fastf1.legacy - Provides access to legacy functionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plotting.html" class="btn btn-neutral float-left" title="fastf1.plotting - Plotting module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, theOehrly.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

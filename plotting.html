@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.plotting - Plotting module &mdash; Fast F1 2.1-rc documentation</title>
+  <title>fastf1.plotting - Plotting module &mdash; Fast F1 2.1.1 documentation</title>
   
 
   
@@ -38,7 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="fastf1.legacy - Provides access to legacy functionality" href="legacy.html" />
+    <link rel="next" title="fastf1.livetiming - Live Timing Client" href="livetiming.html" />
     <link rel="prev" title="fastf1.utils - Utils module" href="utils.html" /> 
 </head>
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1-rc
+                2.1.1
               </div>
             
           
@@ -96,10 +96,28 @@
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Information:</span></p>
@@ -122,6 +140,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
@@ -221,13 +240,14 @@ release.</p>
 </div>
 <dl class="py data">
 <dt id="fastf1.plotting.TEAM_COLORS">
-<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_COLORS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'Alfa</span> <span class="pre">Romeo':</span> <span class="pre">'#9b0000',</span> <span class="pre">'Alpha</span> <span class="pre">Tauri':</span> <span class="pre">'#ffffff',</span> <span class="pre">'Ferrari':</span> <span class="pre">'#dc0000',</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team':</span> <span class="pre">'#7e7e7e',</span> <span class="pre">'McLaren':</span> <span class="pre">'#ff8700',</span> <span class="pre">'Mercedes':</span> <span class="pre">'#00d2be',</span> <span class="pre">'Racing</span> <span class="pre">Point':</span> <span class="pre">'#f596c8',</span> <span class="pre">'Red</span> <span class="pre">Bull':</span> <span class="pre">'#1e41ff',</span> <span class="pre">'Renault':</span> <span class="pre">'#fff500',</span> <span class="pre">'Toro</span> <span class="pre">Rosso':</span> <span class="pre">'#469bff',</span> <span class="pre">'Williams':</span> <span class="pre">'#469bff'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_COLORS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mapping of team colors (hex color code) to team names.</p>
+<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_COLORS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'Alfa</span> <span class="pre">Romeo':</span> <span class="pre">'#900000',</span> <span class="pre">'AlphaTauri':</span> <span class="pre">'#2b4562',</span> <span class="pre">'Alpine':</span> <span class="pre">'#0090ff',</span> <span class="pre">'Aston</span> <span class="pre">Martin':</span> <span class="pre">'#006f62',</span> <span class="pre">'Ferrari':</span> <span class="pre">'#dc0000',</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team':</span> <span class="pre">'#ffffff',</span> <span class="pre">'McLaren':</span> <span class="pre">'#ff8700',</span> <span class="pre">'Mercedes':</span> <span class="pre">'#00d2be',</span> <span class="pre">'Red</span> <span class="pre">Bull':</span> <span class="pre">'#0600ef',</span> <span class="pre">'Williams':</span> <span class="pre">'#005aff'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_COLORS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping of team colors (hex color code) to team names.
+(current season only)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="fastf1.plotting.TEAM_TRANSLATE">
-<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_TRANSLATE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'ALP':</span> <span class="pre">'Alpha</span> <span class="pre">Tauri',</span> <span class="pre">'ARR':</span> <span class="pre">'Alfa</span> <span class="pre">Romeo',</span> <span class="pre">'FER':</span> <span class="pre">'Ferrari',</span> <span class="pre">'HAA':</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team',</span> <span class="pre">'MCL':</span> <span class="pre">'McLaren',</span> <span class="pre">'MER':</span> <span class="pre">'Mercedes',</span> <span class="pre">'RBR':</span> <span class="pre">'Red</span> <span class="pre">Bull',</span> <span class="pre">'REN':</span> <span class="pre">'Renault',</span> <span class="pre">'RPT':</span> <span class="pre">'Racing</span> <span class="pre">Point',</span> <span class="pre">'STR':</span> <span class="pre">'Toro</span> <span class="pre">Rosso',</span> <span class="pre">'WIL':</span> <span class="pre">'Williams'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_TRANSLATE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_TRANSLATE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'AMR':</span> <span class="pre">'Aston</span> <span class="pre">Martin',</span> <span class="pre">'APN':</span> <span class="pre">'Alpine',</span> <span class="pre">'APT':</span> <span class="pre">'AlphaTauri',</span> <span class="pre">'ARR':</span> <span class="pre">'Alfa</span> <span class="pre">Romeo',</span> <span class="pre">'FER':</span> <span class="pre">'Ferrari',</span> <span class="pre">'HAA':</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team',</span> <span class="pre">'MCL':</span> <span class="pre">'McLaren',</span> <span class="pre">'MER':</span> <span class="pre">'Mercedes',</span> <span class="pre">'RBR':</span> <span class="pre">'Red</span> <span class="pre">Bull',</span> <span class="pre">'WIL':</span> <span class="pre">'Williams'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_TRANSLATE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mapping of team names to theirs respective abbreviations.</p>
 </dd></dl>
 
@@ -315,7 +335,7 @@ For example “RBR” or “Red Bull” would both return the same result.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="legacy.html" class="btn btn-neutral float-right" title="fastf1.legacy - Provides access to legacy functionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="livetiming.html" class="btn btn-neutral float-right" title="fastf1.livetiming - Live Timing Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="utils.html" class="btn btn-neutral float-left" title="fastf1.utils - Utils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
