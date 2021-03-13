@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.api &mdash; Fast F1 2.1 documentation</title>
+  <title>fastf1.api &mdash; Fast F1 2.1.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1
+                2.1.2
               </div>
             
           
@@ -138,6 +138,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
@@ -374,7 +375,7 @@
 
                     <span class="k">else</span><span class="p">:</span>  <span class="c1"># created with different version or force renew --&gt; download again and update</span>
                         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updating cache for </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-                        <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                             <span class="n">new_cached</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_API_CORE_VERSION</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
                             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">new_cached</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
@@ -386,7 +387,7 @@
 
                 <span class="k">else</span><span class="p">:</span>  <span class="c1"># cached data does not yet exist for this request, try to download and create cache</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No cached data found. Downloading...&quot;</span><span class="p">)</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">new_cached</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_API_CORE_VERSION</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
                         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">new_cached</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
@@ -404,7 +405,7 @@
 
                     <span class="bp">cls</span><span class="o">.</span><span class="n">_has_been_warned</span> <span class="o">=</span> <span class="kc">True</span>
 
-                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">api_path</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
 
         <span class="n">wrapped</span> <span class="o">=</span> <span class="n">cached_api_request</span>
         <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span>  <span class="c1"># necessary to make docstrings work</span>

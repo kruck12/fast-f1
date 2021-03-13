@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.livetiming.data &mdash; Fast F1 2.1 documentation</title>
+  <title>fastf1.livetiming.data &mdash; Fast F1 2.1.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1
+                2.1.2
               </div>
             
           
@@ -106,6 +106,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
 </ul>
@@ -132,6 +138,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
@@ -215,6 +223,16 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">fastf1.utils</span> <span class="kn">import</span> <span class="n">to_datetime</span><span class="p">,</span> <span class="n">recursive_dict_get</span>
+
+
+<span class="n">_track_status_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;AllClear&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Yellow&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SCDeployed&#39;</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Red&#39;</span><span class="p">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;VSCDeployed&#39;</span><span class="p">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;VSCEnding&#39;</span><span class="p">:</span> <span class="s1">&#39;7&#39;</span>
+<span class="p">}</span>
 
 
 <div class="viewcode-block" id="LiveTimingData"><a class="viewcode-back" href="../../../livetiming.html#fastf1.livetiming.data.LiveTimingData">[docs]</a><span class="k">class</span> <span class="nc">LiveTimingData</span><span class="p">:</span>
@@ -333,23 +351,25 @@
         <span class="k">if</span> <span class="s1">&#39;SessionStatus&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="p">[]}</span>
 
-        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;StatusSeries&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="k">continue</span>  <span class="c1"># TODO sometimes weird entries?</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s1">&#39;StatusSeries&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;StatusSeries&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="c1"># convert timestamp to timedelta</span>
+                <span class="n">status_dt</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">])</span>
+                <span class="n">status_timedelta</span> <span class="o">=</span> <span class="n">status_dt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_date</span>
 
-            <span class="c1"># convert timestamp to timedelta</span>
-            <span class="n">status_dt</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">])</span>
-            <span class="n">status_timedelta</span> <span class="o">=</span> <span class="n">status_dt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_date</span>
+                <span class="c1"># add data to category</span>
+                <span class="k">if</span> <span class="s1">&#39;TrackStatus&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">status_value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">])</span>
+                    <span class="c1"># convert to numeric system used by the api</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">status_value</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+                        <span class="n">status_value</span> <span class="o">=</span> <span class="n">_track_status_mapping</span><span class="p">[</span><span class="n">status_value</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status_timedelta</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status_value</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Message&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-            <span class="c1"># add data to category</span>
-            <span class="k">if</span> <span class="s1">&#39;TrackStatus&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status_timedelta</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TrackStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Message&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="s1">&#39;SessionStatus&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status_timedelta</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="s1">&#39;SessionStatus&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status_timedelta</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">][</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_try_set_correct_start_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="c1"># skim content to find &#39;Started&#39; session status without actually</span>
@@ -373,10 +393,16 @@
             <span class="k">return</span>
 
         <span class="c1"># find correct entry in series</span>
-        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;StatusSeries&#39;</span><span class="p">]:</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="n">recursive_dict_get</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s1">&#39;SessionStatus&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;Started&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_start_date</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">])</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;StatusSeries&#39;</span><span class="p">]:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="n">recursive_dict_get</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s1">&#39;SessionStatus&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;Started&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_start_date</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;StatusSeries&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SessionStatus&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;Started&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_start_date</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;Utc&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="LiveTimingData.get"><a class="viewcode-back" href="../../../livetiming.html#fastf1.livetiming.data.LiveTimingData.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
