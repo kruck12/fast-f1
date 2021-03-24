@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.utils - Utils module &mdash; Fast F1 2.1.3 documentation</title>
+  <title>fastf1.utils - Utils module &mdash; Fast F1 2.1.4 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1.3
+                2.1.4
               </div>
             
           
@@ -99,8 +99,24 @@
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#id1">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.html#get-session">get_session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#get-round">get_round</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#id2">Data Objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.html#weekend">Weekend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#session">Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#laps">Laps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#lap">Lap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#telemetry">Telemetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#driver">Driver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
@@ -140,6 +156,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
@@ -245,14 +262,19 @@ Hamilton from Barcelona 2019 Qualifying:</p>
 <span class="n">lec</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 <span class="n">ham</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;HAM&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 
+<span class="n">delta_time</span><span class="p">,</span> <span class="n">ref_tel</span><span class="p">,</span> <span class="n">compare_tel</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">delta_time</span><span class="p">(</span><span class="n">ham</span><span class="p">,</span> <span class="n">lec</span><span class="p">)</span>
+<span class="c1"># ham is reference, lec is compared</span>
+
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lec</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">lec</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">],</span>
-        <span class="n">color</span><span class="o">=</span><span class="n">plotting</span><span class="o">.</span><span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">lec</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ham</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">ham</span><span class="o">.</span><span class="n">telemetry</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">],</span>
+<span class="c1"># use telemetry returned by .delta_time for best accuracy,</span>
+<span class="c1"># this ensure the same applied interpolation and resampling</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ref_tel</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">ref_tel</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">],</span>
         <span class="n">color</span><span class="o">=</span><span class="n">plotting</span><span class="o">.</span><span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">ham</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]])</span>
-<span class="n">delta_time</span><span class="p">,</span> <span class="n">dt_ref</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">delta_time</span><span class="p">(</span><span class="n">ham</span><span class="p">,</span> <span class="n">lec</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">compare_tel</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">compare_tel</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">],</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">plotting</span><span class="o">.</span><span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">lec</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]])</span>
+
 <span class="n">twin</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
-<span class="n">twin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dt_ref</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">delta_time</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">plotting</span><span class="o">.</span><span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">lec</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]])</span>
+<span class="n">twin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ref_tel</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">delta_time</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">plotting</span><span class="o">.</span><span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">lec</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -265,14 +287,15 @@ Hamilton from Barcelona 2019 Qualifying:</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
+<dd class="field-even"><p><dl>
 <dt>(delta, reference, comparison)</dt><dd><ul class="simple">
 <li><p>pd.Series of type <cite>float64</cite> with the delta in seconds.</p></li>
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code> for the reference lap</p></li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code> for the comparison lap
-Use the return telemetry for plotting to make sure you have
-telemetry data that was created with the same settings!</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code> for the comparison lap</p></li>
 </ul>
+<p>Use the return telemetry for plotting to make sure you have
+telemetry data that was created with the same interpolation and
+resampling options!</p>
 </dd>
 </dl>
 </p>
@@ -295,18 +318,31 @@ dict if any key does not exist.
 <dt id="fastf1.utils.to_timedelta">
 <code class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></code><code class="sig-name descname"><span class="pre">to_timedelta</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#to_timedelta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.to_timedelta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fast timedelta object creation from a time string</p>
-<div class="line-block">
-<div class="line">String format: hh:mm:ss.ms</div>
-<div class="line">Hours or minutes do not necessarily need to be present.</div>
-<div class="line">Hours minutes and seconds always need to be zero padded so as to have two digits.</div>
-<div class="line">An arbitrary part of the left side can be skipped for example ‘mm:ss.ms’ is acceptable too</div>
-</div>
+<p>Permissible string formats:</p>
+<blockquote>
+<div><p>For example: <cite>13:24:46.320215</cite> with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>optional hours and minutes</p></li>
+<li><p>optional microseconds and milliseconds with
+arbitrary precision (1 to 6 digits)</p></li>
+</ul>
+</div></blockquote>
+<p>Examples of valid formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>24.3564</cite> (seconds + milli/microseconds)</p></li>
+<li><p><cite>36:54</cite> (minutes + seconds)</p></li>
+<li><p><cite>8:45:46</cite> (hours, minutes, seconds)</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>str</em>) – [hh:][mm:]ss.ms</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>str</em><em> or </em><em>timedelta</em>) – </p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>timedelta object</p>
+<dd class="field-even"><p>datetime.timedelta</p>
 </dd>
 </dl>
 </dd></dl>
@@ -315,16 +351,31 @@ dict if any key does not exist.
 <dt id="fastf1.utils.to_datetime">
 <code class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></code><code class="sig-name descname"><span class="pre">to_datetime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#to_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.to_datetime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fast datetime object creation from a date string.</p>
-<dl class="simple">
-<dt>Permissible formats:</dt><dd><dl class="simple">
-<dt>For example ‘2020-12-13T13:27:320000Z’ with:</dt><dd><ul class="simple">
-<li><p>seconds or no seconds</p></li>
+<p>Permissible string formats:</p>
+<blockquote>
+<div><p>For example ‘2020-12-13T13:27:15.320000Z’ with:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>optional milliseconds and microseconds with
-arbitrary precision</p></li>
+arbitrary precision (1 to 6 digits)</p></li>
 <li><p>with optional trailing letter ‘Z’</p></li>
 </ul>
+</div></blockquote>
+<p>Examples of valid formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>2020-12-13T13:27:15.320000</cite></p></li>
+<li><p><cite>2020-12-13T13:27:15.32Z</cite></p></li>
+<li><p><cite>2020-12-13T13:27:15</cite></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>str</em><em> or </em><em>datetime</em>) – </p>
 </dd>
-</dl>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>datetime.datetime</p>
 </dd>
 </dl>
 </dd></dl>

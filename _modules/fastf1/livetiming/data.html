@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.livetiming.data &mdash; Fast F1 2.1.2 documentation</title>
+  <title>fastf1.livetiming.data &mdash; Fast F1 2.1.3 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                2.1.3
               </div>
             
           
@@ -138,6 +138,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
@@ -301,10 +302,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_try_set_correct_start_date</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="nb">hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
-            <span class="k">if</span> <span class="nb">hash</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_hashes</span><span class="p">:</span>
+            <span class="n">lhash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">lhash</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_hashes</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_line_hashes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">hash</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_line_hashes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lhash</span><span class="p">)</span>
 
             <span class="c1"># load the three parts of each data element</span>
             <span class="n">elem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fix_json</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core - Core module &mdash; Fast F1 2.1.3 documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1 2.1.4 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1.3
+                2.1.4
               </div>
             
           
@@ -99,8 +99,24 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#get-session">get_session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-round">get_round</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Data Objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#weekend">Weekend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#session">Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#laps">Laps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lap">Lap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#telemetry">Telemetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#driver">Driver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
@@ -140,6 +156,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
@@ -286,21 +303,34 @@ analyzing specific parts of the data.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="exceptions">
-<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="#fastf1.core.NoLapDataError" title="fastf1.core.NoLapDataError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoLapDataError</span></code></a> can be raised when calling <a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.load_laps()</span></code></a>
-if the API does not return any usable data.</p>
-</div>
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
+<div class="section" id="id1">
+<h3>Functions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-session">
+<h4>get_session<a class="headerlink" href="#get-session" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py method">
 <dt id="fastf1.core.get_session">
-<code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">get_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.get_session" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">core.</span></code><code class="sig-name descname"><span class="pre">get_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fastf1.core.get_session" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a <a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> or <a class="reference internal" href="#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a> object based on year,
 event name and session name.
 This function will take care of crafting an object
 corresponding to the requested session.
 If no session is specified, the full weekend is returned.</p>
+<p class="rubric">Examples</p>
+<p>Get the second free practice of the first race of 2021:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;FP2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Get the qualifying of the 2020 Austrian Grand Prix:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get_session</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="s1">&#39;Austria&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Get the second day of pre-season testing of 2021:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;testing&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -327,9 +357,14 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+</div></blockquote>
+</div>
+<div class="section" id="get-round">
+<h4>get_round<a class="headerlink" href="#get-round" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py method">
 <dt id="fastf1.core.get_round">
-<code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">get_round</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#get_round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.get_round" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">core.</span></code><code class="sig-name descname"><span class="pre">get_round</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">match</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fastf1.core.get_round" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get event number by year and (partial) event name</p>
 <p>A fuzzy match is performed to find the most likely event for the provided name.</p>
 <dl class="field-list simple">
@@ -345,7 +380,843 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py class">
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Data Objects<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="weekend">
+<h4>Weekend<a class="headerlink" href="#weekend" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py class">
+<dt id="fastf1.core.Weekend">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Weekend</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object for accessing weekend specific data.</p>
+<p>If you want to handle multiple sessions from the same race event you can use a :class:Weekend instance.</p>
+<p>For example you could do the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
+
+<span class="n">weekend</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Monza&#39;</span><span class="p">)</span>
+<span class="n">quali</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">get_quali</span><span class="p">()</span> <span class="c1"># Q Session</span>
+<span class="n">race</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">get_race</span><span class="p">()</span> <span class="c1"># R Session</span>
+</pre></div>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Weekend.get_practice" title="fastf1.core.Weekend.get_practice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_practice</span></code></a>(number)</p></td>
+<td><p>Return the specified practice session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Weekend.get_quali" title="fastf1.core.Weekend.get_quali"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_quali</span></code></a>()</p></td>
+<td><p>Return the qualifying session.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Weekend.get_race" title="fastf1.core.Weekend.get_race"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_race</span></code></a>()</p></td>
+<td><p>Return the race session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Weekend.is_testing" title="fastf1.core.Weekend.is_testing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code></a>()</p></td>
+<td><p>Indicates whether this ‘weekend’ is a testing event.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Weekend.name" title="fastf1.core.Weekend.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>Weekend name, e.g.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Weekend.date" title="fastf1.core.Weekend.date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></a></p></td>
+<td><p>Weekend race date (YYYY-MM-DD)</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="fastf1.core.Weekend.get_practice">
+<code class="sig-name descname"><span class="pre">get_practice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_practice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.get_practice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the specified practice session.
+:param number: 1, 2 or 3 - Free practice session number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Weekend.get_quali">
+<code class="sig-name descname"><span class="pre">get_quali</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_quali"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.get_quali" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the qualifying session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Weekend.get_race">
+<code class="sig-name descname"><span class="pre">get_race</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_race"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.get_race" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the race session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Weekend.is_testing">
+<code class="sig-name descname"><span class="pre">is_testing</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.is_testing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.is_testing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether this ‘weekend’ is a testing event. (In which case is usually is not an actual weekend.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Weekend.name">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#fastf1.core.Weekend.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weekend name, e.g. “British Grand Prix”</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Weekend.date">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">date</span></code><a class="headerlink" href="#fastf1.core.Weekend.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weekend race date (YYYY-MM-DD)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="session">
+<h4>Session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py class">
+<dt id="fastf1.core.Session">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weekend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object for accessing session specific data.</p>
+<p>The session class will usually be your starting point. This object will have various information about
+the session such as <cite>name</cite> and <cite>date</cite>. To get the session’s laps use <a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.load_laps()</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For full functionality lap and telemetry data need to be loaded.</p>
+</div>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.laps" title="fastf1.core.Session.laps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></a></p></td>
+<td><p>Instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> containing all laps from all drivers in this session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.t0_date" title="fastf1.core.Session.t0_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></a></p></td>
+<td><p>Date timestamp which marks the beginning of the data stream.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.session_start_time" title="fastf1.core.Session.session_start_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></a></p></td>
+<td><p>Session time at which the session was started.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></a></p></td>
+<td><p>Dictionary of car telemetry (Speed, RPM, etc.) as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></a></p></td>
+<td><p>Dictionary of car position data as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.drivers" title="fastf1.core.Session.drivers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></a></p></td>
+<td><p>List of all drivers that took part in this session; contains driver numbers as string.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_laps</span></code></a>([with_telemetry, livedata])</p></td>
+<td><p>Load lap timing information and telemetry data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.load_telemetry" title="fastf1.core.Session.load_telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_telemetry</span></code></a>([livedata])</p></td>
+<td><p>Load telemetry data from API.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.get_driver" title="fastf1.core.Session.get_driver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_driver</span></code></a>(identifier)</p></td>
+<td><p>Get a driver object which contains additional information about a driver.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt id="fastf1.core.Session.laps">
+<code class="sig-name descname"><span class="pre">laps</span></code><a class="headerlink" href="#fastf1.core.Session.laps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> containing all laps from all drivers in this session.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="fastf1.core.Session.t0_date">
+<code class="sig-name descname"><span class="pre">t0_date</span></code><a class="headerlink" href="#fastf1.core.Session.t0_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Date timestamp which marks the beginning of the data stream.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="fastf1.core.Session.session_start_time">
+<code class="sig-name descname"><span class="pre">session_start_time</span></code><a class="headerlink" href="#fastf1.core.Session.session_start_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Session time at which the session was started.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="fastf1.core.Session.car_data">
+<code class="sig-name descname"><span class="pre">car_data</span></code><a class="headerlink" href="#fastf1.core.Session.car_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of car telemetry (Speed, RPM, etc.) as received from
+the api by car number (where car number is a string and the telemetry
+is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="fastf1.core.Session.pos_data">
+<code class="sig-name descname"><span class="pre">pos_data</span></code><a class="headerlink" href="#fastf1.core.Session.pos_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of car position data as received from the api by car
+number (where car number is a string and the telemetry
+is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="fastf1.core.Session.drivers">
+<code class="sig-name descname"><span class="pre">drivers</span></code><a class="headerlink" href="#fastf1.core.Session.drivers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of all drivers that took part in this session; contains driver numbers as string. Drivers for which
+lap or telemetry data is missing completely are not listed!</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Session.load_laps">
+<code class="sig-name descname"><span class="pre">load_laps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">with_telemetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_laps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.load_laps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load lap timing information and telemetry data.</p>
+<p>This method creates a <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> instance (<a class="reference internal" href="#fastf1.core.Session.laps" title="fastf1.core.Session.laps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code></a>) which subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>
+and contains information on a per lap basis. (The dataframe is additionally returned by this method.)</p>
+<p>The returned <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> instance can be used just like a pandas DataFrame but offers some
+additional functionality.</p>
+<p>Downloading and parsing of the data takes a considerable amount of time. Therefore, it is highly recommended
+to enable caching so that most of the data processing needs to be done only once.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Absolute time is not super accurate. The moment a lap
+is logged is not always the same and there will be some
+jitter. At the moment lap time reference is synchronised
+on the sector time triggered with lowest latency.
+Expect an error of around ±10m when overlapping telemetry
+data of different laps.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>with_telemetry</strong> (<em>bool</em>) – Load telemetry data also.
+(Same as calling <a class="reference internal" href="#fastf1.core.Session.load_telemetry" title="fastf1.core.Session.load_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.load_telemetry()</span></code></a> manually)</p></li>
+<li><p><strong>livedata</strong> (<a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a>, optional) – instead of requesting the data from the api, locally saved
+livetiming data can be used as a data source</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Session.load_telemetry">
+<code class="sig-name descname"><span class="pre">load_telemetry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.load_telemetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load telemetry data from API.</p>
+<p>The raw data is divided into car data (Speed, RPM, …) and position data (coordinates, on/off track). For each
+of the two types an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a> is created per driver. The properties
+<a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.car_data</span></code></a> and <a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.pos_data</span></code></a> are dictionaries which hold the the <cite>Telemetry</cite> objects
+keyed by driver number.</p>
+<p>The telemetry data can either be accessed through the above mentioned attributes or conveniently on a per
+lap basis through <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a> and <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a>. See <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a> on how to work with the telemetry
+data.</p>
+<p>Note that this method additionally calculates <a class="reference internal" href="#fastf1.core.Session.t0_date" title="fastf1.core.Session.t0_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.t0_date</span></code></a> and adds a <cite>LapStartDate</cite> column to
+<a class="reference internal" href="#fastf1.core.Session.laps" title="fastf1.core.Session.laps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>livedata</strong> (<a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a>, optional) – instead of requesting the data from the api, locally saved
+livetiming data can be used as a data source</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Session.get_driver">
+<code class="sig-name descname"><span class="pre">get_driver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.get_driver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.get_driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a driver object which contains additional information about a driver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – driver’s three letter identifier (for example ‘VER’)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Driver" title="fastf1.core.Driver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Driver</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="laps">
+<h4>Laps<a class="headerlink" href="#laps" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py class">
+<dt id="fastf1.core.Laps">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Laps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>Object for accessing lap (timing) data of multiple laps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>any</em>) – passed through to <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> super class</p></li>
+<li><p><strong>session</strong> (<a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a>) – instance of session class; required for
+full functionality</p></li>
+<li><p><strong>**kwargs</strong> (<em>any</em>) – passed through to <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>
+super class</p></li>
+</ul>
+</dd>
+</dl>
+<p>This class allows for easily picking specific laps from all laps in a session. It implements some additional
+functionality on top off the usual <cite>pandas.DataFrame</cite> functionality. Among others, the laps’ associated telemetry
+data can be accessed.</p>
+<p>If for example you want to get the fastest lap of Bottas you can narrow it down like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
+
+<span class="n">laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="n">best_bottas</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;BOT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">best_bottas</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">])</span>
+<span class="c1"># Timedelta(&#39;0 days 00:01:28.256000&#39;)</span>
+</pre></div>
+</div>
+<p>Slicing this class will return <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> again for slices containing multiple rows. Single rows will be
+returned as <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a>.</p>
+<dl>
+<dt>The following information is available per lap (one DataFrame column for each):</dt><dd><ul>
+<li><p><strong>Time</strong> (pandas.Timedelta): Session time when the lap time was set (end of lap)</p></li>
+<li><p><strong>Driver</strong> (string): Three letter driver identifier</p></li>
+<li><p><strong>DriverNumber</strong> (str): Driver number</p></li>
+<li><p><strong>LapTime</strong> (pandas.Timedelta): Recorded lap time</p></li>
+<li><p><strong>LapNumber</strong> (int): Recorded lap number</p></li>
+<li><p><strong>Stint</strong> (int): Stint number</p></li>
+<li><p><strong>PitOutTime</strong> (pandas.Timedelta): Session time when car exited the pit</p></li>
+<li><p><strong>PitInTime</strong> (pandas.Timedelta): Session time when car entered the pit</p></li>
+<li><p><strong>Sector1Time</strong> (pandas.Timedelta): Sector 1 recorded time</p></li>
+<li><p><strong>Sector2Time</strong> (pandas.Timedelta): Sector 2 recorded time</p></li>
+<li><p><strong>Sector3Time</strong> (pandas.Timedelta): Sector 3 recorded time</p></li>
+<li><p><strong>Sector1SessionTime</strong> (pandas.Timedelta): Session time when the Sector 1 time was set</p></li>
+<li><p><strong>Sector2SessionTime</strong> (pandas.Timedelta): Session time when the Sector 2 time was set</p></li>
+<li><p><strong>Sector3SessionTime</strong> (pandas.Timedelta): Session time when the Sector 3 time was set</p></li>
+<li><p><strong>SpeedI1</strong> (float): Speedtrap sector 1</p></li>
+<li><p><strong>SpeedI2</strong> (float): Speedtrap sector 2</p></li>
+<li><p><strong>SpeedFL</strong> (float): Speedtrap at finish line</p></li>
+<li><p><strong>SpeedST</strong> (float): Speedtrap on longest straight (Not sure)</p></li>
+<li><p><strong>Compound</strong> (str): Tyre compound name: SOFT, MEDIUM ..</p></li>
+<li><p><strong>TyreLife</strong> (float): Laps driven on this tire (includes laps in other sessions for used sets of tires)</p></li>
+<li><p><strong>FreshTyre</strong> (bool): Tyre had TyreLife=0 at stint start, i.e. was a new tire</p></li>
+<li><p><strong>Team</strong> (str): Team name</p></li>
+<li><p><strong>LapStartTime</strong> (pandas.Timedelta): Session time at the start of the lap</p></li>
+<li><p><strong>LapStartDate</strong> (pandas.Timestamp): Timestamp at the start of the lap</p></li>
+<li><p><strong>TrackStatus</strong> (str): A string that contains track status numbers for all track status that occurred
+during this lap. The meaning of the track status numbers is explained in
+<a class="reference internal" href="api.html#fastf1.api.track_status_data" title="fastf1.api.track_status_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.track_status_data()</span></code></a>. (Currently, track status data is only implemented per lap.
+If a finer resolution is desired, you need to directly use the data returned by
+<a class="reference internal" href="api.html#fastf1.api.track_status_data" title="fastf1.api.track_status_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.track_status_data()</span></code></a>)  # TODO updated when implemented</p></li>
+<li><p><strong>IsAccurate</strong> (bool): If True, the lap has passed a basic accuracy check for timing data.
+This does not guarantee accuracy but laps marked as inaccurate need to be handled with
+caution. They might contain errors which can not be spotted easily.
+Laps need to satisfy the following criteria to be marked
+as accurate:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>not an inlap or outlap</p></li>
+<li><p>set under green or yellow flag (the api sometimes has issues
+with data from SC/VSC laps)</p></li>
+<li><p>is not the first lap after a safety car period
+(issues with SC/VSC might still apear on the first lap
+after it has ended)</p></li>
+<li><p>has a value for lap time and all sector times</p></li>
+<li><p>the sum of the sector times matches the lap time
+(will be additionally logged as integrity error if not)</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="fastf1.core.Laps.QUICKLAP_THRESHOLD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code></a></p></td>
+<td><p>Used to determine ‘quick’ laps.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.base_class_view" title="fastf1.core.Laps.base_class_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></a></p></td>
+<td><p>For a nicer debugging experience; can now view as dataframe in various IDEs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.telemetry" title="fastf1.core.Laps.telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">telemetry</span></code></a></p></td>
+<td><p>Telemetry data for all laps in <cite>self</cite></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.get_telemetry" title="fastf1.core.Laps.get_telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_telemetry</span></code></a>()</p></td>
+<td><p>Telemetry data for all laps in <cite>self</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.get_car_data" title="fastf1.core.Laps.get_car_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_car_data</span></code></a>(**kwargs)</p></td>
+<td><p>Car data for all laps in <cite>self</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.get_pos_data" title="fastf1.core.Laps.get_pos_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code></a>(**kwargs)</p></td>
+<td><p>Pos data for all laps in <cite>self</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_driver</span></code></a>(identifier)</p></td>
+<td><p>Select and return all laps of a specific driver in self based on the driver’s three letters identifier or based on the driver number .</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_drivers" title="fastf1.core.Laps.pick_drivers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_drivers</span></code></a>(identifiers)</p></td>
+<td><p>Select and return all laps of the specified drivers in self based on the drivers’ three letters identifier or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once. ::.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_team</span></code></a>(name)</p></td>
+<td><p>Select and return all laps of a specific team in self based on the team’s name .</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_teams" title="fastf1.core.Laps.pick_teams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_teams</span></code></a>(names)</p></td>
+<td><p>Select and return all laps of the specified teams in self based on the teams’ name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once. ::.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_fastest" title="fastf1.core.Laps.pick_fastest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_fastest</span></code></a>()</p></td>
+<td><p>Select and return the lap with the fastest lap time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_quicklaps" title="fastf1.core.Laps.pick_quicklaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_quicklaps</span></code></a>([threshold])</p></td>
+<td><p>Select and return laps with <cite>LapTime</cite> faster than a certain limit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_tyre" title="fastf1.core.Laps.pick_tyre"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_tyre</span></code></a>(compound)</p></td>
+<td><p>Select and return all laps in self which were done on a specific compound.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_track_status" title="fastf1.core.Laps.pick_track_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_track_status</span></code></a>(status[, how])</p></td>
+<td><p>Select and return laps set under a specific track status.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_wo_box" title="fastf1.core.Laps.pick_wo_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_wo_box</span></code></a>()</p></td>
+<td><p>Select laps which are NOT in laps or out laps.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_accurate" title="fastf1.core.Laps.pick_accurate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_accurate</span></code></a>()</p></td>
+<td><p>Select and return laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.iterlaps" title="fastf1.core.Laps.iterlaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterlaps</span></code></a>([require])</p></td>
+<td><p>Iterator for iterating over all laps in self.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt id="fastf1.core.Laps.QUICKLAP_THRESHOLD">
+<code class="sig-name descname"><span class="pre">QUICKLAP_THRESHOLD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1.07</span></em><a class="headerlink" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to determine ‘quick’ laps. Defaults to the 107% rule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.base_class_view">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">base_class_view</span></code><a class="headerlink" href="#fastf1.core.Laps.base_class_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a nicer debugging experience; can now view as
+dataframe in various IDEs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.telemetry">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">telemetry</span></code><a class="headerlink" href="#fastf1.core.Laps.telemetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Telemetry data for all laps in <cite>self</cite></p>
+<p>This is a cached (!) property for <a class="reference internal" href="#fastf1.core.Laps.get_telemetry" title="fastf1.core.Laps.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a>. It will return the same value as <cite>get_telemetry</cite>
+but cache the result so that the involved processing is only done once.</p>
+<p>This is mainly provided for convenience and backwards compatibility.</p>
+<p>See <a class="reference internal" href="#fastf1.core.Laps.get_telemetry" title="fastf1.core.Laps.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a> for more information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Telemetry can only be returned if <cite>self</cite> contains laps of one driver only.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.get_telemetry">
+<code class="sig-name descname"><span class="pre">get_telemetry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.get_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.get_telemetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Telemetry data for all laps in <cite>self</cite></p>
+<p>Telemetry data is the result of merging the returned data from <a class="reference internal" href="#fastf1.core.Laps.get_car_data" title="fastf1.core.Laps.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> and <a class="reference internal" href="#fastf1.core.Laps.get_pos_data" title="fastf1.core.Laps.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a>.
+This means that telemetry data at least partially contains interpolated values! Telemetry data additionally
+already has computed channels added (e.g. Distance).</p>
+<p>This method is provided for convenience and compatibility reasons. But using it does usually not produce
+the most accurate possible result.
+It is recommended to use <a class="reference internal" href="#fastf1.core.Laps.get_car_data" title="fastf1.core.Laps.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> or <a class="reference internal" href="#fastf1.core.Laps.get_pos_data" title="fastf1.core.Laps.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a> when possible. This is also faster if
+merging of car and position data is not necessary and if not all computed channels are needed.</p>
+<p>Resampling during merging is done according to the frequency set by <code class="xref py py-attr docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Telemetry can only be returned if <cite>self</cite> contains laps of one driver only.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.get_car_data">
+<code class="sig-name descname"><span class="pre">get_car_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.get_car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.get_car_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Car data for all laps in <cite>self</cite></p>
+<p>Slices the car data in <a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.car_data</span></code></a> using this set of laps and returns the result.</p>
+<p>The data returned by this method does not contain computed telemetry channels. The can be added by calling the
+appropriate <cite>add_*()</cite> method on the returned telemetry object..</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Car data can only be returned if <cite>self</cite> contains laps of one driver only.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.get_pos_data">
+<code class="sig-name descname"><span class="pre">get_pos_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.get_pos_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.get_pos_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pos data for all laps in <cite>self</cite></p>
+<p>Slices the position data in <a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.pos_data</span></code></a> using this set of laps and returns the result.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Position data can only be returned if <cite>self</cite> contains laps of one driver only.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_driver">
+<code class="sig-name descname"><span class="pre">pick_driver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return all laps of a specific driver in self based on the driver’s three letters identifier or
+based on the driver number</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perez_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;PER&#39;</span><span class="p">)</span>
+<span class="n">bottas_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="mi">77</span><span class="p">)</span>
+<span class="n">kimi_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;RAI&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em><em> or </em><em>int</em>) – Driver abbreviation or number</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_drivers">
+<code class="sig-name descname"><span class="pre">pick_drivers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return all laps of the specified drivers in self based on the drivers’ three letters identifier
+or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_drivers_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_drivers</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>identifiers</strong> (<em>iterable</em>) – Multiple driver abbreviations or driver numbers (can be mixed)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_team">
+<code class="sig-name descname"><span class="pre">pick_team</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return all laps of a specific team in self based on the team’s name</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mercedes</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">)</span>
+<span class="n">alfa_romeo</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Have a look to <a class="reference internal" href="plotting.html#fastf1.plotting.TEAM_COLORS" title="fastf1.plotting.TEAM_COLORS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fastf1.plotting.TEAM_COLORS</span></code></a> for a quick reference on team names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Team name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_teams">
+<code class="sig-name descname"><span class="pre">pick_teams</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return all laps of the specified teams in self based on the teams’ name.
+This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_drivers_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_teams</span><span class="p">([</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>names</strong> (<em>iterable</em>) – Multiple team names</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_fastest">
+<code class="sig-name descname"><span class="pre">pick_fastest</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_fastest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_fastest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return the lap with the fastest lap time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_quicklaps">
+<code class="sig-name descname"><span class="pre">pick_quicklaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return laps with <cite>LapTime</cite> faster than a certain limit.
+By default the threshold is 107% of the best <cite>LapTime</cite> of all laps in self.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threshold</strong> (<em>optional</em><em>, </em><em>float</em>) – custom threshold coefficent
+(e.g. 1.05 for 105%)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_tyre">
+<code class="sig-name descname"><span class="pre">pick_tyre</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compound</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_tyre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_tyre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return all laps in self which were done on a specific compound.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compound</strong> (<em>string</em>) – may be “SOFT”, “MEDIUM”, “HARD”, “INTERMEDIATE” or “WET”</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_track_status">
+<code class="sig-name descname"><span class="pre">pick_track_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equals'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_track_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_track_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return laps set under a specific track status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>status</strong> (<em>str</em>) – The track status as a string, e.g. ‘1’</p></li>
+<li><p><strong>how</strong> (<em>str</em>) – one of ‘equals’/’contains’
+For example, if how=’equals’, status=’2’ will only match ‘2’.
+If how=’contains’, status=’2’ will also match ‘267’ and similar</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_wo_box">
+<code class="sig-name descname"><span class="pre">pick_wo_box</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_wo_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_wo_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select laps which are NOT in laps or out laps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.pick_accurate">
+<code class="sig-name descname"><span class="pre">pick_accurate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_accurate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_accurate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select and return laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.iterlaps">
+<code class="sig-name descname"><span class="pre">iterlaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">require</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.iterlaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.iterlaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterator for iterating over all laps in self.</p>
+<p>This method wraps <code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.iterrows()</span></code>.
+It additionally provides the <cite>require</cite> keyword argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>require</strong> (<em>optional</em><em>, </em><em>iterable</em>) – Require is a list of column/telemetry channel names. All names listed in
+<cite>require</cite> must exist in the data and have a non-null value (tested with <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.is_null()</span></code>). The
+iterator only yields laps for which this is true. If require is left empty, the iterator will yield
+all laps.</p>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="lap">
+<h4>Lap<a class="headerlink" href="#lap" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py class">
+<dt id="fastf1.core.Lap">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Lap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></p>
+<p>Object for accessing lap (timing) data of a single lap.</p>
+<p>This class wraps <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code>. It provides extra functionality for accessing a lap’s associated
+telemetry data.</p>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Lap.telemetry" title="fastf1.core.Lap.telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">telemetry</span></code></a></p></td>
+<td><p>Telemetry data for this lap</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_telemetry</span></code></a>()</p></td>
+<td><p>Telemetry data for this lap</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_car_data</span></code></a>(**kwargs)</p></td>
+<td><p>Car data for this lap</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code></a>(**kwargs)</p></td>
+<td><p>Pos data for all laps in <cite>self</cite></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="fastf1.core.Lap.telemetry">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">telemetry</span></code><a class="headerlink" href="#fastf1.core.Lap.telemetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Telemetry data for this lap</p>
+<p>This is a cached (!) property for <a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a>. It will return the same value as <cite>get_telemetry</cite>
+but cache the result so that the involved processing is only done once.</p>
+<p>This is mainly provided for convenience and backwards compatibility.</p>
+<p>See <a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Lap.get_telemetry">
+<code class="sig-name descname"><span class="pre">get_telemetry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap.get_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap.get_telemetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Telemetry data for this lap</p>
+<p>Telemetry data is the result of merging the returned data from <a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> and <a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a>.
+This means that telemetry data at least partially contains interpolated values! Telemetry data additionally
+already has computed channels added (e.g. Distance).</p>
+<p>This method is provided for convenience and compatibility reasons. But using it does usually not produce
+the most accurate possible result.
+It is recommended to use <a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> or <a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a> when possible. This is also faster if
+merging of car and position data is not necessary and if not all computed channels are needed.</p>
+<p>Resampling during merging is done according to the frequency set by <code class="xref py py-attr docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Lap.get_car_data">
+<code class="sig-name descname"><span class="pre">get_car_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap.get_car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap.get_car_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Car data for this lap</p>
+<p>Slices the car data in <a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.car_data</span></code></a> using this lap and returns the result.</p>
+<p>The data returned by this method does not contain computed telemetry channels. The can be added by calling the
+appropriate <cite>add_*()</cite> method on the returned telemetry object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Lap.get_pos_data">
+<code class="sig-name descname"><span class="pre">get_pos_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap.get_pos_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap.get_pos_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pos data for all laps in <cite>self</cite></p>
+<p>Slices the position data in <a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.pos_data</span></code></a> using this lap and returns the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="telemetry">
+<h4>Telemetry<a class="headerlink" href="#telemetry" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py class">
 <dt id="fastf1.core.Telemetry">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Telemetry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">driver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Telemetry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
@@ -443,6 +1314,81 @@ returned as <code class="xref py py-class docutils literal notranslate"><span cl
 </ul>
 </dd>
 </dl>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.TELEMETRY_FREQUENCY" title="fastf1.core.Telemetry.TELEMETRY_FREQUENCY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code></a></p></td>
+<td><p>Defines the frequency used when resampling the telemetry data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.base_class_view" title="fastf1.core.Telemetry.base_class_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></a></p></td>
+<td><p>For a nicer debugging experience; can view DataFrame through this property in various IDEs</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.join" title="fastf1.core.Telemetry.join"><code class="xref py py-obj docutils literal notranslate"><span class="pre">join</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Wraps <code class="xref py py-mod docutils literal notranslate"><span class="pre">pandas.DataFrame.join</span></code> and adds metadata propagation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.merge" title="fastf1.core.Telemetry.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Wraps <code class="xref py py-mod docutils literal notranslate"><span class="pre">pandas.DataFrame.merge</span></code> and adds metadata propagation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.slice_by_mask" title="fastf1.core.Telemetry.slice_by_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_mask</span></code></a>(mask[, pad, pad_side])</p></td>
+<td><p>Slice self using a boolean array as a mask.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_lap</span></code></a>(ref_laps[, pad, pad_side, …])</p></td>
+<td><p>Slice self to only include data from the provided lap or laps.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.slice_by_time" title="fastf1.core.Telemetry.slice_by_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_time</span></code></a>(start_time, end_time[, pad, …])</p></td>
+<td><p>Slice self to only include data in a specific time frame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.merge_channels" title="fastf1.core.Telemetry.merge_channels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_channels</span></code></a>(other[, frequency])</p></td>
+<td><p>Merge telemetry objects containing different telemetry channels.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.resample_channels" title="fastf1.core.Telemetry.resample_channels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample_channels</span></code></a>([rule, new_date_ref])</p></td>
+<td><p>Resample telemetry data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.fill_missing" title="fastf1.core.Telemetry.fill_missing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_missing</span></code></a>()</p></td>
+<td><p>Calculate missing values in self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.register_new_channel" title="fastf1.core.Telemetry.register_new_channel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_new_channel</span></code></a>(name, signal_type[, …])</p></td>
+<td><p>Register a custom telemetry channel.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.get_first_non_zero_time_index" title="fastf1.core.Telemetry.get_first_non_zero_time_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_first_non_zero_time_index</span></code></a>()</p></td>
+<td><p>Return the first index at which the ‘Time’ value is not zero or NA/NaT</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_differential_distance" title="fastf1.core.Telemetry.add_differential_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_differential_distance</span></code></a>([drop_existing])</p></td>
+<td><p>Add column ‘DifferentialDistance’ to self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_distance" title="fastf1.core.Telemetry.add_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_distance</span></code></a>([drop_existing])</p></td>
+<td><p>Add column ‘Distance’ to self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_relative_distance" title="fastf1.core.Telemetry.add_relative_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_relative_distance</span></code></a>([drop_existing])</p></td>
+<td><p>Add column ‘RelativeDistance’ to self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_driver_ahead" title="fastf1.core.Telemetry.add_driver_ahead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_driver_ahead</span></code></a>([drop_existing])</p></td>
+<td><p>Add column ‘DriverAhead’ and ‘DistanceToDriverAhead’ to self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.calculate_differential_distance" title="fastf1.core.Telemetry.calculate_differential_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_differential_distance</span></code></a>()</p></td>
+<td><p>Calculate the distance between subsequent samples of self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.integrate_distance" title="fastf1.core.Telemetry.integrate_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">integrate_distance</span></code></a>()</p></td>
+<td><p>Return the distance driven since the first sample of self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.calculate_driver_ahead" title="fastf1.core.Telemetry.calculate_driver_ahead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_driver_ahead</span></code></a>()</p></td>
+<td><p>Calculate driver ahead and distance to driver ahead.</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py attribute">
 <dt id="fastf1.core.Telemetry.TELEMETRY_FREQUENCY">
 <code class="sig-name descname"><span class="pre">TELEMETRY_FREQUENCY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'original'</span></em><a class="headerlink" href="#fastf1.core.Telemetry.TELEMETRY_FREQUENCY" title="Permalink to this definition">¶</a></dt>
@@ -802,634 +1748,12 @@ a long distance). If in doubt, do sanity checks (against the legacy version or i
 
 </dd></dl>
 
-<dl class="py class">
-<dt id="fastf1.core.Weekend">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Weekend</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Object for accessing weekend specific data.</p>
-<p>If you want to handle multiple sessions from the same race event you can use a :class:Weekend instance.</p>
-<p>For example you could do the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
-
-<span class="n">weekend</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Monza&#39;</span><span class="p">)</span>
-<span class="n">quali</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">get_quali</span><span class="p">()</span> <span class="c1"># Q Session</span>
-<span class="n">race</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">get_race</span><span class="p">()</span> <span class="c1"># R Session</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt id="fastf1.core.Weekend.get_practice">
-<code class="sig-name descname"><span class="pre">get_practice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_practice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.get_practice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the specified practice session.
-:param number: 1, 2 or 3 - Free practice session number</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Weekend.get_quali">
-<code class="sig-name descname"><span class="pre">get_quali</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_quali"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.get_quali" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the qualifying session.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Weekend.get_race">
-<code class="sig-name descname"><span class="pre">get_race</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.get_race"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.get_race" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the race session.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a> instance</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Weekend.is_testing">
-<code class="sig-name descname"><span class="pre">is_testing</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Weekend.is_testing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Weekend.is_testing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Indicates whether this ‘weekend’ is a testing event. (In which case is usually is not an actual weekend.)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Weekend.name">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#fastf1.core.Weekend.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Weekend name, e.g. “British Grand Prix”</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Weekend.date">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">date</span></code><a class="headerlink" href="#fastf1.core.Weekend.date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Weekend race date (YYYY-MM-DD)</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="fastf1.core.Session">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weekend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Object for accessing session specific data.</p>
-<p>The session class will usually be your starting point. This object will have various information about
-the session such as <cite>name</cite> and <cite>date</cite>. To get the session’s laps use <a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.load_laps()</span></code></a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For full functionality lap and telemetry data need to be loaded.</p>
-</div>
-<dl class="py attribute">
-<dt id="fastf1.core.Session.laps">
-<code class="sig-name descname"><span class="pre">laps</span></code><a class="headerlink" href="#fastf1.core.Session.laps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> containing all laps from all drivers in this session.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="fastf1.core.Session.t0_date">
-<code class="sig-name descname"><span class="pre">t0_date</span></code><a class="headerlink" href="#fastf1.core.Session.t0_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Date timestamp which marks the beginning of the data stream.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="fastf1.core.Session.session_start_time">
-<code class="sig-name descname"><span class="pre">session_start_time</span></code><a class="headerlink" href="#fastf1.core.Session.session_start_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Session time at which the session was started.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="fastf1.core.Session.car_data">
-<code class="sig-name descname"><span class="pre">car_data</span></code><a class="headerlink" href="#fastf1.core.Session.car_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary of car telemetry (Speed, RPM, etc.) as received from
-the api by car number (where car number is a string and the telemetry
-is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="fastf1.core.Session.pos_data">
-<code class="sig-name descname"><span class="pre">pos_data</span></code><a class="headerlink" href="#fastf1.core.Session.pos_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary of car position data as received from the api by car
-number (where car number is a string and the telemetry
-is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="fastf1.core.Session.drivers">
-<code class="sig-name descname"><span class="pre">drivers</span></code><a class="headerlink" href="#fastf1.core.Session.drivers" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of all drivers that took part in this session; contains driver numbers as string. Drivers for which
-lap or telemetry data is missing completely are not listed!</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Session.load_laps">
-<code class="sig-name descname"><span class="pre">load_laps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">with_telemetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_laps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.load_laps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load lap timing information and telemetry data.</p>
-<p>This method creates a <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> instance (<a class="reference internal" href="#fastf1.core.Session.laps" title="fastf1.core.Session.laps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code></a>) which subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>
-and contains information on a per lap basis. (The dataframe is additionally returned by this method.)</p>
-<p>The returned <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> instance can be used just like a pandas DataFrame but offers some
-additional functionality.</p>
-<p>Downloading and parsing of the data takes a considerable amount of time. Therefore, it is highly recommended
-to enable caching so that most of the data processing needs to be done only once.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Absolute time is not super accurate. The moment a lap
-is logged is not always the same and there will be some
-jitter. At the moment lap time reference is synchronised
-on the sector time triggered with lowest latency.
-Expect an error of around ±10m when overlapping telemetry
-data of different laps.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>with_telemetry</strong> (<em>bool</em>) – Load telemetry data also. (Same as calling <a class="reference internal" href="#fastf1.core.Session.load_telemetry" title="fastf1.core.Session.load_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.load_telemetry()</span></code></a> manually)</p></li>
-<li><p><strong>livedata</strong> (<em>fastf1.api.LivetimingResponse</em><em>, </em><em>optional</em>) – instead of requesting the data from the api, locally saved
-livetiming data can be used as a data source</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Session.load_telemetry">
-<code class="sig-name descname"><span class="pre">load_telemetry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.load_telemetry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load telemetry data from API.</p>
-<p>The raw data is divided into car data (Speed, RPM, …) and position data (coordinates, on/off track). For each
-of the two types an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a> is created per driver. The properties
-<a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.car_data</span></code></a> and <a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.pos_data</span></code></a> are dictionaries which hold the the <cite>Telemetry</cite> objects
-keyed by driver number.</p>
-<p>The telemetry data can either be accessed through the above mentioned attributes or conveniently on a per
-lap basis through <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a> and <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a>. See <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a> on how to work with the telemetry
-data.</p>
-<p>Note that this method additionally calculates <a class="reference internal" href="#fastf1.core.Session.t0_date" title="fastf1.core.Session.t0_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.t0_date</span></code></a> and adds a <cite>LapStartDate</cite> column to
-<a class="reference internal" href="#fastf1.core.Session.laps" title="fastf1.core.Session.laps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.laps</span></code></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>response</strong> (<em>fastf1.api.LivetimingResponse</em><em>, </em><em>optional</em>) – instead of requesting the data from the api, locally saved
-livetiming data can be used as a data source</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Session.get_driver">
-<code class="sig-name descname"><span class="pre">get_driver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.get_driver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.get_driver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a driver object which contains additional information about a driver.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – driver’s three letter identifier (for example ‘VER’)</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Driver" title="fastf1.core.Driver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Driver</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="fastf1.core.Laps">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Laps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
-<p>Object for accessing lap (timing) data of multiple laps.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*args</strong> (<em>any</em>) – passed through to <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> super class</p></li>
-<li><p><strong>session</strong> (<a class="reference internal" href="#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a>) – instance of session class; required for
-full functionality</p></li>
-<li><p><strong>**kwargs</strong> (<em>any</em>) – passed through to <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>
-super class</p></li>
-</ul>
-</dd>
-</dl>
-<p>This class allows for easily picking specific laps from all laps in a session. It implements some additional
-functionality on top off the usual <cite>pandas.DataFrame</cite> functionality. Among others, the laps’ associated telemetry
-data can be accessed.</p>
-<p>If for example you want to get the fastest lap of Bottas you can narrow it down like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
-
-<span class="n">laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
-<span class="n">best_bottas</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;BOT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">best_bottas</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">])</span>
-<span class="c1"># Timedelta(&#39;0 days 00:01:28.256000&#39;)</span>
-</pre></div>
-</div>
-<p>Slicing this class will return <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> again for slices containing multiple rows. Single rows will be
-returned as <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a>.</p>
-<dl>
-<dt>The following information is available per lap (one DataFrame column for each):</dt><dd><ul>
-<li><p><strong>Time</strong> (pandas.Timedelta): Session time when the lap time was set (end of lap)</p></li>
-<li><p><strong>Driver</strong> (string): Three letter driver identifier</p></li>
-<li><p><strong>DriverNumber</strong> (str): Driver number</p></li>
-<li><p><strong>LapTime</strong> (pandas.Timedelta): Recorded lap time</p></li>
-<li><p><strong>LapNumber</strong> (int): Recorded lap number</p></li>
-<li><p><strong>Stint</strong> (int): Stint number</p></li>
-<li><p><strong>PitOutTime</strong> (pandas.Timedelta): Session time when car exited the pit</p></li>
-<li><p><strong>PitInTime</strong> (pandas.Timedelta): Session time when car entered the pit</p></li>
-<li><p><strong>Sector1Time</strong> (pandas.Timedelta): Sector 1 recorded time</p></li>
-<li><p><strong>Sector2Time</strong> (pandas.Timedelta): Sector 2 recorded time</p></li>
-<li><p><strong>Sector3Time</strong> (pandas.Timedelta): Sector 3 recorded time</p></li>
-<li><p><strong>Sector1SessionTime</strong> (pandas.Timedelta): Session time when the Sector 1 time was set</p></li>
-<li><p><strong>Sector2SessionTime</strong> (pandas.Timedelta): Session time when the Sector 2 time was set</p></li>
-<li><p><strong>Sector3SessionTime</strong> (pandas.Timedelta): Session time when the Sector 3 time was set</p></li>
-<li><p><strong>SpeedI1</strong> (float): Speedtrap sector 1</p></li>
-<li><p><strong>SpeedI2</strong> (float): Speedtrap sector 2</p></li>
-<li><p><strong>SpeedFL</strong> (float): Speedtrap at finish line</p></li>
-<li><p><strong>SpeedST</strong> (float): Speedtrap on longest straight (Not sure)</p></li>
-<li><p><strong>Compound</strong> (str): Tyre compound name: SOFT, MEDIUM ..</p></li>
-<li><p><strong>TyreLife</strong> (float): Laps driven on this tire (includes laps in other sessions for used sets of tires)</p></li>
-<li><p><strong>FreshTyre</strong> (bool): Tyre had TyreLife=0 at stint start, i.e. was a new tire</p></li>
-<li><p><strong>Team</strong> (str): Team name</p></li>
-<li><p><strong>LapStartTime</strong> (pandas.Timedelta): Session time at the start of the lap</p></li>
-<li><p><strong>LapStartDate</strong> (pandas.Timestamp): Timestamp at the start of the lap</p></li>
-<li><p><strong>TrackStatus</strong> (str): A string that contains track status numbers for all track status that occurred
-during this lap. The meaning of the track status numbers is explained in
-<a class="reference internal" href="api.html#fastf1.api.track_status_data" title="fastf1.api.track_status_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.track_status_data()</span></code></a>. (Currently, track status data is only implemented per lap.
-If a finer resolution is desired, you need to directly use the data returned by
-<a class="reference internal" href="api.html#fastf1.api.track_status_data" title="fastf1.api.track_status_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.track_status_data()</span></code></a>)  # TODO updated when implemented</p></li>
-<li><p><strong>IsAccurate</strong> (bool): If True, the lap has passed a basic accuracy check for timing data.
-This does not guarantee accuracy but laps marked as inaccurate need to be handled with
-caution. They might contain errors which can not be spotted easily.
-Laps need to satisfy the following criteria to be marked
-as accurate:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>not an inlap or outlap</p></li>
-<li><p>set under green or yellow flag (the api sometimes has issues
-with data from SC/VSC laps)</p></li>
-<li><p>is not the first lap after a safety car period
-(issues with SC/VSC might still apear on the first lap
-after it has ended)</p></li>
-<li><p>has a value for lap time and all sector times</p></li>
-<li><p>the sum of the sector times matches the lap time
-(will be additionally logged as integrity error if not)</p></li>
-</ul>
 </div></blockquote>
-</li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt id="fastf1.core.Laps.QUICKLAP_THRESHOLD">
-<code class="sig-name descname"><span class="pre">QUICKLAP_THRESHOLD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1.07</span></em><a class="headerlink" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used to determine ‘quick’ laps. Defaults to the 107% rule.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.base_class_view">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">base_class_view</span></code><a class="headerlink" href="#fastf1.core.Laps.base_class_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>For a nicer debugging experience; can now view as
-dataframe in various IDEs</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.telemetry">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">telemetry</span></code><a class="headerlink" href="#fastf1.core.Laps.telemetry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Telemetry data for all laps in <cite>self</cite></p>
-<p>This is a cached (!) property for <a class="reference internal" href="#fastf1.core.Laps.get_telemetry" title="fastf1.core.Laps.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a>. It will return the same value as <cite>get_telemetry</cite>
-but cache the result so that the involved processing is only done once.</p>
-<p>This is mainly provided for convenience and backwards compatibility.</p>
-<p>See <a class="reference internal" href="#fastf1.core.Laps.get_telemetry" title="fastf1.core.Laps.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a> for more information.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Telemetry can only be returned if <cite>self</cite> contains laps of one driver only.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.get_telemetry">
-<code class="sig-name descname"><span class="pre">get_telemetry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.get_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.get_telemetry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Telemetry data for all laps in <cite>self</cite></p>
-<p>Telemetry data is the result of merging the returned data from <a class="reference internal" href="#fastf1.core.Laps.get_car_data" title="fastf1.core.Laps.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> and <a class="reference internal" href="#fastf1.core.Laps.get_pos_data" title="fastf1.core.Laps.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a>.
-This means that telemetry data at least partially contains interpolated values! Telemetry data additionally
-already has computed channels added (e.g. Distance).</p>
-<p>This method is provided for convenience and compatibility reasons. But using it does usually not produce
-the most accurate possible result.
-It is recommended to use <a class="reference internal" href="#fastf1.core.Laps.get_car_data" title="fastf1.core.Laps.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> or <a class="reference internal" href="#fastf1.core.Laps.get_pos_data" title="fastf1.core.Laps.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a> when possible. This is also faster if
-merging of car and position data is not necessary and if not all computed channels are needed.</p>
-<p>Resampling during merging is done according to the frequency set by <code class="xref py py-attr docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Telemetry can only be returned if <cite>self</cite> contains laps of one driver only.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.get_car_data">
-<code class="sig-name descname"><span class="pre">get_car_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.get_car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.get_car_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Car data for all laps in <cite>self</cite></p>
-<p>Slices the car data in <a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.car_data</span></code></a> using this set of laps and returns the result.</p>
-<p>The data returned by this method does not contain computed telemetry channels. The can be added by calling the
-appropriate <cite>add_*()</cite> method on the returned telemetry object..</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Car data can only be returned if <cite>self</cite> contains laps of one driver only.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.get_pos_data">
-<code class="sig-name descname"><span class="pre">get_pos_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.get_pos_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.get_pos_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pos data for all laps in <cite>self</cite></p>
-<p>Slices the position data in <a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.pos_data</span></code></a> using this set of laps and returns the result.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Position data can only be returned if <cite>self</cite> contains laps of one driver only.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_driver">
-<code class="sig-name descname"><span class="pre">pick_driver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of a specific driver in self based on the driver’s three letters identifier or
-based on the driver number</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perez_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;PER&#39;</span><span class="p">)</span>
-<span class="n">bottas_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="mi">77</span><span class="p">)</span>
-<span class="n">kimi_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;RAI&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em><em> or </em><em>int</em>) – Driver abbreviation or number</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_drivers">
-<code class="sig-name descname"><span class="pre">pick_drivers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of the specified drivers in self based on the drivers’ three letters identifier
-or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_drivers_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_drivers</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>identifiers</strong> (<em>iterable</em>) – Multiple driver abbreviations or driver numbers (can be mixed)</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_team">
-<code class="sig-name descname"><span class="pre">pick_team</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of a specific team in self based on the team’s name</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mercedes</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">)</span>
-<span class="n">alfa_romeo</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Have a look to <a class="reference internal" href="plotting.html#fastf1.plotting.TEAM_COLORS" title="fastf1.plotting.TEAM_COLORS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fastf1.plotting.TEAM_COLORS</span></code></a> for a quick reference on team names.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Team name</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_teams">
-<code class="sig-name descname"><span class="pre">pick_teams</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of the specified teams in self based on the teams’ name.
-This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_drivers_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_teams</span><span class="p">([</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>names</strong> (<em>iterable</em>) – Multiple team names</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_fastest">
-<code class="sig-name descname"><span class="pre">pick_fastest</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_fastest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_fastest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return the lap with the fastest lap time.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_quicklaps">
-<code class="sig-name descname"><span class="pre">pick_quicklaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return laps with <cite>LapTime</cite> faster than a certain limit.
-By default the threshold is 107% of the best <cite>LapTime</cite> of all laps in self.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>threshold</strong> (<em>optional</em><em>, </em><em>float</em>) – custom threshold coefficent
-(e.g. 1.05 for 105%)</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_tyre">
-<code class="sig-name descname"><span class="pre">pick_tyre</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compound</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_tyre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_tyre" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps in self which were done on a specific compound.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>compound</strong> (<em>string</em>) – may be “SOFT”, “MEDIUM”, “HARD”, “INTERMEDIATE” or “WET”</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_track_status">
-<code class="sig-name descname"><span class="pre">pick_track_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equals'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_track_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_track_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return laps set under a specific track status.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>status</strong> (<em>str</em>) – The track status as a string, e.g. ‘1’</p></li>
-<li><p><strong>how</strong> (<em>str</em>) – one of ‘equals’/’contains’
-For example, if how=’equals’, status=’2’ will only match ‘2’.
-If how=’contains’, status=’2’ will also match ‘267’ and similar</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_wo_box">
-<code class="sig-name descname"><span class="pre">pick_wo_box</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_wo_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_wo_box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select laps which are NOT in laps or out laps.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.pick_accurate">
-<code class="sig-name descname"><span class="pre">pick_accurate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_accurate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_accurate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Laps.iterlaps">
-<code class="sig-name descname"><span class="pre">iterlaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">require</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.iterlaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.iterlaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Iterator for iterating over all laps in self.</p>
-<p>This method wraps <code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.iterrows()</span></code>.
-It additionally provides the <cite>require</cite> keyword argument.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>require</strong> (<em>optional</em><em>, </em><em>iterable</em>) – Require is a list of column/telemetry channel names. All names listed in
-<cite>require</cite> must exist in the data and have a non-null value (tested with <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.is_null()</span></code>). The
-iterator only yields laps for which this is true. If require is left empty, the iterator will yield
-all laps.</p>
-</dd>
-<dt class="field-even">Yields</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="fastf1.core.Lap">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Lap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></p>
-<p>Object for accessing lap (timing) data of a single lap.</p>
-<p>This class wraps <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code>. It provides extra functionality for accessing a lap’s associated
-telemetry data.</p>
-<dl class="py method">
-<dt id="fastf1.core.Lap.telemetry">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">telemetry</span></code><a class="headerlink" href="#fastf1.core.Lap.telemetry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Telemetry data for this lap</p>
-<p>This is a cached (!) property for <a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a>. It will return the same value as <cite>get_telemetry</cite>
-but cache the result so that the involved processing is only done once.</p>
-<p>This is mainly provided for convenience and backwards compatibility.</p>
-<p>See <a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a> for more information.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Lap.get_telemetry">
-<code class="sig-name descname"><span class="pre">get_telemetry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap.get_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap.get_telemetry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Telemetry data for this lap</p>
-<p>Telemetry data is the result of merging the returned data from <a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> and <a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a>.
-This means that telemetry data at least partially contains interpolated values! Telemetry data additionally
-already has computed channels added (e.g. Distance).</p>
-<p>This method is provided for convenience and compatibility reasons. But using it does usually not produce
-the most accurate possible result.
-It is recommended to use <a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> or <a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a> when possible. This is also faster if
-merging of car and position data is not necessary and if not all computed channels are needed.</p>
-<p>Resampling during merging is done according to the frequency set by <code class="xref py py-attr docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Lap.get_car_data">
-<code class="sig-name descname"><span class="pre">get_car_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap.get_car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap.get_car_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Car data for this lap</p>
-<p>Slices the car data in <a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.car_data</span></code></a> using this lap and returns the result.</p>
-<p>The data returned by this method does not contain computed telemetry channels. The can be added by calling the
-appropriate <cite>add_*()</cite> method on the returned telemetry object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fastf1.core.Lap.get_pos_data">
-<code class="sig-name descname"><span class="pre">get_pos_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap.get_pos_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap.get_pos_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pos data for all laps in <cite>self</cite></p>
-<p>Slices the position data in <a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.pos_data</span></code></a> using this lap and returns the result.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments are passed to <a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Telemetry.slice_by_lap()</span></code></a></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
+<div class="section" id="driver">
+<h4>Driver<a class="headerlink" href="#driver" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="py class">
 <dt id="fastf1.core.Driver">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">Driver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Driver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Driver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -1439,6 +1763,36 @@ appropriate <cite>add_*()</cite> method on the returned telemetry object.</p>
 <p class="admonition-title">Note</p>
 <p>Driver data is only available if the Ergast api lookup did not fail.</p>
 </div>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.info" title="fastf1.core.Driver.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a></p></td>
+<td><p><cite>Driver.info</cite> contains some more info from the Ergast api</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Driver.dnf" title="fastf1.core.Driver.dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dnf</span></code></a></p></td>
+<td><p>True if driver did not finish</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.grid" title="fastf1.core.Driver.grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></a></p></td>
+<td><p>Grid position</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Driver.position" title="fastf1.core.Driver.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></a></p></td>
+<td><p>Finishing position</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.name" title="fastf1.core.Driver.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>Driver first name</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Driver.familyname" title="fastf1.core.Driver.familyname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">familyname</span></code></a></p></td>
+<td><p>Driver family name</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.team" title="fastf1.core.Driver.team"><code class="xref py py-obj docutils literal notranslate"><span class="pre">team</span></code></a></p></td>
+<td><p>Team name</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py attribute">
 <dt id="fastf1.core.Driver.info">
 <code class="sig-name descname"><span class="pre">info</span></code><a class="headerlink" href="#fastf1.core.Driver.info" title="Permalink to this definition">¶</a></dt>
@@ -1483,21 +1837,27 @@ appropriate <cite>add_*()</cite> method on the returned telemetry object.</p>
 
 </dd></dl>
 
-<dl class="py exception">
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="exceptions">
+<h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><dl class="py class">
 <dt id="fastf1.core.NoLapDataError">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">NoLapDataError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#NoLapDataError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.NoLapDataError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Raised if the API request does not fail but there is no usable data after processing the result.</p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">NoLapDataError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#NoLapDataError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.NoLapDataError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if the API request does not fail but there is no usable data after processing the result.</p>
 </dd></dl>
 
-<dl class="py exception">
+<dl class="py class">
 <dt id="fastf1.core.InvalidSessionError">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">InvalidSessionError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#InvalidSessionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.InvalidSessionError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Raised if no session for the specified event name, type and year
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.core.</span></code><code class="sig-name descname"><span class="pre">InvalidSessionError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#InvalidSessionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.InvalidSessionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if no session for the specified event name, type and year
 can be found.</p>
 </dd></dl>
 
+</div></blockquote>
+</div>
 </div>
 </div>
 

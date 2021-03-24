@@ -97,8 +97,24 @@
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../core.html#exceptions">Exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../core.html#api-reference">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../core.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../core.html#id1">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#get-session">get_session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#get-round">get_round</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../core.html#objects">Objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#weekend">Weekend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#session">Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#laps">Laps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#lap">Lap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#telemetry">Telemetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../core.html#driver">Driver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../core.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
@@ -269,16 +285,6 @@
 <span class="sd">    get_session</span>
 <span class="sd">    get_round</span>
 
-
-<span class="sd">Exceptions</span>
-<span class="sd">----------</span>
-
-<span class="sd">:class:`NoLapDataError` can be raised when calling :meth:`Session.load_laps`</span>
-<span class="sd">if the API does not return any usable data.</span>
-
-
-<span class="sd">API Reference</span>
-<span class="sd">-------------</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">ergast</span>
@@ -305,21 +311,36 @@
 <span class="n">D_LOOKUP</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">44</span><span class="p">,</span> <span class="s1">&#39;HAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">55</span><span class="p">,</span> <span class="s1">&#39;SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;LEC&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">33</span><span class="p">,</span> <span class="s1">&#39;VER&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;PER&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;RIC&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;NOR&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;RIC&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;NOR&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;VET&#39;</span><span class="p">,</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="s1">&#39;STR&#39;</span><span class="p">,</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;RIC&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;OCO&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="s1">&#39;ALO&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;OCO&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="s1">&#39;TSU&#39;</span><span class="p">,</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;GAS&#39;</span><span class="p">,</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">47</span><span class="p">,</span> <span class="s1">&#39;SCH&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;MAZ&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">47</span><span class="p">,</span> <span class="s1">&#39;MSC&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;MAZ&#39;</span><span class="p">,</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;RAI&#39;</span><span class="p">,</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="s1">&#39;GIO&#39;</span><span class="p">,</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;LAT&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">63</span><span class="p">,</span> <span class="s1">&#39;RUS&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">]]</span>
 
 
-<div class="viewcode-block" id="get_session"><a class="viewcode-back" href="../../fastf1.html#fastf1.core.get_session">[docs]</a><span class="k">def</span> <span class="nf">get_session</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_session"><a class="viewcode-back" href="../../fastf1.html#fastf1.get_session">[docs]</a><span class="k">def</span> <span class="nf">get_session</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a :class:`Session` or :class:`Weekend` object based on year,</span>
 <span class="sd">    event name and session name.</span>
 <span class="sd">    This function will take care of crafting an object</span>
 <span class="sd">    corresponding to the requested session.</span>
 <span class="sd">    If no session is specified, the full weekend is returned.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        Get the second free practice of the first race of 2021::</span>
+
+<span class="sd">            get_session(2021, 1, &#39;FP2&#39;)</span>
+
+<span class="sd">        Get the qualifying of the 2020 Austrian Grand Prix::</span>
+
+<span class="sd">            get_session(2020, &#39;Austria&#39;, &#39;Q&#39;)</span>
+
+<span class="sd">        Get the second day of pre-season testing of 2021::</span>
+
+<span class="sd">            get_session(2021, &#39;testing&#39;, 2)</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        year (number): Session year</span>
@@ -365,7 +386,7 @@
     <span class="k">return</span> <span class="n">weekend</span></div>
 
 
-<div class="viewcode-block" id="get_round"><a class="viewcode-back" href="../../core.html#fastf1.core.get_round">[docs]</a><span class="k">def</span> <span class="nf">get_round</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">match</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_round</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">match</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Get event number by year and (partial) event name</span>
 
 <span class="sd">    A fuzzy match is performed to find the most likely event for the provided name.</span>
@@ -389,7 +410,7 @@
     <span class="n">to_match</span> <span class="o">=</span> <span class="p">[</span><span class="n">build_string</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">races</span><span class="p">]</span>
     <span class="n">ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fuzz</span><span class="o">.</span><span class="n">partial_ratio</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">to_match</span><span class="p">])</span>
 
-    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">races</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ratios</span><span class="p">)][</span><span class="s1">&#39;round&#39;</span><span class="p">])</span></div>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">races</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ratios</span><span class="p">)][</span><span class="s1">&#39;round&#39;</span><span class="p">])</span>
 
 
 <span class="k">def</span> <span class="nf">_get_testing_week_event</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
@@ -414,7 +435,7 @@
     <span class="k">return</span> <span class="n">pre_season_week</span><span class="p">,</span> <span class="n">event</span>
 
 
-<div class="viewcode-block" id="Telemetry"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry">[docs]</a><span class="k">class</span> <span class="nc">Telemetry</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry">[docs]</a><span class="k">class</span> <span class="nc">Telemetry</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Multi-channel time series telemetry data</span>
 
 <span class="sd">    The object can contain multiple telemetry channels. Multiple telemetry objects with different channels</span>
@@ -529,7 +550,7 @@
         <span class="sd">&quot;&quot;&quot;For a nicer debugging experience; can view DataFrame through this property in various IDEs&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Telemetry.join"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.join">[docs]</a>    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.join"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.join">[docs]</a>    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Wraps :mod:`pandas.DataFrame.join` and adds metadata propagation.</span>
 
 <span class="sd">        When calling `self.join` metadata will be propagated from self to the joined dataframe.</span>
@@ -542,7 +563,7 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-<div class="viewcode-block" id="Telemetry.merge"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.merge"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Wraps :mod:`pandas.DataFrame.merge` and adds metadata propagation.</span>
 
 <span class="sd">        When calling `self.merge` metadata will be propagated from self to the merged dataframe.</span>
@@ -555,7 +576,7 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-<div class="viewcode-block" id="Telemetry.slice_by_mask"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.slice_by_mask">[docs]</a>    <span class="k">def</span> <span class="nf">slice_by_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.slice_by_mask"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.slice_by_mask">[docs]</a>    <span class="k">def</span> <span class="nf">slice_by_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Slice self using a boolean array as a mask.</span>
 
 <span class="sd">        Args:</span>
@@ -582,7 +603,7 @@
 
         <span class="k">return</span> <span class="n">data_slice</span></div>
 
-<div class="viewcode-block" id="Telemetry.slice_by_lap"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.slice_by_lap">[docs]</a>    <span class="k">def</span> <span class="nf">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_laps</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.slice_by_lap"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.slice_by_lap">[docs]</a>    <span class="k">def</span> <span class="nf">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_laps</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Slice self to only include data from the provided lap or laps.</span>
 
 <span class="sd">        .. note:: Self needs to contain a &#39;SessionTime&#39; column.</span>
@@ -623,7 +644,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_by_time</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">pad</span><span class="p">,</span> <span class="n">pad_side</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Telemetry.slice_by_time"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.slice_by_time">[docs]</a>    <span class="k">def</span> <span class="nf">slice_by_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.slice_by_time"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.slice_by_time">[docs]</a>    <span class="k">def</span> <span class="nf">slice_by_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Slice self to only include data in a specific time frame.</span>
 
 <span class="sd">        .. note:: Self needs to contain a &#39;SessionTime&#39; column. Slicing by time use the &#39;SessionTime&#39; as its reference.</span>
@@ -659,7 +680,7 @@
             <span class="k">return</span> <span class="n">data_slice</span>
         <span class="k">return</span> <span class="n">Telemetry</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Telemetry.merge_channels"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.merge_channels">[docs]</a>    <span class="k">def</span> <span class="nf">merge_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.merge_channels"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.merge_channels">[docs]</a>    <span class="k">def</span> <span class="nf">merge_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Merge telemetry objects containing different telemetry channels.</span>
 
 <span class="sd">        The two objects don&#39;t need to have a common time base. The data will be merged, optionally resampled and</span>
@@ -772,7 +793,7 @@
             <span class="n">resampled_columns</span><span class="p">[</span><span class="s1">&#39;Source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_source</span>
 
             <span class="c1"># join resampled columns and make &#39;Date&#39; a column again</span>
-            <span class="n">merged</span> <span class="o">=</span> <span class="n">Telemetry</span><span class="p">(</span><span class="n">resampled_columns</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Date&#39;</span><span class="p">})</span>
+            <span class="n">merged</span> <span class="o">=</span> <span class="n">Telemetry</span><span class="p">(</span><span class="n">resampled_columns</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Date&#39;</span><span class="p">})</span>
 
             <span class="c1"># recalculate the time columns</span>
             <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;SessionTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">t0_date</span>
@@ -787,7 +808,7 @@
 
         <span class="k">return</span> <span class="n">merged</span></div>
 
-<div class="viewcode-block" id="Telemetry.resample_channels"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.resample_channels">[docs]</a>    <span class="k">def</span> <span class="nf">resample_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_date_ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.resample_channels"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.resample_channels">[docs]</a>    <span class="k">def</span> <span class="nf">resample_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_date_ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resample telemetry data.</span>
 
 <span class="sd">        Convenience method for frequency conversion and resampling. Up and down sampling of data is supported.</span>
@@ -827,7 +848,7 @@
 
         <span class="k">return</span> <span class="n">new_tel</span></div>
 
-<div class="viewcode-block" id="Telemetry.fill_missing"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.fill_missing">[docs]</a>    <span class="k">def</span> <span class="nf">fill_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.fill_missing"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.fill_missing">[docs]</a>    <span class="k">def</span> <span class="nf">fill_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calculate missing values in self.</span>
 
 <span class="sd">        Only known telemetry channels will be interpolated. Unknown channels are skipped and returned unmodified.</span>
@@ -844,8 +865,10 @@
             <span class="k">if</span> <span class="n">ch</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">sig_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CHANNELS</span><span class="p">[</span><span class="n">ch</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
-
             <span class="k">if</span> <span class="n">sig_type</span> <span class="o">==</span> <span class="s1">&#39;continuous&#39;</span><span class="p">:</span>  <span class="c1"># yes, this is necessary to prevent pandas from crashing</span>
+                <span class="k">if</span> <span class="n">ret</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Interpolation not possible for telemetry &quot;</span>
+                                  <span class="s2">&quot;channel because dtype is &#39;object&#39;&quot;</span><span class="p">)</span>
                 <span class="n">missing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CHANNELS</span><span class="p">[</span><span class="n">ch</span><span class="p">][</span><span class="s1">&#39;missing&#39;</span><span class="p">]</span>
                 <span class="n">ret</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ch</span><span class="p">]</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ch</span><span class="p">]</span>\
                     <span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">missing</span><span class="p">,</span> <span class="n">limit_direction</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
@@ -868,7 +891,7 @@
 
         <span class="k">return</span> <span class="n">ret</span></div>
 
-<div class="viewcode-block" id="Telemetry.register_new_channel"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.register_new_channel">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Telemetry.register_new_channel"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.register_new_channel">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">register_new_channel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">signal_type</span><span class="p">,</span> <span class="n">interpolation_method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Register a custom telemetry channel.</span>
 
@@ -893,7 +916,7 @@
 
         <span class="bp">cls</span><span class="o">.</span><span class="n">_CHANNELS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">signal_type</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="n">interpolation_method</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="Telemetry.get_first_non_zero_time_index"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.get_first_non_zero_time_index">[docs]</a>    <span class="k">def</span> <span class="nf">get_first_non_zero_time_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.get_first_non_zero_time_index"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.get_first_non_zero_time_index">[docs]</a>    <span class="k">def</span> <span class="nf">get_first_non_zero_time_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the first index at which the &#39;Time&#39; value is not zero or NA/NaT&quot;&quot;&quot;</span>
         <span class="c1"># find first row where time is not zero; usually this is the first row but sometimes.....</span>
         <span class="n">i_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
@@ -901,7 +924,7 @@
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">i_arr</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="Telemetry.add_differential_distance"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.add_differential_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_differential_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.add_differential_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.add_differential_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_differential_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add column &#39;DifferentialDistance&#39; to self.</span>
 
 <span class="sd">        This column contains the distance driven between subsequent samples.</span>
@@ -921,7 +944,7 @@
             <span class="k">return</span> <span class="bp">self</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_differential_distance</span><span class="p">()}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Telemetry.add_distance"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.add_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.add_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.add_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add column &#39;Distance&#39; to self.</span>
 
 <span class="sd">        This column contains the distance driven since the first sample of self in meters.</span>
@@ -943,7 +966,7 @@
             <span class="k">return</span> <span class="bp">self</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Distance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">integrate_distance</span><span class="p">()}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Telemetry.add_relative_distance"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.add_relative_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_relative_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.add_relative_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.add_relative_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_relative_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add column &#39;RelativeDistance&#39; to self.</span>
 
 <span class="sd">        This column contains the distance driven since the first sample as</span>
@@ -972,7 +995,7 @@
             <span class="n">rel_dist</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">/</span> <span class="n">dist</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RelativeDistance&#39;</span><span class="p">:</span> <span class="n">rel_dist</span><span class="p">}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Telemetry.add_driver_ahead"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.add_driver_ahead">[docs]</a>    <span class="k">def</span> <span class="nf">add_driver_ahead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.add_driver_ahead"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.add_driver_ahead">[docs]</a>    <span class="k">def</span> <span class="nf">add_driver_ahead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add column &#39;DriverAhead&#39; and &#39;DistanceToDriverAhead&#39; to self.</span>
 
 <span class="sd">        DriverAhead: Driver number of the driver ahead as string</span>
@@ -1006,7 +1029,7 @@
         <span class="n">drv_ahead</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_driver_ahead</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">:</span> <span class="n">drv_ahead</span><span class="p">,</span> <span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">:</span> <span class="n">dist</span><span class="p">}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Telemetry.calculate_differential_distance"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.calculate_differential_distance">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_differential_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.calculate_differential_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.calculate_differential_distance">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_differential_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calculate the distance between subsequent samples of self.</span>
 
 <span class="sd">        Distance is in meters</span>
@@ -1024,7 +1047,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Telemetry.integrate_distance"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.integrate_distance">[docs]</a>    <span class="k">def</span> <span class="nf">integrate_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.integrate_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.integrate_distance">[docs]</a>    <span class="k">def</span> <span class="nf">integrate_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the distance driven since the first sample of self.</span>
 
 <span class="sd">        Distance is in meters. The data is produce by integration. Integration error will stack up when used for</span>
@@ -1039,7 +1062,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Telemetry.calculate_driver_ahead"><a class="viewcode-back" href="../../core.html#fastf1.core.Telemetry.calculate_driver_ahead">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_driver_ahead</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Telemetry.calculate_driver_ahead"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.calculate_driver_ahead">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_driver_ahead</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calculate driver ahead and distance to driver ahead.</span>
 
 <span class="sd">        Driver ahead: Driver number of the driver ahead as string</span>
@@ -1132,7 +1155,7 @@
         <span class="k">return</span> <span class="n">drv_ahead</span><span class="p">,</span> <span class="n">dist_to_drv_ahead</span></div></div>
 
 
-<div class="viewcode-block" id="Weekend"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend">[docs]</a><span class="k">class</span> <span class="nc">Weekend</span><span class="p">:</span>
+<div class="viewcode-block" id="Weekend"><a class="viewcode-back" href="../../core.html#fastf1.Weekend">[docs]</a><span class="k">class</span> <span class="nc">Weekend</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Object for accessing weekend specific data.</span>
 
 <span class="sd">    If you want to handle multiple sessions from the same race event you can use a :class:Weekend instance.</span>
@@ -1168,7 +1191,7 @@
                 <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="n">exception</span><span class="p">)</span>
                 <span class="n">exit</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Weekend.get_practice"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.get_practice">[docs]</a>    <span class="k">def</span> <span class="nf">get_practice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.get_practice"><a class="viewcode-back" href="../../core.html#fastf1.Weekend.get_practice">[docs]</a>    <span class="k">def</span> <span class="nf">get_practice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the specified practice session.</span>
 <span class="sd">        Args:</span>
 <span class="sd">            number: 1, 2 or 3 - Free practice session number</span>
@@ -1177,7 +1200,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Practice </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Weekend.get_quali"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.get_quali">[docs]</a>    <span class="k">def</span> <span class="nf">get_quali</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.get_quali"><a class="viewcode-back" href="../../core.html#fastf1.Weekend.get_quali">[docs]</a>    <span class="k">def</span> <span class="nf">get_quali</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the qualifying session.</span>
 
 <span class="sd">        Returns:</span>
@@ -1185,7 +1208,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Weekend.get_race"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.get_race">[docs]</a>    <span class="k">def</span> <span class="nf">get_race</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.get_race"><a class="viewcode-back" href="../../core.html#fastf1.Weekend.get_race">[docs]</a>    <span class="k">def</span> <span class="nf">get_race</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the race session.</span>
 
 <span class="sd">        Returns:</span>
@@ -1193,7 +1216,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Weekend.is_testing"><a class="viewcode-back" href="../../core.html#fastf1.core.Weekend.is_testing">[docs]</a>    <span class="k">def</span> <span class="nf">is_testing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Weekend.is_testing"><a class="viewcode-back" href="../../core.html#fastf1.Weekend.is_testing">[docs]</a>    <span class="k">def</span> <span class="nf">is_testing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Indicates whether this &#39;weekend&#39; is a testing event. (In which case is usually is not an actual weekend.)</span>
 
 <span class="sd">        Returns:</span>
@@ -1217,7 +1240,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="Session"><a class="viewcode-back" href="../../core.html#fastf1.core.Session">[docs]</a><span class="k">class</span> <span class="nc">Session</span><span class="p">:</span>
+<div class="viewcode-block" id="Session"><a class="viewcode-back" href="../../core.html#fastf1.Session">[docs]</a><span class="k">class</span> <span class="nc">Session</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Object for accessing session specific data.</span>
 
 <span class="sd">    The session class will usually be your starting point. This object will have various information about</span>
@@ -1308,7 +1331,7 @@
 
         <span class="k">return</span> <span class="n">date</span>
 
-<div class="viewcode-block" id="Session.load_laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_laps">[docs]</a>    <span class="k">def</span> <span class="nf">load_laps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_telemetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.load_laps"><a class="viewcode-back" href="../../core.html#fastf1.Session.load_laps">[docs]</a>    <span class="k">def</span> <span class="nf">load_laps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_telemetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load lap timing information and telemetry data.</span>
 
 <span class="sd">        This method creates a :class:`Laps` instance (:attr:`Session.laps`) which subclasses :class:`pandas.DataFrame`</span>
@@ -1328,8 +1351,9 @@
 <span class="sd">            data of different laps.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            with_telemetry (bool): Load telemetry data also. (Same as calling :meth:`Session.load_telemetry` manually)</span>
-<span class="sd">            livedata (fastf1.api.LivetimingResponse, optional) :</span>
+<span class="sd">            with_telemetry (bool): Load telemetry data also.</span>
+<span class="sd">                (Same as calling :meth:`Session.load_telemetry` manually)</span>
+<span class="sd">            livedata (:class:`fastf1.livetiming.data.LiveTimingData`, optional) :</span>
 <span class="sd">                instead of requesting the data from the api, locally saved</span>
 <span class="sd">                livetiming data can be used as a data source</span>
 
@@ -1503,7 +1527,7 @@
             <span class="k">if</span> <span class="n">integrity_errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Driver </span><span class="si">{</span><span class="n">drv</span><span class="si">:</span><span class="s2"> &gt;2</span><span class="si">}</span><span class="s2">: Lap timing integrity check failed for </span><span class="si">{</span><span class="n">integrity_errors</span><span class="si">}</span><span class="s2"> lap(s)&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Session.load_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.load_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">load_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.load_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.Session.load_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">load_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load telemetry data from API.</span>
 
 <span class="sd">        The raw data is divided into car data (Speed, RPM, ...) and position data (coordinates, on/off track). For each</span>
@@ -1519,7 +1543,7 @@
 <span class="sd">        :attr:`Session.laps`.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            response (fastf1.api.LivetimingResponse, optional) :</span>
+<span class="sd">            livedata (:class:`fastf1.livetiming.data.LiveTimingData`, optional) :</span>
 <span class="sd">                instead of requesting the data from the api, locally saved</span>
 <span class="sd">                livetiming data can be used as a data source</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1549,7 +1573,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;LapStartDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">t0_date</span></div>
 
-<div class="viewcode-block" id="Session.get_driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Session.get_driver">[docs]</a>    <span class="k">def</span> <span class="nf">get_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.get_driver"><a class="viewcode-back" href="../../core.html#fastf1.Session.get_driver">[docs]</a>    <span class="k">def</span> <span class="nf">get_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a driver object which contains additional information about a driver.</span>
 
@@ -1592,7 +1616,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">t0_date</span> <span class="o">=</span> <span class="n">date_offset</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Laps"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps">[docs]</a><span class="k">class</span> <span class="nc">Laps</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps"><a class="viewcode-back" href="../../core.html#fastf1.Laps">[docs]</a><span class="k">class</span> <span class="nc">Laps</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Object for accessing lap (timing) data of multiple laps.</span>
 
 <span class="sd">    Args:</span>
@@ -1709,7 +1733,7 @@
 <span class="sd">            instance of :class:`Telemetry`&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_telemetry</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Laps.get_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.get_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">get_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.get_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.Laps.get_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">get_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Telemetry data for all laps in `self`</span>
 
 <span class="sd">        Telemetry data is the result of merging the returned data from :meth:`get_car_data` and :meth:`get_pos_data`.</span>
@@ -1734,7 +1758,7 @@
         <span class="n">merged</span> <span class="o">=</span> <span class="n">pos_data</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">car_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">merged</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Laps.get_car_data"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.get_car_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_car_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.get_car_data"><a class="viewcode-back" href="../../core.html#fastf1.Laps.get_car_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_car_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Car data for all laps in `self`</span>
 
 <span class="sd">        Slices the car data in :attr:`Session.car_data` using this set of laps and returns the result.</span>
@@ -1759,7 +1783,7 @@
         <span class="n">car_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">car_data</span><span class="p">[</span><span class="n">drv_num</span><span class="p">]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">car_data</span></div>
 
-<div class="viewcode-block" id="Laps.get_pos_data"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.get_pos_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_pos_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.get_pos_data"><a class="viewcode-back" href="../../core.html#fastf1.Laps.get_pos_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_pos_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Pos data for all laps in `self`</span>
 
 <span class="sd">        Slices the position data in :attr:`Session.pos_data` using this set of laps and returns the result.</span>
@@ -1780,7 +1804,7 @@
         <span class="n">pos_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pos_data</span></div>
 
-<div class="viewcode-block" id="Laps.pick_driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_driver">[docs]</a>    <span class="k">def</span> <span class="nf">pick_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_driver"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_driver">[docs]</a>    <span class="k">def</span> <span class="nf">pick_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return all laps of a specific driver in self based on the driver&#39;s three letters identifier or</span>
 <span class="sd">        based on the driver number ::</span>
 
@@ -1800,7 +1824,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">identifier</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Laps.pick_drivers"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_drivers">[docs]</a>    <span class="k">def</span> <span class="nf">pick_drivers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifiers</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_drivers"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_drivers">[docs]</a>    <span class="k">def</span> <span class="nf">pick_drivers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifiers</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return all laps of the specified drivers in self based on the drivers&#39; three letters identifier</span>
 <span class="sd">        or based on the driver number. This is the same as :meth:`Laps.pick_driver` but for multiple drivers at once. ::</span>
 
@@ -1818,7 +1842,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="p">[(</span><span class="n">drv</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">|</span> <span class="n">num</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">numbers</span><span class="p">))]</span></div>
 
-<div class="viewcode-block" id="Laps.pick_team"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_team">[docs]</a>    <span class="k">def</span> <span class="nf">pick_team</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_team"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_team">[docs]</a>    <span class="k">def</span> <span class="nf">pick_team</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return all laps of a specific team in self based on the team&#39;s name ::</span>
 
 <span class="sd">            mercedes = ff1.pick_team(&#39;Mercedes&#39;)</span>
@@ -1834,7 +1858,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Laps.pick_teams"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_teams">[docs]</a>    <span class="k">def</span> <span class="nf">pick_teams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_teams"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_teams">[docs]</a>    <span class="k">def</span> <span class="nf">pick_teams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return all laps of the specified teams in self based on the teams&#39; name.</span>
 <span class="sd">        This is the same as :meth:`Laps.pick_team` but for multiple teams at once. ::</span>
 
@@ -1848,7 +1872,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">names</span><span class="p">)]</span></div>
 
-<div class="viewcode-block" id="Laps.pick_fastest"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_fastest">[docs]</a>    <span class="k">def</span> <span class="nf">pick_fastest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_fastest"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_fastest">[docs]</a>    <span class="k">def</span> <span class="nf">pick_fastest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return the lap with the fastest lap time.</span>
 
 <span class="sd">        Returns:</span>
@@ -1861,7 +1885,7 @@
 
         <span class="k">return</span> <span class="n">lap</span></div>
 
-<div class="viewcode-block" id="Laps.pick_quicklaps"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_quicklaps">[docs]</a>    <span class="k">def</span> <span class="nf">pick_quicklaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_quicklaps"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_quicklaps">[docs]</a>    <span class="k">def</span> <span class="nf">pick_quicklaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return laps with `LapTime` faster than a certain limit.</span>
 <span class="sd">        By default the threshold is 107% of the best `LapTime` of all laps in self.</span>
 
@@ -1878,7 +1902,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">time_threshold</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Laps.pick_tyre"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_tyre">[docs]</a>    <span class="k">def</span> <span class="nf">pick_tyre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compound</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_tyre"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_tyre">[docs]</a>    <span class="k">def</span> <span class="nf">pick_tyre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compound</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return all laps in self which were done on a specific compound.</span>
 
 <span class="sd">        Args:</span>
@@ -1889,7 +1913,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">compound</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Laps.pick_track_status"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_track_status">[docs]</a>    <span class="k">def</span> <span class="nf">pick_track_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;equals&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_track_status"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_track_status">[docs]</a>    <span class="k">def</span> <span class="nf">pick_track_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;equals&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return laps set under a specific track status.</span>
 
 <span class="sd">        Args:</span>
@@ -1907,7 +1931,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value &#39;</span><span class="si">{</span><span class="n">how</span><span class="si">}</span><span class="s2">&#39; for kwarg &#39;how&#39;&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Laps.pick_wo_box"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_wo_box">[docs]</a>    <span class="k">def</span> <span class="nf">pick_wo_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_wo_box"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_wo_box">[docs]</a>    <span class="k">def</span> <span class="nf">pick_wo_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select laps which are NOT in laps or out laps.</span>
 
 <span class="sd">        Returns:</span>
@@ -1915,7 +1939,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">])]</span></div>
 
-<div class="viewcode-block" id="Laps.pick_accurate"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.pick_accurate">[docs]</a>    <span class="k">def</span> <span class="nf">pick_accurate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Laps.pick_accurate"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_accurate">[docs]</a>    <span class="k">def</span> <span class="nf">pick_accurate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return laps which pass the accuracy validation check (lap[&#39;IsAccurate&#39;] is True).</span>
 
 <span class="sd">        Returns:</span>
@@ -1923,7 +1947,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;IsAccurate&#39;</span><span class="p">]]</span></div>
 
-<div class="viewcode-block" id="Laps.iterlaps"><a class="viewcode-back" href="../../core.html#fastf1.core.Laps.iterlaps">[docs]</a>    <span class="k">def</span> <span class="nf">iterlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">require</span><span class="o">=</span><span class="p">()):</span>
+<div class="viewcode-block" id="Laps.iterlaps"><a class="viewcode-back" href="../../core.html#fastf1.Laps.iterlaps">[docs]</a>    <span class="k">def</span> <span class="nf">iterlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">require</span><span class="o">=</span><span class="p">()):</span>
         <span class="sd">&quot;&quot;&quot;Iterator for iterating over all laps in self.</span>
 
 <span class="sd">        This method wraps :meth:`pandas.DataFrame.iterrows`.</span>
@@ -1948,7 +1972,7 @@
             <span class="k">yield</span> <span class="n">index</span><span class="p">,</span> <span class="n">lap</span></div></div>
 
 
-<div class="viewcode-block" id="Lap"><a class="viewcode-back" href="../../core.html#fastf1.core.Lap">[docs]</a><span class="k">class</span> <span class="nc">Lap</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+<div class="viewcode-block" id="Lap"><a class="viewcode-back" href="../../core.html#fastf1.Lap">[docs]</a><span class="k">class</span> <span class="nc">Lap</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Object for accessing lap (timing) data of a single lap.</span>
 
 <span class="sd">    This class wraps :class:`pandas.Series`. It provides extra functionality for accessing a lap&#39;s associated</span>
@@ -1978,7 +2002,7 @@
 <span class="sd">            instance of :class:`Telemetry`&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_telemetry</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Lap.get_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.core.Lap.get_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">get_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Lap.get_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.Lap.get_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">get_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Telemetry data for this lap</span>
 
 <span class="sd">        Telemetry data is the result of merging the returned data from :meth:`get_car_data` and :meth:`get_pos_data`.</span>
@@ -2001,7 +2025,7 @@
         <span class="n">merged</span> <span class="o">=</span> <span class="n">pos_data</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">car_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">merged</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Lap.get_car_data"><a class="viewcode-back" href="../../core.html#fastf1.core.Lap.get_car_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_car_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Lap.get_car_data"><a class="viewcode-back" href="../../core.html#fastf1.Lap.get_car_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_car_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Car data for this lap</span>
 
 <span class="sd">        Slices the car data in :attr:`Session.car_data` using this lap and returns the result.</span>
@@ -2018,7 +2042,7 @@
         <span class="n">car_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">car_data</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">car_data</span></div>
 
-<div class="viewcode-block" id="Lap.get_pos_data"><a class="viewcode-back" href="../../core.html#fastf1.core.Lap.get_pos_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_pos_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Lap.get_pos_data"><a class="viewcode-back" href="../../core.html#fastf1.Lap.get_pos_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_pos_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Pos data for all laps in `self`</span>
 
 <span class="sd">        Slices the position data in :attr:`Session.pos_data` using this lap and returns the result.</span>
@@ -2033,7 +2057,7 @@
         <span class="k">return</span> <span class="n">pos_data</span></div></div>
 
 
-<div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../core.html#fastf1.core.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">:</span>
+<div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../core.html#fastf1.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Driver class that provides some information on drivers and their finishing results.</span>
 
 <span class="sd">    see also :meth:`Session.get_driver`</span>
@@ -2079,13 +2103,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;Constructor&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="NoLapDataError"><a class="viewcode-back" href="../../core.html#fastf1.core.NoLapDataError">[docs]</a><span class="k">class</span> <span class="nc">NoLapDataError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="NoLapDataError"><a class="viewcode-back" href="../../core.html#fastf1.NoLapDataError">[docs]</a><span class="k">class</span> <span class="nc">NoLapDataError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised if the API request does not fail but there is no usable data after processing the result.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">NoLapDataError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Failed to load session because the API did not provide any usable data.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="InvalidSessionError"><a class="viewcode-back" href="../../core.html#fastf1.core.InvalidSessionError">[docs]</a><span class="k">class</span> <span class="nc">InvalidSessionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="InvalidSessionError"><a class="viewcode-back" href="../../core.html#fastf1.InvalidSessionError">[docs]</a><span class="k">class</span> <span class="nc">InvalidSessionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised if no session for the specified event name, type and year</span>
 <span class="sd">    can be found.&quot;&quot;&quot;</span>
 
