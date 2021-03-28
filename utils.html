@@ -251,14 +251,18 @@ You should always verify the result against sector time differences or find a
 different way for verification.</p>
 </div>
 <p>Here is an example that compares the quickest laps of Leclerc and
-Hamilton from Barcelona 2019 Qualifying:</p>
+Hamilton from Bahrain 2021 Qualifying:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">plotting</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">fastf1.livetiming.data</span> <span class="kn">import</span> <span class="n">LiveTimingData</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="n">quali</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
-<span class="n">laps</span> <span class="o">=</span> <span class="n">quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="n">plotting</span><span class="o">.</span><span class="n">setup_mpl</span><span class="p">()</span>
+
+<span class="n">livedata</span> <span class="o">=</span> <span class="n">LiveTimingData</span><span class="p">(</span><span class="s1">&#39;recording.txt&#39;</span><span class="p">)</span>
+<span class="n">quali</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="n">laps</span> <span class="o">=</span> <span class="n">quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
 <span class="n">lec</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 <span class="n">ham</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;HAM&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 
