@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core - Core module &mdash; Fast F1 2.1.4 documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1 2.1.5 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1.4
+                2.1.5
               </div>
             
           
@@ -156,6 +156,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
@@ -409,16 +410,16 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Weekend.get_practice" title="fastf1.core.Weekend.get_practice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_practice</span></code></a>(number)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_practice</span></code>(number)</p></td>
 <td><p>Return the specified practice session.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Weekend.get_quali" title="fastf1.core.Weekend.get_quali"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_quali</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_quali</span></code>()</p></td>
 <td><p>Return the qualifying session.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Weekend.get_race" title="fastf1.core.Weekend.get_race"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_race</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_race</span></code>()</p></td>
 <td><p>Return the race session.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Weekend.is_testing" title="fastf1.core.Weekend.is_testing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code>()</p></td>
 <td><p>Indicates whether this ‘weekend’ is a testing event.</p></td>
 </tr>
 </tbody>
@@ -430,10 +431,10 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Weekend.name" title="fastf1.core.Weekend.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
 <td><p>Weekend name, e.g.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Weekend.date" title="fastf1.core.Weekend.date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></p></td>
 <td><p>Weekend race date (YYYY-MM-DD)</p></td>
 </tr>
 </tbody>
@@ -520,22 +521,22 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.laps" title="fastf1.core.Session.laps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></p></td>
 <td><p>Instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> containing all laps from all drivers in this session.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.t0_date" title="fastf1.core.Session.t0_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></p></td>
 <td><p>Date timestamp which marks the beginning of the data stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.session_start_time" title="fastf1.core.Session.session_start_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></p></td>
 <td><p>Session time at which the session was started.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></p></td>
 <td><p>Dictionary of car telemetry (Speed, RPM, etc.) as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
 <td><p>Dictionary of car position data as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.drivers" title="fastf1.core.Session.drivers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
 <td><p>List of all drivers that took part in this session; contains driver numbers as string.</p></td>
 </tr>
 </tbody>
@@ -547,13 +548,13 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_laps</span></code></a>([with_telemetry, livedata])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_laps</span></code>([with_telemetry, livedata])</p></td>
 <td><p>Load lap timing information and telemetry data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.load_telemetry" title="fastf1.core.Session.load_telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_telemetry</span></code></a>([livedata])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_telemetry</span></code>([livedata])</p></td>
 <td><p>Load telemetry data from API.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.get_driver" title="fastf1.core.Session.get_driver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_driver</span></code></a>(identifier)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_driver</span></code>(identifier)</p></td>
 <td><p>Get a driver object which contains additional information about a driver.</p></td>
 </tr>
 </tbody>
@@ -766,13 +767,13 @@ after it has ended)</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.QUICKLAP_THRESHOLD" title="fastf1.core.Laps.QUICKLAP_THRESHOLD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code></p></td>
 <td><p>Used to determine ‘quick’ laps.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.base_class_view" title="fastf1.core.Laps.base_class_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></p></td>
 <td><p>For a nicer debugging experience; can now view as dataframe in various IDEs</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.telemetry" title="fastf1.core.Laps.telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">telemetry</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">telemetry</span></code></p></td>
 <td><p>Telemetry data for all laps in <cite>self</cite></p></td>
 </tr>
 </tbody>
@@ -784,46 +785,46 @@ after it has ended)</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.get_telemetry" title="fastf1.core.Laps.get_telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_telemetry</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_telemetry</span></code>()</p></td>
 <td><p>Telemetry data for all laps in <cite>self</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.get_car_data" title="fastf1.core.Laps.get_car_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_car_data</span></code></a>(**kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_car_data</span></code>(**kwargs)</p></td>
 <td><p>Car data for all laps in <cite>self</cite></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.get_pos_data" title="fastf1.core.Laps.get_pos_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code></a>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code>(**kwargs)</p></td>
 <td><p>Pos data for all laps in <cite>self</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_driver</span></code></a>(identifier)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_driver</span></code>(identifier)</p></td>
 <td><p>Select and return all laps of a specific driver in self based on the driver’s three letters identifier or based on the driver number .</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_drivers" title="fastf1.core.Laps.pick_drivers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_drivers</span></code></a>(identifiers)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_drivers</span></code>(identifiers)</p></td>
 <td><p>Select and return all laps of the specified drivers in self based on the drivers’ three letters identifier or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once. ::.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_team</span></code></a>(name)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_team</span></code>(name)</p></td>
 <td><p>Select and return all laps of a specific team in self based on the team’s name .</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_teams" title="fastf1.core.Laps.pick_teams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_teams</span></code></a>(names)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_teams</span></code>(names)</p></td>
 <td><p>Select and return all laps of the specified teams in self based on the teams’ name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once. ::.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_fastest" title="fastf1.core.Laps.pick_fastest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_fastest</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_fastest</span></code>()</p></td>
 <td><p>Select and return the lap with the fastest lap time.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_quicklaps" title="fastf1.core.Laps.pick_quicklaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_quicklaps</span></code></a>([threshold])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_quicklaps</span></code>([threshold])</p></td>
 <td><p>Select and return laps with <cite>LapTime</cite> faster than a certain limit.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_tyre" title="fastf1.core.Laps.pick_tyre"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_tyre</span></code></a>(compound)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_tyre</span></code>(compound)</p></td>
 <td><p>Select and return all laps in self which were done on a specific compound.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_track_status" title="fastf1.core.Laps.pick_track_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_track_status</span></code></a>(status[, how])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_track_status</span></code>(status[, how])</p></td>
 <td><p>Select and return laps set under a specific track status.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_wo_box" title="fastf1.core.Laps.pick_wo_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_wo_box</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_wo_box</span></code>()</p></td>
 <td><p>Select laps which are NOT in laps or out laps.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Laps.pick_accurate" title="fastf1.core.Laps.pick_accurate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_accurate</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_accurate</span></code>()</p></td>
 <td><p>Select and return laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Laps.iterlaps" title="fastf1.core.Laps.iterlaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterlaps</span></code></a>([require])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterlaps</span></code>([require])</p></td>
 <td><p>Iterator for iterating over all laps in self.</p></td>
 </tr>
 </tbody>
@@ -1120,7 +1121,7 @@ telemetry data.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Lap.telemetry" title="fastf1.core.Lap.telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">telemetry</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">telemetry</span></code></p></td>
 <td><p>Telemetry data for this lap</p></td>
 </tr>
 </tbody>
@@ -1132,13 +1133,13 @@ telemetry data.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_telemetry</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_telemetry</span></code>()</p></td>
 <td><p>Telemetry data for this lap</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_car_data</span></code></a>(**kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_car_data</span></code>(**kwargs)</p></td>
 <td><p>Car data for this lap</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code></a>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code>(**kwargs)</p></td>
 <td><p>Pos data for all laps in <cite>self</cite></p></td>
 </tr>
 </tbody>
@@ -1321,10 +1322,10 @@ returned as <code class="xref py py-class docutils literal notranslate"><span cl
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.TELEMETRY_FREQUENCY" title="fastf1.core.Telemetry.TELEMETRY_FREQUENCY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code></p></td>
 <td><p>Defines the frequency used when resampling the telemetry data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.base_class_view" title="fastf1.core.Telemetry.base_class_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></p></td>
 <td><p>For a nicer debugging experience; can view DataFrame through this property in various IDEs</p></td>
 </tr>
 </tbody>
@@ -1336,55 +1337,55 @@ returned as <code class="xref py py-class docutils literal notranslate"><span cl
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.join" title="fastf1.core.Telemetry.join"><code class="xref py py-obj docutils literal notranslate"><span class="pre">join</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">join</span></code>(*args, **kwargs)</p></td>
 <td><p>Wraps <code class="xref py py-mod docutils literal notranslate"><span class="pre">pandas.DataFrame.join</span></code> and adds metadata propagation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.merge" title="fastf1.core.Telemetry.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code>(*args, **kwargs)</p></td>
 <td><p>Wraps <code class="xref py py-mod docutils literal notranslate"><span class="pre">pandas.DataFrame.merge</span></code> and adds metadata propagation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.slice_by_mask" title="fastf1.core.Telemetry.slice_by_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_mask</span></code></a>(mask[, pad, pad_side])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_mask</span></code>(mask[, pad, pad_side])</p></td>
 <td><p>Slice self using a boolean array as a mask.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.slice_by_lap" title="fastf1.core.Telemetry.slice_by_lap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_lap</span></code></a>(ref_laps[, pad, pad_side, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_lap</span></code>(ref_laps[, pad, pad_side, …])</p></td>
 <td><p>Slice self to only include data from the provided lap or laps.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.slice_by_time" title="fastf1.core.Telemetry.slice_by_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_time</span></code></a>(start_time, end_time[, pad, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_time</span></code>(start_time, end_time[, pad, …])</p></td>
 <td><p>Slice self to only include data in a specific time frame.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.merge_channels" title="fastf1.core.Telemetry.merge_channels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_channels</span></code></a>(other[, frequency])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_channels</span></code>(other[, frequency])</p></td>
 <td><p>Merge telemetry objects containing different telemetry channels.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.resample_channels" title="fastf1.core.Telemetry.resample_channels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample_channels</span></code></a>([rule, new_date_ref])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample_channels</span></code>([rule, new_date_ref])</p></td>
 <td><p>Resample telemetry data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.fill_missing" title="fastf1.core.Telemetry.fill_missing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_missing</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_missing</span></code>()</p></td>
 <td><p>Calculate missing values in self.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.register_new_channel" title="fastf1.core.Telemetry.register_new_channel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_new_channel</span></code></a>(name, signal_type[, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_new_channel</span></code>(name, signal_type[, …])</p></td>
 <td><p>Register a custom telemetry channel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.get_first_non_zero_time_index" title="fastf1.core.Telemetry.get_first_non_zero_time_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_first_non_zero_time_index</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_first_non_zero_time_index</span></code>()</p></td>
 <td><p>Return the first index at which the ‘Time’ value is not zero or NA/NaT</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_differential_distance" title="fastf1.core.Telemetry.add_differential_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_differential_distance</span></code></a>([drop_existing])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_differential_distance</span></code>([drop_existing])</p></td>
 <td><p>Add column ‘DifferentialDistance’ to self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_distance" title="fastf1.core.Telemetry.add_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_distance</span></code></a>([drop_existing])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_distance</span></code>([drop_existing])</p></td>
 <td><p>Add column ‘Distance’ to self.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_relative_distance" title="fastf1.core.Telemetry.add_relative_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_relative_distance</span></code></a>([drop_existing])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_relative_distance</span></code>([drop_existing])</p></td>
 <td><p>Add column ‘RelativeDistance’ to self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.add_driver_ahead" title="fastf1.core.Telemetry.add_driver_ahead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_driver_ahead</span></code></a>([drop_existing])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_driver_ahead</span></code>([drop_existing])</p></td>
 <td><p>Add column ‘DriverAhead’ and ‘DistanceToDriverAhead’ to self.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.calculate_differential_distance" title="fastf1.core.Telemetry.calculate_differential_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_differential_distance</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_differential_distance</span></code>()</p></td>
 <td><p>Calculate the distance between subsequent samples of self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.integrate_distance" title="fastf1.core.Telemetry.integrate_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">integrate_distance</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">integrate_distance</span></code>()</p></td>
 <td><p>Return the distance driven since the first sample of self.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Telemetry.calculate_driver_ahead" title="fastf1.core.Telemetry.calculate_driver_ahead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_driver_ahead</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_driver_ahead</span></code>()</p></td>
 <td><p>Calculate driver ahead and distance to driver ahead.</p></td>
 </tr>
 </tbody>
@@ -1770,25 +1771,25 @@ a long distance). If in doubt, do sanity checks (against the legacy version or i
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.info" title="fastf1.core.Driver.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></p></td>
 <td><p><cite>Driver.info</cite> contains some more info from the Ergast api</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Driver.dnf" title="fastf1.core.Driver.dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dnf</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dnf</span></code></p></td>
 <td><p>True if driver did not finish</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.grid" title="fastf1.core.Driver.grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></p></td>
 <td><p>Grid position</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Driver.position" title="fastf1.core.Driver.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></p></td>
 <td><p>Finishing position</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.name" title="fastf1.core.Driver.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
 <td><p>Driver first name</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Driver.familyname" title="fastf1.core.Driver.familyname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">familyname</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">familyname</span></code></p></td>
 <td><p>Driver family name</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Driver.team" title="fastf1.core.Driver.team"><code class="xref py py-obj docutils literal notranslate"><span class="pre">team</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">team</span></code></p></td>
 <td><p>Team name</p></td>
 </tr>
 </tbody>

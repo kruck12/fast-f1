@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Overview: module code &mdash; Fast F1 2.1.5 documentation</title>
+  <title>fastf1 &mdash; Fast F1 2.1.4 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.5
+                2.1.4
               </div>
             
           
@@ -154,7 +154,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
@@ -214,7 +213,9 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Overview: module code</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>fastf1</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -229,15 +230,108 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="fastf1/api.html">fastf1.api</a></li>
-<li><a href="fastf1/core.html">fastf1.core</a></li>
-<li><a href="fastf1/legacy.html">fastf1.legacy</a></li>
-<li><a href="fastf1/livetiming/client.html">fastf1.livetiming.client</a></li>
-<li><a href="fastf1/livetiming/data.html">fastf1.livetiming.data</a></li>
-<li><a href="fastf1/plotting.html">fastf1.plotting</a></li>
-<li><a href="fastf1/utils.html">fastf1.utils</a></li>
-</ul>
+  <h1>Source code for fastf1</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Introduction</span>
+<span class="sd">============</span>
+
+<span class="sd">This package features two main online sources of data:</span>
+<span class="sd">    - The official f1 data stream -&gt;</span>
+<span class="sd">      `f1-live &lt;https://www.formula1.com/en/f1-live.html&gt;`_</span>
+<span class="sd">    - Ergast web api -&gt; `ergast.com &lt;http://ergast.com/mrd/&gt;`_</span>
+
+<span class="sd">Car position, speed traces, tyres, timings and weekend history are some</span>
+<span class="sd">of the many available resources. No formula1 account is needed.</span>
+
+<span class="sd">The library is designed to be interfaced with matplotlib (although you</span>
+<span class="sd">can use whatever you want) but there is a neat :mod:`fastf1.plotting` module which</span>
+<span class="sd">you can use to create nice graphs more easily.</span>
+
+<span class="sd">Modules handle big chunks of data (~50-100mb per session) so most of the</span>
+<span class="sd">information is stored locally as cached requests (be aware).</span>
+
+<span class="sd">Have fun!</span>
+
+<span class="sd">This module was originally developed by Ax6.</span>
+
+<span class="sd">This fork is maintained by theOehrly.</span>
+<span class="sd">I&#39;m very grateful for all the work that was done previously by Ax6!</span>
+
+<span class="sd">Getting started</span>
+<span class="sd">===============</span>
+
+<span class="sd">Setting up a running snippet is straightforward::</span>
+
+<span class="sd">    import fastf1 as ff1</span>
+
+<span class="sd">    ff1.Cache.enable_cache(&#39;path/to/folder/for/cache&#39;)  # optional but highly recommended</span>
+
+<span class="sd">    monza_quali = ff1.get_session(2019, &#39;Monza&#39;, &#39;Q&#39;)</span>
+
+<span class="sd">    vettel = monza_quali.get_driver(&#39;VET&#39;)</span>
+<span class="sd">    print(f&quot;Pronto {vettel.name}?&quot;)</span>
+<span class="sd">    # Pronto Se🅱️astian?</span>
+
+<span class="sd">For some more advanced stuff, just a few more steps::</span>
+
+<span class="sd">    from matplotlib import pyplot as plt</span>
+<span class="sd">    from fastf1 import plotting</span>
+
+<span class="sd">    plotting.setup_mpl()</span>
+
+<span class="sd">    laps = monza_quali.load_laps(with_telemetry=True)</span>
+<span class="sd">    fast_leclerc = laps.pick_driver(&#39;LEC&#39;).pick_fastest()</span>
+<span class="sd">    lec_car_data = fast_leclerc.get_car_data()</span>
+<span class="sd">    t = lec_car_data[&#39;Time&#39;]</span>
+<span class="sd">    vCar = lec_car_data[&#39;Speed&#39;]</span>
+
+<span class="sd">    # The rest is just plotting</span>
+<span class="sd">    fig, ax = plt.subplots()</span>
+<span class="sd">    ax.plot(t, vCar, label=&#39;Fast&#39;)</span>
+<span class="sd">    ax.set_xlabel(&#39;Time&#39;)</span>
+<span class="sd">    ax.set_ylabel(&#39;Speed [Km/h]&#39;)</span>
+<span class="sd">    ax.set_title(&#39;Leclerc is&#39;)</span>
+<span class="sd">    ax.legend()</span>
+<span class="sd">    plt.show()</span>
+
+<span class="sd">.. image:: _static/gettingstarted.svg</span>
+<span class="sd">    :target: _static/gettingstarted.svg</span>
+
+
+<span class="sd">It is not necessary to enable the usage of the cache but it is highly recommended. Simply provide</span>
+<span class="sd">the path to some empty folder on your system. Using the cache will greatly speed up loading of the data.</span>
+
+
+<span class="sd">Package functions</span>
+<span class="sd">=================</span>
+<span class="sd">Available functions directly accessible from fastf1 package</span>
+
+<span class="sd">.. autofunction:: fastf1.core.get_session</span>
+<span class="sd">    :noindex:</span>
+
+<span class="sd">.. autofunction:: fastf1.api.Cache.enable_cache</span>
+<span class="sd">    :noindex:</span>
+
+<span class="sd">.. autofunction:: fastf1.api.Cache.clear_cache</span>
+<span class="sd">    :noindex:</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">fastf1.core</span> <span class="kn">import</span> <span class="n">get_session</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">fastf1.api</span> <span class="kn">import</span> <span class="n">Cache</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">legacy</span>  <span class="c1"># noqa: F401</span>
+
+
+<span class="n">__version</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># version number is read from a file but only when requested</span>
+
+
+<div class="viewcode-block" id="get_version"><a class="viewcode-back" href="../fastf1.html#fastf1.get_version">[docs]</a><span class="k">def</span> <span class="nf">get_version</span><span class="p">():</span>
+
+    <span class="k">global</span> <span class="n">__version</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">__version</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;version.py&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfobj</span><span class="p">:</span>
+            <span class="n">vnum</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">vfobj</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">__version</span></div>
+</pre></div>
 
            </div>
            
