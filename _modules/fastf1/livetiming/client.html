@@ -321,6 +321,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filemode</span> <span class="o">=</span> <span class="n">filemode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">logger</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
@@ -371,16 +372,16 @@
         <span class="c1"># Create connection</span>
         <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
         <span class="n">session</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span>
-        <span class="n">connection</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection_url</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection_url</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
 
         <span class="c1"># Register hub</span>
-        <span class="n">hub</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">register_hub</span><span class="p">(</span><span class="s1">&#39;Streaming&#39;</span><span class="p">)</span>
+        <span class="n">hub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">register_hub</span><span class="p">(</span><span class="s1">&#39;Streaming&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
             <span class="c1"># Assign error handler</span>
-            <span class="n">connection</span><span class="o">.</span><span class="n">error</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_debug</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">error</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_debug</span>
             <span class="c1"># Assign debug message handler to save raw responses</span>
-            <span class="n">connection</span><span class="o">.</span><span class="n">received</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_debug</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">received</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_debug</span>
             <span class="n">hub</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;feed&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_do_nothing</span><span class="p">)</span>  <span class="c1"># need to connect an async method</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Assign hub message handler</span>
@@ -391,7 +392,7 @@
         <span class="c1"># Start the client</span>
         <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
         <span class="k">with</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
-            <span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="n">connection</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">_supervise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_t_last_message</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -400,7 +401,8 @@
                     <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_t_last_message</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timeout - received no data for more &quot;</span>
                                     <span class="sa">f</span><span class="s2">&quot;than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="si">}</span><span class="s2"> seconds!&quot;</span><span class="p">)</span>
-                <span class="k">break</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span>
             <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">_async_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -411,9 +413,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Exiting...&quot;</span><span class="p">)</span>
 
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
 <div class="viewcode-block" id="SignalRClient.start"><a class="viewcode-back" href="../../../livetiming.html#fastf1.livetiming.client.SignalRClient.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Connect to the data stream and start writing the data to a file.&quot;&quot;&quot;</span>
-        <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_async_start</span><span class="p">())</span></div></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_async_start</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Keyboard interrupt - exiting...&quot;</span><span class="p">)</span>
+            <span class="k">return</span></div></div>
 </pre></div>
 
            </div>

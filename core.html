@@ -552,7 +552,7 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <td><p>Load lap timing information and telemetry data.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_telemetry</span></code>([livedata])</p></td>
-<td><p>Load telemetry data from API.</p></td>
+<td><p>Load telemetry data from the API.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_driver</span></code>(identifier)</p></td>
 <td><p>Get a driver object which contains additional information about a driver.</p></td>
@@ -637,7 +637,11 @@ livetiming data can be used as a data source</p></li>
 <dl class="py method">
 <dt id="fastf1.core.Session.load_telemetry">
 <code class="sig-name descname"><span class="pre">load_telemetry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.load_telemetry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load telemetry data from API.</p>
+<dd><p>Load telemetry data from the API.</p>
+<p>This method can only be called after <a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_laps()</span></code></a> has been
+called. You will usually just want to call <a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_laps()</span></code></a> with
+the optional <code class="docutils literal notranslate"><span class="pre">with_telemetry=True</span></code> argument instead of calling this
+method separately. The result will be the same.</p>
 <p>The raw data is divided into car data (Speed, RPM, …) and position data (coordinates, on/off track). For each
 of the two types an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a> is created per driver. The properties
 <a class="reference internal" href="#fastf1.core.Session.car_data" title="fastf1.core.Session.car_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.car_data</span></code></a> and <a class="reference internal" href="#fastf1.core.Session.pos_data" title="fastf1.core.Session.pos_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.pos_data</span></code></a> are dictionaries which hold the the <cite>Telemetry</cite> objects
@@ -712,7 +716,9 @@ returned as <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.
 <li><p><strong>Time</strong> (pandas.Timedelta): Session time when the lap time was set (end of lap)</p></li>
 <li><p><strong>Driver</strong> (string): Three letter driver identifier</p></li>
 <li><p><strong>DriverNumber</strong> (str): Driver number</p></li>
-<li><p><strong>LapTime</strong> (pandas.Timedelta): Recorded lap time</p></li>
+<li><p><strong>LapTime</strong> (pandas.Timedelta): Recorded lap time.
+Officially deleted lap times will <em>not</em> be deleted here.
+Deleting laps is currently not supported.</p></li>
 <li><p><strong>LapNumber</strong> (int): Recorded lap number</p></li>
 <li><p><strong>Stint</strong> (int): Stint number</p></li>
 <li><p><strong>PitOutTime</strong> (pandas.Timedelta): Session time when car exited the pit</p></li>
@@ -1003,6 +1009,15 @@ This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_t
 <dt id="fastf1.core.Laps.pick_fastest">
 <code class="sig-name descname"><span class="pre">pick_fastest</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_fastest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_fastest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select and return the lap with the fastest lap time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Officially deleted laps (e.g. driver was outside of
+the track limits) will still show up as normal laps here.
+The fastest lap returned by this method can therefore be one
+that was officially deleted after it was set. You need to manually
+ensure that this is not the case by comparing lap times with a
+session’s official results or some other source of data.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a></p>

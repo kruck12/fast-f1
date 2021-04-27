@@ -1029,7 +1029,9 @@
             <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span>
 
         <span class="n">drv_ahead</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_driver_ahead</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">:</span> <span class="n">drv_ahead</span><span class="p">,</span> <span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">:</span> <span class="n">dist</span><span class="p">}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">:</span> <span class="n">drv_ahead</span><span class="p">,</span>
+                                    <span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">:</span> <span class="n">dist</span><span class="p">},</span>
+                                   <span class="n">index</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Telemetry.calculate_differential_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.calculate_differential_distance">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_differential_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calculate the distance between subsequent samples of self.</span>
@@ -1531,7 +1533,12 @@
                 <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Driver </span><span class="si">{</span><span class="n">drv</span><span class="si">:</span><span class="s2"> &gt;2</span><span class="si">}</span><span class="s2">: Lap timing integrity check failed for </span><span class="si">{</span><span class="n">integrity_errors</span><span class="si">}</span><span class="s2"> lap(s)&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Session.load_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.Session.load_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">load_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load telemetry data from API.</span>
+        <span class="sd">&quot;&quot;&quot;Load telemetry data from the API.</span>
+
+<span class="sd">        This method can only be called after :meth:`load_laps` has been</span>
+<span class="sd">        called. You will usually just want to call :meth:`load_laps` with</span>
+<span class="sd">        the optional ``with_telemetry=True`` argument instead of calling this</span>
+<span class="sd">        method separately. The result will be the same.</span>
 
 <span class="sd">        The raw data is divided into car data (Speed, RPM, ...) and position data (coordinates, on/off track). For each</span>
 <span class="sd">        of the two types an instance of :class:`Telemetry` is created per driver. The properties</span>
@@ -1650,7 +1657,9 @@
 <span class="sd">        - **Time** (pandas.Timedelta): Session time when the lap time was set (end of lap)</span>
 <span class="sd">        - **Driver** (string): Three letter driver identifier</span>
 <span class="sd">        - **DriverNumber** (str): Driver number</span>
-<span class="sd">        - **LapTime** (pandas.Timedelta): Recorded lap time</span>
+<span class="sd">        - **LapTime** (pandas.Timedelta): Recorded lap time.</span>
+<span class="sd">          Officially deleted lap times will *not* be deleted here.</span>
+<span class="sd">          Deleting laps is currently not supported.</span>
 <span class="sd">        - **LapNumber** (int): Recorded lap number</span>
 <span class="sd">        - **Stint** (int): Stint number</span>
 <span class="sd">        - **PitOutTime** (pandas.Timedelta): Session time when car exited the pit</span>
@@ -1757,7 +1766,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pos_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pos_data</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
         <span class="n">car_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_car_data</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
-        <span class="n">car_data</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">add_distance</span><span class="p">()</span><span class="o">.</span><span class="n">add_relative_distance</span><span class="p">()</span><span class="o">.</span><span class="n">add_driver_ahead</span><span class="p">()</span>
+
+        <span class="c1"># calculate driver ahead from from data without padding to</span>
+        <span class="c1"># prevent out of bounds errors</span>
+        <span class="n">drv_ahead</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_driver_ahead</span><span class="p">()</span> \
+            <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">(</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">,</span> <span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;SessionTime&#39;</span><span class="p">)]</span>
+
+        <span class="n">car_data</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">add_distance</span><span class="p">()</span><span class="o">.</span><span class="n">add_relative_distance</span><span class="p">()</span>
+        <span class="n">car_data</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">drv_ahead</span><span class="p">)</span>
         <span class="n">merged</span> <span class="o">=</span> <span class="n">pos_data</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">car_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">merged</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
@@ -1804,7 +1821,8 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot slice telemetry because self contains no driver number!&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">drv_num</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot slice telemetry because self contains Laps of multiple drivers!&quot;</span><span class="p">)</span>
-        <span class="n">pos_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">drv_num</span> <span class="o">=</span> <span class="n">drv_num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drv_num</span><span class="p">]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pos_data</span></div>
 
 <div class="viewcode-block" id="Laps.pick_driver"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_driver">[docs]</a>    <span class="k">def</span> <span class="nf">pick_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
@@ -1877,6 +1895,13 @@
 
 <div class="viewcode-block" id="Laps.pick_fastest"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_fastest">[docs]</a>    <span class="k">def</span> <span class="nf">pick_fastest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return the lap with the fastest lap time.</span>
+
+<span class="sd">        .. note:: Officially deleted laps (e.g. driver was outside of</span>
+<span class="sd">          the track limits) will still show up as normal laps here.</span>
+<span class="sd">          The fastest lap returned by this method can therefore be one</span>
+<span class="sd">          that was officially deleted after it was set. You need to manually</span>
+<span class="sd">          ensure that this is not the case by comparing lap times with a</span>
+<span class="sd">          session&#39;s official results or some other source of data.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            instance of :class:`Lap`</span>
@@ -2024,7 +2049,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pos_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pos_data</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
         <span class="n">car_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_car_data</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
-        <span class="n">car_data</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">add_distance</span><span class="p">()</span><span class="o">.</span><span class="n">add_relative_distance</span><span class="p">()</span><span class="o">.</span><span class="n">add_driver_ahead</span><span class="p">()</span>
+
+        <span class="c1"># calculate driver ahead from from data without padding to</span>
+        <span class="c1"># prevent out of bounds errors</span>
+        <span class="n">drv_ahead</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_driver_ahead</span><span class="p">()</span> \
+            <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">(</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">,</span> <span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;SessionTime&#39;</span><span class="p">)]</span>
+
+        <span class="n">car_data</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">add_distance</span><span class="p">()</span><span class="o">.</span><span class="n">add_relative_distance</span><span class="p">()</span>
+        <span class="n">car_data</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">drv_ahead</span><span class="p">)</span>
         <span class="n">merged</span> <span class="o">=</span> <span class="n">pos_data</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">car_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">merged</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 

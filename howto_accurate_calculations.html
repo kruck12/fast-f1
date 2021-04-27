@@ -298,7 +298,7 @@ But, by keeping these rules in mind, potential error sources can be reduced.</p>
 <div class="section" id="slicing-data-by-lap-for-use-in-further-calculations">
 <h2>Slicing data by lap for use in further calculations<a class="headerlink" href="#slicing-data-by-lap-for-use-in-further-calculations" title="Permalink to this headline">¶</a></h2>
 <p>If you simply wish to visualize existing data, slicing laps is rather straight forward.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
 <span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">fastest_lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 <span class="n">tel</span> <span class="o">=</span> <span class="n">fastest_lap</span><span class="o">.</span><span class="n">telemetry</span>
@@ -309,23 +309,22 @@ match the start and end of the lap.
 This data is not suitable for further calculations though.</p>
 <p>If you want to perform your own calculations with the data, you should use the raw data.
 To stay away from interpolation before doing any calculations, the following could be done:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
 <span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">fastest_lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
-<span class="n">drv_n</span> <span class="o">=</span> <span class="n">fastest_lap</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]</span>
 
 <span class="c1"># use padding so that there are values outside of the desired range for accurate interpolation later</span>
-<span class="n">car_data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">car_data</span><span class="p">[</span><span class="n">drv_n</span><span class="p">],</span> <span class="n">fastest_lap</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
-<span class="n">pos_data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drv_n</span><span class="p">],</span> <span class="n">fastest_lap</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">car_data</span> <span class="o">=</span> <span class="n">fastest_lap</span><span class="o">.</span><span class="n">get_car_data</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">pos_data</span> <span class="o">=</span> <span class="n">fastest_lap</span><span class="o">.</span><span class="n">get_pos_data</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_side</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
 
 <span class="c1"># do calculations here</span>
 <span class="c1"># ...</span>
 <span class="c1"># ...</span>
 
-<span class="n">merged_data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">car_data</span><span class="p">,</span> <span class="n">pos_data</span><span class="p">)</span>
+<span class="n">merged_data</span> <span class="o">=</span> <span class="n">car_data</span><span class="o">.</span><span class="n">merge_channels</span><span class="p">(</span><span class="n">pos_data</span><span class="p">)</span>
 
 <span class="c1"># slice again to remove the padding and interpolate the exact first and last value</span>
-<span class="n">merged_data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="n">merged_data</span><span class="p">,</span> <span class="n">fastest_lap</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">merged_data</span> <span class="o">=</span> <span class="n">merged_data</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="n">fastest_lap</span><span class="p">,</span> <span class="n">interpolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
