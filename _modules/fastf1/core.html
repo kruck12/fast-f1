@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core &mdash; Fast F1 2.1.5 documentation</title>
+  <title>fastf1.core &mdash; Fast F1 2.1.6 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.5
+                2.1.6
               </div>
             
           
@@ -154,6 +154,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
@@ -1295,6 +1296,10 @@
         <span class="sd">&quot;&quot;&quot;Dictionary of car position data as received from the api by car</span>
 <span class="sd">        number (where car number is a string and the telemetry</span>
 <span class="sd">        is an instance of :class:`Telemetry`)&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;Dataframe containing weather data for this session as received</span>
+<span class="sd">        from the api. See :func:`fastf1.api.weather_data` for available data</span>
+<span class="sd">        channels. Each data channel is one row of the dataframe.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;List of all drivers that took part in this session; contains driver numbers as string. Drivers for which</span>
@@ -1482,6 +1487,13 @@
         <span class="k">if</span> <span class="n">with_telemetry</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">load_telemetry</span><span class="p">(</span><span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
 
+        <span class="c1"># load weather data; this data is not crucial, just log a warning</span>
+        <span class="c1"># in case of an error</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_weather_data</span><span class="p">(</span><span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">SessionNotAvailableError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failed to load weather data!&quot;</span><span class="p">)</span>
+
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded data for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">)</span><span class="si">}</span><span class="s2"> drivers: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">laps</span></div>
@@ -1531,6 +1543,12 @@
 
             <span class="k">if</span> <span class="n">integrity_errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Driver </span><span class="si">{</span><span class="n">drv</span><span class="si">:</span><span class="s2"> &gt;2</span><span class="si">}</span><span class="s2">: Lap timing integrity check failed for </span><span class="si">{</span><span class="n">integrity_errors</span><span class="si">}</span><span class="s2"> lap(s)&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_load_weather_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get weather data from the api and format it into a dataframe&quot;&quot;&quot;</span>
+        <span class="n">weather_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">weather_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
+        <span class="n">weather_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">weather_df</span>
 
 <div class="viewcode-block" id="Session.load_telemetry"><a class="viewcode-back" href="../../core.html#fastf1.Session.load_telemetry">[docs]</a>    <span class="k">def</span> <span class="nf">load_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load telemetry data from the API.</span>
@@ -1825,6 +1843,64 @@
         <span class="n">pos_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drv_num</span><span class="p">]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pos_data</span></div>
 
+<div class="viewcode-block" id="Laps.get_weather_data"><a class="viewcode-back" href="../../core.html#fastf1.Laps.get_weather_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_weather_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return weather data for each lap in self.</span>
+
+<span class="sd">        Weather data is updated once per minute. This means that there are</span>
+<span class="sd">        usually one or two data points per lap. This function will always</span>
+<span class="sd">        return only one data point per lap:</span>
+
+<span class="sd">           - The first value within the duration of a lap</span>
+
+<span class="sd">        or</span>
+
+<span class="sd">            - the last known value before the end of the lap if there are</span>
+<span class="sd">              no values within the duration of a lap</span>
+
+<span class="sd">        See :func:`fastf1.api.weather_data` for available data</span>
+<span class="sd">        channels.</span>
+
+<span class="sd">        If you wish to have more control over the data, you can access the</span>
+<span class="sd">        weather data directly in :attr:`Session.weather_data`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame</span>
+
+<span class="sd">        Example::</span>
+
+<span class="sd">            &gt;&gt;&gt; weather_data = laps.get_weather_data()</span>
+<span class="sd">            &gt;&gt;&gt; print(weather_data)</span>
+<span class="sd">                                 Time AirTemp Humidity  ... TrackTemp WindDirection WindSpeed</span>
+<span class="sd">            16 0 days 00:16:20.305000    21.9     55.8  ...      35.5           119       0.2</span>
+<span class="sd">            17 0 days 00:17:20.301000    22.0     54.6  ...      35.9           113       0.1</span>
+<span class="sd">            ..                    ...     ...      ...  ...       ...           ...       ...</span>
+<span class="sd">            75 0 days 01:15:20.525000    22.3     53.5  ...      36.9            76       0.6</span>
+<span class="sd">            76 0 days 01:16:20.534000    22.2     53.1  ...      37.1            81       0.6</span>
+<span class="sd">            [453 rows x 25 columns]</span>
+
+<span class="sd">        Joining weather data with lap timing data::</span>
+
+<span class="sd">            &gt;&gt;&gt; # prepare the data for joining</span>
+<span class="sd">            &gt;&gt;&gt; laps = laps.reset_index(drop=True)</span>
+<span class="sd">            &gt;&gt;&gt; weather_data = weather_data.reset_index(drop=True)</span>
+
+<span class="sd">            &gt;&gt;&gt; # exclude the &#39;Time&#39; column from weather data when joining</span>
+<span class="sd">            &gt;&gt;&gt; joined = pandas.concat([laps, weather_data.loc[:, ~(weather_data.columns == &#39;Time&#39;)]], axis=1)</span>
+<span class="sd">            &gt;&gt;&gt; print(joined)</span>
+<span class="sd">                                  Time DriverNumber  ... WindDirection  WindSpeed</span>
+<span class="sd">            0   0 days 00:16:58.221000            3  ...           119        0.2</span>
+<span class="sd">            1   0 days 00:19:32.354000            3  ...           113        0.1</span>
+<span class="sd">            ..                     ...          ...  ...           ...        ...</span>
+<span class="sd">            451 0 days 01:16:01.722000           99  ...            76        0.6</span>
+<span class="sd">            452 0 days 01:17:35.072000           99  ...            81        0.6</span>
+<span class="sd">            [453 rows x 32 columns]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wd</span> <span class="o">=</span> <span class="p">[</span><span class="n">lap</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">lap</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">wd</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Laps.pick_driver"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_driver">[docs]</a>    <span class="k">def</span> <span class="nf">pick_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select and return all laps of a specific driver in self based on the driver&#39;s three letters identifier or</span>
 <span class="sd">        based on the driver number ::</span>
@@ -2090,7 +2166,62 @@
 <span class="sd">            instance of :class:`Telemetry`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pos_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pos_data</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">pos_data</span></div></div>
+        <span class="k">return</span> <span class="n">pos_data</span></div>
+
+<div class="viewcode-block" id="Lap.get_weather_data"><a class="viewcode-back" href="../../core.html#fastf1.Lap.get_weather_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_weather_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return weather data for this lap.</span>
+
+<span class="sd">        Weather data is updated once per minute. This means that there are</span>
+<span class="sd">        usually one or two data points per lap. This function will always</span>
+<span class="sd">        return only one data point:</span>
+
+<span class="sd">            - The first value within the duration of a lap</span>
+
+<span class="sd">        or</span>
+
+<span class="sd">            - the last known value before the end of the lap if there are</span>
+<span class="sd">              no values within the duration of a lap</span>
+
+<span class="sd">        See :func:`fastf1.api.weather_data` for available data</span>
+<span class="sd">        channels.</span>
+
+<span class="sd">        If you wish to have more control over the data, you can access the</span>
+<span class="sd">        weather data directly in :attr:`Session.weather_data`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.Series</span>
+
+<span class="sd">        Example::</span>
+
+<span class="sd">            &gt;&gt;&gt; lap = laps.pick_fastest()</span>
+<span class="sd">            &gt;&gt;&gt; lap[&#39;LapStartTime&#39;]</span>
+<span class="sd">            Timedelta(&#39;0 days 01:10:29.730000&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; lap.get_weather_data()</span>
+<span class="sd">            Time             0 days 01:11:20.525000</span>
+<span class="sd">            AirTemp                            22.1</span>
+<span class="sd">            Humidity                           53.5</span>
+<span class="sd">            Pressure                         1003.5</span>
+<span class="sd">            Rainfall                           True</span>
+<span class="sd">            TrackTemp                          36.9</span>
+<span class="sd">            WindDirection                        76</span>
+<span class="sd">            WindSpeed                           0.6</span>
+<span class="sd">            Name: 71, dtype: object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># get first value within the duration of the lap</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]))</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">samples</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># fallback: get last value before the lap ended</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">samples</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># no data: return an empty Series with the correct index names</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../core.html#fastf1.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">:</span>

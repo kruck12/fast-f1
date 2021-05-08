@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core - Core module &mdash; Fast F1 2.1.5 documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1 2.1.6 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1.5
+                2.1.6
               </div>
             
           
@@ -156,6 +156,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
@@ -536,7 +537,10 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
 <td><p>Dictionary of car position data as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></p></td>
+<td><p>Dataframe containing weather data for this session as received from the api.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
 <td><p>List of all drivers that took part in this session; contains driver numbers as string.</p></td>
 </tr>
 </tbody>
@@ -591,6 +595,14 @@ is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" ti
 <dd><p>Dictionary of car position data as received from the api by car
 number (where car number is a string and the telemetry
 is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="fastf1.core.Session.weather_data">
+<code class="sig-name descname"><span class="pre">weather_data</span></code><a class="headerlink" href="#fastf1.core.Session.weather_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dataframe containing weather data for this session as received
+from the api. See <a class="reference internal" href="api.html#fastf1.api.weather_data" title="fastf1.api.weather_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.weather_data()</span></code></a> for available data
+channels. Each data channel is one row of the dataframe.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -800,37 +812,40 @@ after it has ended)</p></li>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code>(**kwargs)</p></td>
 <td><p>Pos data for all laps in <cite>self</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_driver</span></code>(identifier)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_weather_data</span></code>()</p></td>
+<td><p>Return weather data for each lap in self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_driver</span></code>(identifier)</p></td>
 <td><p>Select and return all laps of a specific driver in self based on the driver’s three letters identifier or based on the driver number .</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_drivers</span></code>(identifiers)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_drivers</span></code>(identifiers)</p></td>
 <td><p>Select and return all laps of the specified drivers in self based on the drivers’ three letters identifier or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once. ::.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_team</span></code>(name)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_team</span></code>(name)</p></td>
 <td><p>Select and return all laps of a specific team in self based on the team’s name .</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_teams</span></code>(names)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_teams</span></code>(names)</p></td>
 <td><p>Select and return all laps of the specified teams in self based on the teams’ name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once. ::.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_fastest</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_fastest</span></code>()</p></td>
 <td><p>Select and return the lap with the fastest lap time.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_quicklaps</span></code>([threshold])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_quicklaps</span></code>([threshold])</p></td>
 <td><p>Select and return laps with <cite>LapTime</cite> faster than a certain limit.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_tyre</span></code>(compound)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_tyre</span></code>(compound)</p></td>
 <td><p>Select and return all laps in self which were done on a specific compound.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_track_status</span></code>(status[, how])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_track_status</span></code>(status[, how])</p></td>
 <td><p>Select and return laps set under a specific track status.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_wo_box</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_wo_box</span></code>()</p></td>
 <td><p>Select laps which are NOT in laps or out laps.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_accurate</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_accurate</span></code>()</p></td>
 <td><p>Select and return laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterlaps</span></code>([require])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterlaps</span></code>([require])</p></td>
 <td><p>Iterator for iterating over all laps in self.</p></td>
 </tr>
 </tbody>
@@ -928,6 +943,65 @@ appropriate <cite>add_*()</cite> method on the returned telemetry object..</p>
 <dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Laps.get_weather_data">
+<code class="sig-name descname"><span class="pre">get_weather_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.get_weather_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.get_weather_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return weather data for each lap in self.</p>
+<p>Weather data is updated once per minute. This means that there are
+usually one or two data points per lap. This function will always
+return only one data point per lap:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The first value within the duration of a lap</p></li>
+</ul>
+</div></blockquote>
+<p>or</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the last known value before the end of the lap if there are
+no values within the duration of a lap</p></li>
+</ul>
+</div></blockquote>
+<p>See <a class="reference internal" href="api.html#fastf1.api.weather_data" title="fastf1.api.weather_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.weather_data()</span></code></a> for available data
+channels.</p>
+<p>If you wish to have more control over the data, you can access the
+weather data directly in <a class="reference internal" href="#fastf1.core.Session.weather_data" title="fastf1.core.Session.weather_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.weather_data</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
+<span class="go">                     Time AirTemp Humidity  ... TrackTemp WindDirection WindSpeed</span>
+<span class="go">16 0 days 00:16:20.305000    21.9     55.8  ...      35.5           119       0.2</span>
+<span class="go">17 0 days 00:17:20.301000    22.0     54.6  ...      35.9           113       0.1</span>
+<span class="go">..                    ...     ...      ...  ...       ...           ...       ...</span>
+<span class="go">75 0 days 01:15:20.525000    22.3     53.5  ...      36.9            76       0.6</span>
+<span class="go">76 0 days 01:16:20.534000    22.2     53.1  ...      37.1            81       0.6</span>
+<span class="go">[453 rows x 25 columns]</span>
+</pre></div>
+</div>
+<p>Joining weather data with lap timing data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># prepare the data for joining</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">laps</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">weather_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># exclude the &#39;Time&#39; column from weather data when joining</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">joined</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">laps</span><span class="p">,</span> <span class="n">weather_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">==</span> <span class="s1">&#39;Time&#39;</span><span class="p">)]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">joined</span><span class="p">)</span>
+<span class="go">                      Time DriverNumber  ... WindDirection  WindSpeed</span>
+<span class="go">0   0 days 00:16:58.221000            3  ...           119        0.2</span>
+<span class="go">1   0 days 00:19:32.354000            3  ...           113        0.1</span>
+<span class="go">..                     ...          ...  ...           ...        ...</span>
+<span class="go">451 0 days 01:16:01.722000           99  ...            76        0.6</span>
+<span class="go">452 0 days 01:17:35.072000           99  ...            81        0.6</span>
+<span class="go">[453 rows x 32 columns]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -1157,6 +1231,9 @@ telemetry data.</p>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pos_data</span></code>(**kwargs)</p></td>
 <td><p>Pos data for all laps in <cite>self</cite></p></td>
 </tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_weather_data</span></code>()</p></td>
+<td><p>Return weather data for this lap.</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="py method">
@@ -1223,6 +1300,52 @@ appropriate <cite>add_*()</cite> method on the returned telemetry object.</p>
 <dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fastf1.core.Lap.get_weather_data">
+<code class="sig-name descname"><span class="pre">get_weather_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Lap.get_weather_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Lap.get_weather_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return weather data for this lap.</p>
+<p>Weather data is updated once per minute. This means that there are
+usually one or two data points per lap. This function will always
+return only one data point:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The first value within the duration of a lap</p></li>
+</ul>
+</div></blockquote>
+<p>or</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the last known value before the end of the lap if there are
+no values within the duration of a lap</p></li>
+</ul>
+</div></blockquote>
+<p>See <a class="reference internal" href="api.html#fastf1.api.weather_data" title="fastf1.api.weather_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.weather_data()</span></code></a> for available data
+channels.</p>
+<p>If you wish to have more control over the data, you can access the
+weather data directly in <a class="reference internal" href="#fastf1.core.Session.weather_data" title="fastf1.core.Session.weather_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Session.weather_data</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span>
+<span class="go">Timedelta(&#39;0 days 01:10:29.730000&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span>
+<span class="go">Time             0 days 01:11:20.525000</span>
+<span class="go">AirTemp                            22.1</span>
+<span class="go">Humidity                           53.5</span>
+<span class="go">Pressure                         1003.5</span>
+<span class="go">Rainfall                           True</span>
+<span class="go">TrackTemp                          36.9</span>
+<span class="go">WindDirection                        76</span>
+<span class="go">WindSpeed                           0.6</span>
+<span class="go">Name: 71, dtype: object</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
