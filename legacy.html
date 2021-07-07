@@ -13,6 +13,11 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -93,9 +98,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
@@ -248,11 +265,13 @@ integration error issues.</p>
 by lap and the lap data should be concatenated afterwards. Still, the old version can be used if so desired.</p>
 <p>The following is an example comparison plot of the legacy version and the new version. It also shows how the two
 versions can be used.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span>
+<span class="kn">import</span> <span class="nn">fastf1.plotting</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">fastf1</span><span class="o">.</span><span class="n">Cache</span><span class="o">.</span><span class="n">enable_cache</span><span class="p">(</span><span class="s2">&quot;test_cache/&quot;</span><span class="p">)</span>
+<span class="n">fastf1</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">setup_mpl</span><span class="p">()</span>
+<span class="c1"># fastf1.Cache.enable_cache(&quot;path/to/cache&quot;)</span>
 
 <span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
 <span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -264,34 +283,26 @@ versions can be used.</p>
 <span class="n">drv_laps</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="n">DRIVER</span><span class="p">)</span>
 <span class="n">drv_lap</span> <span class="o">=</span> <span class="n">drv_laps</span><span class="p">[(</span><span class="n">drv_laps</span><span class="p">[</span><span class="s1">&#39;LapNumber&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">LAP_N</span><span class="p">)]</span>  <span class="c1"># select the lap</span>
 
-
-<span class="c1"># define a function for plotting &#39;DistanceToDriverAhead&#39; over &#39;SessionTime&#39; for varying drivers ahead</span>
-<span class="k">def</span> <span class="nf">plot_ahead_over_distance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
-    <span class="n">drvs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-
-    <span class="k">for</span> <span class="n">drv</span> <span class="ow">in</span> <span class="n">drvs</span><span class="p">:</span>  <span class="c1"># plot a segment for each driver ahead</span>
-        <span class="n">mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">drv</span>
-        <span class="n">dist_to_drv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">mask</span><span class="p">)</span>
-        <span class="n">ref_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;SessionTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">mask</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ref_time</span><span class="p">,</span> <span class="n">dist_to_drv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">drv</span><span class="p">)</span><span class="o">+</span><span class="n">suffix</span><span class="p">)</span>
-
-
+<span class="c1"># create a matplotlib figure</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
 <span class="c1"># ############### new</span>
 <span class="n">df_new</span> <span class="o">=</span> <span class="n">drv_lap</span><span class="o">.</span><span class="n">get_car_data</span><span class="p">()</span><span class="o">.</span><span class="n">add_driver_ahead</span><span class="p">()</span>
-<span class="n">plot_ahead_over_distance</span><span class="p">(</span><span class="n">df_new</span><span class="p">,</span> <span class="s1">&#39;_new&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">],</span> <span class="n">df_new</span><span class="p">[</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;new&#39;</span><span class="p">)</span>
 
 <span class="c1"># ############### legacy</span>
 <span class="n">df_legacy</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">legacy</span><span class="o">.</span><span class="n">inject_driver_ahead</span><span class="p">(</span><span class="n">session</span><span class="p">)[</span><span class="n">DRIVER_NUMBER</span><span class="p">]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="n">drv_lap</span><span class="p">)</span>
-<span class="n">plot_ahead_over_distance</span><span class="p">(</span><span class="n">df_legacy</span><span class="p">,</span> <span class="s1">&#39;_legacy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_legacy</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">],</span> <span class="n">df_legacy</span><span class="p">[</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;legacy&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="_static/dist_ahead_new_legacy.svg"><img alt="_images/dist_ahead_new_legacy.svg" src="_images/dist_ahead_new_legacy.svg" /></a>
+<p>(<a class="reference external" href=".//legacy-1.png">png</a>, <a class="reference external" href=".//legacy-1.hires.png">hires.png</a>, <a class="reference external" href=".//legacy-1.pdf">pdf</a>)</p>
+<div class="figure align-default">
+<img alt="_images/legacy-1.png" class="plot-directive" src="_images/legacy-1.png" />
+</div>
 <dl class="py data">
 <dt id="fastf1.legacy.REFERENCE_LAP_RESOLUTION">
 <code class="sig-prename descclassname"><span class="pre">fastf1.legacy.</span></code><code class="sig-name descname"><span class="pre">REFERENCE_LAP_RESOLUTION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0.667</span></em><a class="headerlink" href="#fastf1.legacy.REFERENCE_LAP_RESOLUTION" title="Permalink to this definition">¶</a></dt>

@@ -13,6 +13,11 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -93,9 +98,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
@@ -254,14 +271,14 @@ different way for verification.</p>
 </div>
 <p>Here is an example that compares the quickest laps of Leclerc and
 Hamilton from Bahrain 2021 Qualifying:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">plotting</span>
 <span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">plotting</span><span class="o">.</span><span class="n">setup_mpl</span><span class="p">()</span>
 
-<span class="n">quali</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="n">quali</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Emilia Romagna&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
 <span class="n">laps</span> <span class="o">=</span> <span class="n">quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lec</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 <span class="n">ham</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;HAM&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
@@ -278,11 +295,15 @@ Hamilton from Bahrain 2021 Qualifying:</p>
         <span class="n">color</span><span class="o">=</span><span class="n">plotting</span><span class="o">.</span><span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">lec</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]])</span>
 
 <span class="n">twin</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
-<span class="n">twin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ref_tel</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">delta_time</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">plotting</span><span class="o">.</span><span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">lec</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]])</span>
+<span class="n">twin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ref_tel</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">],</span> <span class="n">delta_time</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">twin</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&lt;-- Lec ahead | Ham ahead --&gt;&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="_static/delta_time.svg"><img alt="_images/delta_time.svg" src="_images/delta_time.svg" /></a>
+<p>(<a class="reference external" href=".//utils-1.png">png</a>, <a class="reference external" href=".//utils-1.hires.png">hires.png</a>, <a class="reference external" href=".//utils-1.pdf">pdf</a>)</p>
+<div class="figure align-default">
+<img alt="_images/utils-1.png" class="plot-directive" src="_images/utils-1.png" />
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

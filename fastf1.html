@@ -7,12 +7,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Introduction &mdash; Fast F1 2.1.6 documentation</title>
+  <title>fastf1 - Package functions &mdash; Fast F1 2.1.6 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -39,7 +44,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="fastf1.core - Core module" href="core.html" />
-    <link rel="prev" title="Fast F1 documentation" href="index.html" /> 
+    <link rel="prev" title="Gear shifts on track" href="examples_gallery/plot_gear_shifts_on_track.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,9 +98,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
@@ -217,7 +234,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Introduction</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -236,67 +253,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-fastf1"></span><div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<dl class="simple">
-<dt>This package features two main online sources of data:</dt><dd><ul class="simple">
-<li><p>The official f1 data stream -&gt;
-<a class="reference external" href="https://www.formula1.com/en/f1-live.html">f1-live</a></p></li>
-<li><p>Ergast web api -&gt; <a class="reference external" href="http://ergast.com/mrd/">ergast.com</a></p></li>
-</ul>
-</dd>
-</dl>
-<p>Car position, speed traces, tyres, timings and weekend history are some
-of the many available resources. No formula1 account is needed.</p>
-<p>The library is designed to be interfaced with matplotlib (although you
-can use whatever you want) but there is a neat <a class="reference internal" href="plotting.html#module-fastf1.plotting" title="fastf1.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a> module which
-you can use to create nice graphs more easily.</p>
-<p>This package handles big chunks of data (~50-100mb per session) so most of the
-information is stored locally as cached requests (be aware).</p>
-<p>Have fun!</p>
-</div>
-<div class="section" id="getting-started">
-<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p>Setting up a running snippet is straightforward:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span> <span class="k">as</span> <span class="nn">ff1</span>
-
-<span class="n">ff1</span><span class="o">.</span><span class="n">Cache</span><span class="o">.</span><span class="n">enable_cache</span><span class="p">(</span><span class="s1">&#39;path/to/folder/for/cache&#39;</span><span class="p">)</span>  <span class="c1"># optional but highly recommended</span>
-
-<span class="n">monza_quali</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Monza&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
-
-<span class="n">vettel</span> <span class="o">=</span> <span class="n">monza_quali</span><span class="o">.</span><span class="n">get_driver</span><span class="p">(</span><span class="s1">&#39;VET&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pronto </span><span class="si">{</span><span class="n">vettel</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">?&quot;</span><span class="p">)</span>
-<span class="c1"># Pronto Se🅱️astian?</span>
-</pre></div>
-</div>
-<p>For some more advanced stuff, just a few more steps:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">fastf1</span> <span class="kn">import</span> <span class="n">plotting</span>
-
-<span class="n">plotting</span><span class="o">.</span><span class="n">setup_mpl</span><span class="p">()</span>
-
-<span class="n">laps</span> <span class="o">=</span> <span class="n">monza_quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">fast_leclerc</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
-<span class="n">lec_car_data</span> <span class="o">=</span> <span class="n">fast_leclerc</span><span class="o">.</span><span class="n">get_car_data</span><span class="p">()</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">lec_car_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
-<span class="n">vCar</span> <span class="o">=</span> <span class="n">lec_car_data</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">]</span>
-
-<span class="c1"># The rest is just plotting</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">vCar</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fast&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Speed [Km/h]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Leclerc is&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<a class="reference external image-reference" href="_static/gettingstarted.svg"><img alt="_images/gettingstarted.svg" src="_images/gettingstarted.svg" /></a>
-<p>It is not necessary to enable the usage of the cache but it is highly recommended. Simply provide
-the path to some empty folder on your system. Using the cache will greatly speed up loading of the data.</p>
-</div>
-<div class="section" id="package-functions">
-<h1>Package functions<a class="headerlink" href="#package-functions" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="module-fastf1"></span><div class="section" id="fastf1-package-functions">
+<h1><a class="reference internal" href="#module-fastf1" title="fastf1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code></a> - Package functions<a class="headerlink" href="#fastf1-package-functions" title="Permalink to this headline">¶</a></h1>
 <p>Available functions directly accessible from fastf1 package</p>
 <dl class="py function">
 <dt>
@@ -393,7 +351,7 @@ delete the sqlite file in the root of the cache directory.</p>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="core.html" class="btn btn-neutral float-right" title="fastf1.core - Core module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="Fast F1 documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples_gallery/plot_gear_shifts_on_track.html" class="btn btn-neutral float-left" title="Gear shifts on track" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Gear shifts on track &mdash; Fast F1 2.1.6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastf1 - Package functions" href="../fastf1.html" />
+    <link rel="prev" title="Examples Gallery" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Fast F1
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples Gallery</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#id1">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#get-session">get_session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#get-round">get_round</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#id2">Data Objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#weekend">Weekend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#session">Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#laps">Laps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#lap">Lap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#telemetry">Telemetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#driver">Driver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../time_explanation.html">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../time_explanation.html#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_explanation.html#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Fast F1</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Examples Gallery</a> &raquo;</li>
+        
+      <li>Gear shifts on track</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_gallery/plot_gear_shifts_on_track.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-examples-gallery-plot-gear-shifts-on-track-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="gear-shifts-on-track">
+<span id="sphx-glr-examples-gallery-plot-gear-shifts-on-track-py"></span><h1>Gear shifts on track<a class="headerlink" href="#gear-shifts-on-track" title="Permalink to this headline">¶</a></h1>
+<p>Plot which gear is being used at which point of the track</p>
+<p>Import FastF1 and load the data</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastf1</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">LineCollection</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">fastf1</span><span class="o">.</span><span class="n">Cache</span><span class="o">.</span><span class="n">enable_cache</span><span class="p">(</span><span class="s1">&#39;../doc_cache&#39;</span><span class="p">)</span>  <span class="c1"># replace with your cache directory</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Austrian Grand Prix&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+<span class="n">tel</span> <span class="o">=</span> <span class="n">lap</span><span class="o">.</span><span class="n">get_telemetry</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>core           INFO     Loading laps for Austrian Grand Prix - Qualifying [v2.1.6]
+api            INFO     Using cached data for timing_data
+api            INFO     Using cached data for timing_app_data
+core           INFO     Processing timing data...
+api            INFO     Using cached data for session_status_data
+api            INFO     Using cached data for track_status_data
+api            INFO     Using cached data for car_data
+api            INFO     Using cached data for position_data
+api            INFO     Using cached data for weather_data
+core           INFO     Loaded data for 20 drivers: [&#39;33&#39;, &#39;4&#39;, &#39;9&#39;, &#39;18&#39;, &#39;99&#39;, &#39;14&#39;, &#39;77&#39;, &#39;16&#39;, &#39;47&#39;, &#39;31&#39;, &#39;6&#39;, &#39;55&#39;, &#39;44&#39;, &#39;22&#39;, &#39;10&#39;, &#39;5&#39;, &#39;63&#39;, &#39;7&#39;, &#39;11&#39;, &#39;3&#39;]
+</pre></div>
+</div>
+<p>Prepare the data for plotting by converting it to the appropriate numpy
+data types</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tel</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tel</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">segments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gear</span> <span class="o">=</span> <span class="n">tel</span><span class="p">[</span><span class="s1">&#39;nGear&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a line collection. Set a segmented colormap and normalize the plot
+to full integer values of the colormap</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Paired&#39;</span><span class="p">)</span>
+<span class="n">lc_comp</span> <span class="o">=</span> <span class="n">LineCollection</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="n">lc_comp</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">gear</span><span class="p">)</span>
+<span class="n">lc_comp</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create the plot</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">lc_comp</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">title</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Fastest Lap Gear Shift Visualization</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Add a colorbar to the plot. Shift the colorbar ticks by +0.5 so that they
+are centered for each color segment.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mappable</span><span class="o">=</span><span class="n">lc_comp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Gear&quot;</span><span class="p">,</span> <span class="n">boundaries</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">))</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Fastest Lap Gear Shift Visualization VER - Austrian Grand Prix 2021" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_gear_shifts_on_track_001.png" />
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.564 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-gallery-plot-gear-shifts-on-track-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/8f44d0c3a99a14c645b20a9c97960e5e/plot_gear_shifts_on_track.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_gear_shifts_on_track.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/07cfd8cc009ae2865bc893d875f61a67/plot_gear_shifts_on_track.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_gear_shifts_on_track.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../fastf1.html" class="btn btn-neutral float-right" title="fastf1 - Package functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Examples Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, theOehrly.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

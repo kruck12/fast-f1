@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Getting started with the basics &mdash; Fast F1 2.1.6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples Gallery" href="../examples_gallery/index.html" />
+    <link rel="prev" title="Getting Started" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Fast F1
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../core.html#data-objects">Data Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#id1">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#get-session">get_session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#get-round">get_round</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#id2">Data Objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#weekend">Weekend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#session">Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#laps">Laps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#lap">Lap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#telemetry">Telemetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#driver">Driver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../livetiming.html#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../livetiming.html#extract">Extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#module-fastf1.livetiming.client">Live Timing Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../time_explanation.html">Time, Date and Timing - Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../time_explanation.html#points-in-time">Points in Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_explanation.html#lap-timing">Lap timing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howto_accurate_calculations.html">How to perform calculations accurately</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#validating-results">Validating results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#working-with-the-available-data">Working with the available data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#slicing-data-by-lap-for-use-in-further-calculations">Slicing data by lap for use in further calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto_accurate_calculations.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../known_bugs.html">Known bugs and caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#something-doesn-t-work">Something doesn’t work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-2-hotfixes-for-loading-live-timing-data">v2.1.2 Hotfixes for loading live timing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-1-add-support-for-recording-and-using-live-timing-data">v2.1.1 Add support for recording and using live timing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-refactoring-accuracy-improvements-and-a-more-accessible-interface">v2.1: Refactoring, accuracy improvements and a more accessible interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-0-2-api-code-overhaul">v2.0.2: API code overhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-0-1-integration-of-a-newer-version-of-ax6-s-old-repository">v2.0.1: Integration of a newer version of Ax6’s old repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-0-0-first-release-of-this-fork">v2.0.0: first release of this fork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-5-1-last-release-by-ax6">v1.5.1: last release by Ax6</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Fast F1</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Getting Started</a> &raquo;</li>
+        
+      <li>Getting started with the basics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/basics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started-with-the-basics">
+<h1>Getting started with the basics<a class="headerlink" href="#getting-started-with-the-basics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="loading-a-session">
+<h2>Loading a session<a class="headerlink" href="#loading-a-session" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../core.html#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Session</span></code></a> object is an important starting point for
+everything you do with FastF1. Usually the first thing you want to do
+is loading a session. For this, you should use
+<a class="reference internal" href="../core.html#fastf1.core.get_session" title="fastf1.core.get_session"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.get_session()</span></code></a>.</p>
+<p>For example, let’s load the Qualifying of the 7th race of the 2021 season:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fastf1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Qualifying&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">date</span>
+<span class="go">&#39;2021-06-19&#39;</span>
+</pre></div>
+</div>
+<p>Now, which race weekend are we actually looking at here?
+For this we have the <a class="reference internal" href="../core.html#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Weekend</span></code></a> object which holds
+information about each race weekend. It is accessible through the
+session object.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">weekend</span>  
+<span class="go">&lt;fastf1.core.Weekend object at ...&gt;</span>
+</pre></div>
+</div>
+<p>Let’s see which race weekend this actually is.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;French Grand Prix&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">date</span>  <span class="c1"># this is the date of the race day</span>
+<span class="go">&#39;2021-06-20&#39;</span>
+</pre></div>
+</div>
+<p>If you do not specify which session you want to load, <code class="docutils literal notranslate"><span class="pre">.get_session()</span></code>
+will return a <a class="reference internal" href="../core.html#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.core.Weekend</span></code></a> object instead of a session.
+The weekend object provides methods which return the individual sessions.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span> 
+<span class="go">&lt;fastf1.core.Weekend object at ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">weekend</span><span class="o">.</span><span class="n">get_race</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Race&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-a-session-by-name">
+<h2>Loading a session by name<a class="headerlink" href="#loading-a-session-by-name" title="Permalink to this headline">¶</a></h2>
+<p>As an alternative to specifying a race weekends number you can also load
+weekends by their official name.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;French Grand Prix&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;French Grand Prix&#39;</span>
+</pre></div>
+</div>
+<p>You do not need to provide the exact name. FastF1 will return the weekend or
+session that matches your provided name best. Even if you don’t specify the
+correct name chances are high that FastF1 will find the event you are looking
+for.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Barcelona GP&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Spanish Grand Prix&#39;</span>
+</pre></div>
+</div>
+<p>But be aware that this does not always work. Sometimes another name just
+matches the provided string better. For example, what we actually want is the
+‘Emiligia Romagna Grand Prix’ but we get the ‘Brazilian Grand Prix’ if we don’t
+specify the name fully. Why? Because FastF1 is not a proper intelligent search
+engine. So check your results.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Emilia Grand Prix&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Brazilian Grand Prix&#39;</span>
+</pre></div>
+</div>
+<p>We need to be a bit more precise here.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Emilia Romagna Grand Prix&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Emilia Romagna Grand Prix&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-with-laps-and-lap-times">
+<h2>Working with laps and lap times<a class="headerlink" href="#working-with-laps-and-lap-times" title="Permalink to this headline">¶</a></h2>
+<p>We have loaded a session now but it has been rather boring so far. So lets make it
+a bit more interesting and take a look at some individual laps.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">quali</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;French Grand Prix&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">laps</span> <span class="o">=</span> <span class="n">quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">laps</span>
+<span class="go">                      Time DriverNumber  ... TrackStatus  IsAccurate</span>
+<span class="go">0   0 days 00:28:44.908000           33  ...           1       False</span>
+<span class="go">1   0 days 00:31:14.909000           33  ...           1       False</span>
+<span class="go">2   0 days 00:32:45.910000           33  ...           1        True</span>
+<span class="go">3   0 days 00:50:42.329000           33  ...          25       False</span>
+<span class="go">4   0 days 00:52:59.529000           33  ...           1       False</span>
+<span class="go">..                     ...          ...  ...         ...         ...</span>
+<span class="go">245 0 days 00:28:51.659000            9  ...          25       False</span>
+<span class="go">246 0 days 00:31:39.717000            9  ...           1       False</span>
+<span class="go">247 0 days 00:33:13.271000            9  ...           1        True</span>
+<span class="go">248 0 days 00:38:02.565000            9  ...           1       False</span>
+<span class="go">249 0 days 00:40:30.783000            9  ...           1       False</span>
+
+<span class="go">[250 rows x 25 columns]</span>
+</pre></div>
+</div>
+<p>That’s 250 laps right there and 25 columns of information. If you are familiar
+with Pandas you’ll immediately recognize this output as a DataFrame. (If you’re
+not familiar with Pandas at all, it might be helpful to check out a short
+tutorial.)</p>
+<p>As this is basically a Pandas DataFrame we can take a look at what columns
+there are.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">laps</span><span class="o">.</span><span class="n">columns</span>  
+<span class="go">Index([&#39;Time&#39;, &#39;DriverNumber&#39;, &#39;LapTime&#39;, &#39;LapNumber&#39;, &#39;Stint&#39;, &#39;PitOutTime&#39;,</span>
+<span class="go">       &#39;PitInTime&#39;, &#39;Sector1Time&#39;, &#39;Sector2Time&#39;, &#39;Sector3Time&#39;,</span>
+<span class="go">       &#39;Sector1SessionTime&#39;, &#39;Sector2SessionTime&#39;, &#39;Sector3SessionTime&#39;,</span>
+<span class="go">       &#39;SpeedI1&#39;, &#39;SpeedI2&#39;, &#39;SpeedFL&#39;, &#39;SpeedST&#39;, &#39;Compound&#39;, &#39;TyreLife&#39;,</span>
+<span class="go">       &#39;FreshTyre&#39;, &#39;LapStartTime&#39;, &#39;Team&#39;, &#39;Driver&#39;, &#39;TrackStatus&#39;,</span>
+<span class="go">       &#39;IsAccurate&#39;],</span>
+<span class="go">       dtype=&#39;object&#39;)</span>
+</pre></div>
+</div>
+<p>The detailed explanation for all these columns can be found in the
+docuemntation of the <a class="reference internal" href="../core.html#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.Laps</span></code></a> class.</p>
+<p>The <a class="reference internal" href="../core.html#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.Laps</span></code></a> object is not a simple DataFrame though. Like FastF1’s
+other data objects it provides some more features specifically for working
+with F1 data.</p>
+<p>One of these additional features are methods for selecting specific laps.
+So let’s see what the fastest laptime was and who is on pole.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fastest_lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fastest_lap</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span>
+<span class="go">Timedelta(&#39;0 days 00:01:29.990000&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fastest_lap</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span>
+<span class="go">&#39;SOFT&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fastest_lap</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span>
+<span class="go">&#39;VER&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../examples_gallery/index.html" class="btn btn-neutral float-right" title="Examples Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, theOehrly.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

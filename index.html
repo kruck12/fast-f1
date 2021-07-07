@@ -13,6 +13,11 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -38,7 +43,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="fastf1.html" /> 
+    <link rel="next" title="Getting Started" href="examples/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,9 +97,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
@@ -238,6 +255,28 @@
   <div class="section" id="fast-f1-documentation">
 <h1>Fast F1 documentation<a class="headerlink" href="#fast-f1-documentation" title="Permalink to this headline">¶</a></h1>
 <p>For the passionate F1 nerds.</p>
+<p>Check out the examples: <a class="reference internal" href="examples/index.html"><span class="doc">Getting Started</span></a></p>
+<p>Or take a look at the gallery for some inspiration:
+<a class="reference internal" href="examples_gallery/index.html"><span class="doc">Examples Gallery</span></a></p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>FastF1 gives you access to F1 lap timing, car telemetry and position,
+tyre data, weather data and weekend information among others.
+No formula1 account is needed.</p>
+<p>The module is designed around Pandas, Numpy and Matplotlib. This makes it easy
+to use while offering lots of possibilities for data analysis and
+visualization.</p>
+<p>FastF1 handles big chunks of data (~50-100mb per session) so most of the
+information is stored locally as cached requests (be aware).</p>
+<p>All data is downloaded from two sources:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The official f1 data stream -&gt;
+<a class="reference external" href="https://www.formula1.com/en/f1-live.html">f1-live</a></p></li>
+<li><p>Ergast web api -&gt; <a class="reference external" href="http://ergast.com/mrd/">ergast.com</a></p></li>
+</ul>
+</div></blockquote>
+<p>Have fun!</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
@@ -246,9 +285,9 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_gallery/index.html">Examples Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
@@ -268,6 +307,7 @@
 </ul>
 </div>
 </div>
+</div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
@@ -285,7 +325,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="fastf1.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="examples/index.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

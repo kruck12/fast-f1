@@ -1,0 +1,12 @@
+
+:orphan:
+
+.. _sphx_glr_examples_gallery_sg_execution_times:
+
+Computation times
+=================
+**00:01.564** total execution time for **examples_gallery** files:
+
++--------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_examples_gallery_plot_gear_shifts_on_track.py` (``plot_gear_shifts_on_track.py``) | 00:01.564 | 0.0 MB |
++--------------------------------------------------------------------------------------------------+-----------+--------+

@@ -13,6 +13,11 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -93,9 +98,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
@@ -261,14 +278,14 @@ release.</p>
 </div>
 <dl class="py data">
 <dt id="fastf1.plotting.TEAM_COLORS">
-<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_COLORS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'Alfa</span> <span class="pre">Romeo':</span> <span class="pre">'#900000',</span> <span class="pre">'AlphaTauri':</span> <span class="pre">'#2b4562',</span> <span class="pre">'Alpine':</span> <span class="pre">'#0090ff',</span> <span class="pre">'Aston</span> <span class="pre">Martin':</span> <span class="pre">'#006f62',</span> <span class="pre">'Ferrari':</span> <span class="pre">'#dc0000',</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team':</span> <span class="pre">'#ffffff',</span> <span class="pre">'McLaren':</span> <span class="pre">'#ff8700',</span> <span class="pre">'Mercedes':</span> <span class="pre">'#00d2be',</span> <span class="pre">'Red</span> <span class="pre">Bull':</span> <span class="pre">'#0600ef',</span> <span class="pre">'Williams':</span> <span class="pre">'#005aff'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_COLORS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_COLORS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'Alfa</span> <span class="pre">Romeo':</span> <span class="pre">'#900000',</span> <span class="pre">'AlphaTauri':</span> <span class="pre">'#2b4562',</span> <span class="pre">'Alpine</span> <span class="pre">F1</span> <span class="pre">Team':</span> <span class="pre">'#0090ff',</span> <span class="pre">'Aston</span> <span class="pre">Martin':</span> <span class="pre">'#006f62',</span> <span class="pre">'Ferrari':</span> <span class="pre">'#dc0000',</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team':</span> <span class="pre">'#ffffff',</span> <span class="pre">'McLaren':</span> <span class="pre">'#ff8700',</span> <span class="pre">'Mercedes':</span> <span class="pre">'#00d2be',</span> <span class="pre">'Red</span> <span class="pre">Bull':</span> <span class="pre">'#0600ef',</span> <span class="pre">'Williams':</span> <span class="pre">'#005aff'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_COLORS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mapping of team colors (hex color code) to team names.
 (current season only)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="fastf1.plotting.TEAM_TRANSLATE">
-<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_TRANSLATE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'AMR':</span> <span class="pre">'Aston</span> <span class="pre">Martin',</span> <span class="pre">'APN':</span> <span class="pre">'Alpine',</span> <span class="pre">'APT':</span> <span class="pre">'AlphaTauri',</span> <span class="pre">'ARR':</span> <span class="pre">'Alfa</span> <span class="pre">Romeo',</span> <span class="pre">'FER':</span> <span class="pre">'Ferrari',</span> <span class="pre">'HAA':</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team',</span> <span class="pre">'MCL':</span> <span class="pre">'McLaren',</span> <span class="pre">'MER':</span> <span class="pre">'Mercedes',</span> <span class="pre">'RBR':</span> <span class="pre">'Red</span> <span class="pre">Bull',</span> <span class="pre">'WIL':</span> <span class="pre">'Williams'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_TRANSLATE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></code><code class="sig-name descname"><span class="pre">TEAM_TRANSLATE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'AMR':</span> <span class="pre">'Aston</span> <span class="pre">Martin',</span> <span class="pre">'APN':</span> <span class="pre">'Alpine</span> <span class="pre">F1</span> <span class="pre">Team',</span> <span class="pre">'APT':</span> <span class="pre">'AlphaTauri',</span> <span class="pre">'ARR':</span> <span class="pre">'Alfa</span> <span class="pre">Romeo',</span> <span class="pre">'FER':</span> <span class="pre">'Ferrari',</span> <span class="pre">'HAA':</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team',</span> <span class="pre">'MCL':</span> <span class="pre">'McLaren',</span> <span class="pre">'MER':</span> <span class="pre">'Mercedes',</span> <span class="pre">'RBR':</span> <span class="pre">'Red</span> <span class="pre">Bull',</span> <span class="pre">'WIL':</span> <span class="pre">'Williams'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_TRANSLATE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mapping of team names to theirs respective abbreviations.</p>
 </dd></dl>
 
