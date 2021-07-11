@@ -13,6 +13,11 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -91,9 +96,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#functions">Functions</a></li>
@@ -940,12 +957,17 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`Telemetry`: self joined with new column or self if column exists and `drop_existing` is False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="s1">&#39;Distance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">drop_existing</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>\
-                    <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_differential_distance</span><span class="p">()}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;DifferentialDistance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">drop_existing</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_differential_distance</span><span class="p">()}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
+
+        <span class="n">new_dif_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_differential_distance</span><span class="p">()}</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;DifferentialDistance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>\
+                <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_dif_dist</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_dif_dist</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Telemetry.add_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.add_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add column &#39;Distance&#39; to self.</span>
@@ -963,11 +985,14 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`Telemetry`: self joined with new column or self if column exists and `drop_existing` is False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="s1">&#39;Distance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">drop_existing</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Distance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">integrate_distance</span><span class="p">()}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;Distance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">drop_existing</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Distance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">integrate_distance</span><span class="p">()}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
+
+        <span class="n">new_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Distance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">integrate_distance</span><span class="p">()})</span>
+        <span class="k">if</span> <span class="s1">&#39;Distance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;Distance&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_dist</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_dist</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Telemetry.add_relative_distance"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.add_relative_distance">[docs]</a>    <span class="k">def</span> <span class="nf">add_relative_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add column &#39;RelativeDistance&#39; to self.</span>
@@ -985,7 +1010,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;RelativeDistance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">drop_existing</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;RelativeDistance&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;RelativeDistance&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span>
         <span class="k">else</span><span class="p">:</span>
@@ -995,7 +1020,7 @@
             <span class="n">rel_dist</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;Distance&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;Distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">dist</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">integrate_distance</span><span class="p">()</span>
-            <span class="n">rel_dist</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">/</span> <span class="n">dist</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">rel_dist</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">/</span> <span class="n">dist</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RelativeDistance&#39;</span><span class="p">:</span> <span class="n">rel_dist</span><span class="p">}),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Telemetry.add_driver_ahead"><a class="viewcode-back" href="../../core.html#fastf1.Telemetry.add_driver_ahead">[docs]</a>    <span class="k">def</span> <span class="nf">add_driver_ahead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -1023,7 +1048,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;DriverAhead&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">&#39;DistanceToDriverAhead&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">drop_existing</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>\
+                    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1255,8 +1281,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weekend</span><span class="p">,</span> <span class="n">session_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span> <span class="o">=</span> <span class="n">weekend</span>
+        <span class="sd">&quot;&quot;&quot;:class:`.Weekend`: Reference to the associated weekend object.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">session_name</span>
+        <span class="sd">&quot;&quot;&quot;str: Name of this session, for example &#39;Qualifying&#39;, &#39;Race&#39;, &#39;FP1&#39;, ...&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_session_date</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;pandas.Datetime: Date at which this session took place.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">api_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">make_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
@@ -1282,11 +1311,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_create_empty_ergast_result</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">laps</span> <span class="o">=</span> <span class="n">Laps</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="sd">&quot;&quot;&quot;Instance of :class:`Laps` containing all laps from all drivers in this session.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">t0_date</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># can only be set when/if telemetry has been downloaded</span>
-        <span class="sd">&quot;&quot;&quot;Date timestamp which marks the beginning of the data stream.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Instance of :class:`Laps` containing all laps from all drivers</span>
+<span class="sd">        in this session.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t0_date</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># can only be set when/if telemetry has been downloaded</span>
+        <span class="sd">&quot;&quot;&quot;pandas.Datetime: Date timestamp which marks the beginning of the</span>
+<span class="sd">        data stream.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="sd">&quot;&quot;&quot;Session time at which the session was started.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;pandas.Timedelta: Session time at which the session was started.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">car_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;Dictionary of car telemetry (Speed, RPM, etc.) as received from</span>
@@ -1585,8 +1617,10 @@
 
         <span class="k">for</span> <span class="n">drv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">:</span>
             <span class="c1"># drop and recalculate time stamps based on &#39;Date&#39;, because &#39;Date&#39; has a higher resolution</span>
-            <span class="n">drv_car</span> <span class="o">=</span> <span class="n">Telemetry</span><span class="p">(</span><span class="n">car_data</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="n">drv</span><span class="p">)</span>
-            <span class="n">drv_pos</span> <span class="o">=</span> <span class="n">Telemetry</span><span class="p">(</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="n">drv</span><span class="p">)</span>
+            <span class="n">drv_car</span> <span class="o">=</span> <span class="n">Telemetry</span><span class="p">(</span><span class="n">car_data</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="n">drv</span><span class="p">)</span>
+            <span class="n">drv_pos</span> <span class="o">=</span> <span class="n">Telemetry</span><span class="p">(</span><span class="n">pos_data</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="n">drv</span><span class="p">)</span>
 
             <span class="n">drv_car</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_car</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
             <span class="n">drv_pos</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_pos</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
@@ -1902,8 +1936,8 @@
             <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Laps.pick_driver"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_driver">[docs]</a>    <span class="k">def</span> <span class="nf">pick_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return all laps of a specific driver in self based on the driver&#39;s three letters identifier or</span>
-<span class="sd">        based on the driver number ::</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps of a specific driver in self based on the driver&#39;s</span>
+<span class="sd">        three letters identifier or based on the driver number ::</span>
 
 <span class="sd">            perez_laps = ff1.pick_driver(&#39;PER&#39;)</span>
 <span class="sd">            bottas_laps = ff1.pick_driver(77)</span>
@@ -1922,8 +1956,10 @@
             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">identifier</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Laps.pick_drivers"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_drivers">[docs]</a>    <span class="k">def</span> <span class="nf">pick_drivers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifiers</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return all laps of the specified drivers in self based on the drivers&#39; three letters identifier</span>
-<span class="sd">        or based on the driver number. This is the same as :meth:`Laps.pick_driver` but for multiple drivers at once. ::</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps of the specified drivers in self based on the</span>
+<span class="sd">        drivers&#39; three letters identifier or based on the driver number. This</span>
+<span class="sd">        is the same as :meth:`Laps.pick_driver` but for multiple drivers</span>
+<span class="sd">        at once. ::</span>
 
 <span class="sd">            some_drivers_laps = ff1.pick_drivers([5, &#39;BOT&#39;, 7])</span>
 
@@ -1940,7 +1976,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="p">[(</span><span class="n">drv</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">|</span> <span class="n">num</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">numbers</span><span class="p">))]</span></div>
 
 <div class="viewcode-block" id="Laps.pick_team"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_team">[docs]</a>    <span class="k">def</span> <span class="nf">pick_team</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return all laps of a specific team in self based on the team&#39;s name ::</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps of a specific team in self based on the</span>
+<span class="sd">        team&#39;s name ::</span>
 
 <span class="sd">            mercedes = ff1.pick_team(&#39;Mercedes&#39;)</span>
 <span class="sd">            alfa_romeo = ff1.pick_team(&#39;Alfa Romeo&#39;)</span>
@@ -1956,8 +1993,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Laps.pick_teams"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_teams">[docs]</a>    <span class="k">def</span> <span class="nf">pick_teams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return all laps of the specified teams in self based on the teams&#39; name.</span>
-<span class="sd">        This is the same as :meth:`Laps.pick_team` but for multiple teams at once. ::</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps of the specified teams in self based on the teams&#39;</span>
+<span class="sd">        name. This is the same as :meth:`Laps.pick_team` but for multiple</span>
+<span class="sd">        teams at once. ::</span>
 
 <span class="sd">            some_drivers_laps = ff1.pick_teams([&#39;Mercedes&#39;, &#39;Williams&#39;])</span>
 
@@ -1970,7 +2008,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">names</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="Laps.pick_fastest"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_fastest">[docs]</a>    <span class="k">def</span> <span class="nf">pick_fastest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return the lap with the fastest lap time.</span>
+        <span class="sd">&quot;&quot;&quot;Return the lap with the fastest lap time.</span>
 
 <span class="sd">        .. note:: Officially deleted laps (e.g. driver was outside of</span>
 <span class="sd">          the track limits) will still show up as normal laps here.</span>
@@ -1990,8 +2028,9 @@
         <span class="k">return</span> <span class="n">lap</span></div>
 
 <div class="viewcode-block" id="Laps.pick_quicklaps"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_quicklaps">[docs]</a>    <span class="k">def</span> <span class="nf">pick_quicklaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return laps with `LapTime` faster than a certain limit.</span>
-<span class="sd">        By default the threshold is 107% of the best `LapTime` of all laps in self.</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps with `LapTime` faster than a certain limit. By</span>
+<span class="sd">        default the threshold is 107% of the best `LapTime` of all laps</span>
+<span class="sd">        in self.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            threshold (optional, float): custom threshold coefficent</span>
@@ -2007,7 +2046,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">time_threshold</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Laps.pick_tyre"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_tyre">[docs]</a>    <span class="k">def</span> <span class="nf">pick_tyre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compound</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return all laps in self which were done on a specific compound.</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps in self which were done on a specific compound.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            compound (string): may be &quot;SOFT&quot;, &quot;MEDIUM&quot;, &quot;HARD&quot;, &quot;INTERMEDIATE&quot; or &quot;WET&quot;</span>
@@ -2018,7 +2057,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">compound</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Laps.pick_track_status"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_track_status">[docs]</a>    <span class="k">def</span> <span class="nf">pick_track_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;equals&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return laps set under a specific track status.</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps set under a specific track status.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            status (str): The track status as a string, e.g. &#39;1&#39;</span>
@@ -2036,7 +2075,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value &#39;</span><span class="si">{</span><span class="n">how</span><span class="si">}</span><span class="s2">&#39; for kwarg &#39;how&#39;&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Laps.pick_wo_box"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_wo_box">[docs]</a>    <span class="k">def</span> <span class="nf">pick_wo_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select laps which are NOT in laps or out laps.</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps which are NOT in laps or out laps.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            instance of :class:`Laps`</span>
@@ -2044,7 +2083,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">])]</span></div>
 
 <div class="viewcode-block" id="Laps.pick_accurate"><a class="viewcode-back" href="../../core.html#fastf1.Laps.pick_accurate">[docs]</a>    <span class="k">def</span> <span class="nf">pick_accurate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select and return laps which pass the accuracy validation check (lap[&#39;IsAccurate&#39;] is True).</span>
+        <span class="sd">&quot;&quot;&quot;Return all laps which pass the accuracy validation check</span>
+<span class="sd">        (lap[&#39;IsAccurate&#39;] is True).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            instance of :class:`Laps`</span>
@@ -2063,7 +2103,7 @@
 <span class="sd">               iterator only yields laps for which this is true. If require is left empty, the iterator will yield</span>
 <span class="sd">               all laps.</span>
 <span class="sd">        Yields:</span>
-<span class="sd">            instance of :class:`Lap`</span>
+<span class="sd">            (index, instance of :class:`Lap`)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">lap</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">require</span><span class="p">:</span>

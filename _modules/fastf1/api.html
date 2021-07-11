@@ -7,12 +7,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.api &mdash; Fast F1 2.1.5 documentation</title>
+  <title>fastf1.api &mdash; Fast F1 2.1.6 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -61,7 +66,7 @@
             
             
               <div class="version">
-                2.1.5
+                2.1.6
               </div>
             
           
@@ -91,9 +96,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#functions">Functions</a></li>
@@ -154,7 +171,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-6-general-improvements-and-bug-fixes">v2.1.6 General improvements and bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
@@ -390,8 +407,18 @@
                 <span class="n">cache_file_path</span> <span class="o">=</span> <span class="n">cache_dir_path</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.ff1pkl&#39;</span>
                 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">cache_file_path</span><span class="p">):</span>
                     <span class="c1"># file exists already, try to load it</span>
-                    <span class="n">cached</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
-                    <span class="k">if</span> <span class="p">((</span><span class="n">cached</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_API_CORE_VERSION</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_IGNORE_VERSION</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FORCE_RENEW</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">cached</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+                    <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa: E722 (bare except)</span>
+                        <span class="c1"># don&#39;t like the bare exception clause but who knows</span>
+                        <span class="c1"># which dependency will raise which internal exception</span>
+                        <span class="c1"># after it was updated</span>
+                        <span class="n">cached</span> <span class="o">=</span> <span class="kc">None</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="n">cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+                            <span class="p">((</span><span class="n">cached</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_API_CORE_VERSION</span><span class="p">)</span> <span class="ow">or</span>
+                             <span class="bp">cls</span><span class="o">.</span><span class="n">_IGNORE_VERSION</span><span class="p">)</span>
+                            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FORCE_RENEW</span><span class="p">):</span>
                         <span class="c1"># was created with same version or version is ignored</span>
                         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using cached data for </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                         <span class="k">return</span> <span class="n">cached</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>

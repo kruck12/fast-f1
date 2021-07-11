@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core - Core module &mdash; Fast F1 2.1.6 documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1 2.1.7 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                2.1.6
+                2.1.7
               </div>
             
           
@@ -110,6 +110,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples_gallery/index.html">Examples Gallery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_qualifying_results.html">Qualifying results overview</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
@@ -173,6 +174,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
@@ -887,34 +889,34 @@ after it has ended)</p></li>
 <td><p>Return weather data for each lap in self.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_driver</span></code>(identifier)</p></td>
-<td><p>Select and return all laps of a specific driver in self based on the driver’s three letters identifier or based on the driver number .</p></td>
+<td><p>Return all laps of a specific driver in self based on the driver’s three letters identifier or based on the driver number .</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_drivers</span></code>(identifiers)</p></td>
-<td><p>Select and return all laps of the specified drivers in self based on the drivers’ three letters identifier or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once. ::.</p></td>
+<td><p>Return all laps of the specified drivers in self based on the drivers’ three letters identifier or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once. ::.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_team</span></code>(name)</p></td>
-<td><p>Select and return all laps of a specific team in self based on the team’s name .</p></td>
+<td><p>Return all laps of a specific team in self based on the team’s name .</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_teams</span></code>(names)</p></td>
-<td><p>Select and return all laps of the specified teams in self based on the teams’ name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once. ::.</p></td>
+<td><p>Return all laps of the specified teams in self based on the teams’ name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once. ::.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_fastest</span></code>()</p></td>
-<td><p>Select and return the lap with the fastest lap time.</p></td>
+<td><p>Return the lap with the fastest lap time.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_quicklaps</span></code>([threshold])</p></td>
-<td><p>Select and return laps with <cite>LapTime</cite> faster than a certain limit.</p></td>
+<td><p>Return all laps with <cite>LapTime</cite> faster than a certain limit.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_tyre</span></code>(compound)</p></td>
-<td><p>Select and return all laps in self which were done on a specific compound.</p></td>
+<td><p>Return all laps in self which were done on a specific compound.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_track_status</span></code>(status[, how])</p></td>
-<td><p>Select and return laps set under a specific track status.</p></td>
+<td><p>Return all laps set under a specific track status.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_wo_box</span></code>()</p></td>
-<td><p>Select laps which are NOT in laps or out laps.</p></td>
+<td><p>Return all laps which are NOT in laps or out laps.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_accurate</span></code>()</p></td>
-<td><p>Select and return laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p></td>
+<td><p>Return all laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterlaps</span></code>([require])</p></td>
 <td><p>Iterator for iterating over all laps in self.</p></td>
@@ -1078,8 +1080,8 @@ weather data directly in <a class="reference internal" href="#fastf1.core.Sessio
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_driver">
 <code class="sig-name descname"><span class="pre">pick_driver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_driver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_driver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of a specific driver in self based on the driver’s three letters identifier or
-based on the driver number</p>
+<dd><p>Return all laps of a specific driver in self based on the driver’s
+three letters identifier or based on the driver number</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perez_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;PER&#39;</span><span class="p">)</span>
 <span class="n">bottas_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="mi">77</span><span class="p">)</span>
 <span class="n">kimi_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;RAI&#39;</span><span class="p">)</span>
@@ -1098,8 +1100,10 @@ based on the driver number</p>
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_drivers">
 <code class="sig-name descname"><span class="pre">pick_drivers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_drivers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_drivers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of the specified drivers in self based on the drivers’ three letters identifier
-or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once.</p>
+<dd><p>Return all laps of the specified drivers in self based on the
+drivers’ three letters identifier or based on the driver number. This
+is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers
+at once.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_drivers_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_drivers</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1116,7 +1120,8 @@ or based on the driver number. This is the same as <a class="reference internal"
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_team">
 <code class="sig-name descname"><span class="pre">pick_team</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_team"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_team" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of a specific team in self based on the team’s name</p>
+<dd><p>Return all laps of a specific team in self based on the
+team’s name</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mercedes</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">)</span>
 <span class="n">alfa_romeo</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_team</span><span class="p">(</span><span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1135,8 +1140,9 @@ or based on the driver number. This is the same as <a class="reference internal"
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_teams">
 <code class="sig-name descname"><span class="pre">pick_teams</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_teams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_teams" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps of the specified teams in self based on the teams’ name.
-This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once.</p>
+<dd><p>Return all laps of the specified teams in self based on the teams’
+name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple
+teams at once.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_drivers_laps</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">pick_teams</span><span class="p">([</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1153,7 +1159,7 @@ This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_t
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_fastest">
 <code class="sig-name descname"><span class="pre">pick_fastest</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_fastest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_fastest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return the lap with the fastest lap time.</p>
+<dd><p>Return the lap with the fastest lap time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Officially deleted laps (e.g. driver was outside of
@@ -1173,8 +1179,9 @@ session’s official results or some other source of data.</p>
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_quicklaps">
 <code class="sig-name descname"><span class="pre">pick_quicklaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_quicklaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_quicklaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return laps with <cite>LapTime</cite> faster than a certain limit.
-By default the threshold is 107% of the best <cite>LapTime</cite> of all laps in self.</p>
+<dd><p>Return all laps with <cite>LapTime</cite> faster than a certain limit. By
+default the threshold is 107% of the best <cite>LapTime</cite> of all laps
+in self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>threshold</strong> (<em>optional</em><em>, </em><em>float</em>) – custom threshold coefficent
@@ -1189,7 +1196,7 @@ By default the threshold is 107% of the best <cite>LapTime</cite> of all laps in
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_tyre">
 <code class="sig-name descname"><span class="pre">pick_tyre</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compound</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_tyre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_tyre" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return all laps in self which were done on a specific compound.</p>
+<dd><p>Return all laps in self which were done on a specific compound.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>compound</strong> (<em>string</em>) – may be “SOFT”, “MEDIUM”, “HARD”, “INTERMEDIATE” or “WET”</p>
@@ -1203,7 +1210,7 @@ By default the threshold is 107% of the best <cite>LapTime</cite> of all laps in
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_track_status">
 <code class="sig-name descname"><span class="pre">pick_track_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equals'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_track_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_track_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return laps set under a specific track status.</p>
+<dd><p>Return all laps set under a specific track status.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1222,7 +1229,7 @@ If how=’contains’, status=’2’ will also match ‘267’ and similar</p><
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_wo_box">
 <code class="sig-name descname"><span class="pre">pick_wo_box</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_wo_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_wo_box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select laps which are NOT in laps or out laps.</p>
+<dd><p>Return all laps which are NOT in laps or out laps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
@@ -1233,7 +1240,8 @@ If how=’contains’, status=’2’ will also match ‘267’ and similar</p><
 <dl class="py method">
 <dt id="fastf1.core.Laps.pick_accurate">
 <code class="sig-name descname"><span class="pre">pick_accurate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Laps.pick_accurate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Laps.pick_accurate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select and return laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p>
+<dd><p>Return all laps which pass the accuracy validation check
+(lap[‘IsAccurate’] is True).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a></p>
@@ -1255,7 +1263,7 @@ iterator only yields laps for which this is true. If require is left empty, the 
 all laps.</p>
 </dd>
 <dt class="field-even">Yields</dt>
-<dd class="field-even"><p>instance of <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a></p>
+<dd class="field-even"><p>(index, instance of <a class="reference internal" href="#fastf1.core.Lap" title="fastf1.core.Lap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lap</span></code></a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1313,13 +1321,8 @@ telemetry data.</p>
 <dd><p>Telemetry data for this lap</p>
 <p>This is a cached (!) property for <a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a>. It will return the same value as <cite>get_telemetry</cite>
 but cache the result so that the involved processing is only done once.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Usage is discouraged.
-This is mainly provided for convenience and compatibility reasons.</p>
-<p>This functionality may change in a future release.</p>
+<p>This is mainly provided for convenience and backwards compatibility.</p>
 <p>See <a class="reference internal" href="#fastf1.core.Lap.get_telemetry" title="fastf1.core.Lap.get_telemetry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_telemetry()</span></code></a> for more information.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a></p>
@@ -1334,16 +1337,10 @@ This is mainly provided for convenience and compatibility reasons.</p>
 <p>Telemetry data is the result of merging the returned data from <a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> and <a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a>.
 This means that telemetry data at least partially contains interpolated values! Telemetry data additionally
 already has computed channels added (e.g. Distance).</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Usage is discourage. This method is provided for convenience and
-compatibility reasons. But using it does usually not produce the
-most accurate possible result.</p>
-<p>This functionality may change in a future release.</p>
-<p>It is recommended to use <a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> or
-<a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a> when possible. This is faster and more
-accurate if merging of car and position data is not necessary.</p>
-</div>
+<p>This method is provided for convenience and compatibility reasons. But using it does usually not produce
+the most accurate possible result.
+It is recommended to use <a class="reference internal" href="#fastf1.core.Lap.get_car_data" title="fastf1.core.Lap.get_car_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_car_data()</span></code></a> or <a class="reference internal" href="#fastf1.core.Lap.get_pos_data" title="fastf1.core.Lap.get_pos_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pos_data()</span></code></a> when possible. This is also faster if
+merging of car and position data is not necessary and if not all computed channels are needed.</p>
 <p>Resampling during merging is done according to the frequency set by <code class="xref py py-attr docutils literal notranslate"><span class="pre">TELEMETRY_FREQUENCY</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>

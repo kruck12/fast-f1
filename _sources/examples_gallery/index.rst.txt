@@ -30,6 +30,27 @@ Examples Gallery
    :hidden:
 
    /examples_gallery/plot_gear_shifts_on_track
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the qualifying result with visualization the fastest times.">
+
+.. only:: html
+
+ .. figure:: /examples_gallery/images/thumb/sphx_glr_plot_qualifying_results_thumb.png
+     :alt: Qualifying results overview
+
+     :ref:`sphx_glr_examples_gallery_plot_qualifying_results.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples_gallery/plot_qualifying_results
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
