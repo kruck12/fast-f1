@@ -134,14 +134,11 @@ class Cache:
             requests_cache.clear()
 
     @classmethod
-    def api_request_wrapper(cls, api_func, verify_server_modified=False):
+    def api_request_wrapper(cls, api_func):
         """Wrapper function for adding stage 2 caching to api functions.
 
         Args:
             api_func: Function to be wrapped
-            verify_server_modified: Check if the ressource was modified on
-                the server to decided whether the cached version of it needs
-                to be updated. (uses the 'If-Modified-Since' HTTP header)
 
         Returns:
             The wrapped function
@@ -216,6 +213,66 @@ class Cache:
         return wrapped
 
     @classmethod
+    def request_and_parse_modified(cls, url, parser_func, name, cache_name,
+                                   skip_update_check=False):
+        # skip update: force_renew=True takes precedence
+        logging.info(f"Loading {name}")
+        with requests_cache.disabled():
+            response = requests.get(url)
+        last_modified = response.headers.get('Last-Modified')
+
+        if cls._CACHE_DIR:
+            cache_file_path = cls._get_cache_file_path('.', cache_name)
+            if os.path.isfile(cache_file_path) and not cls._FORCE_RENEW:
+                # file exists already, try to load it
+                try:
+                    cached = pickle.load(open(cache_file_path, 'rb'))
+                except:  # noqa: E722 (bare except)
+                    # don't like the bare exception clause but who knows
+                    # which dependency will raise which internal exception
+                    # after it was updated
+                    cached = None
+
+                if cached is None:
+                    if response.status_code == 200:
+                        return parser_func(response.text)
+                    else:
+                        # FAILURE
+                        exit()
+
+                if skip_update_check:
+                    return cached['data']
+
+                cached_last_modified = cached.get('last_modified', None)
+                if (cls._data_ok_for_use(cached) and
+                        cached_last_modified == last_modified):
+                    # cached data is ok for use, return it
+                    logging.info(f"Using cached data for {name}")
+                    return cached['data']
+                else:
+                    if response.status_code != 200:
+                        # FaILURE
+                        exit()
+                    data = parser_func(response.text)
+                    cls._write_cache(data, cache_file_path,
+                                     last_modified=last_modified)
+                    logging.info(f"Cache updated for {name}")
+                    return data
+
+            else:  # cached data does not yet exist for this api request
+                if response.status_code != 200:
+                    # FaILURE
+                    exit()
+
+                data = parser_func(response.text)
+                cls._write_cache(data, cache_file_path,
+                                 last_modified=last_modified)
+                logging.info("Data has been written to cache!")
+                return data
+        else:
+            print('not enabled')
+
+    @classmethod
     def _get_cache_file_path(cls, api_path, name):
         # extend the cache dir path using the api path and a file name
         # leading '/static/' is dropped form api path
@@ -240,8 +297,11 @@ class Cache:
         return False
 
     @classmethod
-    def _write_cache(cls, data, cache_file_path):
-        new_cached = {'version': cls._API_CORE_VERSION, 'data': data}
+    def _write_cache(cls, data, cache_file_path, **kwargs):
+        new_cached = dict(
+            **{'version': cls._API_CORE_VERSION, 'data': data},
+            **kwargs
+        )
         with open(cache_file_path, 'wb') as cache_file_obj:
             pickle.dump(new_cached, cache_file_obj)
 
