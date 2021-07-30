@@ -235,7 +235,7 @@ class Cache:
 
                 if cached is None:
                     if response.status_code == 200:
-                        return parser_func(response.text)
+                        return parser_func(response)
                     else:
                         # FAILURE
                         exit()
@@ -253,7 +253,7 @@ class Cache:
                     if response.status_code != 200:
                         # FaILURE
                         exit()
-                    data = parser_func(response.text)
+                    data = parser_func(response)
                     cls._write_cache(data, cache_file_path,
                                      last_modified=last_modified)
                     logging.info(f"Cache updated for {name}")
@@ -264,7 +264,7 @@ class Cache:
                     # FaILURE
                     exit()
 
-                data = parser_func(response.text)
+                data = parser_func(response)
                 cls._write_cache(data, cache_file_path,
                                  last_modified=last_modified)
                 logging.info("Data has been written to cache!")
