@@ -114,11 +114,19 @@ class EventSchedule(pd.DataFrame):
         name = self.iloc[tdelta.idxmin()]['Name']
         return self[self['Name'] == name]
 
+    def pick_session_type(self, session):
+        # TODO make universal translate
+        translate = {'fp1': 'Practice 1', 'fp2': 'Practice 2',
+                     'fp3': 'Practice 3', 'q': 'Qualifying',
+                     'r': 'Race', 'sq': 'Sprint Qualifying'}
+        session = translate.get(session.lower(), session)
+        return self[self['Session'] == session]
+
     def pick_session_by_number(self, session, number):
-        sessions = self.pick_sessions(session)
+        sessions = self.pick_session_type(session)
         return sessions[sessions['EventNumber'] == number]
 
-    def pick_session_by_timestamp(self, timestamp):
+    def pick_session_by_date(self, timestamp):
         date = pd.to_datetime(timestamp)
         tdelta = (self['Begin'] - date).abs()
         if tdelta.min() > pd.Timedelta(12, 'hours'):
@@ -130,14 +138,6 @@ class EventSchedule(pd.DataFrame):
 
     def pick_race_weekends(self):
         return self[self['EventType'] == 'race_weekend']
-
-    def pick_sessions(self, session):
-        # TODO make universal translate
-        translate = {'fp1': 'Practice 1', 'fp2': 'Practice 2',
-                     'fp3': 'Practice 3', 'q': 'Qualifying',
-                     'r': 'Race', 'sq': 'Sprint Qualifying'}
-        session = translate.get(session.lower(), session)
-        return self[self['Session'] == session]
 
     def to_weekend(self):
         if (n := len(self['Name'].unique())) > 1:
@@ -162,4 +162,3 @@ class EventSchedule(pd.DataFrame):
 
         weekend = self.to_weekend()
         return Session(weekend, self['Session'].squeeze())
-
