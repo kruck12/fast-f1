@@ -4,14 +4,24 @@ import pandas as pd
 import pytest
 
 from fastf1 import events
-from fastf1 import Cache
-
-
-Cache.enable_cache('tmp_cache')
 
 
 def _get_event_schedule():
-    return events.get_event_schedule()
+    with open('fastf1/testing/reference_data/calendar.ics',
+              encoding='utf-8', newline='\r\n') as icsfile:
+        content = icsfile.read()
+
+    # content = content.replace('\n', '\r\n')
+
+    class MockResponse:
+        def __init__(self, text):
+            self.encoding = None
+            self.text = text
+
+    response = MockResponse(content)
+
+    schedule = events._parse_ics_event_schedule(response)
+    return schedule
 
 
 def test_pick_weekend_by_number():
