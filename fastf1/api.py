@@ -217,9 +217,12 @@ class Cache:
                                    skip_update_check=False):
         # skip update: force_renew=True takes precedence
         logging.info(f"Loading {name}")
-        with requests_cache.disabled():
-            response = requests.get(url)
-        last_modified = response.headers.get('Last-Modified')
+        try:
+            with requests_cache.disabled():
+                response = requests.get(url)
+            last_modified = response.headers.get('Last-Modified')
+        except requests.ConnectionError:
+            response = None
 
         if cls._CACHE_DIR:
             cache_file_path = cls._get_cache_file_path('.', cache_name)
@@ -234,7 +237,7 @@ class Cache:
                     cached = None
 
                 if cached is None:
-                    if response.status_code == 200:
+                    if response and (response.status_code == 200):
                         return parser_func(response)
                     else:
                         # FAILURE
@@ -244,13 +247,13 @@ class Cache:
                     return cached['data']
 
                 cached_last_modified = cached.get('last_modified', None)
-                if (cls._data_ok_for_use(cached) and
-                        cached_last_modified == last_modified):
+                if not response or (cls._data_ok_for_use(cached) and
+                                    cached_last_modified == last_modified):
                     # cached data is ok for use, return it
                     logging.info(f"Using cached data for {name}")
                     return cached['data']
                 else:
-                    if response.status_code != 200:
+                    if getattr(response, 'status_code', None) != 200:
                         # FaILURE
                         exit()
                     data = parser_func(response)
@@ -260,7 +263,7 @@ class Cache:
                     return data
 
             else:  # cached data does not yet exist for this api request
-                if response.status_code != 200:
+                if getattr(response, 'status_code', None) != 200:
                     # FaILURE
                     exit()
 
