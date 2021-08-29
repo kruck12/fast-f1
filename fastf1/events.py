@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 import ics
 
@@ -39,7 +41,18 @@ def _parse_ics_event_schedule(response):
             'Status': list(), 'EventType': list()}
 
     for ev in calendar.events:
-        split_name = ev.name.split(' - ')
+        if ' - ' in ev.name:
+            split_char = ' - '
+        elif ' – ' in ev.name:
+            split_char = ' – '
+        else:
+            logging.warning(
+                f"Failed to parse event with name '{ev.name}'. "
+                f"Event will be skipped."
+            )
+            continue
+
+        split_name = ev.name.split(split_char)
         # strip the cancelled info out of the name; redundant info
         for i in range(len(split_name)-1, -1, -1):
             if 'cancelled' in split_name[i].lower():
