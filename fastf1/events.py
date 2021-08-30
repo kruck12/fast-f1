@@ -20,7 +20,8 @@ def get_event_schedule():
 
 def _parse_ics_event_schedule(response):
     response.encoding = 'uft-8'  # set proper encoding
-    lines = response.text.split('\r\n')
+    text = response.text.replace('\r', '')
+    lines = text.split('\n')
     new_lines = list()
     # strip all but first 'METHOD'
     method_match = False
@@ -128,11 +129,11 @@ class EventSchedule(pd.DataFrame):
         return self[self['Name'] == name]
 
     def pick_session_type(self, session):
-        # TODO make universal translate
         translate = {'fp1': 'Practice 1', 'fp2': 'Practice 2',
                      'fp3': 'Practice 3', 'q': 'Qualifying',
                      'r': 'Race', 'sq': 'Sprint Qualifying'}
         session = translate.get(session.lower(), session)
+        session = ' '.join(word.capitalize() for word in session.split(' '))
         return self[self['Session'] == session]
 
     def pick_session_by_number(self, session, number):
@@ -141,9 +142,10 @@ class EventSchedule(pd.DataFrame):
 
     def pick_session_by_date(self, timestamp):
         date = pd.to_datetime(timestamp)
-        tdelta = (self['Begin'] - date).abs()
-        if tdelta.min() > pd.Timedelta(12, 'hours'):
-            raise ValueError("No session matches the given timestamp.")
+        same_day = self.loc[(self['Begin'].dt.year == date.year) &
+                            (self['Begin'].dt.month == date.month) &
+                            (self['Begin'].dt.day == date.day)]
+        tdelta = (same_day['Begin'] - date).abs()
         return self.iloc[tdelta.idxmin()]
 
     def pick_confirmed(self):

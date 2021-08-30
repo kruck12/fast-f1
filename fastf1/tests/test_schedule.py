@@ -6,27 +6,23 @@ import pytest
 from fastf1 import events
 
 
-def _get_event_schedule():
-    with open('fastf1/testing/reference_data/calendar.ics',
-              encoding='utf-8', newline='\r\n') as icsfile:
-        content = icsfile.read()
+# create an EventSchedule class from a local downloaded copy
+with open('fastf1/testing/reference_data/calendar.ics',
+          encoding='utf-8') as icsfile:
+    content = icsfile.read()
 
-    # content = content.replace('\n', '\r\n')
 
-    class MockResponse:
-        def __init__(self, text):
-            self.encoding = None
-            self.text = text
+class MockResponse:
+    def __init__(self, text):
+        self.encoding = None
+        self.text = text
 
-    response = MockResponse(content)
 
-    schedule = events._parse_ics_event_schedule(response)
-    return schedule
+response = MockResponse(content)
+schedule = events._parse_ics_event_schedule(response)
 
 
 def test_pick_weekend_by_number():
-    schedule = _get_event_schedule()
-
     weekend = schedule.pick_weekend_by_number(10)
     assert isinstance(weekend, events.EventSchedule)
     assert len(weekend) == 5
@@ -37,28 +33,28 @@ def test_pick_weekend_by_number():
     "date", ['2021-07-18', '7/18/2021', datetime.date(2021, 7, 18),
              pd.Timestamp(year=2021, month=7, day=18)])
 def test_pick_weekend_by_date(date):
-    schedule = _get_event_schedule()
-
     weekend = schedule.pick_weekend_by_date(date)
     assert isinstance(weekend, events.EventSchedule)
     assert len(weekend) == 5
     assert 'BRITISH GRAND PRIX' in str(weekend['Name'].iloc[0])
 
 
-@pytest.mark.xfail
 def test_pick_session_types():
-    schedule = _get_event_schedule()
     for _type in ['R', 'r', 'Race', 'race']:
         q = schedule.pick_session_type(_type).pick_confirmed()
         assert isinstance(q, events.EventSchedule)
         assert len(q) == 21
         assert q['Session'].unique() == ['Race', ]
 
+    # ensure every combination for names with multiple words
+    for _type in ['SQ', 'sq', 'Sprint Qualifying', 'sPrInT qualiFying']:
+        q = schedule.pick_session_type(_type).pick_confirmed()
+        assert isinstance(q, events.EventSchedule)
+        assert len(q) == 2
+        assert q['Session'].unique() == ['Sprint Qualifying', ]
 
-@pytest.mark.xfail
+
 def test_pick_session_by_number():
-    schedule = _get_event_schedule()
-
     for session_type in ('R', 'r', 'Race', 'race'):  # TODO allow make full name case insensitive
         session = schedule.pick_session_by_number(session_type, 10)
         assert isinstance(session, events.EventSchedule)
@@ -66,26 +62,27 @@ def test_pick_session_by_number():
         assert session['Session'].iloc[0] == 'Race'
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize(
     "date", ['2021-08-01', '8/1/2021', datetime.date(2021, 8, 1),
              pd.Timestamp(year=2021, month=8, day=1)])  # TODO not only closest but limit to same day
 def test_pick_session_by_date(date):
-    schedule = _get_event_schedule()
-
     session = schedule.pick_session_by_date(date)
-    assert isinstance(session, events.EventSchedule)
-    assert 'FORMULA 1 MAGYAR' in str(session['Name'])
+    assert isinstance(session, pd.Series)
+    assert 'FORMULA 1 ROLEX MAGYAR' in str(session['Name'])
     assert session['Session'] == 'Race'
 
 
-def test_pick_sessions_by_date_same_day():
-    pass  # TODO tbd
+def test_pick_session_by_date_same_day():
+    fp3 = schedule.pick_session_by_date('2021-07-31 10:00')
+    assert isinstance(fp3, pd.Series)
+    assert fp3['Session'] == 'Practice 3'
+
+    q = schedule.pick_session_by_date('2021-07-31 14:00')
+    assert isinstance(q, pd.Series)
+    assert q['Session'] == 'Qualifying'
 
 
 def test_pick_confirmed():
-    schedule = _get_event_schedule()
-
     assert len(schedule['Status'].unique()) > 1
     confirmed = schedule.pick_confirmed()
     assert isinstance(confirmed, events.EventSchedule)
@@ -93,8 +90,6 @@ def test_pick_confirmed():
 
 
 def test_pick_race_weekends():
-    schedule = _get_event_schedule()
-
     assert any(['TESTING' in str(name) for name in schedule['Name']])
     race_weekends = schedule.pick_race_weekends()
     assert not any(['TESTING' in str(name) for name in race_weekends['Name']])
