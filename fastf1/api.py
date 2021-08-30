@@ -273,7 +273,7 @@ class Cache:
                 logging.info("Data has been written to cache!")
                 return data
         else:
-            print('not enabled')
+            return parser_func(response)
 
     @classmethod
     def _get_cache_file_path(cls, api_path, name):

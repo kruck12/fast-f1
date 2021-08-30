@@ -171,7 +171,6 @@ class EventSchedule(pd.DataFrame):
         session = weekend.pick_session_type(session).iloc[0]
         return session
 
-
     def pick_session_by_date(self, timestamp):
         date = pd.to_datetime(timestamp)
         same_day = self.loc[(self['Begin'].dt.year == date.year) &
@@ -203,4 +202,3 @@ class Event(pd.Series):
 
         weekend = Weekend(self['Begin'].year, self['EventNumber'])
         return Session(weekend, self['Session'])
-
