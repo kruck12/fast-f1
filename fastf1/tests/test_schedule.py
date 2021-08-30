@@ -3,7 +3,7 @@ import datetime
 import pandas as pd
 import pytest
 
-from fastf1 import events
+from fastf1 import events, core, Cache
 
 
 # create an EventSchedule class from a local downloaded copy
@@ -56,7 +56,7 @@ def test_pick_session_types():
 
 def test_pick_session_by_number():
     for session_type in ('R', 'r', 'Race', 'race'):  # TODO allow make full name case insensitive
-        session = schedule.pick_session_by_number(session_type, 10)
+        session = schedule.pick_session_by_number(10, session_type)
         assert isinstance(session, events.EventSchedule)
         assert 'BRITISH GRAND PRIX' in str(session['Name'])
         assert session['Session'].iloc[0] == 'Race'
@@ -67,18 +67,18 @@ def test_pick_session_by_number():
              pd.Timestamp(year=2021, month=8, day=1)])  # TODO not only closest but limit to same day
 def test_pick_session_by_date(date):
     session = schedule.pick_session_by_date(date)
-    assert isinstance(session, pd.Series)
+    assert isinstance(session, events.Event)
     assert 'FORMULA 1 ROLEX MAGYAR' in str(session['Name'])
     assert session['Session'] == 'Race'
 
 
 def test_pick_session_by_date_same_day():
     fp3 = schedule.pick_session_by_date('2021-07-31 10:00')
-    assert isinstance(fp3, pd.Series)
+    assert isinstance(fp3, events.Event)
     assert fp3['Session'] == 'Practice 3'
 
     q = schedule.pick_session_by_date('2021-07-31 14:00')
-    assert isinstance(q, pd.Series)
+    assert isinstance(q, events.Event)
     assert q['Session'] == 'Qualifying'
 
 
@@ -93,3 +93,38 @@ def test_pick_race_weekends():
     assert any(['TESTING' in str(name) for name in schedule['Name']])
     race_weekends = schedule.pick_race_weekends()
     assert not any(['TESTING' in str(name) for name in race_weekends['Name']])
+
+
+def test_pick_weekend_by_name():
+    weekend = schedule.pick_weekend_by_name('Belgian')
+    assert isinstance(weekend, events.EventSchedule)
+    assert weekend['Name'].unique() == \
+           ['FORMULA 1 ROLEX BELGIAN GRAND PRIX 2021', ]
+
+
+def test_pick_session_by_name():
+    session = schedule.pick_session_by_name('Belgian', 'Q')
+    assert isinstance(session, events.Event)
+    assert session['Name'] == 'FORMULA 1 ROLEX BELGIAN GRAND PRIX 2021'
+    assert session['Session'] == 'Qualifying'
+
+
+# @pytest.mark.f1telapi
+def test_to_weekend():
+    Cache.enable_cache('test_cache')
+    w = schedule.pick_weekend_by_number(11)
+    weekend = w.to_weekend()
+    assert isinstance(weekend, core.Weekend)
+    session = weekend.get_quali()
+    assert isinstance(session, core.Session)
+    assert session.name == 'Qualifying'
+    assert session.load_laps() is not None
+
+
+# @pytest.mark.f1telapi
+def test_to_session():
+    Cache.enable_cache('test_cache')
+    r = schedule.pick_session_by_date('2021-08-01')
+    session = r.to_session()
+    assert isinstance(session, core.Session)
+    assert session.load_laps() is not None

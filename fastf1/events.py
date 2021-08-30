@@ -1,18 +1,27 @@
 import logging
+import warnings
 
 import pandas as pd
+import numpy as np
 import ics
+with warnings.catch_warnings():
+    warnings.filterwarnings(
+        'ignore', message="Using slow pure-python SequenceMatcher"
+    )
+    # suppress that warning, it's confusing at best here, we don't need fast
+    # sequence matching and the installation (on windows) requires some effort
+    from fuzzywuzzy import fuzz
 
 from fastf1.api import Cache
 from fastf1.core import Weekend, Session
 
 
-def get_event_schedule():
+def get_event_schedule(skip_update_check=False):
     schedule = Cache.request_and_parse_modified(
         'https://www.formula1.com/calendar/Formula_1_Official_Calendar.ics',
         _parse_ics_event_schedule,
         name='event schedule', cache_name='event_schedule',
-        skip_update_check=True
+        skip_update_check=skip_update_check
     )
 
     return schedule
@@ -112,6 +121,10 @@ class EventSchedule(pd.DataFrame):
         return EventSchedule
 
     @property
+    def _constructor_sliced(self):
+        return Event
+
+    @property
     def base_class_view(self):
         """For a nicer debugging experience; can now view as
         dataframe in various IDEs"""
@@ -128,17 +141,36 @@ class EventSchedule(pd.DataFrame):
         name = self.iloc[tdelta.idxmin()]['Name']
         return self[self['Name'] == name]
 
-    def pick_session_type(self, session):
+    def pick_weekend_by_name(self, session):
+        session = session.upper()
+        ref_names = self['Name'].unique()
+        ref_locations = [str(group[1]['Location'].unique().squeeze())
+                         for group in self.groupby('Name', sort=False)]
+        ref_strings = [f"{n} {l}" for n, l in zip(ref_names, ref_locations)]
+        ratios = np.array([fuzz.partial_ratio(session, ref) for ref in ref_strings])
+        full_name = ref_names[np.argmax(ratios)]
+        return self[self['Name'] == full_name]
+
+    def pick_race_weekends(self):
+        return self[self['EventType'] == 'race_weekend']
+
+    def pick_session_type(self, name):
         translate = {'fp1': 'Practice 1', 'fp2': 'Practice 2',
                      'fp3': 'Practice 3', 'q': 'Qualifying',
                      'r': 'Race', 'sq': 'Sprint Qualifying'}
-        session = translate.get(session.lower(), session)
-        session = ' '.join(word.capitalize() for word in session.split(' '))
-        return self[self['Session'] == session]
+        name = translate.get(name.lower(), name)
+        name = ' '.join(word.capitalize() for word in name.split(' '))
+        return self[self['Session'] == name]
 
-    def pick_session_by_number(self, session, number):
+    def pick_session_by_number(self, number, session):
         sessions = self.pick_session_type(session)
         return sessions[sessions['EventNumber'] == number]
+
+    def pick_session_by_name(self, name, session):
+        weekend = self.pick_weekend_by_name(name)
+        session = weekend.pick_session_type(session).iloc[0]
+        return session
+
 
     def pick_session_by_date(self, timestamp):
         date = pd.to_datetime(timestamp)
@@ -150,9 +182,6 @@ class EventSchedule(pd.DataFrame):
 
     def pick_confirmed(self):
         return self[self['Status'] == 'confirmed']
-
-    def pick_race_weekends(self):
-        return self[self['EventType'] == 'race_weekend']
 
     def to_weekend(self):
         if (n := len(self['Name'].unique())) > 1:
@@ -166,14 +195,12 @@ class EventSchedule(pd.DataFrame):
         session = self.iloc[0]
         return Weekend(session['Begin'].year, session['EventNumber'])
 
+
+class Event(pd.Series):
     def to_session(self):
-        if (n := len(self)) > 1:
-            raise ValueError(
-                "Cannot create `.core.Weekend` from `.events.Schedule` if the"
-                "schedule contains multiple race weekends!"
-            )
-        elif n == 0:
+        if self.empty:
             return None
 
-        weekend = self.to_weekend()
-        return Session(weekend, self['Session'].squeeze())
+        weekend = Weekend(self['Begin'].year, self['EventNumber'])
+        return Session(weekend, self['Session'])
+
