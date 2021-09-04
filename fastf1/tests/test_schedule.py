@@ -109,7 +109,7 @@ def test_pick_session_by_name():
     assert session['Session'] == 'Qualifying'
 
 
-# @pytest.mark.f1telapi
+@pytest.mark.f1telapi
 def test_to_weekend():
     Cache.enable_cache('test_cache')
     w = schedule.pick_weekend_by_number(11)
@@ -121,7 +121,7 @@ def test_to_weekend():
     assert session.load_laps() is not None
 
 
-# @pytest.mark.f1telapi
+@pytest.mark.f1telapi
 def test_to_session():
     Cache.enable_cache('test_cache')
     r = schedule.pick_session_by_date('2021-08-01')
