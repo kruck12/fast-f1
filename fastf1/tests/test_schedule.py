@@ -128,3 +128,18 @@ def test_to_session():
     session = r.to_session()
     assert isinstance(session, core.Session)
     assert session.load_laps() is not None
+
+
+def test_normalize_session_name():
+    test_values = (
+        (('fp1', 'FP1', 'fP1', 'practice 1', 'Practice 1', 'PracTicE 1',
+          'free practice 1', 'Free Practice 1', 'fReE PracTIce 1'),
+         'Practice 1'),
+        (('q', 'Q', 'qualifying', 'Qualifying', 'quALifYing'), 'Qualifying'),
+        (('sq', 'SQ', 'sQ', 'sprint qualifying', 'Sprint Qualifying',
+          'sPriNT quAlIfYING'), 'Sprint Qualifying'),
+        (('r', 'R', 'race', 'Race', 'rAcE'), 'Race')
+    )
+    for session_names, expected in test_values:
+        for name in session_names:
+            assert events.normalize_session_name(name) == expected

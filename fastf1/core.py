@@ -906,24 +906,7 @@ class Weekend:
     def __init__(self, year, gp):
         self.year = year
         self.gp = gp
-        if self.is_testing():
-            logging.warning("The Ergast API is not supported for testing")
-            if year == 2020:
-                date = legacy.TESTING_LOOKUP[str(year)][int(gp[-1]) - 1][-1]
-            elif year == 2021:
-                date = legacy.TESTING_LOOKUP[str(year)][0][-1]
-            else:
-                raise InvalidSessionError
-            self.data = {'raceName': gp, 'date': date}
-        else:
-            try:
-                self.data = ergast.fetch_weekend(self.year, self.gp)
-            except Exception as exception:
-                logging.critical("Failed to load critical data from Ergast!\n\n Cannot determine the date and name "
-                                 "of the event. Cannot proceed!\n")  # TODO some backup strategy for this
-                logging.critical(str(exception))
-                logging.debug("", exc_info=exception)
-                exit()
+        self.data = _SCHEDULE_BACKEND.get_weekend_data(self.year, self.gp)
 
     def get_practice(self, number):
         """Return the specified practice session.
@@ -949,17 +932,6 @@ class Weekend:
             :class:`Session` instance
         """
         return Session(self, 'Race')
-
-    def is_testing(self):
-        """Indicates whether this 'weekend' is a testing event. (In which case is usually is not an actual weekend.)
-
-        Returns:
-            bool
-        """
-        if type(self.gp) is str:
-            return 'Test' in self.gp
-        else:
-            return False
 
     @property
     def name(self):

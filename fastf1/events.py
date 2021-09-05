@@ -1,5 +1,7 @@
+from abc import ABC, abstractmethod
 import logging
 import warnings
+import datetime
 
 import pandas as pd
 import numpy as np
@@ -16,7 +18,9 @@ from fastf1.api import Cache
 from fastf1 import core
 
 
-def get_event_schedule(skip_update_check=False):
+def get_event_schedule(*, year=datetime.datetime.now().year,
+                       skip_update_check=False):
+    # TODO: implement year
     schedule = Cache.request_and_parse_modified(
         'https://www.formula1.com/calendar/Formula_1_Official_Calendar.ics',
         _parse_ics_event_schedule,
@@ -112,6 +116,43 @@ def _parse_ics_event_schedule(response):
     return schedule
 
 
+def normalize_session_name(identifier):
+    """Takes a session name/identifier and returns the normalized session name
+    for it.
+
+    Valid identifiers and the returned event names are:
+        - fp1, free practice 1, practice 1 --> Practice 1
+        - (same for FP2 and FP3)
+        - q, qualifying --> Qualifying
+        - sq, sprint qualifying --> Sprint Qualifying
+        - r, race --> Race
+
+    Capitalization of any letters is irrelevant. For example,
+    'frEe PraCtice 1' will return the same result as 'Free Practice 1' or
+    'free practice 1'.
+
+    Args:
+        identifier (str): Session name or abbreviation
+
+    Returns:
+        :class:`str`: normalized session name
+    """
+    translate = {'fp1': 'Practice 1', 'free practice 1': 'Practice 1',
+                 'fp2': 'Practice 2', 'free practice 2': 'Practice 2',
+                 'fp3': 'Practice 3', 'free practice 3': 'Practice 3',
+                 'q': 'Qualifying',
+                 'r': 'Race', 'sq': 'Sprint Qualifying'}
+    if identifier in translate.values():
+        return identifier
+    elif (abbreviation := identifier.lower()) in translate.keys():
+        return translate[abbreviation]
+    capitalized = ' '.join(word.capitalize() for word in identifier.split(' '))
+    if capitalized in translate.values():
+        return capitalized
+
+    raise ValueError(f"Invalid session name '{identifier}'")
+
+
 class EventSchedule(pd.DataFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -154,12 +195,8 @@ class EventSchedule(pd.DataFrame):
     def pick_race_weekends(self):
         return self[self['EventType'] == 'race_weekend']
 
-    def pick_session_type(self, name):
-        translate = {'fp1': 'Practice 1', 'fp2': 'Practice 2',
-                     'fp3': 'Practice 3', 'q': 'Qualifying',
-                     'r': 'Race', 'sq': 'Sprint Qualifying'}
-        name = translate.get(name.lower(), name)
-        name = ' '.join(word.capitalize() for word in name.split(' '))
+    def pick_session_type(self, identifier):
+        name = normalize_session_name(identifier)
         return self[self['Session'] == name]
 
     def pick_session_by_number(self, number, session):
@@ -204,18 +241,64 @@ class Event(pd.Series):
         return core.Session(weekend, self['Session'])
 
 
-class IcsScheduleBackend:
+class BaseScheduleBackend(ABC):
+    @abstractmethod
+    def get_session(self, year, gp, event=None):
+        pass
+
+    @abstractmethod
+    def get_round(self, year, match):
+        pass
+
+    @abstractmethod
+    def get_weekend_data(self, year, gp):
+        pass
+
+    @abstractmethod
+    def get_session_date(self, session):
+        pass
+
+
+class IcsScheduleBackend(BaseScheduleBackend):
     def __init__(self):
-        self._event_schedule = get_event_schedule()
+        self._event_schedules = dict()
 
-    @classmethod
-    def get_session(cls, year, gp, event=None):
+    def _get_evs(self, year):
+        if year not in self._event_schedules:
+            self._event_schedules[year] = get_event_schedule(year=year)
+        return self._event_schedules[year]
+
+    def get_session(self, year, gp, event=None):
+        if gp == 'testing':
+            if not isinstance(event, int):
+                raise ValueError(
+                    'Event number needs to be specified as '
+                    'an integer for testing'
+                )
+            evs = self._get_evs(year)
+            testing = evs[evs['EventType'] == 'testing']
+            week_name = testing.iloc[0]['Name']
+            weekend = core.Weekend(year, week_name)
+            session_name = testing.iloc[event]['Session']
+            return core.Session(weekend, session_name)
+
+        if isinstance(gp, str):
+            gp = self.get_round(year, gp)
+
+        weekend = core.Weekend(year, gp)
+        if event is None:
+            return weekend
+
+        name = normalize_session_name(event)
+        return core.Session(weekend, name)
+
+    def get_round(self, year, match):
+        evs = self._get_evs(year)
+        weekend = evs.get_weekend_by_name(match)
+        return int(weekend.iloc[0]['EventNumber'])
+
+    def get_weekend_data(self, year, gp):
         pass
 
-    @classmethod
-    def get_round(cls, year, match):
-        pass
-
-    @classmethod
-    def get_session_date(cls, session):
+    def get_session_date(self, session):
         pass

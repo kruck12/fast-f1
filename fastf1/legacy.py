@@ -65,7 +65,7 @@ with warnings.catch_warnings():
     # and the installation (on windows) some effort
     from fuzzywuzzy import fuzz
 
-from fastf1 import ergast, core
+from fastf1 import ergast, core, events
 
 
 REFERENCE_LAP_RESOLUTION = 0.667
@@ -281,13 +281,12 @@ def inject_driver_ahead(session):
     return driver_ahead
 
 
-class LegacyScheduleBackend:
+class LegacyScheduleBackend(events.BaseScheduleBackend):
     TESTING_LOOKUP = {'2020': [['2020-02-19', '2020-02-20', '2020-02-21'],
                                ['2020-02-26', '2020-02-27', '2020-02-28']],
                       '2021': [['2021-03-12', '2021-03-13', '2021-03-14']]}
 
-    @classmethod
-    def get_session(cls, year, gp, event=None):
+    def get_session(self, year, gp, event=None):
         """Create a :class:`Session` or :class:`Weekend` object based on year,
         event name and session name.
         This function will take care of crafting an object
@@ -333,12 +332,12 @@ class LegacyScheduleBackend:
 
         """
         if type(gp) is str and gp == 'testing':
-            pre_season_week, event = cls._get_testing_week_event(year, event)
+            pre_season_week, event = self._get_testing_week_event(year, event)
             weekend = core.Weekend(year, pre_season_week)
             return core.Session(weekend, event)
 
         if type(gp) is str:
-            gp = cls.get_round(year, gp)
+            gp = self.get_round(year, gp)
         weekend = core.Weekend(year, gp)
         if event == 'R':
             return core.Session(weekend, 'Race')
@@ -352,8 +351,7 @@ class LegacyScheduleBackend:
             return core.Session(weekend, 'Practice 1')
         return weekend
 
-    @classmethod
-    def get_round(cls, year, match):
+    def get_round(self, year, match):
         """Get event number by year and (partial) event name
 
         A fuzzy match is performed to find the most likely event for the provided name.
@@ -379,8 +377,7 @@ class LegacyScheduleBackend:
 
         return int(races[np.argmax(ratios)]['round'])
 
-    @classmethod
-    def _get_testing_week_event(cls, year, day):
+    def _get_testing_week_event(self, year, day):
         """Get the correct weekend and event for testing from the
         year and day of the test. (where day is 1, 2, 3, ...)
         """
@@ -401,17 +398,38 @@ class LegacyScheduleBackend:
 
         return pre_season_week, event
 
-    @classmethod
-    def get_session_date(cls, session):
+    def get_weekend_data(self, year, gp):
+        if isinstance(gp, str) and 'test' in gp.lower():
+            logging.warning("The Ergast API is not supported for testing")
+            if year == 2020:
+                date = self.TESTING_LOOKUP[str(year)][int(gp[-1]) - 1][-1]
+            elif year == 2021:
+                date = self.TESTING_LOOKUP[str(year)][0][-1]
+            else:
+                raise core.InvalidSessionError
+            data = {'raceName': gp, 'date': date}
+        else:
+            try:
+                data = ergast.fetch_weekend(year, gp)
+            except Exception as exception:
+                logging.critical("Failed to load critical data from Ergast!\n\n Cannot determine the date and name "
+                                 "of the event. Cannot proceed!\n")  # TODO some backup strategy for this
+                logging.critical(str(exception))
+                logging.debug("", exc_info=exception)
+                exit()
+
+        return data
+
+    def get_session_date(self, session):
         """Session date formatted as '%Y-%m-%d' (e.g. '2019-03-12')"""
         if session.weekend.is_testing():
             if (year := str(session.weekend.year)) == '2020':
                 week_index = int(session.weekend.name[-1]) - 1
                 day_index = int(session.name[-1]) - 1
-                date = cls.TESTING_LOOKUP[year][week_index][day_index]
+                date = self.TESTING_LOOKUP[year][week_index][day_index]
             elif year == '2021':
                 day_index = int(session.name[-1]) - 1
-                date = cls.TESTING_LOOKUP[year][0][day_index]
+                date = self.TESTING_LOOKUP[year][0][day_index]
 
         elif session.name in ('Qualifying', 'Practice 3'):
             # Assuming that quali was one day before race which is not always correct
