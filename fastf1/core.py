@@ -55,26 +55,32 @@ Functions
 
 """
 
-from fastf1 import api, ergast
+from fastf1 import api, ergast, legacy, events
 import fastf1
 import pandas as pd
 import numpy as np
 import logging
+import warnings
 from functools import cached_property
 
-import warnings
-with warnings.catch_warnings():
-    warnings.filterwarnings('ignore', message="Using slow pure-python SequenceMatcher")
-    # suppress that warning, it's confusing at best here, we don't need fast sequence matching
-    # and the installation (on windows) some effort
-    from fuzzywuzzy import fuzz
 
 logging.basicConfig(level=logging.INFO, style='{', format="{module: <8} {levelname: >10} \t{message}")
 
 
-TESTING_LOOKUP = {'2020': [['2020-02-19', '2020-02-20', '2020-02-21'],
-                           ['2020-02-26', '2020-02-27', '2020-02-28']],
-                  '2021': [['2021-03-12', '2021-03-13', '2021-03-14']]}
+SCHEDULE_BACKENDS = list()
+_SCHEDULE_BACKEND = legacy.LegacyScheduleBackend()
+
+
+def set_schedule_backend(backend):
+    global _SCHEDULE_BACKEND
+    try:
+        _SCHEDULE_BACKEND = {
+            'legacy': legacy.LegacyScheduleBackend,
+            'ics': events.IcsScheduleBackend
+        }[backend]()
+    except KeyError:
+        raise ValueError(f"Invalid schedule backend name {backend}")
+
 
 D_LOOKUP = [[44, 'HAM', 'Mercedes'], [77, 'BOT', 'Mercedes'],
             [55, 'SAI', 'Ferrari'], [16, 'LEC', 'Ferrari'],
@@ -133,25 +139,7 @@ def get_session(year, gp, event=None):
         :class:`Weekend` or :class:`Session`
 
     """
-    if type(gp) is str and gp == 'testing':
-        pre_season_week, event = _get_testing_week_event(year, event)
-        weekend = Weekend(year, pre_season_week)
-        return Session(weekend, event)
-
-    if type(gp) is str:
-        gp = get_round(year, gp)
-    weekend = Weekend(year, gp)
-    if event == 'R':
-        return Session(weekend, 'Race')
-    if event == 'Q':
-        return Session(weekend, 'Qualifying')
-    if event == 'FP3':
-        return Session(weekend, 'Practice 3')
-    if event == 'FP2':
-        return Session(weekend, 'Practice 2')
-    if event == 'FP1':
-        return Session(weekend, 'Practice 1')
-    return weekend
+    return _SCHEDULE_BACKEND.get_session(year, gp, event)
 
 
 def get_round(year, match):
@@ -167,40 +155,7 @@ def get_round(year, match):
         The round number. (2019, 'Bahrain') -> 2
     """
 
-    def build_string(d):
-        r = len('https://en.wikipedia.org/wiki/')  # TODO what the hell is this
-        c, l = d['Circuit'], d['Circuit']['Location']  # noqa: E741 (for now...)
-        return (f"{d['url'][r:]} {d['raceName']} {c['circuitId']} "
-                + f"{c['url'][r:]} {c['circuitName']} {l['locality']} "
-                + f"{l['country']}")
-
-    races = ergast.fetch_season(year)
-    to_match = [build_string(block) for block in races]
-    ratios = np.array([fuzz.partial_ratio(match, ref) for ref in to_match])
-
-    return int(races[np.argmax(ratios)]['round'])
-
-
-def _get_testing_week_event(year, day):
-    """Get the correct weekend and event for testing from the
-    year and day of the test. (where day is 1, 2, 3, ...)
-    """
-    if year == 2020:
-        try:
-            day = int(day)
-            week = 1 if day < 4 else 2
-        except:  # noqa: E722 TODO: improve
-            raise InvalidSessionError
-        week_day = ((day - 1) % 3) + 1
-        pre_season_week = f'Pre-Season Test {week}'
-        event = f'Practice {week_day}'
-    elif year == 2021 and int(day) in (1, 2, 3):
-        pre_season_week = 'Pre-Season Test'
-        event = f'Practice {day}'
-    else:
-        raise InvalidSessionError
-
-    return pre_season_week, event
+    return _SCHEDULE_BACKEND.get_round(year, match)
 
 
 class Telemetry(pd.DataFrame):
@@ -954,9 +909,9 @@ class Weekend:
         if self.is_testing():
             logging.warning("The Ergast API is not supported for testing")
             if year == 2020:
-                date = TESTING_LOOKUP[str(year)][int(gp[-1]) - 1][-1]
+                date = legacy.TESTING_LOOKUP[str(year)][int(gp[-1]) - 1][-1]
             elif year == 2021:
-                date = TESTING_LOOKUP[str(year)][0][-1]
+                date = legacy.TESTING_LOOKUP[str(year)][0][-1]
             else:
                 raise InvalidSessionError
             self.data = {'raceName': gp, 'date': date}
@@ -1096,29 +1051,7 @@ class Session:
 
     def _get_session_date(self):
         """Session date formatted as '%Y-%m-%d' (e.g. '2019-03-12')"""
-        if self.weekend.is_testing():
-            if (year := str(self.weekend.year)) == '2020':
-                week_index = int(self.weekend.name[-1]) - 1
-                day_index = int(self.name[-1]) - 1
-                date = TESTING_LOOKUP[year][week_index][day_index]
-            elif year == '2021':
-                day_index = int(self.name[-1]) - 1
-                date = TESTING_LOOKUP[year][0][day_index]
-
-        elif self.name in ('Qualifying', 'Practice 3'):
-            # Assuming that quali was one day before race which is not always correct
-            # TODO Should check if also formula1 makes this assumption
-            offset_date = pd.to_datetime(self.weekend.date) + pd.DateOffset(-1)
-            date = offset_date.strftime('%Y-%m-%d')
-        elif self.name in ('Practice 1', 'Practice 2'):
-            # Again, assuming that practice 1/2 are the day before quali (except Monaco)
-            _ = -3 if self.weekend.name == 'Monaco Grand Prix' else -2
-            offset_date = pd.to_datetime(self.weekend.date) + pd.DateOffset(_)
-            date = offset_date.strftime('%Y-%m-%d')
-        else:  # Race
-            date = self.weekend.date
-
-        return date
+        return _SCHEDULE_BACKEND.get_session_date(self)
 
     def load_laps(self, with_telemetry=False, livedata=None):
         """Load lap timing information and telemetry data.

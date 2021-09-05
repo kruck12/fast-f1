@@ -13,7 +13,7 @@ with warnings.catch_warnings():
     from fuzzywuzzy import fuzz
 
 from fastf1.api import Cache
-from fastf1.core import Weekend, Session
+from fastf1 import core
 
 
 def get_event_schedule(skip_update_check=False):
@@ -192,7 +192,7 @@ class EventSchedule(pd.DataFrame):
             return None
 
         session = self.iloc[0]
-        return Weekend(session['Begin'].year, session['EventNumber'])
+        return core.Weekend(session['Begin'].year, session['EventNumber'])
 
 
 class Event(pd.Series):
@@ -200,5 +200,22 @@ class Event(pd.Series):
         if self.empty:
             return None
 
-        weekend = Weekend(self['Begin'].year, self['EventNumber'])
-        return Session(weekend, self['Session'])
+        weekend = core.Weekend(self['Begin'].year, self['EventNumber'])
+        return core.Session(weekend, self['Session'])
+
+
+class IcsScheduleBackend:
+    def __init__(self):
+        self._event_schedule = get_event_schedule()
+
+    @classmethod
+    def get_session(cls, year, gp, event=None):
+        pass
+
+    @classmethod
+    def get_round(cls, year, match):
+        pass
+
+    @classmethod
+    def get_session_date(cls, session):
+        pass

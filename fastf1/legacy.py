@@ -57,6 +57,15 @@ import numpy as np
 import pandas as pd
 import scipy.spatial
 import logging
+import warnings
+
+with warnings.catch_warnings():
+    warnings.filterwarnings('ignore', message="Using slow pure-python SequenceMatcher")
+    # suppress that warning, it's confusing at best here, we don't need fast sequence matching
+    # and the installation (on windows) some effort
+    from fuzzywuzzy import fuzz
+
+from fastf1 import ergast, core
 
 
 REFERENCE_LAP_RESOLUTION = 0.667
@@ -270,3 +279,151 @@ def inject_driver_ahead(session):
         raise ValueError("No valid telemetry for calculating distance to driver ahead!")
 
     return driver_ahead
+
+
+class LegacyScheduleBackend:
+    TESTING_LOOKUP = {'2020': [['2020-02-19', '2020-02-20', '2020-02-21'],
+                               ['2020-02-26', '2020-02-27', '2020-02-28']],
+                      '2021': [['2021-03-12', '2021-03-13', '2021-03-14']]}
+
+    @classmethod
+    def get_session(cls, year, gp, event=None):
+        """Create a :class:`Session` or :class:`Weekend` object based on year,
+        event name and session name.
+        This function will take care of crafting an object
+        corresponding to the requested session.
+        If no session is specified, the full weekend is returned.
+
+        Examples:
+
+            Get the second free practice of the first race of 2021::
+
+                get_session(2021, 1, 'FP2')
+
+            Get the qualifying of the 2020 Austrian Grand Prix::
+
+                get_session(2020, 'Austria', 'Q')
+
+            Get the second day of pre-season testing of 2021::
+
+                get_session(2021, 'testing', 2)
+
+
+        Args:
+            year (number): Session year
+            gp (number or string): Name or weekend number (1: Australia,
+                                   ..., 21: Abu Dhabi). If gp is a string,
+                                   a fuzzy match will be performed on the
+                                   season rounds and the most likely will be
+                                   selected.
+
+                                   Some examples that will be correctly
+                                   interpreted: 'bahrain', 'australia',
+                                   'abudabi', 'monza'.
+
+                                   Pass 'testing' to fetch Barcelona winter
+                                   tests.
+
+            event (=None): may be 'FP1', 'FP2', 'FP3', 'Q' or 'R', if not
+                           specified you get the full :class:`Weekend`.
+                           If gp is 'testing' event is the test day (1 to 6)
+
+        Returns:
+            :class:`Weekend` or :class:`Session`
+
+        """
+        if type(gp) is str and gp == 'testing':
+            pre_season_week, event = cls._get_testing_week_event(year, event)
+            weekend = core.Weekend(year, pre_season_week)
+            return core.Session(weekend, event)
+
+        if type(gp) is str:
+            gp = cls.get_round(year, gp)
+        weekend = core.Weekend(year, gp)
+        if event == 'R':
+            return core.Session(weekend, 'Race')
+        if event == 'Q':
+            return core.Session(weekend, 'Qualifying')
+        if event == 'FP3':
+            return core.Session(weekend, 'Practice 3')
+        if event == 'FP2':
+            return core.Session(weekend, 'Practice 2')
+        if event == 'FP1':
+            return core.Session(weekend, 'Practice 1')
+        return weekend
+
+    @classmethod
+    def get_round(cls, year, match):
+        """Get event number by year and (partial) event name
+
+        A fuzzy match is performed to find the most likely event for the provided name.
+
+        Args:
+            year (int): Year of the event
+            match (string): Name of the race or gp (e.g. 'Bahrain')
+
+        Returns:
+            The round number. (2019, 'Bahrain') -> 2
+        """
+
+        def build_string(d):
+            r = len('https://en.wikipedia.org/wiki/')  # TODO what the hell is this
+            c, l = d['Circuit'], d['Circuit']['Location']  # noqa: E741 (for now...)
+            return (f"{d['url'][r:]} {d['raceName']} {c['circuitId']} "
+                    + f"{c['url'][r:]} {c['circuitName']} {l['locality']} "
+                    + f"{l['country']}")
+
+        races = ergast.fetch_season(year)
+        to_match = [build_string(block) for block in races]
+        ratios = np.array([fuzz.partial_ratio(match, ref) for ref in to_match])
+
+        return int(races[np.argmax(ratios)]['round'])
+
+    @classmethod
+    def _get_testing_week_event(cls, year, day):
+        """Get the correct weekend and event for testing from the
+        year and day of the test. (where day is 1, 2, 3, ...)
+        """
+        if year == 2020:
+            try:
+                day = int(day)
+                week = 1 if day < 4 else 2
+            except:  # noqa: E722 TODO: improve
+                raise core.InvalidSessionError
+            week_day = ((day - 1) % 3) + 1
+            pre_season_week = f'Pre-Season Test {week}'
+            event = f'Practice {week_day}'
+        elif year == 2021 and int(day) in (1, 2, 3):
+            pre_season_week = 'Pre-Season Test'
+            event = f'Practice {day}'
+        else:
+            raise core.InvalidSessionError
+
+        return pre_season_week, event
+
+    @classmethod
+    def get_session_date(cls, session):
+        """Session date formatted as '%Y-%m-%d' (e.g. '2019-03-12')"""
+        if session.weekend.is_testing():
+            if (year := str(session.weekend.year)) == '2020':
+                week_index = int(session.weekend.name[-1]) - 1
+                day_index = int(session.name[-1]) - 1
+                date = cls.TESTING_LOOKUP[year][week_index][day_index]
+            elif year == '2021':
+                day_index = int(session.name[-1]) - 1
+                date = cls.TESTING_LOOKUP[year][0][day_index]
+
+        elif session.name in ('Qualifying', 'Practice 3'):
+            # Assuming that quali was one day before race which is not always correct
+            # TODO Should check if also formula1 makes this assumption
+            offset_date = pd.to_datetime(session.weekend.date) + pd.DateOffset(-1)
+            date = offset_date.strftime('%Y-%m-%d')
+        elif session.name in ('Practice 1', 'Practice 2'):
+            # Again, assuming that practice 1/2 are the day before quali (except Monaco)
+            _ = -3 if session.weekend.name == 'Monaco Grand Prix' else -2
+            offset_date = pd.to_datetime(session.weekend.date) + pd.DateOffset(_)
+            date = offset_date.strftime('%Y-%m-%d')
+        else:  # Race
+            date = session.weekend.date
+
+        return date
