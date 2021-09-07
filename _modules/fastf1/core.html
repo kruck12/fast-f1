@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core &mdash; Fast F1 2.1.6 documentation</title>
+  <title>fastf1.core &mdash; Fast F1 2.1.8 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                2.1.6
+                2.1.8
               </div>
             
           
@@ -108,6 +108,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples_gallery/index.html">Examples Gallery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_qualifying_results.html">Qualifying results overview</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
@@ -171,6 +172,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
@@ -328,6 +330,16 @@
                            <span class="p">[</span><span class="s1">&#39;2020-02-26&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-27&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-28&#39;</span><span class="p">]],</span>
                   <span class="s1">&#39;2021&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;2021-03-12&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-03-13&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-03-14&#39;</span><span class="p">]]}</span>
 
+<span class="c1"># TODO: remove; temporary patch to support sprint qualifying</span>
+<span class="n">SPRINT_QUALIFYING_LOOKUP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Practice 1&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-07-16&#39;</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-07-16&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;Practice 2&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-07-17&#39;</span><span class="p">,</span> <span class="s1">&#39;Sprint Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-07-17&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;Race&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-07-18&#39;</span><span class="p">},</span>
+    <span class="mi">14</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Practice 1&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-10&#39;</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-10&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;Practice 2&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-11&#39;</span><span class="p">,</span> <span class="s1">&#39;Sprint Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-11&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;Race&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-12&#39;</span><span class="p">},</span>
+<span class="p">}</span>
+
 <span class="n">D_LOOKUP</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">44</span><span class="p">,</span> <span class="s1">&#39;HAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">55</span><span class="p">,</span> <span class="s1">&#39;SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;LEC&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">33</span><span class="p">,</span> <span class="s1">&#39;VER&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;PER&#39;</span><span class="p">,</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">],</span>
@@ -377,8 +389,11 @@
 <span class="sd">                               Pass &#39;testing&#39; to fetch Barcelona winter</span>
 <span class="sd">                               tests.</span>
 
-<span class="sd">        event (=None): may be &#39;FP1&#39;, &#39;FP2&#39;, &#39;FP3&#39;, &#39;Q&#39; or &#39;R&#39;, if not</span>
+<span class="sd">        event (=None): may be &#39;FP1&#39;, &#39;FP2&#39;, &#39;FP3&#39;, &#39;Q&#39;, &#39;SQ&#39; or &#39;R&#39;, if not</span>
 <span class="sd">                       specified you get the full :class:`Weekend`.</span>
+<span class="sd">                       &#39;SQ&#39; stands for Sprint Qualifying which is only</span>
+<span class="sd">                       available in the 2021 season. Note that &#39;FP3&#39; does</span>
+<span class="sd">                       not exist on these race weekends.</span>
 <span class="sd">                       If gp is &#39;testing&#39; event is the test day (1 to 6)</span>
 
 <span class="sd">    Returns:</span>
@@ -397,6 +412,8 @@
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;Q&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;SQ&#39;</span><span class="p">:</span>  <span class="c1"># TODO: remove; temporary patch to support sprint qualifying</span>
+        <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Sprint Qualifying&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP3&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Practice 3&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP2&#39;</span><span class="p">:</span>
@@ -1289,6 +1306,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">api_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">make_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;list: Race result with driver information.&quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">is_testing</span><span class="p">():</span>
             <span class="c1"># The Ergast API can provide some general information about weekends, drivers, ...</span>
             <span class="c1"># See ergast.com</span>
@@ -1356,6 +1377,11 @@
             <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="s1">&#39;2021&#39;</span><span class="p">:</span>
                 <span class="n">day_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
                 <span class="n">date</span> <span class="o">=</span> <span class="n">TESTING_LOOKUP</span><span class="p">[</span><span class="n">year</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">day_index</span><span class="p">]</span>
+
+        <span class="c1"># TODO: remove; temporary patch to support sprint qualifying</span>
+        <span class="k">elif</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2021</span><span class="p">)</span> <span class="ow">and</span>
+              <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">gp</span> <span class="ow">in</span> <span class="n">SPRINT_QUALIFYING_LOOKUP</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">SPRINT_QUALIFYING_LOOKUP</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">gp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Qualifying&#39;</span><span class="p">,</span> <span class="s1">&#39;Practice 3&#39;</span><span class="p">):</span>
             <span class="c1"># Assuming that quali was one day before race which is not always correct</span>

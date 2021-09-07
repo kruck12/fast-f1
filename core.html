@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core - Core module &mdash; Fast F1 2.1.7 documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1 2.1.8 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                2.1.7
+                2.1.8
               </div>
             
           
@@ -367,8 +367,11 @@ interpreted: ‘bahrain’, ‘australia’,
 <p>Pass ‘testing’ to fetch Barcelona winter
 tests.</p>
 </p></li>
-<li><p><strong>event</strong> (<em>=None</em>) – may be ‘FP1’, ‘FP2’, ‘FP3’, ‘Q’ or ‘R’, if not
+<li><p><strong>event</strong> (<em>=None</em>) – may be ‘FP1’, ‘FP2’, ‘FP3’, ‘Q’, ‘SQ’ or ‘R’, if not
 specified you get the full <a class="reference internal" href="#fastf1.core.Weekend" title="fastf1.core.Weekend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weekend</span></code></a>.
+‘SQ’ stands for Sprint Qualifying which is only
+available in the 2021 season. Note that ‘FP3’ does
+not exist on these race weekends.
 If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 </ul>
 </dd>
@@ -550,25 +553,28 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></p></td>
 <td><p>Date at which this session took place.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">results</span></code></p></td>
+<td><p>Race result with driver information.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></p></td>
 <td><p>Instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> containing all laps from all drivers in this session.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></p></td>
 <td><p>Date timestamp which marks the beginning of the data stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></p></td>
 <td><p>Session time at which the session was started.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></p></td>
 <td><p>Dictionary of car telemetry (Speed, RPM, etc.) as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
 <td><p>Dictionary of car position data as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></p></td>
 <td><p>Dataframe containing weather data for this session as received from the api.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
 <td><p>List of all drivers that took part in this session; contains driver numbers as string.</p></td>
 </tr>
 </tbody>
@@ -620,6 +626,17 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pandas.Datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="fastf1.core.Session.results">
+<code class="sig-name descname"><span class="pre">results</span></code><a class="headerlink" href="#fastf1.core.Session.results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Race result with driver information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
