@@ -49,21 +49,6 @@ Plot the qualifying result with visualization the fastest times.
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    core           INFO     Loading laps for Spanish Grand Prix - Qualifying [v2.1.6]
-    api            INFO     Using cached data for timing_data
-    api            INFO     Using cached data for timing_app_data
-    core           INFO     Processing timing data...
-    api            INFO     Using cached data for session_status_data
-    api            INFO     Using cached data for track_status_data
-    api            INFO     Using cached data for weather_data
-    core           INFO     Loaded data for 20 drivers: ['33', '44', '16', '55', '77', '4', '10', '3', '7', '11', '14', '22', '31', '18', '63', '99', '5', '6', '47', '9']
-
 
 
 
@@ -271,7 +256,7 @@ Finally, give the plot a meaningful title
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.619 seconds)
+   **Total running time of the script:** ( 0 minutes  3.264 seconds)
 
 
 .. _sphx_glr_download_examples_gallery_plot_qualifying_results.py:

@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
@@ -34,6 +36,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -96,7 +99,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
@@ -154,7 +157,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Information:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Information:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="time_explanation.html">Time, Date and Timing - Explanation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="time_explanation.html#points-in-time">Points in Time</a></li>
@@ -174,6 +177,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
@@ -259,21 +263,21 @@
 <h1><a class="reference internal" href="#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> - Api module<a class="headerlink" href="#fastf1-api-api-module" title="Permalink to this headline">¶</a></h1>
 <p>A collection of functions to interface with the F1 web api.</p>
 <dl class="py data">
-<dt id="fastf1.api.requests_session">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">requests_session</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#fastf1.api.requests_session" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.requests_session">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">requests_session</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#fastf1.api.requests_session" title="Permalink to this definition">¶</a></dt>
 <dd><p>Can be used to create a custom requests session which is then used by
 all api calls</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="fastf1.api.pages">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">pages</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_status':</span> <span class="pre">'ArchiveStatus.json',</span> <span class="pre">'audio_streams':</span> <span class="pre">'AudioStreams.jsonStream',</span> <span class="pre">'car_data':</span> <span class="pre">'CarData.z.jsonStream',</span> <span class="pre">'championship_predicion':</span> <span class="pre">'ChampionshipPrediction.jsonStream',</span> <span class="pre">'content_streams':</span> <span class="pre">'ContentStreams.jsonStream',</span> <span class="pre">'driver_list':</span> <span class="pre">'DriverList.jsonStream',</span> <span class="pre">'extrapolated_clock':</span> <span class="pre">'ExtrapolatedClock.jsonStream',</span> <span class="pre">'heartbeat':</span> <span class="pre">'Heartbeat.jsonStream',</span> <span class="pre">'lap_count':</span> <span class="pre">'LapCount.jsonStream',</span> <span class="pre">'position':</span> <span class="pre">'Position.z.jsonStream',</span> <span class="pre">'race_control_messages':</span> <span class="pre">'RaceControlMessages.json',</span> <span class="pre">'session_info':</span> <span class="pre">'SessionInfo.json',</span> <span class="pre">'session_status':</span> <span class="pre">'SessionStatus.jsonStream',</span> <span class="pre">'team_radio':</span> <span class="pre">'TeamRadio.jsonStream',</span> <span class="pre">'timing_app_data':</span> <span class="pre">'TimingAppData.jsonStream',</span> <span class="pre">'timing_data':</span> <span class="pre">'TimingData.jsonStream',</span> <span class="pre">'timing_stats':</span> <span class="pre">'TimingStats.jsonStream',</span> <span class="pre">'track_status':</span> <span class="pre">'TrackStatus.jsonStream',</span> <span class="pre">'weather_data':</span> <span class="pre">'WeatherData.jsonStream'}</span></em><a class="headerlink" href="#fastf1.api.pages" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.pages">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">pages</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_status':</span> <span class="pre">'ArchiveStatus.json',</span> <span class="pre">'audio_streams':</span> <span class="pre">'AudioStreams.jsonStream',</span> <span class="pre">'car_data':</span> <span class="pre">'CarData.z.jsonStream',</span> <span class="pre">'championship_predicion':</span> <span class="pre">'ChampionshipPrediction.jsonStream',</span> <span class="pre">'content_streams':</span> <span class="pre">'ContentStreams.jsonStream',</span> <span class="pre">'driver_list':</span> <span class="pre">'DriverList.jsonStream',</span> <span class="pre">'extrapolated_clock':</span> <span class="pre">'ExtrapolatedClock.jsonStream',</span> <span class="pre">'heartbeat':</span> <span class="pre">'Heartbeat.jsonStream',</span> <span class="pre">'lap_count':</span> <span class="pre">'LapCount.jsonStream',</span> <span class="pre">'position':</span> <span class="pre">'Position.z.jsonStream',</span> <span class="pre">'race_control_messages':</span> <span class="pre">'RaceControlMessages.json',</span> <span class="pre">'session_info':</span> <span class="pre">'SessionInfo.json',</span> <span class="pre">'session_status':</span> <span class="pre">'SessionStatus.jsonStream',</span> <span class="pre">'team_radio':</span> <span class="pre">'TeamRadio.jsonStream',</span> <span class="pre">'timing_app_data':</span> <span class="pre">'TimingAppData.jsonStream',</span> <span class="pre">'timing_data':</span> <span class="pre">'TimingData.jsonStream',</span> <span class="pre">'timing_stats':</span> <span class="pre">'TimingStats.jsonStream',</span> <span class="pre">'track_status':</span> <span class="pre">'TrackStatus.jsonStream',</span> <span class="pre">'weather_data':</span> <span class="pre">'WeatherData.jsonStream'}</span></em><a class="headerlink" href="#fastf1.api.pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Known API requests</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="fastf1.api.Cache">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">Cache</span></code><a class="reference internal" href="_modules/fastf1/api.html#Cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.Cache">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">Cache</span></span><a class="reference internal" href="_modules/fastf1/api.html#Cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pickle and requests based API cache.</p>
 <p>The parsed API data will be saved as a pickled object.
 Raw GET and POST requests are cached by requests-cache in a sqlite db.</p>
@@ -290,8 +294,8 @@ data and the code don’t match. Stage 2 is only used for some api functions.</p
 </ul>
 </div></blockquote>
 <dl class="py method">
-<dt id="fastf1.api.Cache.enable_cache">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">enable_cache</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_renew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_requests_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.enable_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.enable_cache" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.Cache.enable_cache">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">enable_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_renew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_requests_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.enable_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.enable_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables the API cache.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -307,8 +311,8 @@ data and the code don’t match. Stage 2 is only used for some api functions.</p
 </dd></dl>
 
 <dl class="py method">
-<dt id="fastf1.api.Cache.clear_cache">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">clear_cache</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.clear_cache" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.Cache.clear_cache">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.clear_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear all cached data.</p>
 <p>This deletes all cache files in the provided cache directory.
 Optionally, the requests cache is cleared too.</p>
@@ -329,8 +333,8 @@ delete the sqlite file in the root of the cache directory.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fastf1.api.Cache.api_request_wrapper">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">api_request_wrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.api_request_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.api_request_wrapper" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.Cache.api_request_wrapper">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">api_request_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.api_request_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.api_request_wrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper function for adding stage 2 caching to api functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -345,8 +349,8 @@ delete the sqlite file in the root of the cache directory.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.make_path">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">make_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sdate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#make_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.make_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.make_path">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">make_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sdate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#make_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.make_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the api path base string to append on livetiming.formula1.com for api
 requests.</p>
 <p>The api path base string changes for every session only.</p>
@@ -366,8 +370,8 @@ requests.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.timing_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">timing_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.timing_data">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">timing_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse timing data.</p>
 <p>Timing data is a mixed stream of information. At a given time a packet of data may indicate position, lap time,
 speed trap, sector times and so on.</p>
@@ -449,8 +453,8 @@ sector 1 and 2 respectively; ST maybe a speed trap on the longest straight (?)</
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.timing_app_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">timing_app_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_app_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.timing_app_data">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">timing_app_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#timing_app_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.timing_app_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse ‘timing app data’.</p>
 <dl class="simple">
 <dt>Timing app data provides the following data channels per sample:</dt><dd><ul class="simple">
@@ -492,8 +496,8 @@ frequently (for example ‘Compound’ only after tire changes).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.car_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">car_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.car_data">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">car_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse car data.</p>
 <dl class="simple">
 <dt>Car data provides the following data channels per sample:</dt><dd><ul class="simple">
@@ -534,8 +538,8 @@ string (e.g. ‘16’). You should never assume that a number exists!</div>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.position_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">position_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.position_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.position_data">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">position_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#position_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.position_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse position data.</p>
 <dl class="simple">
 <dt>Position data provides the following data channels per sample:</dt><dd><ul class="simple">
@@ -572,8 +576,8 @@ string (e.g. ‘16’). You should never assume that a number exists!</div>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.track_status_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">track_status_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#track_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.track_status_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.track_status_data">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">track_status_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#track_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.track_status_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse track status data.</p>
 <p>Track status contains information on yellow/red/green flags, safety car and virtual safety car. It provides the
 following data channels per sample:</p>
@@ -617,8 +621,8 @@ will mark the actual end)</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.session_status_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">session_status_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#session_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.session_status_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.session_status_data">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">session_status_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#session_status_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.session_status_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse session status data.</p>
 <p>Session status contains information on when a session was started and when it ended (amongst others). It
 provides the following data channels per sample:</p>
@@ -647,8 +651,8 @@ provides the following data channels per sample:</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.weather_data">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">weather_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#weather_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.weather_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.weather_data">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">weather_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#weather_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.weather_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse weather data.</p>
 <p>Weather data provides the following data channels per sample:</p>
 <blockquote>
@@ -687,8 +691,8 @@ of values per key.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.fetch_page">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">fetch_page</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#fetch_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.fetch_page" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.fetch_page">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">fetch_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#fetch_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.fetch_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch data from the formula1 livetiming web api, given url base path and page name. An attempt
 to parse json or decode known messages is made.</p>
 <dl class="field-list simple">
@@ -711,8 +715,8 @@ parsed with <a class="reference internal" href="#fastf1.api.parse" title="fastf1
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.api.parse">
-<code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">parse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zipped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.parse" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.parse">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zipped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse json and jsonStream as returned by livetiming.formula1.com</p>
 <p>This function can only pass one data entry at a time, not a whole response.
 Timestamps and data need to be separated before and only the data must be passed as a string to be parsed.</p>
@@ -737,8 +741,8 @@ Timestamps and data need to be separated before and only the data must be passed
 </dd></dl>
 
 <dl class="py exception">
-<dt id="fastf1.api.SessionNotAvailableError">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">fastf1.api.</span></code><code class="sig-name descname"><span class="pre">SessionNotAvailableError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#SessionNotAvailableError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.SessionNotAvailableError" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.api.SessionNotAvailableError">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">SessionNotAvailableError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#SessionNotAvailableError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.SessionNotAvailableError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raised if an api request returned no data for the requested session.
 A likely cause is that the session does not exist because it was cancelled.</p>
 </dd></dl>

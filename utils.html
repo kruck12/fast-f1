@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
@@ -34,6 +36,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -96,7 +99,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
@@ -154,7 +157,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Information:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Information:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="time_explanation.html">Time, Date and Timing - Explanation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="time_explanation.html#points-in-time">Points in Time</a></li>
@@ -174,6 +177,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
@@ -258,8 +262,8 @@
   <span class="target" id="module-fastf1.utils"></span><div class="section" id="fastf1-utils-utils-module">
 <h1><a class="reference internal" href="#module-fastf1.utils" title="fastf1.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code></a> - Utils module<a class="headerlink" href="#fastf1-utils-utils-module" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="fastf1.utils.delta_time">
-<code class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></code><code class="sig-name descname"><span class="pre">delta_time</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_lap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare_lap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#delta_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.delta_time" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.utils.delta_time">
+<span class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></span><span class="sig-name descname"><span class="pre">delta_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_lap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare_lap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#delta_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.delta_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the delta time of a given lap, along the ‘Distance’ axis
 of the reference lap.</p>
 <div class="admonition warning">
@@ -302,10 +306,6 @@ Hamilton from Bahrain 2021 Qualifying:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//utils-1.png">png</a>, <a class="reference external" href=".//utils-1.hires.png">hires.png</a>, <a class="reference external" href=".//utils-1.pdf">pdf</a>)</p>
-<div class="figure align-default">
-<img alt="_images/utils-1.png" class="plot-directive" src="_images/utils-1.png" />
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -334,16 +334,16 @@ resampling options!</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.utils.recursive_dict_get">
-<code class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></code><code class="sig-name descname"><span class="pre">recursive_dict_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#recursive_dict_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.recursive_dict_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.utils.recursive_dict_get">
+<span class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></span><span class="sig-name descname"><span class="pre">recursive_dict_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#recursive_dict_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.recursive_dict_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursive dict get. Can take an arbitrary number of keys and returns an empty
 dict if any key does not exist.
 <a class="reference external" href="https://stackoverflow.com/a/28225747">https://stackoverflow.com/a/28225747</a></p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.utils.to_timedelta">
-<code class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></code><code class="sig-name descname"><span class="pre">to_timedelta</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#to_timedelta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.to_timedelta" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.utils.to_timedelta">
+<span class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></span><span class="sig-name descname"><span class="pre">to_timedelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#to_timedelta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.to_timedelta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fast timedelta object creation from a time string</p>
 <p>Permissible string formats:</p>
 <blockquote>
@@ -375,8 +375,8 @@ arbitrary precision (1 to 6 digits)</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fastf1.utils.to_datetime">
-<code class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></code><code class="sig-name descname"><span class="pre">to_datetime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#to_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.to_datetime" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fastf1.utils.to_datetime">
+<span class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></span><span class="sig-name descname"><span class="pre">to_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#to_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.to_datetime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fast datetime object creation from a date string.</p>
 <p>Permissible string formats:</p>
 <blockquote>

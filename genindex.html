@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
@@ -34,6 +36,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -94,7 +97,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
@@ -152,7 +155,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Information:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Information:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="time_explanation.html">Time, Date and Timing - Explanation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="time_explanation.html#points-in-time">Points in Time</a></li>
@@ -172,6 +175,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
@@ -297,7 +301,7 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Laps.base_class_view">base_class_view() (fastf1.core.Laps property)</a>
+      <li><a href="core.html#fastf1.core.Laps.base_class_view">base_class_view (fastf1.core.Laps property)</a>
 
       <ul>
         <li><a href="core.html#fastf1.core.Telemetry.base_class_view">(fastf1.core.Telemetry property)</a>
@@ -332,14 +336,16 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Session.date">date (fastf1.core.Session attribute)</a>
+
+      <ul>
+        <li><a href="core.html#fastf1.core.Weekend.date">(fastf1.core.Weekend property)</a>
 </li>
-      <li><a href="core.html#fastf1.core.Weekend.date">date() (fastf1.core.Weekend property)</a>
-</li>
+      </ul></li>
       <li><a href="utils.html#fastf1.utils.delta_time">delta_time() (in module fastf1.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Driver.dnf">dnf() (fastf1.core.Driver property)</a>
+      <li><a href="core.html#fastf1.core.Driver.dnf">dnf (fastf1.core.Driver property)</a>
 </li>
       <li><a href="core.html#fastf1.core.Driver">Driver (class in fastf1.core)</a>
 </li>
@@ -359,7 +365,7 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Driver.familyname">familyname() (fastf1.core.Driver property)</a>
+      <li><a href="core.html#fastf1.core.Driver.familyname">familyname (fastf1.core.Driver property)</a>
 </li>
       <li>
     fastf1
@@ -478,7 +484,7 @@
         <li><a href="core.html#fastf1.core.Laps.get_weather_data">(fastf1.core.Laps method)</a>
 </li>
       </ul></li>
-      <li><a href="core.html#fastf1.core.Driver.grid">grid() (fastf1.core.Driver property)</a>
+      <li><a href="core.html#fastf1.core.Driver.grid">grid (fastf1.core.Driver property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -585,11 +591,11 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#fastf1.core.Session.name">name (fastf1.core.Session attribute)</a>
-</li>
-      <li><a href="core.html#fastf1.core.Driver.name">name() (fastf1.core.Driver property)</a>
+      <li><a href="core.html#fastf1.core.Driver.name">name (fastf1.core.Driver property)</a>
 
       <ul>
+        <li><a href="core.html#fastf1.core.Session.name">(fastf1.core.Session attribute)</a>
+</li>
         <li><a href="core.html#fastf1.core.Weekend.name">(fastf1.core.Weekend property)</a>
 </li>
       </ul></li>
@@ -631,7 +637,7 @@
 </li>
       <li><a href="core.html#fastf1.core.Session.pos_data">pos_data (fastf1.core.Session attribute)</a>
 </li>
-      <li><a href="core.html#fastf1.core.Driver.position">position() (fastf1.core.Driver property)</a>
+      <li><a href="core.html#fastf1.core.Driver.position">position (fastf1.core.Driver property)</a>
 </li>
       <li><a href="api.html#fastf1.api.position_data">position_data() (in module fastf1.api)</a>
 </li>
@@ -699,7 +705,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#fastf1.core.Session.t0_date">t0_date (fastf1.core.Session attribute)</a>
 </li>
-      <li><a href="core.html#fastf1.core.Driver.team">team() (fastf1.core.Driver property)</a>
+      <li><a href="core.html#fastf1.core.Driver.team">team (fastf1.core.Driver property)</a>
 </li>
       <li><a href="plotting.html#fastf1.plotting.team_color">team_color() (in module fastf1.plotting)</a>
 </li>
@@ -709,7 +715,7 @@
 </li>
       <li><a href="core.html#fastf1.core.Telemetry">Telemetry (class in fastf1.core)</a>
 </li>
-      <li><a href="core.html#fastf1.core.Lap.telemetry">telemetry() (fastf1.core.Lap property)</a>
+      <li><a href="core.html#fastf1.core.Lap.telemetry">telemetry (fastf1.core.Lap property)</a>
 
       <ul>
         <li><a href="core.html#fastf1.core.Laps.telemetry">(fastf1.core.Laps property)</a>
