@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.plotting - Plotting module &mdash; Fast F1 2.1.8 documentation</title>
+  <title>fastf1.plotting - Plotting module &mdash; Fast F1 2.1.10 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.1.8
+                2.1.10
               </div>
             
           
@@ -177,6 +177,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
@@ -284,14 +286,14 @@ release.</p>
 </div>
 <dl class="py data">
 <dt class="sig sig-object py" id="fastf1.plotting.TEAM_COLORS">
-<span class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></span><span class="sig-name descname"><span class="pre">TEAM_COLORS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'Alfa</span> <span class="pre">Romeo':</span> <span class="pre">'#900000',</span> <span class="pre">'AlphaTauri':</span> <span class="pre">'#2b4562',</span> <span class="pre">'Alpine</span> <span class="pre">F1</span> <span class="pre">Team':</span> <span class="pre">'#0090ff',</span> <span class="pre">'Aston</span> <span class="pre">Martin':</span> <span class="pre">'#006f62',</span> <span class="pre">'Ferrari':</span> <span class="pre">'#dc0000',</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team':</span> <span class="pre">'#ffffff',</span> <span class="pre">'McLaren':</span> <span class="pre">'#ff8700',</span> <span class="pre">'Mercedes':</span> <span class="pre">'#00d2be',</span> <span class="pre">'Red</span> <span class="pre">Bull':</span> <span class="pre">'#0600ef',</span> <span class="pre">'Williams':</span> <span class="pre">'#005aff'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_COLORS" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></span><span class="sig-name descname"><span class="pre">TEAM_COLORS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'alfa</span> <span class="pre">romeo':</span> <span class="pre">'#900000',</span> <span class="pre">'alphatauri':</span> <span class="pre">'#2b4562',</span> <span class="pre">'alpine':</span> <span class="pre">'#0090ff',</span> <span class="pre">'aston</span> <span class="pre">martin':</span> <span class="pre">'#006f62',</span> <span class="pre">'ferrari':</span> <span class="pre">'#dc0000',</span> <span class="pre">'haas':</span> <span class="pre">'#ffffff',</span> <span class="pre">'mclaren':</span> <span class="pre">'#ff8700',</span> <span class="pre">'mercedes':</span> <span class="pre">'#00d2be',</span> <span class="pre">'red</span> <span class="pre">bull':</span> <span class="pre">'#0600ef',</span> <span class="pre">'williams':</span> <span class="pre">'#005aff'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_COLORS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mapping of team colors (hex color code) to team names.
 (current season only)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="fastf1.plotting.TEAM_TRANSLATE">
-<span class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></span><span class="sig-name descname"><span class="pre">TEAM_TRANSLATE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'AMR':</span> <span class="pre">'Aston</span> <span class="pre">Martin',</span> <span class="pre">'APN':</span> <span class="pre">'Alpine</span> <span class="pre">F1</span> <span class="pre">Team',</span> <span class="pre">'APT':</span> <span class="pre">'AlphaTauri',</span> <span class="pre">'ARR':</span> <span class="pre">'Alfa</span> <span class="pre">Romeo',</span> <span class="pre">'FER':</span> <span class="pre">'Ferrari',</span> <span class="pre">'HAA':</span> <span class="pre">'Haas</span> <span class="pre">F1</span> <span class="pre">Team',</span> <span class="pre">'MCL':</span> <span class="pre">'McLaren',</span> <span class="pre">'MER':</span> <span class="pre">'Mercedes',</span> <span class="pre">'RBR':</span> <span class="pre">'Red</span> <span class="pre">Bull',</span> <span class="pre">'WIL':</span> <span class="pre">'Williams'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_TRANSLATE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></span><span class="sig-name descname"><span class="pre">TEAM_TRANSLATE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'AMR':</span> <span class="pre">'aston</span> <span class="pre">martin',</span> <span class="pre">'APN':</span> <span class="pre">'alpine',</span> <span class="pre">'APT':</span> <span class="pre">'alphatauri',</span> <span class="pre">'ARR':</span> <span class="pre">'alfa</span> <span class="pre">romeo',</span> <span class="pre">'FER':</span> <span class="pre">'ferrari',</span> <span class="pre">'HAA':</span> <span class="pre">'haas',</span> <span class="pre">'MCL':</span> <span class="pre">'mclaren',</span> <span class="pre">'MER':</span> <span class="pre">'mercedes',</span> <span class="pre">'RBR':</span> <span class="pre">'red</span> <span class="pre">bull',</span> <span class="pre">'WIL':</span> <span class="pre">'williams'}</span></em><a class="headerlink" href="#fastf1.plotting.TEAM_TRANSLATE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mapping of team names to theirs respective abbreviations.</p>
 </dd></dl>
 
@@ -339,11 +341,39 @@ Valid color scheme names are: [‘fastf1’, None]</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="fastf1.plotting.team_color">
 <span class="sig-prename descclassname"><span class="pre">fastf1.plotting.</span></span><span class="sig-name descname"><span class="pre">team_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/plotting.html#team_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.plotting.team_color" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a teams color.</p>
+<dd><p>Get a team’s color from a team name or abbreviation.</p>
+<p>This function will try to find a matching team for any identifier string
+that is passed to it. This involves case insensitive matching and partial
+string matching.</p>
+<p>If you want exact string matching, you should use the
+<a class="reference internal" href="#fastf1.plotting.TEAM_COLORS" title="fastf1.plotting.TEAM_COLORS"><code class="xref any py py-data docutils literal notranslate"><span class="pre">TEAM_COLORS</span></code></a> dictionary directly, using <a class="reference internal" href="#fastf1.plotting.TEAM_TRANSLATE" title="fastf1.plotting.TEAM_TRANSLATE"><code class="xref any py py-data docutils literal notranslate"><span class="pre">TEAM_TRANSLATE</span></code></a> to
+convert abbreviations to team names if necessary.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;Red Bull&#39;</span><span class="p">)</span>
+<span class="go">&#39;#0600ef&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;redbull&#39;</span><span class="p">)</span>
+<span class="go">&#39;#0600ef&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;Red&#39;</span><span class="p">)</span>
+<span class="go">&#39;#0600ef&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;RBR&#39;</span><span class="p">)</span>
+<span class="go">&#39;#0600ef&#39;</span>
+
+<span class="go">shortened team names, included sponsors and typos can be dealt with</span>
+<span class="go">too (within reason)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">)</span>
+<span class="go">&#39;#00d2be&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;Merc&#39;</span><span class="p">)</span>
+<span class="go">&#39;#00d2be&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;Merecds&#39;</span><span class="p">)</span>
+<span class="go">&#39;#00d2be&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">team_color</span><span class="p">(</span><span class="s1">&#39;Mercedes-AMG Petronas F1 Team&#39;</span><span class="p">)</span>
+<span class="go">&#39;#00d2be&#39;</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – Abbreviation or full name of the team.
-For example “RBR” or “Red Bull” would both return the same result.</p>
+<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – Abbreviation or uniquely identifying name of the team.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>hex color code</p>

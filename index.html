@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Fast F1 documentation &mdash; Fast F1 2.1.8 documentation</title>
+  <title>Fast F1 documentation &mdash; Fast F1 2.1.10 documentation</title>
   
 
   
@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                2.1.8
+                2.1.10
               </div>
             
           
@@ -176,6 +176,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
@@ -258,12 +260,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="fast-f1-documentation">
+  <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Update required</strong></p>
+<p>An update to the latest version of FastF1 (v2.1.10) is <strong>required</strong> to
+adapt to changes in an external API.
+Without this update you will only be able to load previously cached data!
+If you use FastF1 version 2.1.9 or older you need to update to the latest
+version.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">fastf1</span></code> to update to the latest version.</p>
+</div>
+<div class="section" id="fast-f1-documentation">
 <h1>Fast F1 documentation<a class="headerlink" href="#fast-f1-documentation" title="Permalink to this headline">¶</a></h1>
 <p>For the passionate F1 nerds.</p>
 <p>Check out the examples: <a class="reference internal" href="examples/index.html"><span class="doc">Getting Started</span></a></p>
 <p>Or take a look at the gallery for some inspiration:
 <a class="reference internal" href="examples_gallery/index.html"><span class="doc">Examples Gallery</span></a></p>
+<p>There are also some great articles and examples written by other people. They
+provide a nice overview about what you can do with FastF1 and might help you
+to get started.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://pandeyparul.medium.com/accessing-formula-1-races-historical-data-using-python-b7c80e544f50">Accessing Formula-1 Race’s historical data using Python (medium.com)</a></p></li>
+<li><p><a class="reference external" href="https://medium.com/&#64;jaspervhat/formula-1-data-analysis-tutorial-2021-russian-gp-to-box-or-not-to-box-da6399bd4a39">Formula 1 Data Analysis Tutorial - 2021 Russian GP: “To Box, or Not to Box?” (medium.com)</a></p></li>
+<li><p><a class="reference external" href="https://medium.com/&#64;jaspervhat/how-i-analyze-formula-1-data-with-python-2021-italian-gp-dfb11db4b73">How I Analyze Formula 1 Data With Python: 2021 Italian GP (medium.com)</a></p></li>
+</ul>
+</div></blockquote>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>FastF1 gives you access to F1 lap timing, car telemetry and position,

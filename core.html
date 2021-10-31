@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core - Core module &mdash; Fast F1 2.1.8 documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1 2.1.10 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.1.8
+                2.1.10
               </div>
             
           
@@ -177,6 +177,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
@@ -557,28 +559,31 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></p></td>
 <td><p>Date at which this session took place.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">results</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_status</span></code></p></td>
+<td><p>Session status data as returned by <cite>fastf1.api.session_status_data()</cite> as dataframe.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">results</span></code></p></td>
 <td><p>Race result with driver information.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></p></td>
 <td><p>Instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> containing all laps from all drivers in this session.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></p></td>
 <td><p>Date timestamp which marks the beginning of the data stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></p></td>
 <td><p>Session time at which the session was started.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></p></td>
 <td><p>Dictionary of car telemetry (Speed, RPM, etc.) as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
 <td><p>Dictionary of car position data as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></p></td>
 <td><p>Dataframe containing weather data for this session as received from the api.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
 <td><p>List of all drivers that took part in this session; contains driver numbers as string.</p></td>
 </tr>
 </tbody>
@@ -630,6 +635,19 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pandas.Datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastf1.core.Session.session_status">
+<span class="sig-name descname"><span class="pre">session_status</span></span><a class="headerlink" href="#fastf1.core.Session.session_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Session status data as returned by
+<cite>fastf1.api.session_status_data()</cite> as dataframe. Available after
+calling <cite>Session.load_laps()</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pd.Dataframe</p>
 </dd>
 </dl>
 </dd></dl>
@@ -716,6 +734,22 @@ and contains information on a per lap basis. (The dataframe is additionally retu
 additional functionality.</p>
 <p>Downloading and parsing of the data takes a considerable amount of time. Therefore, it is highly recommended
 to enable caching so that most of the data processing needs to be done only once.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Drivers crashing and retiring</strong></p>
+<p><em>During a session:</em>
+An additional last lap is added for a driver if the last timed
+lap of a driver is not an inlap and the session is aborted next.
+The <cite>Time</cite> for when this lap was “set” will be set to the time at
+which the session was aborted.</p>
+<p><em>First lap in a race:</em>
+A single lap with minimal information will be added in race
+sessions if a driver does not complete at least one timed lap.
+The <cite>LapStartTime</cite> for this lap will be set to the start time
+of the session as with all other laps in a race. The <cite>Time</cite> at
+which this lap was “set” will be set to the time at which the
+first driver completes their first lap.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Absolute time is not super accurate. The moment a lap
@@ -1068,15 +1102,23 @@ weather data directly in <a class="reference internal" href="#fastf1.core.Sessio
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Monza&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
 <span class="go">                     Time AirTemp Humidity  ... TrackTemp WindDirection WindSpeed</span>
-<span class="go">16 0 days 00:16:20.305000    21.9     55.8  ...      35.5           119       0.2</span>
-<span class="go">17 0 days 00:17:20.301000    22.0     54.6  ...      35.9           113       0.1</span>
+<span class="go">20 0 days 00:20:14.613000    22.5     52.0  ...      35.8           212       2.0</span>
+<span class="go">21 0 days 00:21:15.001000    22.5     52.2  ...      36.1           207       2.7</span>
+<span class="go">23 0 days 00:23:14.854000    22.7     52.5  ...      37.4           210       2.3</span>
+<span class="go">24 0 days 00:24:14.430000    23.2     51.5  ...      37.4           207       3.2</span>
+<span class="go">26 0 days 00:26:14.315000    23.6     50.2  ...      37.2           238       1.8</span>
 <span class="go">..                    ...     ...      ...  ...       ...           ...       ...</span>
-<span class="go">75 0 days 01:15:20.525000    22.3     53.5  ...      36.9            76       0.6</span>
-<span class="go">76 0 days 01:16:20.534000    22.2     53.1  ...      37.1            81       0.6</span>
-<span class="go">[453 rows x 25 columns]</span>
+<span class="go">23 0 days 00:23:14.854000    22.7     52.5  ...      37.4           210       2.3</span>
+<span class="go">24 0 days 00:24:14.430000    23.2     51.5  ...      37.4           207       3.2</span>
+<span class="go">34 0 days 00:34:14.385000    23.0     51.7  ...      37.7           272       0.8</span>
+<span class="go">36 0 days 00:36:14.426000    23.0     51.1  ...      38.3           192       0.9</span>
+<span class="go">37 0 days 00:37:14.391000    23.3     50.0  ...      38.7           213       0.9</span>
+<span class="go">[269 rows x 8 columns]</span>
 </pre></div>
 </div>
 <p>Joining weather data with lap timing data:</p>
@@ -1085,15 +1127,21 @@ weather data directly in <a class="reference internal" href="#fastf1.core.Sessio
 <span class="gp">&gt;&gt;&gt; </span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">weather_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># exclude the &#39;Time&#39; column from weather data when joining</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">joined</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">laps</span><span class="p">,</span> <span class="n">weather_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">==</span> <span class="s1">&#39;Time&#39;</span><span class="p">)]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">joined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">laps</span><span class="p">,</span> <span class="n">weather_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">==</span> <span class="s1">&#39;Time&#39;</span><span class="p">)]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">joined</span><span class="p">)</span>
 <span class="go">                      Time DriverNumber  ... WindDirection  WindSpeed</span>
-<span class="go">0   0 days 00:16:58.221000            3  ...           119        0.2</span>
-<span class="go">1   0 days 00:19:32.354000            3  ...           113        0.1</span>
+<span class="go">0   0 days 00:20:55.333000            5  ...           212        2.0</span>
+<span class="go">1   0 days 00:22:16.210000            5  ...           207        2.7</span>
+<span class="go">2   0 days 00:24:01.233000            5  ...           210        2.3</span>
+<span class="go">3   0 days 00:25:21.611000            5  ...           207        3.2</span>
+<span class="go">4   0 days 00:27:12.045000            5  ...           238        1.8</span>
 <span class="go">..                     ...          ...  ...           ...        ...</span>
-<span class="go">451 0 days 01:16:01.722000           99  ...            76        0.6</span>
-<span class="go">452 0 days 01:17:35.072000           99  ...            81        0.6</span>
-<span class="go">[453 rows x 32 columns]</span>
+<span class="go">264 0 days 00:24:02.127000           88  ...           210        2.3</span>
+<span class="go">265 0 days 00:33:31.080000           88  ...           207        3.2</span>
+<span class="go">266 0 days 00:35:15.794000           88  ...           272        0.8</span>
+<span class="go">267 0 days 00:36:38.150000           88  ...           192        0.9</span>
+<span class="go">268 0 days 00:38:37.508000           88  ...           213        0.9</span>
+<span class="go">[269 rows x 32 columns]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1431,19 +1479,21 @@ weather data directly in <a class="reference internal" href="#fastf1.core.Sessio
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="s1">&#39;Monza&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">laps</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span>
-<span class="go">Timedelta(&#39;0 days 01:10:29.730000&#39;)</span>
+<span class="go">Timedelta(&#39;0 days 01:09:55.561000&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span>
-<span class="go">Time             0 days 01:11:20.525000</span>
-<span class="go">AirTemp                            22.1</span>
-<span class="go">Humidity                           53.5</span>
-<span class="go">Pressure                         1003.5</span>
+<span class="go">Time             0 days 01:10:15.292000</span>
+<span class="go">AirTemp                            23.0</span>
+<span class="go">Humidity                           51.9</span>
+<span class="go">Pressure                          992.4</span>
 <span class="go">Rainfall                           True</span>
-<span class="go">TrackTemp                          36.9</span>
-<span class="go">WindDirection                        76</span>
-<span class="go">WindSpeed                           0.6</span>
-<span class="go">Name: 71, dtype: object</span>
+<span class="go">TrackTemp                          37.8</span>
+<span class="go">WindDirection                       166</span>
+<span class="go">WindSpeed                           0.8</span>
+<span class="go">Name: 70, dtype: object</span>
 </pre></div>
 </div>
 </dd></dl>
